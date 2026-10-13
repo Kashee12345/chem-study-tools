@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reactions in Water Lab</title>
+<meta name="description" content="Virtual lab for reactions in aqueous solution: a mixing bench with particle view and generated net ionic equations, a dilution and molarity simulator, a problem trainer with animated worked solutions, a sorting game and real-life scenarios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#ECE6E0;--panel:#FBF9F7;--panel-2:#F3EEEA;--sunk:#DED6CF;
+  --ink:#10161A;--ink-soft:#56606F;--ink-faint:#566570;--rule:#CFC6BE;--rule-soft:#E2DBD4;
+  --accent:#9A4410;--accent-ink:#7A350C;--accent-wash:#F6E5D8;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2F7FC1;--act2:#B5720F;--act3:#5B3FC4;--act4:#2E8A7A;--act5:#A04E8C;--act6:#C4644F;--act7:#5E7F1A;--act8:#3A49A8;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#7E6410;
+  /* chemistry palette */
+  --ecf:#F5F1EC;--grid:#DDD5CC;
+  --el-h:#FFFFFF;--el-c:#4B5056;--el-n:#3A62C8;--el-o:#D1392B;--el-cl:#2E9B3E;--el-na:#8A55C8;--el-k:#B04FB8;--el-s:#D9B21C;
+  --el-ag:#AEB4BC;--el-pb:#5F6573;--el-ba:#1F9A8A;--el-ca:#7A9A32;--el-cu:#C87533;--el-zn:#7C81B5;--el-fe:#B85A26;--el-mg:#5FAF6A;
+  --el-i:#7B2F8F;--el-ni:#4E9E66;--el-cr:#5C7FA0;--el-mn:#9C4F9C;--el-al:#8E99A8;--el-p:#D9741C;
+  --pos:#B8322A;--neg:#2A5EB8;--elec:#E2A800;--dneg:#C0392B;--dpos:#2A5EB8;
+  --water:#D3E8F3;--water-edge:#7FA9C2;--glass:#E6EFF3;--glass-edge:#7F99A6;
+  --sol-cu:#3F8EDB;--sol-ni:#58B37A;--sol-mn:#8E3FA8;--sol-cr:#E0892A;--sol-cr3:#4E9E5A;--sol-fe:#D9A23A;--sol-ind:#E0559A;
+  --ppt-w:#F7F6F0;--ppt-y:#F0CC2A;--ppt-b:#8EC3EA;--ppt-g:#A5D6A0;--ppt-br:#6B4A2E;--rust:#A4472A;
+  --heat:#D9481E;--cold:#2F7FC1;--gas:#C9DCE6;--flame:#F29A1E;--bulb:#FFD34D;--wire:#5C6670;--metal:#9CA3AB;--paper:#FFFFFF;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F7BE8F;--accent-wash:#3A2414;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#F2A93B;--act3:#B9A6F5;--act4:#5CC4B0;--act5:#D186C0;--act6:#E08A74;--act7:#A3C95A;--act8:#A9B4F5;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A20;--grid:#2A3440;
+  --el-h:#F4F6F8;--el-c:#8C939B;--el-n:#6F95F0;--el-o:#F06A5C;--el-cl:#5CCB6B;--el-na:#B48CF0;--el-k:#DA86E0;--el-s:#F0D050;
+  --el-ag:#C9CED5;--el-pb:#9AA0AE;--el-ba:#4FCDB8;--el-ca:#A9C95A;--el-cu:#E89A5C;--el-zn:#A9AEE0;--el-fe:#E08A55;--el-mg:#86D490;
+  --el-i:#C27AD8;--el-ni:#7CCB92;--el-cr:#8FB3D6;--el-mn:#D08AD0;--el-al:#BAC4D0;--el-p:#F0A050;
+  --pos:#F08A80;--neg:#7FA6F0;--elec:#F7CF3D;--dneg:#F08A80;--dpos:#7FA6F0;
+  --water:#1D3746;--water-edge:#5B8AA6;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --sol-cu:#4C9BEA;--sol-ni:#5CC287;--sol-mn:#B266D0;--sol-cr:#F09A3A;--sol-cr3:#5CB46A;--sol-fe:#E0AE48;--sol-ind:#F06AAE;
+  --ppt-w:#E4E6E8;--ppt-y:#F2D44A;--ppt-b:#9CCDF0;--ppt-g:#A9DCA4;--ppt-br:#9A7452;--rust:#D06A48;
+  --heat:#F27A4A;--cold:#5AA9E6;--gas:#3A5260;--flame:#F7B04A;--bulb:#FFE07A;--wire:#9AA6B0;--metal:#B7BEC6;--paper:#1E262B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F7BE8F;--accent-wash:#3A2414;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#F2A93B;--act3:#B9A6F5;--act4:#5CC4B0;--act5:#D186C0;--act6:#E08A74;--act7:#A3C95A;--act8:#A9B4F5;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#121A20;--grid:#2A3440;
+  --el-h:#F4F6F8;--el-c:#8C939B;--el-n:#6F95F0;--el-o:#F06A5C;--el-cl:#5CCB6B;--el-na:#B48CF0;--el-k:#DA86E0;--el-s:#F0D050;
+  --el-ag:#C9CED5;--el-pb:#9AA0AE;--el-ba:#4FCDB8;--el-ca:#A9C95A;--el-cu:#E89A5C;--el-zn:#A9AEE0;--el-fe:#E08A55;--el-mg:#86D490;
+  --el-i:#C27AD8;--el-ni:#7CCB92;--el-cr:#8FB3D6;--el-mn:#D08AD0;--el-al:#BAC4D0;--el-p:#F0A050;
+  --pos:#F08A80;--neg:#7FA6F0;--elec:#F7CF3D;--dneg:#F08A80;--dpos:#7FA6F0;
+  --water:#1D3746;--water-edge:#5B8AA6;--glass:#1E2C34;--glass-edge:#7F99A6;
+  --sol-cu:#4C9BEA;--sol-ni:#5CC287;--sol-mn:#B266D0;--sol-cr:#F09A3A;--sol-cr3:#5CB46A;--sol-fe:#E0AE48;--sol-ind:#F06AAE;
+  --ppt-w:#E4E6E8;--ppt-y:#F2D44A;--ppt-b:#9CCDF0;--ppt-g:#A9DCA4;--ppt-br:#9A7452;--rust:#D06A48;
+  --heat:#F27A4A;--cold:#5AA9E6;--gas:#3A5260;--flame:#F7B04A;--bulb:#FFE07A;--wire:#9AA6B0;--metal:#B7BEC6;--paper:#1E262B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent-ink)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:16px;align-items:start}
+@media (max-width:980px){.grid{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.35)}
+.legend i.s{border-radius:2px}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side h3:first-child{margin-top:0}
+.side p,.side li{font-size:14.5px}
+.small{font-size:13px;color:var(--ink-soft)}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ctl2{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.readouts td{padding:5px 0 5px 10px;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right}
+.srhead th{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.seg4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.seg .tbtn,.seg3 .tbtn,.seg4 .tbtn{font-size:13.5px;line-height:1.25;padding:8px 6px}
+/* shelf */
+.shelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.bottle{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:5px 2px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:12.5px;line-height:1.15;font-weight:600;min-height:64px}
+.bottle:hover{border-color:var(--accent)}
+.bottle svg{width:22px;height:30px;display:block}
+.bottle .tagab{position:absolute;top:2px;right:3px;font-family:var(--mono);font-size:11px;font-weight:700;border-radius:4px;padding:0 4px;background:var(--accent);color:var(--on-accent)}
+.bottle[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-wash)}
+.bottle sub,.bottle sup{font-size:9.5px}
+.slotbar{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.slotbar .tbtn{font-size:13.5px;text-align:left;line-height:1.25}
+.slotbar .tbtn b{font-family:var(--mono)}
+.eqcard{margin-top:12px}
+.eqrow{display:grid;grid-template-columns:150px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--rule-soft);align-items:baseline}
+.eqrow:first-of-type{border-top:0}
+.eqrow .k{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+.eqrow .v{font-size:16px;line-height:1.7}
+.eq sub,.eq sup{font-size:11px}
+.eq .st{font-size:12px;color:var(--ink-soft)}
+.eq .spect{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2px}
+.eq .key{background:var(--accent-wash);border-radius:4px;padding:0 3px;font-weight:600}
+@media (max-width:600px){.eqrow{grid-template-columns:1fr;gap:2px}}
+/* trainer */
+.lab-sel{display:block;font-weight:600;font-size:14.5px;margin:0 0 4px}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:6px 8px;width:100%}
+.probcard{margin:12px 0 8px;padding:12px 14px;border:1px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);background:var(--panel-2);font-size:15.5px;line-height:1.55}
+.probcard .pt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:4px}
+.probcard .rd{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+.ansrow{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ans-l{font-weight:600;font-size:14.5px}
+.ansbox{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ansbox input{font:600 18px var(--mono);width:170px;padding:7px 9px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);color:var(--ink)}
+.ansbox input:focus{outline:3px solid var(--accent);outline-offset:1px}
+.unit{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--ink-soft)}
+.copts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.copt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:15px;line-height:1.4}
+.copt:hover{border-color:var(--accent)}
+.copt.right{border-color:var(--good);background:var(--good-wash)}
+.copt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.copt sub,.copt sup{font-size:11px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin:8px 0 6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binhead span{min-width:0;overflow-wrap:break-word}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+/* scenarios */
+.case{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:980px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.qlab{font-weight:600;margin:4px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+</style>
+<script src="chem-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">General Chemistry &middot; Module 8 &middot; Reactions in aqueous solution</div>
+    <h1>Reactions in Water Lab</h1>
+    <p class="sub">Mix solutions on a virtual bench and watch the ions, dilute stock solutions, practise the calculations with animated worked solutions, sort reactions, and see this chemistry in the body and the world. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-bench" data-tab="bench" id="tabbtn-bench" type="button">Part 1 &middot; Mixing Bench</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-dil" data-tab="dil" id="tabbtn-dil" type="button" tabindex="-1">Part 2 &middot; Dilution Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-calc" data-tab="calc" id="tabbtn-calc" type="button" tabindex="-1">Part 3 &middot; Problem Trainer</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-sort" data-tab="sort" id="tabbtn-sort" type="button" tabindex="-1">Part 4 &middot; Sort It Out</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-life" data-tab="life" id="tabbtn-life" type="button" tabindex="-1">Part 5 &middot; Chemistry in Real Life</button>
+  </div>
+
+  <!-- PART 1: bench -->
+  <section id="tab-bench" role="tabpanel" aria-labelledby="tabbtn-bench">
+    <h2 class="gk-sr">Part 1: Mixing Bench</h2>
+    <div class="grid">
+      <div>
+        <div class="card stage">
+          <div class="canvas-holder"><canvas id="cvBench" role="img" aria-label="Mixing bench."></canvas></div>
+          <div class="stagebar"><span class="caption" id="benchCap"></span></div>
+          <div class="legend" id="benchLegend"></div>
+          <p class="sim-note">Particles are a small sample, scaled so the ratios match the real amounts. Numbers in the table use the full amounts. Temperature change counts neutralization heat only; conductivity is an ideal estimate.</p>
+        </div>
+        <div class="card eqcard" aria-live="polite">
+          <h3 class="lvl-n" style="margin:0 0 4px">Equations for this mixture</h3>
+          <div id="benchEq"></div>
+        </div>
+      </div>
+      <aside class="card side" aria-label="Bench controls">
+        <h3 id="slotH">1. Choose two solutions</h3>
+        <p class="small" style="margin:0 0 6px">Pick which beaker to fill, then tap a bottle.</p>
+        <div class="slotbar" role="group" aria-labelledby="slotH"><button class="tbtn" type="button" id="slotA" aria-pressed="true">Beaker A: <b id="slotAName"></b></button><button class="tbtn" type="button" id="slotB" aria-pressed="false">Beaker B: <b id="slotBName"></b></button></div>
+        <div class="shelf" id="shelf" role="group" aria-label="Shelf of solutions"></div>
+        <h3>2. Amounts</h3>
+        <div class="ctl2">
+          <div class="ctl"><label for="cA">A: molarity <output id="cAo" for="cA"></output></label><input type="range" id="cA" min="0.05" max="0.5" step="0.05" value="0.1"></div>
+          <div class="ctl"><label for="vA">A: volume <output id="vAo" for="vA"></output></label><input type="range" id="vA" min="10" max="100" step="5" value="50"></div>
+          <div class="ctl"><label for="cB">B: molarity <output id="cBo" for="cB"></output></label><input type="range" id="cB" min="0.05" max="0.5" step="0.05" value="0.1"></div>
+          <div class="ctl"><label for="vB">B: volume <output id="vBo" for="vB"></output></label><input type="range" id="vB" min="10" max="100" step="5" value="50"></div>
+        </div>
+        <div class="bar"><button class="btn" type="button" id="pourBtn">Pour B into A</button><button class="tbtn" type="button" id="resetBtn">Reset beakers</button></div>
+        <table class="readouts" id="benchRead"><caption class="gk-sr">Bench readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <h3>Challenges</h3>
+        <ul class="chal" id="benchChal"></ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: dilution -->
+  <section id="tab-dil" role="tabpanel" aria-labelledby="tabbtn-dil" hidden>
+    <h2 class="gk-sr">Part 2: Dilution Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvDil" role="img" aria-label="Dilution simulator."></canvas></div>
+        <div class="stagebar"><span class="caption" id="dilCap"></span></div>
+        <p class="sim-note">Colour depth and particle crowding both follow the molarity. Each zoom window shows the same tiny volume, so more dots means a higher concentration.</p>
+      </div>
+      <aside class="card side" aria-label="Dilution controls">
+        <h3 id="dsH">1. Solute</h3>
+        <div class="seg3" id="dilSolute" role="group" aria-labelledby="dsH"></div>
+        <h3 id="dmH">2. Method</h3>
+        <div class="seg" id="dilMode" role="group" aria-labelledby="dmH"></div>
+        <div id="dilStockCtl">
+          <div class="ctl"><label for="dM1">Stock molarity, M₁ <output id="dM1o" for="dM1"></output></label><input type="range" id="dM1" min="0.1" max="2" step="0.05" value="1"></div>
+          <h3 id="dpH">Pipette volume, V₁</h3>
+          <div class="seg4" id="dilPip" role="group" aria-labelledby="dpH"></div>
+        </div>
+        <div id="dilSolidCtl" hidden>
+          <div class="ctl"><label for="dMass">Mass of solid <output id="dMasso" for="dMass"></output></label><input type="range" id="dMass" min="0.1" max="20" step="0.01" value="3.99"></div>
+        </div>
+        <h3 id="dfH">Volumetric flask, V₂</h3>
+        <div class="seg4" id="dilFlask" role="group" aria-labelledby="dfH"></div>
+        <div class="bar"><button class="btn" type="button" id="dilRun">Make the solution</button></div>
+        <div class="msg" id="dilMsg" role="status"></div>
+        <table class="readouts" id="dilRead"><caption class="gk-sr">Dilution readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <h3>Challenges</h3>
+        <ul class="chal" id="dilChal"></ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: trainer -->
+  <section id="tab-calc" role="tabpanel" aria-labelledby="tabbtn-calc" hidden>
+    <h2 class="gk-sr">Part 3: Problem Trainer</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCalc" role="img" aria-label="Problem trainer picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="calcCap"></span></div>
+        <p class="sim-note">Press Show worked solution (or get it right) to watch the setup build term by term, with units cancelling in red.</p>
+      </div>
+      <aside class="card side" aria-label="Problem trainer controls">
+        <label class="lab-sel" for="calcType">Problem type</label>
+        <select id="calcType"></select>
+        <div class="probcard" id="calcProb" aria-live="polite"></div>
+        <div id="calcNum" class="ansrow">
+          <label for="calcAns" class="ans-l">Your answer</label>
+          <div class="ansbox"><input type="text" id="calcAns" inputmode="decimal" autocomplete="off" spellcheck="false"><span id="calcUnit" class="unit"></span></div>
+          <span class="small">Use a decimal or scientific notation such as 3.75e-3.</span>
+        </div>
+        <div id="calcChoice" class="copts" role="group" aria-label="Answer choices" hidden></div>
+        <div class="bar">
+          <button class="btn" id="calcCheck" type="button">Check</button>
+          <button class="tbtn" id="calcHint" type="button">Hint</button>
+          <button class="tbtn" id="calcSol" type="button">Show worked solution</button>
+          <button class="tbtn" id="calcNew" type="button">New problem</button>
+        </div>
+        <div class="msg" id="calcMsg" role="status"></div>
+        <div class="hintbox" id="calcHintBox" role="status" hidden></div>
+        <div class="meter"><span>Streak <b id="calcStreak">0</b></span><span>Best <b id="calcBest">0</b></span><span>Solved <b id="calcSolved">0</b></span></div>
+        <p class="small">The streak counts answers right on the first check without opening the solution. Answers within rounding are accepted; you will be told if only the significant figures are off.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 4: sort -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Sort It Out</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Rounds"></div>
+    <div class="card">
+      <div class="sorthead">
+        <div><div class="lvl-n" id="sN"></div><h2 class="sec" id="sTitle"></h2></div>
+        <div class="sortbar">
+          <label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label>
+          <span class="timer" id="sTimer" hidden>0:00</span>
+          <span class="stars" id="sStars" role="img" aria-label="Stars appear when the round is done"></span>
+        </div>
+      </div>
+      <p class="goal"><b class="h">Your job</b><span id="sGoal"></span></p>
+      <p class="small">Drag a card onto a box, or tap a card and then tap the box's name. Cards are buttons, so Tab and Enter work too.</p>
+      <div class="pool" id="sPool" aria-label="Cards to sort"></div>
+      <div class="bins" id="sBins"></div>
+      <div class="bar">
+        <button class="tbtn" id="sHint" type="button">Hint</button>
+        <button class="tbtn" id="sShow" type="button">Show answer</button>
+        <button class="tbtn" id="sShuffle" type="button">Start round over</button>
+        <button class="btn" id="sNext" type="button">Next round &rarr;</button>
+      </div>
+      <div class="msg" id="sMsg" role="status"></div>
+      <p class="small" id="sBest"></p>
+    </div>
+  </section>
+
+  <!-- PART 5: real life -->
+  <section id="tab-life" role="tabpanel" aria-labelledby="tabbtn-life" hidden>
+    <h2 class="gk-sr">Part 5: Chemistry in Real Life</h2>
+    <div class="casechips" id="lifeChips" role="group" aria-label="Choose a scenario"></div>
+    <div class="case">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvLife" role="img" aria-label="Scenario picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="lifeCap"></span></div>
+      </div>
+      <div class="card">
+        <div class="sc-n" id="lifeN"></div>
+        <h2 class="sc-title" id="lifeTitle"></h2>
+        <p class="story" id="lifeStory"></p>
+        <div id="lifeQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="lifePrev" type="button">&larr; Previous</button>
+          <button class="btn" id="lifeNext" type="button">Next scenario &rarr;</button>
+        </div>
+        <p class="calm">Wrong picks are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; General Chemistry Study Tools &middot; Particle drawings are simplified and not to scale. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Reactions-Walkthrough.html">Reactions in Water Walkthrough</a>. Bench results follow the standard solubility rules and simple stoichiometry; "slightly soluble" compounds are shown as precipitates, as they form at these concentrations. Body scenarios are simplified for learning and are not medical advice.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "act7", "act8", "gold", "gold-wash", "gold-ink", "ecf", "grid", "el-h", "el-c", "el-n", "el-o", "el-cl", "el-na", "el-k", "el-s", "el-ag", "el-pb", "el-ba", "el-ca", "el-cu", "el-zn", "el-fe", "el-mg", "el-i", "el-ni", "el-cr", "el-mn", "el-al", "el-p", "pos", "neg", "elec", "dneg", "dpos", "water", "water-edge", "glass", "glass-edge", "sol-cu", "sol-ni", "sol-mn", "sol-cr", "sol-cr3", "sol-fe", "sol-ind", "ppt-w", "ppt-y", "ppt-b", "ppt-g", "ppt-br", "rust", "heat", "cold", "gas", "flame", "bulb", "wire", "metal", "paper"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function lumOf(c){const A=hx(c).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*A[0]+.7152*A[1]+.0722*A[2]}
+function inkOn(c){return lumOf(c)>.28?"#10161A":"#fff"}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.92:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||inkOn(col);ctx.fillText(t,x,y+.5);return w+12}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col||C.ink);ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function fillPoly(pts,f,s,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();fillStroke(f,s,lw)}
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.88);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function withA(a,fn){if(a<=0)return;ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function checkMark(x,y,s,col,lw){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,lw||3)}
+function crossMark(x,y,s,col,lw){line(x-s,y-s,x+s,y+s,col||C.bad,lw||3);line(x-s,y+s,x+s,y-s,col||C.bad,lw||3)}
+function axes(x,y,w,h,xl,yl){line(x,y,x,y+h,C["ink-soft"],1.5);line(x,y+h,x+w,y+h,C["ink-soft"],1.5);if(xl)txt(x+w,y+h+14,xl,{size:11.5,align:"right",color:C["ink-soft"],mono:true});if(yl)txt(x+4,y-10,yl,{size:11.5,weight:600,color:C["ink-soft"],mono:true})}
+const tri=u=>{u=((u%1)+1)%1;return u<.5?u*2:2-u*2};
+/* thermal motion: particle i bounces around box [x,y,w,h] (straight lines, reflecting walls). spd scales with temperature */
+function wander(i,T,box,spd,r){r=r||8;const vx=.06+.09*rnd(i*3.7+1),vy=.05+.08*rnd(i*5.3+2);const s=spd==null?1:spd;
+  const jx=Math.sin(T*9.1*s+i*1.7)*.9,jy=Math.cos(T*8.3*s+i*2.9)*.9;
+  return [box[0]+r+(box[2]-2*r)*tri(rnd(i*1.3+7)+T*vx*s)+jx,box[1]+r+(box[3]-2*r)*tri(rnd(i*2.1+9)+T*vy*s)+jy]}
+function jig(i,T,a,s){s=s||1;return [Math.sin(T*11*s+i*2.3)*a+Math.sin(T*17*s+i*.7)*a*.4,Math.cos(T*10*s+i*1.9)*a+Math.sin(T*15*s+i*3.1)*a*.4]}
+
+/* ================= particle drawing library ================= */
+const EL={H:["el-h",.55],C:["el-c",.85],N:["el-n",.82],O:["el-o",.8],Cl:["el-cl",1.05],Na:["el-na",1],K:["el-k",1.12],S:["el-s",1],
+  Ag:["el-ag",1.08],Pb:["el-pb",1.12],Ba:["el-ba",1.12],Ca:["el-ca",1.02],Cu:["el-cu",.95],Zn:["el-zn",.95],Fe:["el-fe",.95],Mg:["el-mg",.92],
+  I:["el-i",1.18],Ni:["el-ni",.95],Cr:["el-cr",.95],Mn:["el-mn",.95],Al:["el-al",.92],P:["el-p",.95]};
+function elCol(e){return C[(EL[e]||EL.C)[0]]}
+function elR(e){return (EL[e]||EL.C)[1]}
+/* shaded sphere with symbol. o.lab=false hides symbol, o.a alpha, o.hl highlight ring colour */
+function atom(x,y,e,r,o){o=o||{};const col=o.col||elCol(e);ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);
+  if(o.hl){glow(x,y,r*2.1,o.hl,.55);circ(x,y,r+3.5,null,o.hl,2.5)}
+  const g=ctx.createRadialGradient(x-r*.35,y-r*.38,r*.08,x,y,r);g.addColorStop(0,mix(col,"#ffffff",.55));g.addColorStop(.55,col);g.addColorStop(1,mix(col,"#000000",.28));
+  ctx.beginPath();ctx.arc(x,y,Math.max(.5,r),0,TAU);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=e==="H"?"#5C6670":hexA(isDark()?"#000":"#10161A",.45);ctx.lineWidth=e==="H"?1.3:1;ctx.stroke();
+  if(o.lab!==false&&r>=6.5){const fs=Math.max(9,Math.min(16,r*(e.length>1?.82:.98)));ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col);ctx.fillText(o.sym||e,x,y+.5)}
+  ctx.restore()}
+/* charge badge */
+function chargeBadge(x,y,ch,r,o){o=o||{};if(!ch)return;const pos=ch.indexOf("+")>=0;const t=ch.replace("-","−");const rb=Math.max(6.5,r);ctx.font=`700 ${Math.max(9,rb*1.15)}px ${MONO}`;const w=Math.max(rb*2,ctx.measureText(t).width+6);
+  rr(x-w/2,y-rb,w,rb*2,rb);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=pos?C.pos:C.neg;ctx.lineWidth=1.6;ctx.stroke();
+  ctx.fillStyle=pos?C.pos:C.neg;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(t,x,y+.5)}
+/* water molecule: O at x,y, H atoms on the side angle ang points to. s scales (1 = O radius 7). o.dip shows partial charges */
+function water(x,y,ang,s,o){o=o||{};s=s||1;ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);
+  const ro=7*s,rh=4.4*s,d=7.6*s,h=0.911;/* half of 104.5 deg */
+  const h1=[x+Math.cos(ang-h)*d,y+Math.sin(ang-h)*d],h2=[x+Math.cos(ang+h)*d,y+Math.sin(ang+h)*d];
+  if(o.cloud){const cx=x+Math.cos(ang)*d*.15,cy=y+Math.sin(ang)*d*.15;const g=ctx.createRadialGradient(x-Math.cos(ang)*ro*.4,y-Math.sin(ang)*ro*.4,1,cx,cy,ro*2.4);g.addColorStop(0,hexA(C.dneg,.45));g.addColorStop(.6,hexA(C.dneg,.12));g.addColorStop(1,hexA(C.dpos,.18));ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,ro*2.4,0,TAU);ctx.fill()}
+  atom(h1[0],h1[1],"H",rh,{lab:s>=1.6});atom(h2[0],h2[1],"H",rh,{lab:s>=1.6});atom(x,y,"O",ro,{lab:s>=1.25,hl:o.hl});
+  if(o.dip){const fs=Math.max(10,8*s);txt(x-Math.cos(ang)*(ro+fs*.9),y-Math.sin(ang)*(ro+fs*.9),"δ−",{size:fs,weight:700,align:"center",color:C.dneg});
+    [h1,h2].forEach(q=>txt(q[0]+Math.cos(ang)*(rh+fs*.7),q[1]+Math.sin(ang)*(rh+fs*.7),"δ+",{size:fs,weight:700,align:"center",color:C.dpos}))}
+  ctx.restore()}
+/* polyatomic / molecular species drawn from atoms. returns nothing */
+const POLY={
+  NO3:{c:"N",ring:["O","O","O"],ch:"−",d:1.15},
+  SO4:{c:"S",ring:["O","O","O","O"],ch:"2−",d:1.2},
+  CO3:{c:"C",ring:["O","O","O"],ch:"2−",d:1.15},
+  CO2:{lin:["O","C","O"]},
+  OH:{lin:["O","H"],ch:"−"},
+  H3O:{c:"O",ring:["H","H","H"],ch:"+",d:1},
+  NH4:{c:"N",ring:["H","H","H","H"],ch:"+",d:1},
+  PO4:{c:"P",ring:["O","O","O","O"],ch:"3−",d:1.2},
+  MnO4:{c:"Mn",ring:["O","O","O","O"],ch:"−",d:1.2},
+  Ac:{lin:["C","C","O"],ch:"−",ac:true},
+  HAc:{lin:["C","C","O"],ac:true,h:true},
+  O2:{lin:["O","O"]},H2:{lin:["H","H"]},Cl2:{lin:["Cl","Cl"]},
+  CH4:{c:"C",ring:["H","H","H","H"],d:1},
+  C2O4:{lin:["C","C"],ox:true,ch:"2−"},
+  Cr2O7:{lin:["Cr","O","Cr"],cr:true,ch:"2−"},
+  EtOH:{lin:["C","C","O"],et:true},
+  sugar:{ring6:true}
+};
+function polyIon(x,y,k,s,ang,o){o=o||{};s=s||1;ang=ang||0;const D=POLY[k];if(!D)return;ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);ctx.translate(x,y);ctx.rotate(ang);
+  const R=e=>elR(e)*8*s;const lab=o.lab!==false;let ext=R("O")*2;
+  if(o.hl){glow(0,0,ext*1.8,o.hl,.5)}
+  if(D.ring){const rc=R(D.c),n=D.ring.length,dd=(rc+R(D.ring[0]))*.78*(D.d||1);
+    D.ring.forEach((e,i)=>{const a=-Math.PI/2+i/n*TAU+(n===4?Math.PI/4:0);atom(Math.cos(a)*dd,Math.sin(a)*dd*(n===4?.82:1),e,R(e),{lab:lab&&s>=1.05})});
+    atom(0,0,D.c,rc,{lab:lab&&s>=.8});ext=dd+R(D.ring[0])}
+  else if(D.lin){let X=0;const pos=[];D.lin.forEach((e,i)=>{if(i)X+=(R(D.lin[i-1])+R(e))*.8;pos.push(X)});const off=X/2;
+    if(D.ac){/* acetate / acetic acid: CH3-C(=O)-O */const cr=R("C"),or=R("O");const P1=[-cr*1.6,0],P2=[0,0],O1=[or*1.3,-or*1.25],O2=[or*1.3,or*1.25];
+      atom(P1[0]-cr*.9,P1[1]-cr*.8,"H",R("H")*.9,{lab:false});atom(P1[0]-cr*1.25,P1[1]+cr*.3,"H",R("H")*.9,{lab:false});atom(P1[0]-cr*.3,P1[1]+cr*1,"H",R("H")*.9,{lab:false});
+      atom(P1[0],P1[1],"C",cr,{lab:lab&&s>=1.1});atom(O1[0],O1[1],"O",or,{lab:lab&&s>=1.1});if(D.h)atom(O2[0]+or*.9,O2[1]+or*.5,"H",R("H"),{lab:false});atom(O2[0],O2[1],"O",or,{lab:lab&&s>=1.1});atom(P2[0],P2[1],"C",cr,{lab:lab&&s>=1.1});ext=cr*2.6}
+    else if(D.ox){const cr=R("C"),or=R("O");[[-1],[1]].forEach(q=>{const cx=q[0]*cr*.85;atom(cx+q[0]*or*.9,-or*1.05,"O",or,{lab:lab&&s>=1.1});atom(cx+q[0]*or*.9,or*1.05,"O",or,{lab:lab&&s>=1.1})});atom(-cr*.85,0,"C",cr,{lab:lab&&s>=1.1});atom(cr*.85,0,"C",cr,{lab:lab&&s>=1.1});ext=cr*2.6}
+    else if(D.et){const cr=R("C");atom(-cr*1.5,0,"C",cr,{lab:lab&&s>=1.1});atom(0,-cr*.5,"C",cr,{lab:lab&&s>=1.1});atom(cr*1.4,0,"O",R("O"),{lab:lab&&s>=1.1});atom(cr*2.3,-cr*.6,"H",R("H"),{lab:false});ext=cr*2.4}
+    else if(D.cr){const cr=R("Cr"),or=R("O");[-1,1].forEach(q=>{const cx=q*cr*1.25;atom(cx+q*or*.6,-cr*1.1,"O",or,{lab:false});atom(cx+q*or*1.3,cr*.2,"O",or,{lab:false});atom(cx,cr*1.15,"O",or,{lab:false});atom(cx,0,"Cr",cr,{lab:lab&&s>=1})});atom(0,-or*.4,"O",or,{lab:false});ext=cr*2.8}
+    else{D.lin.forEach((e,i)=>atom(pos[i]-off,0,e,R(e),{lab:lab&&s>=(e==="H"?2:1)}));ext=off+R(D.lin[0])}}
+  else if(D.ring6){const rr6=9*s;ctx.beginPath();for(let k2=0;k2<=6;k2++){const a=k2/6*TAU;const X=Math.cos(a)*rr6,Y=Math.sin(a)*rr6;k2?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();fillStroke(hexA(C["el-c"],.25),C["el-c"],2.2*s);
+    for(let k2=0;k2<6;k2++){const a=k2/6*TAU;atom(Math.cos(a)*rr6,Math.sin(a)*rr6,k2===0?"O":"C",(k2===0?3.8:3.4)*s,{lab:false});if(k2>0&&k2<5)atom(Math.cos(a)*rr6*1.55,Math.sin(a)*rr6*1.55,"O",2.6*s,{lab:false})}
+    if(lab&&s>=1.1)txt(0,0,"sugar",{size:Math.max(9,7*s),weight:700,align:"center",color:C.ink});ext=rr6*1.7}
+  ctx.restore();
+  if(D.ch&&o.charge!==false){const bx=x+Math.cos(-.75)*ext*.95,by=y+Math.sin(-.75)*ext*.95;chargeBadge(bx,by,D.ch,Math.max(6.5,4.6*s))}
+  if(o.ring)circ(x,y,ext+4,null,o.ring,2.4)}
+/* species dispatcher. sp like "Na+","Cl-","Cu2+","NO3-","SO42-","H2O","CO2","HAc","OH-","H+","sugar","Zn","Cu" (neutral atom) */
+const SPEC={"Na+":["a","Na","+"],"K+":["a","K","+"],"Ag+":["a","Ag","+"],"Pb2+":["a","Pb","2+"],"Ba2+":["a","Ba","2+"],"Ca2+":["a","Ca","2+"],"Cu2+":["a","Cu","2+"],"Ni2+":["a","Ni","2+"],
+  "Zn2+":["a","Zn","2+"],"Fe2+":["a","Fe","2+"],"Fe3+":["a","Fe","3+"],"Mg2+":["a","Mg","2+"],"Cr3+":["a","Cr","3+"],"Al3+":["a","Al","3+"],"PO43-":["p","PO4"],"H+":["a","H","+"],"Cl-":["a","Cl","−"],"I-":["a","I","−"],
+  "OH-":["p","OH"],"NO3-":["p","NO3"],"SO42-":["p","SO4"],"CO32-":["p","CO3"],"Ac-":["p","Ac"],"C2O42-":["p","C2O4"],"Cr2O72-":["p","Cr2O7"],"H3O+":["p","H3O"],"NH4+":["p","NH4"],
+  "CO2":["p","CO2"],"O2":["p","O2"],"H2":["p","H2"],"Cl2":["p","Cl2"],"CH4":["p","CH4"],"HAc":["p","HAc"],"EtOH":["p","EtOH"],"sugar":["p","sugar"]};
+function sp(x,y,k,s,o){o=o||{};s=s||1;if(k==="H2O"){water(x,y,o.ang==null?-Math.PI/2:o.ang,s*1.05,o);return}
+  const d=SPEC[k];if(!d){atom(x,y,k,elR(k)*9*s,o);return}
+  if(d[0]==="a"){const r=elR(d[1])*9*s*(d[2].indexOf("+")>=0&&d[1]!=="H"?.92:1.06);atom(x,y,d[1],r,{a:o.a,hl:o.hl,lab:o.lab});if(o.charge!==false)withA(o.a==null?1:o.a,()=>chargeBadge(x+r*.78,y-r*.78,d[2],Math.max(6.2,r*.42)))}
+  else polyIon(x,y,d[1],s,o.ang||0,o)}
+function spR(k,s){s=s||1;if(k==="H2O")return 11*s;const d=SPEC[k];if(!d)return 9*s;if(d[0]==="a")return elR(d[1])*9*s;return k==="sugar"?16*s:k==="SO42-"?17*s:14*s}
+/* electron */
+function electron(x,y,r,o){o=o||{};r=r||5.5;withA(o.a==null?1:o.a,()=>{glow(x,y,r*2.6,C.elec,.45);circ(x,y,r,C.elec,hexA("#000",.35),1);if(r>=5)txt(x,y+.5,"e",{size:r*1.5,weight:700,align:"center",color:"#10161A"})})}
+
+/* ================= chemical text: formulas with subscripts, charges and states ================= */
+function chemRuns(str){const out=[];let i=0;const push=(t,k)=>{if(!t)return;const L=out[out.length-1];if(L&&L.k===k)L.t+=t;else out.push({t,k})};
+  while(i<str.length){const rest=str.slice(i);const st=rest.match(/^\((aq|s|l|g)\)/);if(st){push(st[0],"st");i+=st[0].length;continue}
+    if(rest.startsWith("->")){push("→","n");i+=2;continue}
+    if(rest.startsWith("<=>")){push("⇌","n");i+=3;continue}
+    const c=str[i];
+    if(c==="^"){let j=i+1;while(j<str.length&&/[0-9+\-−]/.test(str[j]))j++;push(str.slice(i+1,j).replace(/-/g,"−"),"sup");i=j;continue}
+    if(/[0-9]/.test(c)){const pv=i>0?str[i-1]:" ";const L=out[out.length-1];if(/[A-Za-z)\]]/.test(pv)||(/[0-9]/.test(pv)&&L&&L.k==="sub")){push(c,"sub");i++;continue}}
+    push(c,"n");i++}
+  return out}
+function chemW(str,size,weight){const r=chemRuns(str);let w=0;r.forEach(q=>{const fs=q.k==="n"?size:size*.68;ctx.font=`${weight||600} ${fs}px ${FONT}`;w+=ctx.measureText(q.t).width});return w}
+function chem(x,y,str,o){o=o||{};const size=o.size||16,wt=o.weight||600;const w=chemW(str,size,wt);let X=o.align==="center"?x-w/2:o.align==="right"?x-w:x;const x0=X;
+  ctx.textAlign="left";ctx.textBaseline="middle";const col=o.color||C.ink;
+  chemRuns(str).forEach(q=>{const small=q.k!=="n";const fs=small?size*.68:size;ctx.font=`${wt} ${fs}px ${FONT}`;const dy=q.k==="sub"?size*.3:q.k==="sup"?-size*.38:q.k==="st"?size*.12:0;
+    ctx.fillStyle=q.k==="st"?(o.stcol||C["ink-soft"]):col;ctx.fillText(q.t,X,y+dy);X+=ctx.measureText(q.t).width});
+  return [x0,X]}
+/* equation line. parts: strings (operators) or {t,id,a,hl,strike,col,box}. Centered at x unless o.align left. returns {id:[x0,x1]} */
+function eqLine(x,y,parts,o){o=o||{};const size=o.size||16;const ws=parts.map(p=>typeof p==="string"?(ctx.font=`600 ${size}px ${FONT}`,ctx.measureText(p).width):chemW(p.t,size,600));
+  const tot=ws.reduce((a,b)=>a+b,0);let X=o.align==="left"?x:x-tot/2;const pos={};
+  parts.forEach((p,i)=>{const w=ws[i];if(typeof p==="string"){txt(X,y,p,{size,weight:600,color:C["ink-soft"]})}
+    else{const a=p.a==null?1:p.a;withA(a,()=>{if(p.hl){rr(X-4,y-size*.85,w+8,size*1.75,5);ctx.fillStyle=hexA(p.hl,.18);ctx.fill();ctx.strokeStyle=p.hl;ctx.lineWidth=2;ctx.stroke()}
+      chem(X,y,p.t,{size,color:p.col});if(p.strike>0){line(X-2,y+size*.42,X-2+(w+4)*clamp(p.strike,0,1),y-size*.42,C.bad,2.4)}});if(p.id)pos[p.id]=[X,X+w]}
+    X+=w});return {pos,w:tot,x0:o.align==="left"?x:x-tot/2}}
+function eqW(parts,size){size=size||16;return parts.map(p=>typeof p==="string"?(ctx.font=`600 ${size}px ${FONT}`,ctx.measureText(p).width):chemW(p.t,size,600)).reduce((a,b)=>a+b,0)}
+
+/* ================= lab glassware ================= */
+/* beaker: x,y = top-left of glass; level 0..1; liq colour (null = water). o.ppt (0..1 amount), o.pptCol, o.cloud (0..1), o.bub {T,n,rate}, o.grad, o.lab */
+function beaker(x,y,w,h,level,liq,o){o=o||{};const lip=6;ctx.save();
+  ctx.beginPath();ctx.moveTo(x-lip,y);ctx.lineTo(x,y+4);ctx.lineTo(x,y+h-8);ctx.quadraticCurveTo(x,y+h,x+8,y+h);ctx.lineTo(x+w-8,y+h);ctx.quadraticCurveTo(x+w,y+h,x+w,y+h-8);ctx.lineTo(x+w,y+4);ctx.lineTo(x+w+3,y);
+  ctx.fillStyle=hexA(C.glass,.55);ctx.fill();
+  const lh=(h-6)*clamp(level,0,1),ly=y+h-lh;
+  if(level>0){ctx.save();rr(x+2,y,w-4,h-2,7);ctx.clip();const lc=liq||C.water;const g=ctx.createLinearGradient(0,ly,0,y+h);g.addColorStop(0,hexA(lc,.62));g.addColorStop(1,hexA(lc,.9));ctx.fillStyle=g;ctx.fillRect(x,ly,w,lh+4);
+    ell(x+w/2,ly,w/2-2,3,0,hexA(mix(lc,"#ffffff",.4),.8));
+    if(o.cloud>0){ctx.fillStyle=hexA(o.pptCol||C["ppt-w"],.55*o.cloud);ctx.fillRect(x,ly+3,w,lh)}
+    if(o.ppt>0){const ph=Math.max(3,(h*.22)*clamp(o.ppt,0,1));ctx.beginPath();ctx.moveTo(x,y+h);for(let k=0;k<=20;k++){const X=x+w*k/20;ctx.lineTo(X,y+h-ph*(.8+.25*Math.sin(k*1.7)))}ctx.lineTo(x+w,y+h);ctx.closePath();ctx.fillStyle=o.pptCol||C["ppt-w"];ctx.fill();ctx.strokeStyle=hexA(C.ink,.25);ctx.lineWidth=1;ctx.stroke();
+      for(let k=0;k<14;k++){circ(x+6+rnd(k*3.3)*(w-12),y+h-ph*rnd(k*7.1)*.8,1.4,hexA(C.ink,.18))}}
+    if(o.bub){const b=o.bub;for(let k=0;k<(b.n||10);k++){const ph=P(b.T*(b.rate||.5)+rnd(k*2.7),1);const bx=x+8+rnd(k*5.9)*(w-16)+Math.sin(b.T*3+k)*2,by=y+h-6-ph*(lh-6);circ(bx,by,1.5+rnd(k)*2.5+ph*1.5,hexA(C.panel,.6),hexA(C.ink,.35),1)}}
+    ctx.restore()}
+  ctx.beginPath();ctx.moveTo(x-lip,y);ctx.lineTo(x,y+4);ctx.lineTo(x,y+h-8);ctx.quadraticCurveTo(x,y+h,x+8,y+h);ctx.lineTo(x+w-8,y+h);ctx.quadraticCurveTo(x+w,y+h,x+w,y+h-8);ctx.lineTo(x+w,y+4);ctx.lineTo(x+w+3,y);
+  ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.lineJoin="round";ctx.stroke();
+  if(o.grad!==false){for(let k=1;k<=4;k++){const gy=y+h-(h-6)*k/5;line(x+4,gy,x+(k%2?12:18),gy,hexA(C["glass-edge"],.9),1.2)}}
+  line(x+w-9,y+12,x+w-9,y+h-16,hexA("#ffffff",isDark()?.12:.6),3);
+  if(o.lab)txt(x+w/2,y+h+14,o.lab,{size:o.ls||12,weight:600,align:"center",color:o.lcol||C.ink});
+  ctx.restore()}
+/* volumetric flask: (x,y) = bottom centre; s = bulb radius; level 0..1.05 (1 = calibration mark); o.mark text */
+function volFlask(x,y,s,level,liq,o){o=o||{};const nw=s*.24,nh=s*1.7,by=y-s;const top=by-s*.85-nh;
+  const path=()=>{ctx.beginPath();ctx.moveTo(x-nw,top);ctx.lineTo(x-nw,by-s*.85);ctx.bezierCurveTo(x-nw,by-s*.6,x-s,by-s*.55,x-s,by+s*.15);ctx.quadraticCurveTo(x-s,y,x-s*.6,y);ctx.lineTo(x+s*.6,y);ctx.quadraticCurveTo(x+s,y,x+s,by+s*.15);ctx.bezierCurveTo(x+s,by-s*.55,x+nw,by-s*.6,x+nw,by-s*.85);ctx.lineTo(x+nw,top)};
+  path();ctx.fillStyle=hexA(C.glass,.55);ctx.fill();
+  const markY=by-s*.85-nh*.45;const lv=clamp(level,0,1.08);
+  if(lv>0){ctx.save();path();ctx.clip();const fillTop=lv<=.86?lerp(y,by-s*.8,lv/.86):lerp(by-s*.8,markY,(lv-.86)/.14);const lc=liq||C.water;ctx.fillStyle=hexA(lc,.8);ctx.fillRect(x-s-2,fillTop,2*s+4,y-fillTop+2);ctx.restore()}
+  path();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+  line(x-nw-5,markY,x+nw+5,markY,C.ink,1.6);if(o.mark)txt(x+nw+10,markY,o.mark,{size:11.5,mono:true,weight:600,color:C["ink-soft"]});
+  rr(x-nw-2,top-10,nw*2+4,10,3);fillStroke(o.stopper?C["ink-soft"]:null,o.stopper?null:null);
+  return {markY,top}}
+/* erlenmeyer: (x,y) bottom centre */
+function erlen(x,y,s,level,liq,o){o=o||{};const nw=s*.28,top=y-s*1.9;const path=()=>{ctx.beginPath();ctx.moveTo(x-nw,top);ctx.lineTo(x-nw,top+s*.45);ctx.lineTo(x-s,y-4);ctx.quadraticCurveTo(x-s,y,x-s+5,y);ctx.lineTo(x+s-5,y);ctx.quadraticCurveTo(x+s,y,x+s,y-4);ctx.lineTo(x+nw,top+s*.45);ctx.lineTo(x+nw,top)};
+  path();ctx.fillStyle=hexA(C.glass,.55);ctx.fill();if(level>0){ctx.save();path();ctx.clip();const ly=y-(y-top-s*.45)*clamp(level,0,1)*.7;const lc=liq||C.water;ctx.fillStyle=hexA(lc,.8);ctx.fillRect(x-s,ly,2*s,y-ly);
+    if(o.swirl!=null){ell(x+Math.sin(o.swirl)*s*.3,ly+2,s*.4,2,0,hexA("#fff",.35))}ctx.restore()}
+  path();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();return {top}}
+/* burette: x centre, y top, h length; level 0..1 of full (top). o.open drip */
+function burette(x,y,h,level,liq,o){o=o||{};const w=14;rr(x-w/2,y,w,h,3);ctx.fillStyle=hexA(C.glass,.7);ctx.fill();
+  const lt=y+h*(1-clamp(level,0,1));if(level>0){ctx.fillStyle=hexA(liq||C.water,.85);ctx.fillRect(x-w/2+2,lt,w-4,y+h-lt)}
+  rr(x-w/2,y,w,h,3);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  for(let k=0;k<=10;k++){const gy=y+h*k/10;line(x-w/2,gy,x-w/2+(k%5?4:8),gy,C["ink-soft"],1);if(k%5===0&&o.scale!==false)txt(x-w/2-4,gy,String(k*5),{size:10.5,mono:true,align:"right",color:C["ink-soft"]})}
+  rr(x-11,y+h+2,22,8,2);fillStroke(C["ink-soft"],null);rr(x-3,y+h,6,22,2);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.4);
+  if(o.drip){const ph=P(o.drip,1);circ(x,y+h+24+ph*30,3,hexA(liq||C.water,.95),hexA(C.ink,.3),1)}
+  return {tip:[x,y+h+22]}}
+/* conductivity tester: bulb at x,y with brightness 0..1; electrodes go down to (x-12..x+12, ey) */
+function bulbTester(x,y,s,b,ey,o){o=o||{};b=clamp(b,0,1);
+  if(b>0.02){glow(x,y,s*(2+3*b),C.bulb,.25+.6*b);}
+  ctx.beginPath();ctx.arc(x,y,s,Math.PI*.8,Math.PI*2.2);ctx.lineTo(x+s*.45,y+s*1.25);ctx.lineTo(x-s*.45,y+s*1.25);ctx.closePath();
+  ctx.fillStyle=b>0.02?mix(hexA(C.glass,1),C.bulb,.25+.75*b):hexA(C.glass,.9);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x-s*.3,y+s*.9);ctx.lineTo(x-s*.25,y);ctx.lineTo(x-s*.1,y+s*.2);ctx.lineTo(x,y-s*.05);ctx.lineTo(x+s*.1,y+s*.2);ctx.lineTo(x+s*.25,y);ctx.lineTo(x+s*.3,y+s*.9);ctx.strokeStyle=b>0.02?mix(C["ink-soft"],"#F29A1E",b):C["ink-soft"];ctx.lineWidth=1.5;ctx.stroke();
+  rr(x-s*.5,y+s*1.25,s,s*.55,2);fillStroke(C.metal,hexA(C.ink,.4),1);
+  const bx=y+s*1.8;poly([[x-s*.25,bx],[x-s*.25,bx+8],[x-s*1.3,bx+8],[x-s*1.3,ey]],C.wire,2.4);poly([[x+s*.25,bx],[x+s*.25,bx+8],[x+s*1.3,bx+8],[x+s*1.3,ey]],C.wire,2.4);
+  rr(x-s*1.3-3,ey-30,6,34,2);fillStroke(C.metal,hexA(C.ink,.4),1);rr(x+s*1.3-3,ey-30,6,34,2);fillStroke(C.metal,hexA(C.ink,.4),1);
+  if(o.lab)label(x,y-s-14-(b*10),o.lab,{size:12,weight:700,border:o.lc||C.rule})}
+/* magnifier circle: draws a ring and clips fn() inside. from: [px,py] point on beaker to connect */
+function magnifier(x,y,r,fn,o){o=o||{};if(o.from){const a=Math.atan2(o.from[1]-y,o.from[0]-x);const pa=a+Math.PI/2;
+    ctx.beginPath();ctx.moveTo(o.from[0],o.from[1]);ctx.lineTo(x+Math.cos(a+.5)*r,y+Math.sin(a+.5)*r);ctx.lineTo(x+Math.cos(a-.5)*r,y+Math.sin(a-.5)*r);ctx.closePath();ctx.fillStyle=hexA(C.accent,.08);ctx.fill();
+    line(o.from[0],o.from[1],x+Math.cos(a+.5)*r,y+Math.sin(a+.5)*r,hexA(C["ink-soft"],.6),1.2,[4,3]);line(o.from[0],o.from[1],x+Math.cos(a-.5)*r,y+Math.sin(a-.5)*r,hexA(C["ink-soft"],.6),1.2,[4,3]);circ(o.from[0],o.from[1],4,null,C["ink-soft"],1.5)}
+  ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fillStyle=o.fill||mix(C.water,C.panel,isDark()?.2:.45);ctx.fill();ctx.clip();fn();ctx.restore();
+  circ(x,y,r,null,C["ink-soft"],3);circ(x,y,r+3,null,hexA(C["ink-soft"],.35),2);
+  if(o.lab)label(x,y+r+14,o.lab,{size:11.5,weight:700,mono:true,color:C["ink-soft"]})}
+/* digital balance */
+function balance(x,y,w,mass,o){o=o||{};rr(x,y,w,30,6);fillStroke(C["panel-2"],C["ink-soft"],1.5);rr(x+w*.18,y-6,w*.64,6,2);fillStroke(C.metal,hexA(C.ink,.4),1);
+  rr(x+w*.5-36,y+6,72,18,3);fillStroke("#0A1014",null);txt(x+w*.5+30,y+15,mass,{size:12.5,mono:true,weight:700,align:"right",color:"#7FE0A8"})}
+/* thermometer: x,y top; frac 0..1 */
+function thermo(x,y,h,f,o){o=o||{};rr(x-5,y,10,h,5);fillStroke(C.panel,C["ink-soft"],1.4);circ(x,y+h+4,9,C.heat,C["ink-soft"],1.4);const lh=(h-6)*clamp(f,0,1);rr(x-2.5,y+h-lh,5,lh+4,2);fillStroke(C.heat,null);
+  for(let k=1;k<5;k++)line(x+5,y+h*k/5,x+9,y+h*k/5,C["ink-soft"],1);if(o.lab)txt(x+14,y+8,o.lab,{size:12,mono:true,weight:700,color:o.lcol||C.ink})}
+/* metal strip, coated amount 0..1 with colour */
+function strip(x,y,w,h,col,coat,coatCol,T){rr(x,y,w,h,3);fillStroke(col,hexA(C.ink,.45),1.4);line(x+3,y+4,x+3,y+h-4,hexA("#fff",.45),2);
+  if(coat>0){for(let k=0;k<Math.floor(30*coat);k++){const yy=y+h*.35+rnd(k*3.1)*(h*.62);const xx=x+rnd(k*7.7)*w;circ(xx,yy,1.5+rnd(k*1.9)*2.5,coatCol,hexA(C.ink,.3),.8)}}}
+/* pipette (graduated/volumetric), tip at (x,y) pointing down */
+function pipette(x,y,len,fill,liq){const w=8;rr(x-w/2,y-len,w,len-14,3);ctx.fillStyle=hexA(C.glass,.9);ctx.fill();if(fill>0){const fy=y-14-(len-14)*clamp(fill,0,1);ctx.fillStyle=hexA(liq||C.water,.85);ctx.fillRect(x-w/2+1.5,fy,w-3,y-14-fy)}
+  rr(x-w/2,y-len,w,len-14,3);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.5;ctx.stroke();ctx.beginPath();ctx.moveTo(x-w/2,y-14);ctx.lineTo(x-1,y);ctx.lineTo(x+1,y);ctx.lineTo(x+w/2,y-14);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.4);
+  ell(x,y-len-6,9,8,0,mix(C.bad,C.panel,.25),hexA(C.ink,.4),1.2)}
+/* flame */
+function flame(x,y,s,T){const f=1+.08*Math.sin(T*23)+.05*Math.sin(T*37);ctx.beginPath();ctx.moveTo(x-s*.5,y);ctx.quadraticCurveTo(x-s*.7,y-s*1.1*f,x,y-s*2*f);ctx.quadraticCurveTo(x+s*.7,y-s*1.1*f,x+s*.5,y);ctx.closePath();ctx.fillStyle=hexA(C.flame,.85);ctx.fill();
+  ctx.beginPath();ctx.moveTo(x-s*.25,y);ctx.quadraticCurveTo(x-s*.3,y-s*.7*f,x,y-s*1.1*f);ctx.quadraticCurveTo(x+s*.3,y-s*.7*f,x+s*.25,y);ctx.closePath();ctx.fillStyle=hexA("#3F7FE0",.75);ctx.fill()}
+/* energy burst (heat released) */
+function heatBurst(x,y,r,p,col){for(let k=0;k<8;k++){const a=k/8*TAU+.2;const r0=r*(.3+p*.7),r1=r*(.55+p*.9);withA(1-p,()=>arrow(x+Math.cos(a)*r0,y+Math.sin(a)*r0,x+Math.cos(a)*r1,y+Math.sin(a)*r1,col||C.heat,2))}}
+/* worked example: chain of fractions with staged build and unit cancellation.
+   items: [{n:["25.0",["mL"]],d:["1000",["mL"]]}] values are display strings; res: ["3.75 × 10⁻³",["mol"]]; p 0..1 */
+function workChain(x,y,items,res,p,o){o=o||{};const fs=o.size||15;ctx.font=`600 ${fs}px ${MONO}`;const gap=o.gap||20;
+  const ns=[],ds=[];items.forEach((it,i)=>{it.n[1].forEach((u,k)=>ns.push({i,k,u,used:false}));if(it.d)it.d[1].forEach((u,k)=>ds.push({i,k,u,used:false}))});
+  const pairs=[];ds.forEach(d=>{const m=ns.find(n=>!n.used&&n.u===d.u&&n.i!==d.i)||ns.find(n=>!n.used&&n.u===d.u);if(m){m.used=true;d.used=true;pairs.push([m,d])}});
+  const n=items.length;const pos={};let X=x;
+  const us=u=>u.join("·");
+  items.forEach((it,i)=>{const nt=it.n[0]+" "+us(it.n[1]);const dt=it.d?it.d[0]+" "+us(it.d[1]):"";ctx.font=`600 ${fs}px ${MONO}`;const w=Math.max(ctx.measureText(nt).width,ctx.measureText(dt).width)+8;const cx=X+w/2;
+    const ap=smooth(seg(p,i*.42/n,i*.42/n+.12));
+    withA(ap,()=>{ctx.save();ctx.translate(0,(1-ap)*10);
+      const part=(val,units,yy,isN)=>{ctx.font=`600 ${fs}px ${MONO}`;const full=val+" "+us(units);let px=cx-ctx.measureText(full).width/2;ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(val+" ",px,yy);px+=ctx.measureText(val+" ").width;
+        units.forEach((u,k)=>{const uw=ctx.measureText(u).width;pos[(isN?"n":"d")+i+"_"+k]=[px,yy,uw];ctx.fillStyle=o.ucol||C.accent;ctx.fillText(u,px,yy);px+=uw;if(k<units.length-1){ctx.fillStyle=C.ink;ctx.fillText("·",px,yy);px+=ctx.measureText("·").width}})};
+      if(it.d){part(it.n[0],it.n[1],y-14,true);line(X,y,X+w,y,C.ink,1.6);part(it.d[0],it.d[1],y+15,false)}else part(it.n[0],it.n[1],y,true);
+      if(i<n-1)txt(X+w+gap/2,y,"×",{size:fs+2,weight:700,align:"center",color:C["ink-soft"]});ctx.restore()});
+    X+=w+(i<n-1?gap:0)});
+  const sp0=.48,sp1=.8;pairs.forEach((pr,j)=>{const a=sp0+(sp1-sp0)*j/pairs.length,b=sp0+(sp1-sp0)*(j+1)/pairs.length;const f=seg(p,a,b);if(f<=0)return;
+    [pr[0],pr[1]].forEach((q,qi)=>{const ps=pos[(qi===0?"n":"d")+q.i+"_"+q.k];if(!ps)return;line(ps[0]-2,ps[1]+6,ps[0]-2+(ps[2]+4)*f,ps[1]-6,C.bad,2.4)})});
+  const rf=smooth(seg(p,.84,.97));
+  if(res){withA(seg(p,.8,.86),()=>txt(X+gap/2,y,"=",{size:fs+3,weight:700,align:"center",color:C["ink-soft"]}));X+=gap+6;
+    withA(rf,()=>{const t=res[0]+" "+us(res[1]);ctx.font=`700 ${fs+2}px ${MONO}`;const w=ctx.measureText(t).width;rr(X-4,y-15,w+12,30,6);ctx.fillStyle=C["good-wash"];ctx.fill();ctx.strokeStyle=C.good;ctx.lineWidth=1.8;ctx.stroke();txt(X+2,y,t,{size:fs+2,weight:700,mono:true})});
+    ctx.font=`700 ${fs+2}px ${MONO}`;X+=ctx.measureText(res[0]+" "+us(res[1])).width+12}
+  return X}
+function workChainW(items,res,o){o=o||{};const fs=o.size||15;ctx.font=`600 ${fs}px ${MONO}`;const gap=o.gap||20;let X=0;const us=u=>u.join("·");
+  items.forEach((it,i)=>{const nt=it.n[0]+" "+us(it.n[1]);const dt=it.d?it.d[0]+" "+us(it.d[1]):"";X+=Math.max(ctx.measureText(nt).width,ctx.measureText(dt).width)+8;if(i<items.length-1)X+=gap});
+  if(res){X+=gap+6;ctx.font=`700 ${fs+2}px ${MONO}`;X+=ctx.measureText(res[0]+" "+us(res[1])).width+12}return X}
+/* boxed note on canvas (mistake / now you try) */
+function noteBox(x,y,w,head,body,col,o){o=o||{};const lh=15;ctx.font=`500 12.5px ${FONT}`;const words=body.split(" ");let lines=1,ln="";words.forEach(wd=>{const t=ln?ln+" "+wd:wd;if(ctx.measureText(t).width>w-20&&ln){lines++;ln=wd}else ln=t});
+  const h=30+lines*lh;rr(x,y,w,h,6);ctx.fillStyle=hexA(C.panel,.97);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.8;ctx.stroke();rr(x,y,5,h,2);ctx.fillStyle=col;ctx.fill();
+  txt(x+12,y+13,head.toUpperCase(),{size:11,mono:true,weight:700,color:o.hc||C.ink});wrapText(body,x+12,y+31,w-20,lh,{size:12.5});return h}
+function fmtSig(v,sf){if(v===0)return "0";const s=Number(v).toPrecision(sf);if(/e/.test(s)){const m=s.split("e");return m[0]+" × 10"+supNum(+m[1])}return s}
+function supNum(n){const S={"-":"⁻","0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"};return String(n).split("").map(c=>S[c]||c).join("")}
+/* ================= walkthrough scene helpers ================= */
+const HL=()=>C.accent;
+function linkLine(x1,y1,x2,y2){ctx.save();ctx.globalAlpha*=.85;line(x1,y1,x2,y2,C.accent,1.6,[5,4]);circ(x2,y2,3,C.accent);ctx.restore()}
+function levelTag(x,y,t){ctx.font=`700 11px ${MONO}`;const w=ctx.measureText(t).width+12;rr(x,y-9,w,18,9);ctx.fillStyle=hexA(C.accent,.14);ctx.fill();ctx.strokeStyle=hexA(C.accent,.6);ctx.lineWidth=1;ctx.stroke();txt(x+6,y+.5,t,{size:11,mono:true,weight:700,color:C["accent-ink"]});return w}
+function speedNote(x,y,t){txt(x,y,t||"Speed exaggerated so you can see it",{size:11.5,mono:true,color:C["ink-soft"],align:"right"})}
+/* morph: atoms [{e,s:[x,y],t:[x,y],r}] bonds before b0 and after b1: [[i,j]] */
+function morph(atoms,b0,b1,f,o){o=o||{};const q=smooth(f);const pos=atoms.map((a,i)=>{const arc=Math.sin(q*Math.PI)*(a.arc||0);return [lerp(a.s[0],a.t[0],q),lerp(a.s[1],a.t[1],q)-arc]});
+  const bd=(bs,al)=>{if(al<=0)return;bs.forEach(b=>{const A=pos[b[0]],B=pos[b[1]];withA(al,()=>{line(A[0],A[1],B[0],B[1],hexA(C.ink,.55),b[2]===2?6:3.5);if(b[2]===2)line(A[0],A[1],B[0],B[1],C.panel,1.4)})})};
+  bd(b0,1-seg(f,.15,.45));bd(b1,seg(f,.55,.9));
+  if(o.glow&&f>.2&&f<.8)atoms.forEach((a,i)=>glow(pos[i][0],pos[i][1],a.r*2,C.gold,.35*Math.sin((f-.2)/.6*Math.PI)));
+  atoms.forEach((a,i)=>atom(pos[i][0],pos[i][1],a.e,a.r,{lab:a.r>=7}));return pos}
+function offAll(list,dx,dy){return list.map(a=>Object.assign({},a,{s:[a.s[0]+dx,a.s[1]+dy],t:[a.t[0]+dx,a.t[1]+dy]}))}
+/* hydration shell around an ion at x,y: n waters; cation => O faces ion */
+function shell(x,y,r,n,cation,T,a,seed){for(let k=0;k<n;k++){const ang=k/n*TAU+T*.5+(seed||0);const jx=Math.sin(T*7+k*2+(seed||0))*1.2;const wx=x+Math.cos(ang)*r+jx,wy=y+Math.sin(ang)*r;water(wx,wy,cation?ang:ang+Math.PI,1,{a})}}
+function crystalCube(x,y,s,col,col2){ctx.beginPath();ctx.moveTo(x-s,y);ctx.lineTo(x+s*.6,y);ctx.lineTo(x+s*.6,y-s*1.4);ctx.lineTo(x-s,y-s*1.4);ctx.closePath();fillStroke(col,hexA(C.ink,.4),1.2);
+  ctx.beginPath();ctx.moveTo(x-s,y-s*1.4);ctx.lineTo(x-s*.6,y-s*1.8);ctx.lineTo(x+s,y-s*1.8);ctx.lineTo(x+s*.6,y-s*1.4);ctx.closePath();fillStroke(col2||mix(col,"#fff",.4),hexA(C.ink,.4),1.2);
+  ctx.beginPath();ctx.moveTo(x+s*.6,y);ctx.lineTo(x+s,y-s*.4);ctx.lineTo(x+s,y-s*1.8);ctx.lineTo(x+s*.6,y-s*1.4);ctx.closePath();fillStroke(mix(col,"#000",.15),hexA(C.ink,.4),1.2)}
+function testTube(x,y,w,h,liq,o){o=o||{};ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y);ctx.fillStyle=hexA(C.glass,.6);ctx.fill();
+  const lv=o.level==null?.7:o.level;const ly=y+h-(h)*lv;ctx.save();ctx.beginPath();ctx.moveTo(x-w/2,ly);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,ly);ctx.closePath();ctx.clip();
+  ctx.fillStyle=hexA(liq||C.water,.85);ctx.fillRect(x-w,ly,2*w,h);if(o.cloud>0){ctx.fillStyle=hexA(o.pc||C["ppt-w"],.6*o.cloud);ctx.fillRect(x-w,ly,2*w,h)}
+  if(o.ppt>0){const ph=h*.25*o.ppt;ctx.fillStyle=o.pc||C["ppt-w"];ctx.fillRect(x-w,y+h-ph,2*w,ph);for(let k=0;k<6;k++)circ(x-w/2+3+rnd(k*3.1+x)*(w-6),y+h-ph*rnd(k*1.7),1.3,hexA(C.ink,.2))}
+  if(o.bub){for(let k=0;k<6;k++){const ph=P(o.bub*.6+rnd(k*2.9+x),1);circ(x-w/2+4+rnd(k*7.3)*(w-8),y+h-6-ph*(h*lv-8),1.5+ph*1.5,null,hexA(C.ink,.4),1)}}
+  ctx.restore();ctx.beginPath();ctx.moveTo(x-w/2-3,y);ctx.lineTo(x-w/2,y+2);ctx.lineTo(x-w/2,y+h-w/2);ctx.arc(x,y+h-w/2,w/2,Math.PI,0,true);ctx.lineTo(x+w/2,y+2);ctx.lineTo(x+w/2+3,y);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=1.8;ctx.stroke();
+  if(o.lab)chem(x,y+h+16,o.lab,{size:o.ls||13,align:"center"})}
+
+function miniBulb(x,y,b){if(b>0)glow(x,y-2,10+20*b,C.bulb,.3+.6*b);circ(x,y-3,7,b>0?mix(C.glass,C.bulb,.3+.7*b):hexA(C.glass,.9),C["glass-edge"],1.4);rr(x-4,y+3,8,6,1);fillStroke(C.metal,null)}
+/* ---------------- lab helpers ---------------- */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("chem-rx-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("chem-rx-lab-"+k,v)}catch(e){}}};
+function segBtns(el,items,cur,onPick){el.innerHTML="";items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=it[1];b.setAttribute("aria-pressed",String(it[0]===cur()));b.onclick=()=>{onPick(it[0]);el.querySelectorAll("button").forEach((x,i)=>x.setAttribute("aria-pressed",String(items[i][0]===cur())))};el.appendChild(b)})}
+function chalUI(el,list,done){el.innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c}${done.has(i)?'<span class="gk-sr"> (done)</span>':""}</span></li>`).join("")}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+/* chem-syntax string to HTML */
+function chemHTML(s){return chemRuns(s).map(q=>q.k==="sub"?`<sub>${q.t}</sub>`:q.k==="sup"?`<sup>${q.t}</sup>`:q.k==="st"?`<span class="st">${q.t}</span>`:q.t.replace(/&/g,"&amp;").replace(/</g,"&lt;")).join("")}
+/* plain-text (unicode) version for aria labels and sort cards */
+const SUBU={"0":"₀","1":"₁","2":"₂","3":"₃","4":"₄","5":"₅","6":"₆","7":"₇","8":"₈","9":"₉"},SUPU={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","+":"⁺","−":"⁻","-":"⁻"};
+function chemTxt(s){return chemRuns(s).map(q=>q.k==="sub"?q.t.split("").map(c=>SUBU[c]||c).join(""):q.k==="sup"?q.t.split("").map(c=>SUPU[c]||c).join(""):q.t).join("")}
+
+/* ================= chemistry data ================= */
+const AM={H:1.008,C:12.01,N:14.01,O:16.00,Na:22.99,Mg:24.31,Al:26.98,S:32.06,Cl:35.45,K:39.10,Ca:40.08,Cr:52.00,Mn:54.94,Fe:55.85,Ni:58.69,Cu:63.55,Zn:65.38,Ag:107.87,I:126.90,Ba:137.33,Pb:207.2};
+function molarMass(f){let i=0;function grp(){let m=0;while(i<f.length){const c=f[i];if(c==="("){i++;const g=grp();i++;let n="";while(/\d/.test(f[i]||""))n+=f[i++];m+=g*(n?+n:1)}else if(c===")")return m;else if(/[A-Z]/.test(c)){let e=c;i++;while(/[a-z]/.test(f[i]||""))e+=f[i++];let n="";while(/\d/.test(f[i]||""))n+=f[i++];m+=AM[e]*(n?+n:1)}else i++}return m}return grp()}
+const ION={"Ag+":{q:1,f:"Ag",n:"silver"},"Pb2+":{q:2,f:"Pb",n:"lead(II)"},"Ba2+":{q:2,f:"Ba",n:"barium"},"Ca2+":{q:2,f:"Ca",n:"calcium"},"Cu2+":{q:2,f:"Cu",n:"copper(II)",col:"sol-cu"},"Ni2+":{q:2,f:"Ni",n:"nickel(II)",col:"sol-ni"},
+  "Na+":{q:1,f:"Na",n:"sodium"},"K+":{q:1,f:"K",n:"potassium"},"H+":{q:1,f:"H",n:"hydrogen"},
+  "NO3-":{q:-1,f:"NO3",poly:1,n:"nitrate"},"Cl-":{q:-1,f:"Cl",n:"chloride"},"I-":{q:-1,f:"I",n:"iodide"},"SO42-":{q:-2,f:"SO4",poly:1,n:"sulfate"},"CO32-":{q:-2,f:"CO3",poly:1,n:"carbonate"},
+  "OH-":{q:-1,f:"OH",poly:1,n:"hydroxide"},"Ac-":{q:-1,f:"C2H3O2",poly:1,n:"acetate"},"HCO3-":{q:-1,f:"HCO3",poly:1,n:"hydrogen carbonate"}};
+/* limiting molar conductivities, S·cm²/mol (per mole of ion) */
+const LAM={"Ag+":61.9,"Pb2+":142,"Ba2+":127.2,"Ca2+":119,"Cu2+":107,"Ni2+":100,"Na+":50.1,"K+":73.5,"H+":349.8,"NO3-":71.4,"Cl-":76.3,"I-":76.8,"SO42-":160,"CO32-":138.6,"OH-":198,"Ac-":40.9,"HCO3-":44.5};
+function ionStr(k){const d=ION[k];const z=Math.abs(d.q);return d.f+"^"+(z>1?z:"")+(d.q>0?"+":"-")}
+const SOLS=[["AgNO3","silver nitrate","Ag+","NO3-"],["PbNO32","lead(II) nitrate","Pb2+","NO3-"],["BaCl2","barium chloride","Ba2+","Cl-"],["CaCl2","calcium chloride","Ca2+","Cl-"],
+  ["CuSO4","copper(II) sulfate","Cu2+","SO42-"],["NiNO32","nickel(II) nitrate","Ni2+","NO3-"],["NaCl","sodium chloride","Na+","Cl-"],["KI","potassium iodide","K+","I-"],
+  ["Na2SO4","sodium sulfate","Na+","SO42-"],["Na2CO3","sodium carbonate","Na+","CO32-"],["NaOH","sodium hydroxide","Na+","OH-"],["KNO3","potassium nitrate","K+","NO3-"],
+  ["HCl","hydrochloric acid","H+","Cl-"],["H2SO4","sulfuric acid","H+","SO42-"],["HAc","acetic acid","H+","Ac-","weak"],["sugar","sugar (sucrose)",null,null,"non"]].map(r=>({id:r[0],name:r[1],cat:r[2],an:r[3],kind:r[4]||"strong"}));
+const SOL={};SOLS.forEach(s=>SOL[s.id]=s);
+/* formula of cation + anion; returns {f, a, b} where a cations and b anions per unit */
+function unitOf(cat,an){if(cat==="H+"&&an==="OH-")return {f:"H2O",a:1,b:1};if(cat==="H+"&&an==="CO32-")return {f:"H2CO3",a:2,b:1};if(cat==="H+"&&an==="Ac-")return {f:"HC2H3O2",a:1,b:1};if(cat==="Ag+"&&an==="OH-")return {f:"AgOH",a:1,b:1};
+  const qc=ION[cat].q,qa=-ION[an].q,g=gcd(qc,qa);const a=qa/g,b=qc/g;const A=ION[cat],B=ION[an];
+  return {f:A.f+(a>1?a:"")+(B.poly&&b>1?"("+B.f+")"+b:B.f+(b>1?b:"")),a,b}}
+function solFormula(s){if(s.kind==="non")return "C12H22O11";return unitOf(s.cat,s.an).f}
+/* solubility rules: returns {ins, slight, rule} rule is 1..6 */
+function solubility(cat,an){
+  if(cat==="Na+"||cat==="K+")return {ins:false,rule:1};
+  if(cat==="H+")return {ins:false,rule:0};
+  if(an==="NO3-"||an==="Ac-")return {ins:false,rule:2};
+  if(an==="Cl-"||an==="I-")return {ins:cat==="Ag+"||cat==="Pb2+",rule:3};
+  if(an==="SO42-"){if(cat==="Ba2+"||cat==="Pb2+")return {ins:true,rule:4};if(cat==="Ca2+"||cat==="Ag+")return {ins:true,slight:true,rule:4};return {ins:false,rule:4}}
+  if(an==="CO32-")return {ins:true,rule:5};
+  if(an==="OH-"){if(cat==="Ba2+")return {ins:false,rule:6};if(cat==="Ca2+")return {ins:true,slight:true,rule:6};return {ins:true,rule:6}}
+  return {ins:false,rule:0}}
+const PPTCOL={AgCl:["ppt-w","white"],AgI:["ppt-y","pale yellow"],PbI2:["ppt-y","bright yellow"],PbCl2:["ppt-w","white"],PbSO4:["ppt-w","white"],BaSO4:["ppt-w","white"],BaCO3:["ppt-w","white"],CaCO3:["ppt-w","white"],CaSO4:["ppt-w","white"],"Ca(OH)2":["ppt-w","white"],
+  "Cu(OH)2":["ppt-b","pale blue"],CuCO3:["ppt-b","blue-green"],"Ni(OH)2":["ppt-g","pale green"],NiCO3:["ppt-g","pale green"],"Pb(OH)2":["ppt-w","white"],PbCO3:["ppt-w","white"],Ag2CO3:["ppt-y","pale yellow"],Ag2SO4:["ppt-w","white"],Ag2O:["ppt-br","dark brown"]};
+/* ================= mixing engine ================= */
+/* kind of a cross pair */
+function pairKind(cat,an,weakAcid){if(!cat||!an)return null;
+  if(cat==="H+"){if(an==="OH-")return weakAcid?"wwater":"water";if(an==="CO32-")return weakAcid?"wgas":"gas";return null}
+  if(cat==="Ag+"&&an==="OH-")return "ag2o";
+  const s=solubility(cat,an);return s.ins?"ppt":null}
+function counts(cat,an){const u=unitOf(cat,an);const o={};o[cat]=u.a;o[an]=(o[an]||0)+u.b;return o}
+function balance4(r1,r2,p1,p2){const ions=new Set([...Object.keys(r1),...Object.keys(r2),...Object.keys(p1),...Object.keys(p2)]);let best=null;
+  for(let a=1;a<=6;a++)for(let b=1;b<=6;b++)for(let c=1;c<=6;c++)for(let d=1;d<=6;d++){let ok=true;for(const t of ions){if(a*(r1[t]||0)+b*(r2[t]||0)!==c*(p1[t]||0)+d*(p2[t]||0)){ok=false;break}}if(ok&&(!best||a+b+c+d<best.reduce((x,y)=>x+y,0)))best=[a,b,c,d]}
+  return best}
+function mixSolutions(Aid,Bid,cA,vA,cB,vB){
+  const A=SOL[Aid],B=SOL[Bid];const nA=cA*vA/1000,nB=cB*vB/1000;const V=(vA+vB)/1000;
+  const R={A,B,nA,nB,V,reactions:[],NR:true,why:"",terms:null,mol:null,ionic:null,net:null,spect:[],obs:[],ppt:[],gas:0,heat:0,dT:0,kBefore:0,kAfter:0,limiting:"",excess:"",note:""};
+  /* ion inventory before reaction */
+  const inv={};const add=(k,n)=>{inv[k]=(inv[k]||0)+n};let nHAc=0,nSugar=0;
+  [[A,nA],[B,nB]].forEach(([s,n])=>{if(s.kind==="non"){nSugar+=n;return}if(s.kind==="weak"){nHAc+=n;return}const u=unitOf(s.cat,s.an);add(s.cat,u.a*n);add(s.an,u.b*n)});
+  R.inv0=Object.assign({},inv);R.nHAc0=nHAc;R.nSugar=nSugar;
+  R.kBefore=kappa(inv,nHAc,0,V);
+  /* decide reactions */
+  const sameIons=A.id===B.id||A.kind==="non"||B.kind==="non"||(A.cat===B.cat)||(A.an===B.an);
+  let pairs=[];if(!sameIons){pairs=[[A.cat,B.an,A.kind==="weak"],[B.cat,A.an,B.kind==="weak"]]}
+  const kinds=pairs.map(p=>pairKind(p[0],p[1],p[2]));
+  R.NR=!kinds.some(k=>k);
+  if(sameIons)R.why=A.kind==="non"||B.kind==="non"?"Sugar makes no ions, so there is nothing to swap.":A.id===B.id?"Same solution: mixing only dilutes it.":"The two solutions share an ion, so swapping partners makes the same compounds.";
+  else if(R.NR)R.why="Both possible new pairs are soluble, so every ion stays dissolved.";
+  /* equations */
+  const fA=solFormula(A),fB=solFormula(B);
+  if(A.kind!=="non"&&B.kind!=="non"&&!sameIons){
+    const r1=counts(A.cat,A.an),r2=counts(B.cat,B.an),p1=counts(pairs[0][0],pairs[0][1]),p2=counts(pairs[1][0],pairs[1][1]);
+    let co=balance4(r1,r2,p1,p2)||[1,1,1,1];
+    const u1=unitOf(pairs[0][0],pairs[0][1]),u2=unitOf(pairs[1][0],pairs[1][1]);
+    if((u1.f==="AgOH"&&co[2]%2)||(u2.f==="AgOH"&&co[3]%2))co=co.map(x=>x*2);
+    /* term list: {c, f, st, ions:[[ion,count]] or null, weak} */
+    const term=(c,s)=>{if(s.kind==="weak")return {c,f:"HC2H3O2",st:"aq",mol:true,weak:true};const u=unitOf(s.cat,s.an);return {c,f:u.f,st:"aq",ions:[[s.cat,u.a],[s.an,u.b]]}};
+    const left=[term(co[0],A),term(co[1],B)];const right=[];
+    [[pairs[0],kinds[0],co[2],u1],[pairs[1],kinds[1],co[3],u2]].forEach(([p,k,c,u])=>{
+      if(!k){right.push({c,f:u.f,st:"aq",ions:[[p[0],u.a],[p[1],u.b]]});return}
+      if(k==="ppt")right.push({c,f:u.f,st:"s",mol:true,ppt:true});
+      else if(k==="water"||k==="wwater")right.push({c,f:"H2O",st:"l",mol:true});
+      else if(k==="gas"||k==="wgas"){right.push({c,f:"H2O",st:"l",mol:true});right.push({c,f:"CO2",st:"g",mol:true})}
+      else if(k==="ag2o"){right.push({c:c/2,f:"Ag2O",st:"s",mol:true,ppt:true});right.push({c:c/2,f:"H2O",st:"l",mol:true})}});
+    /* weak acid reactant forms acetate salt: already in right as aq salt */
+    const so={s:0,aq:1,l:2,g:3};right.sort((x,y)=>so[x.st]-so[y.st]);
+    R.mol={left,right};
+    /* complete ionic */
+    const split=list=>{const out=[];list.forEach(t=>{if(t.ions&&!t.weak)t.ions.forEach(([k,n])=>{const ex=out.find(o=>o.ion===k);if(ex)ex.c+=t.c*n;else out.push({c:t.c*n,ion:k,f:ionStr(k),st:"aq"})});else out.push(Object.assign({},t))});return out};
+    const L=split(left),Rr=split(right);const so2={s:0,aq:1,l:2,g:3};
+    /* spectators: ions identical on both sides */
+    const spect=[];L.forEach(t=>{if(!t.ion)return;const m=Rr.find(o=>o.ion===t.ion);if(m){const n=Math.min(t.c,m.c);if(n===t.c&&n===m.c)spect.push(t.ion);t.sp=n;m.sp=n}});
+    R.ionic={left:L,right:Rr};R.spect=spect;
+    if(!R.NR){const nl=L.map(t=>({c:t.c-(t.sp||0),f:t.f,st:t.st,ion:t.ion})).filter(t=>t.c>0),nr=Rr.map(t=>({c:t.c-(t.sp||0),f:t.f,st:t.st,ion:t.ion})).filter(t=>t.c>0);
+      const rank=t=>t.ion==='H+'?0:!t.ion&&t.st==='aq'?0:t.ion&&ION[t.ion].q>0?1:t.ion?2:3;nl.sort((x,y)=>rank(x)-rank(y));nr.sort((x,y)=>so2[x.st]-so2[y.st]);
+      const g=[...nl,...nr].reduce((a,t)=>gcd(a,t.c),0)||1;nl.forEach(t=>t.c/=g);nr.forEach(t=>t.c/=g);R.net={left:nl,right:nr}}}
+  /* quantities */
+  const inv2=Object.assign({},inv);let hac=nHAc,hco3=0,ac=0;R.reactions=[];
+  kinds.forEach((k,i)=>{if(!k)return;const [cat,an]=pairs[i];
+    if(k==="ppt"){const u=unitOf(cat,an);const x=Math.min(inv2[cat]/u.a,inv2[an]/u.b);inv2[cat]-=x*u.a;inv2[an]-=x*u.b;const mm=molarMass(u.f);const pc=PPTCOL[u.f]||["ppt-w","white"];
+      R.ppt.push({f:u.f,mol:x,g:x*mm,mm,col:pc[0],cname:pc[1],slight:!!solubility(cat,an).slight});R.reactions.push({k,cat,an,x,a:u.a,b:u.b,f:u.f})}
+    else if(k==="ag2o"){const x=Math.min(inv2["Ag+"],inv2["OH-"])/2;inv2["Ag+"]-=2*x;inv2["OH-"]-=2*x;const mm=molarMass("Ag2O");R.ppt.push({f:"Ag2O",mol:x,g:x*mm,mm,col:"ppt-br",cname:"dark brown"});R.reactions.push({k,cat,an,x})}
+    else if(k==="water"){const x=Math.min(inv2["H+"],inv2["OH-"]);inv2["H+"]-=x;inv2["OH-"]-=x;R.heat+=55.8*x;R.reactions.push({k,x})}
+    else if(k==="wwater"){const x=Math.min(hac,inv2["OH-"]);hac-=x;inv2["OH-"]-=x;ac+=x;R.heat+=55.8*x;R.reactions.push({k,x})}
+    else if(k==="gas"){const x1=Math.min(inv2["CO32-"],inv2["H+"]);inv2["CO32-"]-=x1;inv2["H+"]-=x1;hco3+=x1;const x2=Math.min(hco3,inv2["H+"]);hco3-=x2;inv2["H+"]-=x2;R.gas+=x2;R.reactions.push({k,x1,x2});if(x2<x1*.999)R.note="Not enough acid to finish: some carbonate stops at HCO₃⁻ (hydrogen carbonate), which gives no gas yet."}
+    else if(k==="wgas"){const x1=Math.min(inv2["CO32-"],hac);inv2["CO32-"]-=x1;hac-=x1;ac+=x1;hco3+=x1;const x2=Math.min(hco3,hac);hco3-=x2;hac-=x2;ac+=x2;R.gas+=x2;R.reactions.push({k,x1,x2});if(x2<x1*.999)R.note="Not enough acid to finish: some carbonate stops at HCO₃⁻ (hydrogen carbonate), which gives no gas yet."}});
+  if(ac>0)inv2["Ac-"]=(inv2["Ac-"]||0)+ac;if(hco3>0)inv2["HCO3-"]=(inv2["HCO3-"]||0)+hco3;
+  Object.keys(inv2).forEach(k=>{if(inv2[k]<1e-12)inv2[k]=0});
+  R.inv=inv2;R.hac=hac;
+  R.dT=R.heat*1000/((vA+vB)*4.184);
+  R.kNoRx=kappa(inv,nHAc,0,V);R.kAfter=kappa(inv2,hac,inv2["Ac-"]||0,V);R.kA=kappa(ionsOf(A,nA),A.kind==="weak"?nA:0,0,vA/1000);R.kB=kappa(ionsOf(B,nB),B.kind==="weak"?nB:0,0,vB/1000);
+  /* limiting */
+  const rx=R.reactions.find(r=>r.k==="ppt")||R.reactions[0];
+  if(rx&&rx.k==="ppt"){const lc=inv2[rx.cat]<1e-12,la=inv2[rx.an]<1e-12;R.limiting=lc&&la?"neither: exact ratio":lc?ionStr(rx.cat):ionStr(rx.an);R.excess=lc&&la?"":(lc?ionStr(rx.an)+" "+(inv2[rx.an]*1000).toFixed(2)+" mmol":ionStr(rx.cat)+" "+(inv2[rx.cat]*1000).toFixed(2)+" mmol")}
+  else if(rx&&(rx.k==="gas"||rx.k==="wgas")){const hLeft=rx.k==="gas"?inv2["H+"]:hac;const cLeft=(inv2["CO32-"]||0)+hco3;if(hLeft<1e-12&&cLeft<1e-12)R.limiting="neither: exact ratio";else if(hLeft<1e-12){R.limiting=rx.k==="gas"?"H^+ (the acid)":"HC2H3O2 (the acid)";R.excess="carbonate "+(cLeft*1000).toFixed(2)+" mmol"}else{R.limiting="CO3^2-";R.excess=(rx.k==="gas"?"H^+ ":"HC2H3O2 ")+(hLeft*1000).toFixed(2)+" mmol"}}
+  else if(rx&&(rx.k==="water"||rx.k==="wwater")){const lh=(rx.k==="water"?inv2["H+"]:hac)<1e-12,lo=inv2["OH-"]<1e-12;R.limiting=lh&&lo?"neither: exact ratio":lh?(rx.k==="water"?"H^+":"HC2H3O2"):"OH^-";R.excess=lh&&lo?"":lh?"OH^- "+(inv2["OH-"]*1000).toFixed(2)+" mmol":(rx.k==="water"?"H^+ "+(inv2["H+"]*1000).toFixed(2):"HC2H3O2 "+(hac*1000).toFixed(2))+" mmol"}
+  /* observations */
+  R.ppt.forEach(p=>R.obs.push((p.cname==="white"?"a white":/^[aeiou]/.test(p.cname)?"an "+p.cname:"a "+p.cname)+" precipitate of "+chemTxt(p.f)+(p.slight?" (slightly soluble, but it forms at these amounts)":"")));
+  if(R.gas>0)R.obs.push("bubbles of CO₂ gas");if(R.dT>0.05)R.obs.push("the mixture warms by "+R.dT.toFixed(1)+" °C");
+  const cu0=(inv["Cu2+"]||0)/V,cu1=(inv2["Cu2+"]||0)/V,ni0=(inv["Ni2+"]||0)/V,ni1=(inv2["Ni2+"]||0)/V;
+  if(cu0>0&&cu1<1e-9)R.obs.push("the blue colour of Cu²⁺ disappears");else if(cu0>0&&cu1<cu0*.9)R.obs.push("the blue colour fades");
+  if(ni0>0&&ni1<1e-9)R.obs.push("the green colour of Ni²⁺ disappears");
+  R.cu=cu1;R.ni=ni1;R.cu0=cu0;R.ni0=ni0;
+  return R}
+function ionsOf(s,n){const o={};if(!s||s.kind!=="strong")return o;const u=unitOf(s.cat,s.an);o[s.cat]=u.a*n;o[s.an]=(o[s.an]||0)+u.b*n;return o}
+/* ideal conductivity estimate, mS/cm: sum c*lambda; weak acid ionized fraction from Ka */
+function kappa(inv,nHAc,nAc,VL){if(VL<=0)return 0;let k=0;Object.keys(inv).forEach(i=>{if(LAM[i])k+=inv[i]/VL*LAM[i]});
+  if(nHAc>0){const Ca=nHAc/VL,Cb=nAc/VL,Ka=1.8e-5;let h;if(Cb>1e-9)h=Ka*Ca/Cb;else h=(-Ka+Math.sqrt(Ka*Ka+4*Ka*Ca))/2;h=Math.min(h,Ca);if(!(inv["OH-"]>0))k+=h*(LAM["H+"]+LAM["Ac-"])}
+  return k}
+function termStr(t){return (t.c>1?t.c:"")+t.f+(t.ion?"":"")+(t.st?"("+t.st+")":"")}
+function eqHTML(side,spect,keyIons){const s=list=>list.map(t=>{const isSp=t.ion&&spect&&spect.indexOf(t.ion)>=0;const isKey=keyIons&&!isSp&&(t.ion?keyIons:!t.ion&&t.st!=="aq");const h=chemHTML(termStr(t));return isSp?`<span class="spect">${h}<span class="gk-sr"> (spectator)</span></span>`:isKey?`<span class="key">${h}</span>`:h}).join(" + ");
+  return `<span class="eq">${s(side.left)} → ${s(side.right)}</span>`}
+function eqStr(side){return side.left.map(termStr).join(" + ")+" → "+side.right.map(termStr).join(" + ")}
+/* ================= PART 1: mixing bench ================= */
+const BS={a:"AgNO3",b:"NaCl",cA:.1,vA:50,cB:.1,vB:50,slot:"A",phase:"idle",t:0,R:null,parts:[],tick:0,bursts:[],slotN:0,done:new Set(),hlT:0,rxDone:false};
+const BCHAL=["Make a bright yellow precipitate","Find a pair that does not react","Make CO₂ gas bubble out (hint: enough acid)","Warm the mixture by at least 3 °C","Remove ALL the blue Cu²⁺ from the solution","Use up both reactants exactly, with different volumes or molarities","Make the conductivity fall below half of the no-reaction value"];
+const BOX={x:414,y:44,w:370,h:318};
+function bottleSVG(s){const liq=s.id==="CuSO4"?"var(--sol-cu)":s.id==="NiNO32"?"var(--sol-ni)":"var(--water)";
+  return `<svg viewBox="0 0 22 30" aria-hidden="true" focusable="false"><rect x="7" y="1" width="8" height="5" rx="1.5" fill="var(--ink-soft)"/><path d="M6 6 h10 v3 q4 2 4 6 v12 q0 2 -2 2 h-14 q-2 0 -2 -2 v-12 q0 -4 4 -6z" fill="var(--glass)" stroke="var(--glass-edge)"/><path d="M3 15 h16 v12 q0 1.5 -1.5 1.5 h-13 q-1.5 0 -1.5 -1.5z" fill="${liq}" opacity=".9"/>${s.kind!=="strong"?`<text x="11" y="25" font-size="6.5" font-family="IBM Plex Mono,monospace" font-weight="700" text-anchor="middle" fill="var(--ink)">${s.kind==="weak"?"weak":"non"}</text>`:""}</svg>`}
+function benchShelf(){const el=$("#shelf");el.innerHTML="";SOLS.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="bottle";const inA=BS.a===s.id,inB=BS.b===s.id;
+  const tag=inA&&inB?"A,B":inA?"A":inB?"B":"";b.innerHTML=bottleSVG(s)+`<span>${chemHTML(solFormula(s))}<span class="gk-sr">, ${s.name}${s.kind!=="strong"?" ("+(s.kind==="weak"?"weak acid":"non-electrolyte")+")":""}${tag?", in beaker "+tag.replace(","," and "):""}</span></span>`+(tag?`<span class="tagab" aria-hidden="true">${tag}</span>`:"");b.setAttribute("aria-pressed",String(!!tag));
+  b.onclick=()=>{if(BS.slot==="A"){BS.a=s.id;BS.slot="B"}else{BS.b=s.id;BS.slot="A"}benchReset();const nb=$("#shelf").children[SOLS.indexOf(s)];if(nb)nb.focus()};el.appendChild(b)})}
+function benchSlots(){$("#slotAName").innerHTML=chemHTML(solFormula(SOL[BS.a]));$("#slotBName").innerHTML=chemHTML(solFormula(SOL[BS.b]));$("#slotA").setAttribute("aria-pressed",String(BS.slot==="A"));$("#slotB").setAttribute("aria-pressed",String(BS.slot==="B"))}
+$("#slotA").onclick=()=>{BS.slot="A";benchSlots()};$("#slotB").onclick=()=>{BS.slot="B";benchSlots()};
+["cA","vA","cB","vB"].forEach(k=>{const el=$("#"+k);el.oninput=()=>{BS[k]=+el.value;benchOut();benchReset()}});
+function benchOut(){$("#cAo").textContent=BS.cA.toFixed(2)+" M";$("#cBo").textContent=BS.cB.toFixed(2)+" M";$("#vAo").textContent=BS.vA+" mL";$("#vBo").textContent=BS.vB+" mL"}
+/* particles */
+function mkP(k,reg,i){const x=reg[0]+14+Math.random()*(reg[2]-28),y=reg[1]+14+Math.random()*(reg[3]-28);const a=Math.random()*TAU,v=28+Math.random()*24;return {k,x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,st:"free",reg:"A",i}}
+function benchReset(){BS.phase="idle";BS.t=0;BS.rxDone=false;BS.bursts=[];BS.slotN=0;BS.R=mixSolutions(BS.a,BS.b,BS.cA,BS.vA,BS.cB,BS.vB);
+  const R=BS.R;const unit=Math.max(R.nA,R.nB)/7;const half=BOX.w/2;
+  const regA=[BOX.x,BOX.y,half-3,BOX.h],regB=[BOX.x+half+3,BOX.y,half-3,BOX.h];BS.parts=[];
+  [[SOL[BS.a],R.nA,regA,"A"],[SOL[BS.b],R.nB,regB,"B"]].forEach(([s,n,reg,tag])=>{const u=Math.max(1,Math.round(n/unit));
+    for(let j=0;j<u;j++){if(s.kind==="non"){const p=mkP("sugar",reg);p.reg=tag;BS.parts.push(p);continue}if(s.kind==="weak"){const p=mkP("HAc",reg);p.reg=tag;BS.parts.push(p);continue}
+      const uu=unitOf(s.cat,s.an);for(let c=0;c<uu.a;c++){const p=mkP(s.cat,reg);p.reg=tag;BS.parts.push(p)}for(let c=0;c<uu.b;c++){const p=mkP(s.an,reg);p.reg=tag;BS.parts.push(p)}}});
+  for(let j=0;j<10;j++){const p=mkP("H2O",j<5?regA:regB);p.reg=j<5?"A":"B";p.bgw=true;BS.parts.push(p)}
+  benchShelf();benchSlots();benchUI();a11yKey=""}
+function benchPour(){if(BS.phase!=="idle"){benchReset()}BS.phase="pour";BS.t=0;$("#pourBtn").textContent="Pour again";a11yKey=""}
+$("#pourBtn").onclick=benchPour;$("#resetBtn").onclick=()=>{benchReset();$("#pourBtn").textContent="Pour B into A"};
+function freeOf(k){return BS.parts.filter(p=>p.st==="free"&&p.k===k&&!p.bgw)}
+function nearest(list,x,y){let b=null,bd=1e9;list.forEach(p=>{const d=Math.hypot(p.x-x,p.y-y);if(d<bd){bd=d;b=p}});return b}
+function slotPos(n){const cols=14;return [BOX.x+18+(n%cols)*24.5+(Math.floor(n/cols)%2)*12,BOX.y+BOX.h-14-Math.floor(n/cols)*19]}
+function moveTo(p,x,y,dur,then){p.st="move";p.fx=p.x;p.fy=p.y;p.tx=x;p.ty=y;p.t0=BS.t;p.dur=dur;p.then=then}
+function benchEvent(){const R=BS.R;if(!R||R.NR)return false;
+  for(const rx of R.reactions){
+    if(rx.k==="ppt"||rx.k==="ag2o"){const a=rx.k==="ag2o"?2:rx.a,b=rx.k==="ag2o"?2:rx.b;const cs=freeOf(rx.cat),as=freeOf(rx.an);if(cs.length<a||as.length<b)continue;
+      const c0=pick(cs);const grp=[c0];const cs2=cs.filter(p=>p!==c0);for(let i=1;i<a;i++){const q=nearest(cs2,c0.x,c0.y);grp.push(q);cs2.splice(cs2.indexOf(q),1)}
+      const as2=as.slice();for(let i=0;i<b;i++){const q=nearest(as2,c0.x,c0.y);grp.push(q);as2.splice(as2.indexOf(q),1)}
+      const mx=grp.reduce((s,p)=>s+p.x,0)/grp.length,my=grp.reduce((s,p)=>s+p.y,0)/grp.length;
+      grp.forEach((p,i)=>{p.st="busy";const off=(i-(grp.length-1)/2)*16;moveTo(p,mx+off,my,.5,()=>{
+        if(rx.k==="ag2o"&&p.k==="OH-"&&i===grp.length-1){p.k="H2O";p.st="free";return}
+        const s=slotPos(BS.slotN++);moveTo(p,s[0],s[1],1.3,()=>{p.st="solid";p.solidCol=PPTCOL[rx.k==="ag2o"?"Ag2O":rx.f][0];if(rx.k==="ag2o"&&p.k==="OH-")p.k="O"})})});
+      return true}
+    if(rx.k==="water"||rx.k==="wwater"){const hs=freeOf(rx.k==="water"?"H+":"HAc"),os=freeOf("OH-");if(!hs.length||!os.length)continue;const h=pick(hs),o=nearest(os,h.x,h.y);const mx=(h.x+o.x)/2,my=(h.y+o.y)/2;
+      h.st="busy";o.st="busy";moveTo(h,mx-6,my,.55,()=>{if(rx.k==="water"){h.st="gone"}else{h.k="Ac-";h.st="free"}});moveTo(o,mx+6,my,.55,()=>{o.k="H2O";o.st="free";BS.bursts.push({x:mx,y:my,t0:BS.t})});return true}
+    if(rx.k==="gas"||rx.k==="wgas"){const acid=rx.k==="gas"?"H+":"HAc";const hs=freeOf(acid);if(!hs.length)continue;
+      const tgts=freeOf("HCO3-").length?freeOf("HCO3-"):freeOf("CO32-");if(!tgts.length)continue;const c=pick(tgts),h=nearest(hs,c.x,c.y);const mx=(h.x+c.x)/2,my=(h.y+c.y)/2;h.st="busy";c.st="busy";
+      const second=c.k==="HCO3-";
+      moveTo(h,mx-6,my,.55,()=>{if(rx.k==="gas"){if(second){h.k="H2O";h.st="free"}else h.st="gone"}else{h.k="Ac-";h.st="free";if(second){const w=mkP("H2O",[mx-5,my-5,10,10]);w.reg="A";BS.parts.push(w)}}});
+      moveTo(c,mx+6,my,.55,()=>{if(second){c.k="CO2";c.st="rise";c.vy=-60;c.vx=0}else{c.k="HCO3-";c.st="free"}});return true}}
+  return false}
+function benchStep(dt){if(!BS.R)return;BS.t+=dt;const T=BS.t;
+  if(BS.phase==="pour"&&T>1.6){BS.phase="mixed";BS.tick=0;BS.parts.forEach(p=>{if(p.reg==="B"&&!p.bgw){p.y=BOX.y+10+Math.random()*30;p.x=BOX.x+20+Math.random()*(BOX.w-40)}p.reg="all"})}
+  const temp=22+(BS.R?BS.R.dT:0)*(BS.phase==="mixed"?BS.heatF():0);const spd=Math.sqrt((273+temp)/295);
+  if(BS.phase==="mixed"){BS.tick+=dt;if(BS.tick>.32&&!BS.rxDone){BS.tick=0;if(!benchEvent()&&BS.parts.every(p=>p.st!=="busy"&&p.st!=="move"))BS.rxDone=true}}
+  const half=BOX.w/2;
+  BS.parts.forEach(p=>{
+    if(p.st==="move"){const f=clamp((T-p.t0)/p.dur,0,1),q=smooth(f);p.x=lerp(p.fx,p.tx,q);p.y=lerp(p.fy,p.ty,q);if(f>=1){const th=p.then;p.then=null;p.st="busy";if(th)th();if(p.st==="busy")p.st="free"}return}
+    if(p.st==="solid"||p.st==="gone"||p.st==="busy")return;
+    if(p.st==="rise"){p.y+=p.vy*dt;p.x+=Math.sin(T*4+p.x)*.4;if(p.y<BOX.y-20)p.st="gone";return}
+    p.vx+=(Math.random()-.5)*60*dt;p.vy+=(Math.random()-.5)*60*dt;const v=Math.hypot(p.vx,p.vy)||1,tv=40*spd;p.vx*=tv/v;p.vy*=tv/v;
+    p.x+=p.vx*dt;p.y+=p.vy*dt;
+    let x0=BOX.x+12,x1=BOX.x+BOX.w-12,y0=BOX.y+12,y1=BOX.y+BOX.h-30;if(BS.phase!=="mixed"){if(p.reg==="A")x1=BOX.x+half-14;else if(p.reg==="B")x0=BOX.x+half+14}
+    if(p.x<x0){p.x=x0;p.vx=Math.abs(p.vx)}if(p.x>x1){p.x=x1;p.vx=-Math.abs(p.vx)}if(p.y<y0){p.y=y0;p.vy=Math.abs(p.vy)}if(p.y>y1){p.y=y1;p.vy=-Math.abs(p.vy)}});
+  BS.bursts=BS.bursts.filter(b=>T-b.t0<1.2)}
+BS.heatF=()=>clamp((BS.t-1.6)/4,0,1);
+function drawP(p,hl){const s=.8;if(p.st==="gone")return;
+  if(p.k==="HCO3-"){polyIon(p.x,p.y,"CO3",s,0,{charge:false,hl});atom(p.x+11,p.y-9,"H",4.5,{lab:false});chargeBadge(p.x+14,p.y+10,"−",6);return}
+  if(p.k==="H2O"){water(p.x,p.y,p.x*.05+BS.t*.8,1,{a:p.bgw?.45:.95});return}
+  if(p.k==="CO2"){circ(p.x,p.y,15,hexA(C.panel,.35),hexA(C.ink,.45),1.3);polyIon(p.x,p.y,"CO2",.9,0,{});return}
+  if(p.st==="solid"){sp(p.x,p.y,p.k,s,{charge:false,lab:false});return}
+  sp(p.x,p.y,p.k,s,{hl,lab:true})}
+function benchLiquid(){const R=BS.R;const mixed=BS.phase==="mixed";const pr=mixed?clamp((BS.t-1.6)/3,0,1):0;
+  const cu=mixed?lerp(R.cu0,R.cu,pr):((SOL[BS.a].cat==="Cu2+")?BS.cA:0),ni=mixed?lerp(R.ni0,R.ni,pr):((SOL[BS.a].cat==="Ni2+")?BS.cA:0);
+  let c=C.water;if(cu>0)c=mix(c,C["sol-cu"],clamp(cu/.2,.15,1)*.9);if(ni>0)c=mix(c,C["sol-ni"],clamp(ni/.2,.15,1)*.9);return c}
+function colB(){const s=SOL[BS.b];return s.cat==="Cu2+"?mix(C.water,C["sol-cu"],clamp(BS.cB/.2,.15,1)*.9):s.cat==="Ni2+"?mix(C.water,C["sol-ni"],clamp(BS.cB/.2,.15,1)*.9):C.water}
+function drawBench(now){use(S1);const R=BS.R;if(!R)return;const T=BS.t,Tw=now/1000;const mixed=BS.phase==="mixed",pouring=BS.phase==="pour";
+  /* macro */
+  panelBox(12,12,388,370);title(26,32,"Bench");levelTag(26,52,"MACROSCOPIC");
+  const pf=pouring?smooth(clamp(T/1.4,0,1)):mixed?1:0;
+  const ax=70,ay=170,aw=170,ah=170;const lvA=(BS.vA+BS.vB*pf)/200;
+  const pptAmt=R.ppt.reduce((s,p)=>s+p.g,0);const pc=R.ppt.length?C[R.ppt[0].col]:null;const pr=mixed?clamp((T-1.6)/5,0,1):0;
+  beaker(ax,ay,aw,ah,lvA,benchLiquid(),{cloud:R.ppt.length?smooth(clamp(pr*3,0,1))*(1-smooth(seg(pr,.4,1))):0,ppt:R.ppt.length?clamp(.25+pptAmt/1.2,0,1)*smooth(seg(pr,.3,1)):0,pptCol:pc,bub:mixed&&R.gas>0&&T<14?{T:Tw,n:Math.round(clamp(R.gas*1e4,6,26)),rate:.9}:null,lab:"A: "+chemTxt(solFormula(R.A))});
+  /* beaker B tilting */
+  ctx.save();const bx=268,by=96,bw=96,bh=92;const ang=pouring?-1.9*Math.sin(Math.min(1,T/1.4)*Math.PI*.5)*(T<1.4?1:1-smooth(seg(T,1.4,1.6))):0;
+  ctx.translate(bx,by);ctx.rotate(ang);beaker(0,0,bw,bh,(BS.vB/100)*(1-pf),colB(),{grad:false});ctx.restore();
+  txt(bx+bw/2,by+bh+14,"B: "+chemTxt(solFormula(R.B)),{size:12,weight:600,align:"center"});
+  if(pouring&&T>.5&&T<1.5){ctx.beginPath();ctx.moveTo(bx-4,by+2);ctx.quadraticCurveTo(bx-30,by+30,ax+aw*.7,ay+ah-ah*lvA+4);ctx.strokeStyle=hexA(colB()==="rgb(0,0,0)"?C.water:colB(),.95);ctx.lineWidth=6;ctx.stroke();ctx.strokeStyle=C["water-edge"];ctx.lineWidth=1;ctx.stroke()}
+  /* thermometer + bulb */
+  const tC=22+R.dT*(mixed?BS.heatF():0);thermo(40,170,140,(tC-15)/25,{});txt(40,152,tC.toFixed(1)+" °C",{size:12,mono:true,weight:700,align:"center"});
+  const kNow=mixed?lerp(R.kNoRx,R.kAfter,clamp((T-1.6)/4,0,1)):pouring?R.kA:R.kA;const bright=clamp(kNow/35,0,1);
+  bulbTester(170,86,14,bright,ay+ah-24,{});
+  rr(192,60,72,40,6);ctx.fillStyle="#0A1014";ctx.fill();txt(228,72,"mS/cm",{size:10.5,mono:true,color:"#A3B2BA",align:"center"});txt(228,88,kNow.toFixed(1),{size:14,mono:true,weight:700,color:"#7FE0A8",align:"center"});
+  if(mixed&&R.gas>0)txt(155,ay-12,"fizzing",{size:12,weight:700,align:"center",color:C["ink-soft"]});
+  /* particle view */
+  panelBox(406,12,382,370);title(420,32,mixed?"Zoomed in: the mixture":"Zoomed in: A | B");levelTag(700,32,"PARTICLES");
+  ctx.save();rr(BOX.x,BOX.y,BOX.w,BOX.h,6);ctx.fillStyle=hexA(C.water,.35);ctx.fill();ctx.clip();
+  if(!mixed){const da=pouring?1-smooth(clamp(T/1.5,0,1)):1;withA(da,()=>{ctx.fillStyle=C.rule;ctx.fillRect(BOX.x+BOX.w/2-3,BOX.y,6,BOX.h)});if(da>.5){txt(BOX.x+10,BOX.y+14,"A",{size:13,mono:true,weight:700,color:C["ink-soft"]});txt(BOX.x+BOX.w-18,BOX.y+14,"B",{size:13,mono:true,weight:700,color:C["ink-soft"]})}}
+  const solids=BS.parts.filter(p=>p.st==="solid");if(solids.length){const ys=solids.map(p=>p.y);const top=Math.min(...ys)-12;rr(BOX.x+4,top,BOX.w-8,BOX.y+BOX.h-top-2,6);ctx.fillStyle=hexA(pc||C["ppt-w"],.45);ctx.fill()}
+  const hlK=benchHL();let hlDone=false;
+  BS.parts.filter(p=>p.bgw).forEach(p=>drawP(p));
+  BS.parts.filter(p=>!p.bgw).forEach(p=>{const h=!hlDone&&hlK&&p.k===hlK&&p.st==="free";if(h)hlDone=true;drawP(p,h?C.accent:null)});
+  BS.bursts.forEach(b=>heatBurst(b.x,b.y,34,(T-b.t0)/1.2,C.heat));
+  ctx.restore();
+  speedNote(782,374,"sample of particles · not to scale");
+  /* symbolic strip */
+  panelBox(12,392,776,70);title(26,410,"Net ionic equation");levelTag(170,410,"SYMBOLIC");
+  if(BS.phase==="idle"){txt(400,438,"Predict first: will a solid, water or a gas form? Then pour.",{size:14,weight:600,align:"center",color:C["ink-soft"]})}
+  else if(R.NR){txt(400,438,"No reaction: "+R.why,{size:13.5,weight:600,align:"center"})}
+  else if(R.net){const parts=[];R.net.left.forEach((t,i)=>{if(i)parts.push(" + ");parts.push({t:termStr(t),hl:mixed&&t.ion===hlK?C.accent:null})});parts.push(" → ");R.net.right.forEach((t,i)=>{if(i)parts.push(" + ");parts.push({t:termStr(t)})});
+    const w=eqW(parts,18);eqLine(400,436,parts,{size:w>700?15:18})}}
+function benchHL(){const R=BS.R;if(!R||!R.net||BS.phase!=="mixed")return null;const ks=R.net.left.filter(t=>t.ion).map(t=>t.ion);const hac=R.net.left.find(t=>t.f==="HC2H3O2");if(hac)ks.push("HAc");if(!ks.length)return null;return ks[Math.floor(BS.t/2)%ks.length]}
+function benchUI(){const R=BS.R;const mixed=BS.phase!=="idle";
+  const rows=[[`A: ${BS.vA} mL × ${BS.cA.toFixed(2)} M`,`${(R.nA*1000).toFixed(2)} mmol`],[`B: ${BS.vB} mL × ${BS.cB.toFixed(2)} M`,`${(R.nB*1000).toFixed(2)} mmol`],["Total volume",(BS.vA+BS.vB)+" mL"]];
+  if(mixed){rows.push(["Precipitate",R.ppt.length?R.ppt.map(p=>chemHTML(p.f)+": "+(p.mol*1000).toFixed(2)+" mmol, "+p.g.toFixed(3)+" g").join("<br>"):"none"]);
+    rows.push(["Gas",R.gas>0?"CO<sub>2</sub>: "+(R.gas*1000).toFixed(2)+" mmol":"none"]);
+    if(R.limiting)rows.push(["Limiting",chemHTML(R.limiting)+(R.excess?"<br>left over: "+chemHTML(R.excess):"")]);
+    rows.push(["Temperature",`22.0 → ${(22+R.dT).toFixed(1)} °C`]);rows.push(["Conductivity (no reaction → actual)",`${R.kNoRx.toFixed(1)} → ${R.kAfter.toFixed(1)} mS/cm`])}
+  else rows.push(["Conductivity of A",R.kA.toFixed(1)+" mS/cm"]);
+  $("#benchRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  const eq=$("#benchEq");
+  if(!mixed){eq.innerHTML=`<p class="small" style="margin:6px 0">Pour B into A to see the molecular, complete ionic and net ionic equations. Predict first: which new pairs could form, and are they soluble?</p>`}
+  else if(!R.mol){eq.innerHTML=`<div class="eqrow"><span class="k">Result</span><span class="v">No reaction. ${R.why}</span></div>`}
+  else{eq.innerHTML=`<div class="eqrow"><span class="k">Molecular</span><span class="v">${eqHTML(R.mol)}</span></div><div class="eqrow"><span class="k">Complete ionic</span><span class="v">${eqHTML(R.ionic,R.spect,true)}</span></div>`+
+    `<div class="eqrow"><span class="k">Spectator ions</span><span class="v">${R.spect.length?R.spect.map(k=>chemHTML(ionStr(k))).join(", ")+" (struck through above)":"none"}</span></div>`+
+    `<div class="eqrow"><span class="k">Net ionic</span><span class="v">${R.net?eqHTML(R.net):"none: no reaction (NR). All ions are spectators."}</span></div>`+
+    `<div class="eqrow"><span class="k">You see</span><span class="v">${R.obs.length?R.obs.join("; ")+".":R.NR?"Nothing changes: the mixture stays clear.":"No visible change."}${R.note?" "+R.note:""}</span></div>`}
+  $("#benchCap").textContent=benchCaption();
+  $("#benchLegend").innerHTML=benchLegend();
+  if(mixed)benchChal();chalUI($("#benchChal"),BCHAL,BS.done)}
+function benchCaption(){const R=BS.R;if(BS.phase==="idle")return `A: ${BS.vA} mL of ${BS.cA.toFixed(2)} M ${R.A.name}. B: ${BS.vB} mL of ${BS.cB.toFixed(2)} M ${R.B.name}. Press Pour.`;
+  if(R.NR)return "No reaction: "+R.why;return "You see "+(R.obs.length?R.obs.join("; "):"no visible change")+"."}
+function benchLegend(){const R=BS.R;const ks=new Set();[R.A,R.B].forEach(s=>{if(s.kind==="strong"){ks.add(s.cat);ks.add(s.an)}else if(s.kind==="weak")ks.add("HAc");else ks.add("sugar")});
+  const col=k=>({"Ag+":"el-ag","Pb2+":"el-pb","Ba2+":"el-ba","Ca2+":"el-ca","Cu2+":"el-cu","Ni2+":"el-ni","Na+":"el-na","K+":"el-k","H+":"el-h","NO3-":"el-n","Cl-":"el-cl","I-":"el-i","SO42-":"el-s","CO32-":"el-c","OH-":"el-o","HAc":"el-c","sugar":"el-c"})[k];
+  return [...ks].map(k=>`<span><i style="background:var(--${col(k)})"></i><bdi>${k==="HAc"?"acetic acid molecule":k==="sugar"?"sugar molecule":chemHTML(ionStr(k))+" "+ION[k].n}</bdi></span>`).join("")}
+function benchChal(){const R=BS.R;const d=BS.done;
+  if(R.ppt.some(p=>p.f==="PbI2"))d.add(0);if(R.NR&&SOL[BS.a].kind!=="non"&&SOL[BS.b].kind!=="non"&&BS.a!==BS.b)d.add(1);if(R.gas>0)d.add(2);if(R.dT>=3)d.add(3);
+  if(R.cu0>0&&R.cu<1e-9)d.add(4);if(R.limiting==="neither: exact ratio"&&Math.abs(R.nA-R.nB)>1e-9)d.add(5);if(!R.NR&&R.kAfter<R.kNoRx/2)d.add(6)}
+function benchA11y(){const R=BS.R;if(!R)return [null,""];const st=BS.phase==="idle"?"before pouring":BS.phase==="pour"?"pouring":BS.rxDone?"after the reaction":"reacting";
+  const lab=`Mixing bench, ${st}: ${BS.vA} mL of ${BS.cA.toFixed(2)} M ${R.A.name} in beaker A and ${BS.vB} mL of ${BS.cB.toFixed(2)} M ${R.B.name} in beaker B.`;
+  let d=lab+" ";if(BS.phase==="idle")d+="The particle view is split: the ions of A on the left and of B on the right, each moving freely. A thermometer reads 22.0 degrees and the conductivity meter reads "+R.kA.toFixed(1)+" millisiemens per centimetre.";
+  else if(R.NR)d+="The two sets of particles mix and keep moving freely; nothing pairs up. "+R.why;
+  else d+="After pouring, the particles mix. "+(R.ppt.length?"Pairs of "+R.net.left.map(t=>chemTxt(t.f)).join(" and ")+" meet and settle together as a solid layer at the bottom. ":"")+(R.reactions.some(r=>r.k==="water"||r.k==="wwater")?"Hydrogen ions or acid molecules meet hydroxide ions and become water molecules with small bursts of heat. ":"")+(R.gas>0?"Carbonate ions pick up hydrogen ions and turn into CO2 molecules that rise and leave as bubbles. ":"")+"In the beaker you see "+(R.obs.join("; ")||"no visible change")+".";
+  return [lab,d]}
+/* ================= PART 2: dilution and molarity simulator ================= */
+const DSOL={cu:{f:"CuSO4",name:"copper(II) sulfate",mm:159.61,col:"sol-cu",ion:"Cu2+",k:2.2},mn:{f:"KMnO4",name:"potassium permanganate",mm:158.03,col:"sol-mn",ion:"K+",k:9},ni:{f:"NiCl2",name:"nickel(II) chloride",mm:129.60,col:"sol-ni",ion:"Ni2+",k:2}};
+const DS={sol:"cu",mode:"stock",M1:1.0,V1:25,V2:100,mass:3.99,run:false,t:0,made:false,done:new Set(),msgT:0};
+const DCHAL=["Make exactly 0.100 M from the 1.00 M stock","Make a 1-in-10 dilution in the 500 mL flask","Make a 0.0500 M solution (any method)","From solid: make 250.0 mL of 0.100 M CuSO₄","Make a solution 20 times more dilute than its stock"];
+function dilCalc(){const S=DSOL[DS.sol];if(DS.mode==="stock"){const n=DS.M1*DS.V1/1000;return {n,M2:n/(DS.V2/1000),df:DS.V2/DS.V1,ok:DS.V1<DS.V2}}const n=DS.mass/S.mm;return {n,M2:n/(DS.V2/1000),df:null,ok:true}}
+function dilUI(){const S=DSOL[DS.sol];const c=dilCalc();$("#dM1o").textContent=DS.M1.toFixed(2)+" M";$("#dMasso").textContent=DS.mass.toFixed(2)+" g";
+  $("#dilStockCtl").hidden=DS.mode!=="stock";$("#dilSolidCtl").hidden=DS.mode!=="solid";
+  const rows=DS.mode==="stock"?[["Stock, M₁",DS.M1.toFixed(2)+" M"],["Pipette, V₁",DS.V1.toFixed(2)+" mL"],["Flask, V₂",DS.V2.toFixed(1)+" mL"],["Moles moved",(c.n*1000).toFixed(3)+" mmol"],["New molarity, M₂",fmtSig(c.M2,3)+" M"],["Dilution factor",c.ok?"1 in "+fmtSig(c.df,3):"not a dilution"]]
+    :[["Solid",chemHTML(S.f)+", "+S.mm.toFixed(2)+" g/mol"],["Mass",DS.mass.toFixed(2)+" g"],["Moles",fmtSig(c.n,3)+" mol"],["Flask",DS.V2.toFixed(1)+" mL"],["Molarity",fmtSig(c.M2,3)+" M"]];
+  $("#dilRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  const m=$("#dilMsg");if(!c.ok){m.className="msg show warn";m.textContent="The pipette volume must be smaller than the flask: diluting means adding water."}else if(DS.made){m.className="msg show good";m.textContent=`Made ${DS.V2.toFixed(1)} mL of ${fmtSig(c.M2,3)} M ${S.f.replace(/(\d)/g,d=>SUBU[d])}.`}else{m.className="msg";m.textContent=""}
+  $("#dilRun").disabled=!c.ok;$("#dilCap").textContent=dilCaption();chalUI($("#dilChal"),DCHAL,DS.done);a11yKey=""}
+function dilChange(){DS.made=false;DS.run=false;DS.t=0;dilUI()}
+function dilCaption(){const S=DSOL[DS.sol];const c=dilCalc();return DS.mode==="stock"?`${DS.V1} mL of ${DS.M1.toFixed(2)} M ${S.name} diluted to ${DS.V2} mL gives ${fmtSig(c.M2,3)} M.`:`${DS.mass.toFixed(2)} g of ${S.name} in a ${DS.V2} mL flask gives ${fmtSig(c.M2,3)} M.`}
+segBtns($("#dilSolute"),[["cu","CuSO<sub>4</sub>"],["mn","KMnO<sub>4</sub>"],["ni","NiCl<sub>2</sub>"]],()=>DS.sol,v=>{DS.sol=v;dilChange()});
+segBtns($("#dilMode"),[["stock","Dilute a stock"],["solid","Start from solid"]],()=>DS.mode,v=>{DS.mode=v;dilChange()});
+segBtns($("#dilPip"),[1,2,5,10,20,25,50].map(v=>[v,v+" mL"]),()=>DS.V1,v=>{DS.V1=v;dilChange()});
+segBtns($("#dilFlask"),[50,100,250,500].map(v=>[v,v+" mL"]),()=>DS.V2,v=>{DS.V2=v;dilChange()});
+$("#dM1").oninput=e=>{DS.M1=+e.target.value;dilChange()};$("#dMass").oninput=e=>{DS.mass=+e.target.value;dilChange()};
+$("#dilRun").onclick=()=>{DS.run=true;DS.t=0;DS.made=false;dilUI()};
+function dilStep(dt){if(DS.run){DS.t+=dt;if(DS.t>9.5){DS.run=false;DS.made=true;dilDone();dilUI()}}}
+function dilDone(){const c=dilCalc();const S=DSOL[DS.sol];const d=DS.done;
+  if(DS.mode==="stock"&&Math.abs(DS.M1-1)<1e-9&&Math.abs(c.M2-.1)<1e-6)d.add(0);if(DS.mode==="stock"&&DS.V2===500&&Math.abs(c.df-10)<1e-9)d.add(1);if(Math.abs(c.M2-.05)/.05<.005)d.add(2);
+  if(DS.mode==="solid"&&DS.sol==="cu"&&DS.V2===250&&Math.abs(c.M2-.1)/.1<.003)d.add(3);if(DS.mode==="stock"&&Math.abs(c.df-20)<1e-9)d.add(4)}
+function colAt(M){const S=DSOL[DS.sol];return mix(C.water,C[S.col],1-Math.exp(-S.k*M))}
+function dilDots(cx,cy,r,M,seed,T){const n=Math.min(60,Math.round(M*24));const S=DSOL[DS.sol];for(let k=0;k<n;k++){const q=wander(k+seed,T,[cx-r,cy-r,2*r,2*r],.45,9);if(Math.hypot(q[0]-cx,q[1]-cy)>r-8)continue;
+    if(DS.sol==="mn")polyIon(q[0],q[1],"MnO4",.55,0,{lab:false,charge:false});else sp(q[0],q[1],S.ion,.7,{lab:false,charge:false})}return n}
+function flaskS(){return {50:36,100:44,250:54,500:62}[DS.V2]}
+function drawDil(now){use(S2);const T=now/1000;const S=DSOL[DS.sol];const c=dilCalc();const t=DS.t;const run=DS.run;
+  panelBox(12,12,416,318);title(26,32,DS.mode==="stock"?"Dilute a stock solution":"Make a solution from solid");levelTag(26,52,"MACROSCOPIC");
+  const fx=330,fy=312,fs=flaskS();
+  /* phases: 0-2 draw/weigh, 2-4 move, 4-5.5 drain, 5.5-8 fill to mark, 8-9.5 invert */
+  const ph=!run?(DS.made?5:-1):t<2?0:t<4?1:t<5.5?2:t<8?3:4;
+  const startLv=DS.mode==="stock"?clamp(DS.V1/DS.V2,0,1)*.86:0;
+  let lv=0,M=0;
+  if(DS.mode==="stock"){if(ph===2){lv=startLv*smooth(seg(t,4,5.5));M=DS.M1}else if(ph===3){lv=lerp(startLv,1,smooth(seg(t,5.5,7.8)));M=DS.M1*startLv/Math.max(lv,1e-6)}else if(ph>=4){lv=1;M=c.M2}}
+  else{if(ph===3){lv=smooth(seg(t,5.5,7.8));M=lv>0?c.n/(DS.V2/1000*Math.max(lv,.35)):0}else if(ph>=4){lv=1;M=c.M2}}
+  ctx.save();if(ph===4){const a=Math.sin(seg(t,8,9.5)*TAU*1.5)*2.2;ctx.translate(fx,fy-70);ctx.rotate(a);ctx.translate(-fx,-(fy-70))}
+  const fk=volFlask(fx,fy,fs,lv,colAt(M),{mark:DS.V2+" mL"});ctx.restore();if(ph>=4){rr(fx-12,fk.top-12,24,12,3);fillStroke(C["ink-soft"],null)}
+  if(DS.mode==="stock"){beaker(36,170,110,130,.8,colAt(DS.M1),{grad:false,lab:DS.M1.toFixed(2)+" M stock"});
+    const pf=ph===0?smooth(seg(t,.2,1.8)):ph===1?1:ph===2?1-smooth(seg(t,4,5.4)):0;const px=ph<=0?91:ph===1?lerp(91,fx,smooth(seg(t,2,4))):fx,py=ph<=0?(ph<0?250:200):ph===1?lerp(200,fk.top+12,smooth(seg(t,2,4))):fk.top+12;
+    if(ph<=2&&(run||ph<0))pipette(px,py,96,ph<0?0:pf,colAt(DS.M1));if(ph<=2||ph<0)txt(px+12,py-60,DS.V1+" mL pipette",{size:11.5,mono:true,weight:600})}
+  else{balance(40,290,150,(ph===0?DS.mass*smooth(seg(t,.2,1.6)):ph<0?DS.mass:0).toFixed(2)+" g",{});const pile=ph<=1?1:ph===2?1-smooth(seg(t,4,5.4)):0;
+    const bp=ph===1?smooth(seg(t,2,4)):ph>=2?1:0;const bxp=lerp(115,fx-30,bp),byp=lerp(280,fk.top-30,bp);if(ph<3){ctx.save();ctx.translate(bxp,byp);ctx.rotate(ph===2?1:0);rr(-30,-6,60,10,3);fillStroke(C.panel,C["ink-soft"],1.4);
+      if(pile>0){ctx.beginPath();ctx.moveTo(-22*pile,-6);ctx.quadraticCurveTo(0,-6-16*pile,22*pile,-6);ctx.closePath();fillStroke(C[S.col],hexA(C.ink,.3),1)}ctx.restore()}}
+  if(ph===3){const wx=fx+44,wy=fk.top-36;ctx.save();ctx.translate(wx,wy);ctx.rotate(-.6);rr(-12,-26,24,40,6);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.6);line(0,-26,-10,-44,C["glass-edge"],2.4);ctx.restore();for(let k=0;k<4;k++){const q=P(t*2.4+k/4,1);circ(fx+6,lerp(fk.top-40,fk.top+20,q),2,C["water-edge"])}}
+  label(150,84,!run?(DS.made?"Done: "+fmtSig(c.M2,3)+" M":"Press Make the solution"):["Measure","Move to the flask","Transfer","Add water to the mark","Stopper and invert"][ph],{size:13,weight:700,border:C.accent});
+  /* zoom windows */
+  panelBox(438,12,350,318);title(452,32,"Same tiny volume, zoomed in");levelTag(452,52,"PARTICLES");
+  const M0=DS.mode==="stock"?DS.M1:0;
+  if(DS.mode==="stock"){magnifier(530,160,72,()=>{dilDots(530,160,72,DS.M1,700,T)},{fill:colAt(DS.M1)});txt(530,250,"stock",{size:12.5,weight:700,align:"center"});txt(530,268,DS.M1.toFixed(2)+" M",{size:13,mono:true,weight:700,align:"center"})}
+  else{magnifier(530,160,72,()=>{for(let r=0;r<4;r++)for(let k=0;k<5;k++)sp(500+k*15,186-r*15,S.ion,.6,{lab:false,charge:false})},{});txt(530,250,"solid crystal",{size:12.5,weight:700,align:"center"});txt(530,268,(DS.mass).toFixed(2)+" g",{size:13,mono:true,weight:700,align:"center"})}
+  const Mf=DS.made||ph>=4?c.M2:(ph===3?M:0);magnifier(700,160,72,()=>{dilDots(700,160,72,Mf,760,T)},{fill:colAt(Mf)});txt(700,250,"your flask",{size:12.5,weight:700,align:"center"});txt(700,268,(Mf>0?fmtSig(Mf,3):"0")+" M",{size:13,mono:true,weight:700,align:"center"});
+  arrow(606,160,624,160,C["ink-soft"],2);
+  txt(613,302,DS.mode==="stock"?"Same moles in "+(c.ok?fmtSig(c.df,3):"–")+"× the volume: "+(c.ok?fmtSig(c.df,3):"–")+"× fewer dots":"dots per window follow the molarity",{size:12,align:"center",color:C["ink-soft"]});
+  /* symbolic */
+  panelBox(12,340,776,122);title(26,358,DS.mode==="stock"?"M₁V₁ = M₂V₂, solved for M₂":"mass → moles → molarity");levelTag(DS.mode==="stock"?250:220,358,"SYMBOLIC");
+  const p=DS.made?1:run?seg(t,.5,8.5):0;
+  if(DS.mode==="stock"){const items=[{n:[DS.M1.toFixed(2),["M"]]},{n:[DS.V1.toFixed(2),["mL"]],d:[DS.V2.toFixed(1),["mL"]]}];const res=[fmtSig(c.M2,3),["M"]];const w=workChainW(items,res,{size:16});txt(40,412,"M₂ =",{size:16,mono:true,weight:700});workChain(110,412,items,res,c.ok?Math.max(p,.42):0,{size:16});
+    txt(776,450,(c.n*1000).toFixed(3)+" mmol of solute, before and after",{size:12,mono:true,align:"right",color:C["ink-soft"]})}
+  else{const items=[{n:[DS.mass.toFixed(2),["g"]]},{n:["1",["mol"]],d:[S.mm.toFixed(2),["g"]]},{n:["1",[""]],d:[(DS.V2/1000).toFixed(4),["L"]]}];const res=[fmtSig(c.M2,3),["mol/L"]];
+    const w=workChainW(items,res,{size:15});workChain(Math.max(24,400-w/2),412,items,res,Math.max(p,.42),{size:15})}}
+function dilA11y(){const S=DSOL[DS.sol];const c=dilCalc();const lab=dilCaption();const st=DS.run?"The animation is running: the solute is measured, moved into the flask, and water is added up to the line.":DS.made?"The flask is full to the line and its colour shows the new concentration.":"Press Make the solution to watch it.";
+  return [lab,lab+" "+st+" Two round zoom windows show the same tiny volume: the left one is the "+(DS.mode==="stock"?"stock":"solid")+" and the right one is your flask, with about "+Math.min(60,Math.round(c.M2*24))+" dots for "+fmtSig(c.M2,3)+" M. The worked line below divides "+(DS.mode==="stock"?"M1 times V1 by V2 with the mL units cancelling.":"grams by molar mass, then by liters.")]}
+/* ================= PART 3: problem trainer ================= */
+const TTYPES=[["mix","All types, mixed"],["molarity","Molarity from grams and volume"],["mass","Grams needed for a solution"],["ions","Concentration of one ion"],["dilution","Dilution (M₁V₁ = M₂V₂)"],["stoich","Mass of precipitate"],["titration","Titration: unknown molarity"],["oxnum","Oxidation numbers"],["solubility","Predict: will a precipitate form?"],["netionic","Pick the net ionic equation"]];
+const rndIn=(a,b)=>a+Math.random()*(b-a);
+const sfStr=(v,sf)=>{const s=Number(v).toPrecision(sf);return /e/.test(s)?String(+s):s};
+const ansStr=(v,sf)=>{let t=fmtSig(v,sf);if(t.indexOf(".")<0&&t.indexOf("×")<0&&sigFigs(t)<sf)t+=".";return t};
+const MMs=f=>molarMass(f).toFixed(2);
+const T_=s=>chemTxt(s);
+function parseNum(str){if(str==null)return NaN;let s=String(str).trim();const SUP={"⁻":"-","⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁺":""};
+  s=s.replace(/[⁻⁰¹²³⁴⁵⁶⁷⁸⁹⁺]/g,c=>SUP[c]).replace(/−/g,"-").replace(/\s+/g,"").replace(/,/g,"");
+  s=s.replace(/(?:[x×*·]10\^?)(-?\+?\d+)$/i,"e$1").replace(/^\+/,"");if(!/^-?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s))return NaN;return Number(s)}
+function sigFigs(str){let s=String(str).trim().replace(/[⁻⁰¹²³⁴⁵⁶⁷⁸⁹⁺]/g,"").replace(/\s+/g,"").replace(/−/g,"-");s=s.replace(/(?:[x×*·]10\^?)(-?\+?\d+)?$/i,"").replace(/e.*$/i,"").replace(/^[-+]/,"");
+  if(s.indexOf(".")>=0){const d=s.replace(".","").replace(/^0+/,"");return Math.max(1,d.length)}const d=s.replace(/^0+/,"").replace(/0+$/,"");return Math.max(1,d.length)}
+function fr(n,nu,d,du){return {n:[String(n),Array.isArray(nu)?nu:[nu]],d:d==null?null:[String(d),Array.isArray(du)?du:[du]]}}
+const SOLUTES=[["NaCl","sodium chloride"],["KCl","potassium chloride"],["C6H12O6","glucose"],["CaCl2","calcium chloride"],["NaOH","sodium hydroxide"],["KNO3","potassium nitrate"],["CuSO4","copper(II) sulfate"],["MgSO4","magnesium sulfate"]];
+const SALTS=[["NaCl","Na^+",1,"Cl^-",1],["CaCl2","Ca^2+",1,"Cl^-",2],["Na2SO4","Na^+",2,"SO4^2-",1],["AlCl3","Al^3+",1,"Cl^-",3],["MgCl2","Mg^2+",1,"Cl^-",2],["K2CO3","K^+",2,"CO3^2-",1],["Fe(NO3)3","Fe^3+",1,"NO3^-",3],["Na3PO4","Na^+",3,"PO4^3-",1]];
+const PRX=[["AgNO3","NaCl","AgCl",1,1,"AgNO3(aq) + NaCl(aq) → AgCl(s) + NaNO3(aq)"],["Na2SO4","BaCl2","BaSO4",1,1,"BaCl2(aq) + Na2SO4(aq) → BaSO4(s) + 2NaCl(aq)"],["KI","Pb(NO3)2","PbI2",1,2,"Pb(NO3)2(aq) + 2KI(aq) → PbI2(s) + 2KNO3(aq)"],["NaOH","CuSO4","Cu(OH)2",1,2,"CuSO4(aq) + 2NaOH(aq) → Cu(OH)2(s) + Na2SO4(aq)"],["Na2CO3","CaCl2","CaCO3",1,1,"CaCl2(aq) + Na2CO3(aq) → CaCO3(s) + 2NaCl(aq)"],["Pb(NO3)2","KI","PbI2",1,1,"Pb(NO3)2(aq) + 2KI(aq) → PbI2(s) + 2KNO3(aq)"]];
+const OXS=[["SO4^2-","S",[["S",1,null],["O",4,-2]],-2,"SO4"],["NO3^-","N",[["N",1,null],["O",3,-2]],-1,"NO3"],["MnO4^-","Mn",[["Mn",1,null],["O",4,-2]],-1,"MnO4"],["Cr2O7^2-","Cr",[["Cr",2,null],["O",7,-2]],-2,"Cr2O7"],
+  ["H2SO4","S",[["H",2,1],["S",1,null],["O",4,-2]],0],["NH4^+","N",[["N",1,null],["H",4,1]],1,"NH4"],["CO3^2-","C",[["C",1,null],["O",3,-2]],-2,"CO3"],["ClO3^-","Cl",[["Cl",1,null],["O",3,-2]],-1],["ClO4^-","Cl",[["Cl",1,null],["O",4,-2]],-1],
+  ["H2O2","O",[["H",2,1],["O",2,null]],0],["Fe2O3","Fe",[["Fe",2,null],["O",3,-2]],0],["NaH","H",[["Na",1,1],["H",1,null]],0],["SO2","S",[["S",1,null],["O",2,-2]],0],["NO2","N",[["N",1,null],["O",2,-2]],0],
+  ["CH4","C",[["C",1,null],["H",4,1]],0,"CH4"],["PO4^3-","P",[["P",1,null],["O",4,-2]],-3],["HNO2","N",[["H",1,1],["N",1,null],["O",2,-2]],0],["K2CrO4","Cr",[["K",2,1],["Cr",1,null],["O",4,-2]],0],["NaClO","Cl",[["Na",1,1],["Cl",1,null],["O",1,-2]],0],["C2O4^2-","C",[["C",2,null],["O",4,-2]],-2,"C2O4"]];
+const RULETXT=["","Rule 1: Group 1 and NH₄⁺ compounds are soluble.","Rule 2: nitrates and acetates are soluble.","Rule 3: chlorides and iodides are soluble except with Ag⁺ and Pb²⁺.","Rule 4: sulfates are soluble except with Ba²⁺, Pb²⁺ (and Ca²⁺, Ag⁺ slightly).","Rule 5: carbonates are insoluble except with Group 1 and NH₄⁺.","Rule 6: hydroxides are insoluble except with Group 1, NH₄⁺ and Ba²⁺."];
+const SALTSHELF=["AgNO3","PbNO32","BaCl2","CaCl2","CuSO4","NiNO32","NaCl","KI","Na2SO4","Na2CO3","NaOH","KNO3"];
+const GEN={
+ molarity(){const s=pick(SOLUTES);const mm=MMs(s[0]);const g=sfStr(rndIn(1,30),3);const V=pick(["50.0","100.0","250.0","500.0"]);const n=+g/+mm;const ans=n/(+V/1000);
+  return {title:"Molarity",html:`What is the molarity of a solution made by dissolving <b>${g} g</b> of ${s[1]}, ${chemHTML(s[0])} (${mm} g/mol), in enough water to make <b>${V} mL</b> of solution?`,round:"Give 3 significant figures.",ans,sf:3,unit:"M",
+   givens:[g+" g "+T_(s[0]),mm+" g/mol",V+" mL of solution"],want:"M (mol/L)",pic:{k:"flask",V:+V,f:s[0],g},
+   chain:[{items:[fr(g,"g"),fr(1,"mol",mm,"g"),fr(1,[],V,"mL"),fr(1000,"mL",1,"L")],res:[ansStr(ans,3),["M"]]}],
+   hints:["Molarity = moles of solute ÷ liters of solution.",`Moles: ${g} g ÷ ${mm} g/mol = ${fmtSig(n,4)} mol.`,`Liters: ${V} mL = ${+V/1000} L. Now divide moles by liters.`],
+   slips:[[ans/1000,"You divided by the volume in mL. Change mL to L first (÷ 1000)."],[+g/(+V/1000),"That used grams as if they were moles. Divide by the molar mass first."],[1/ans,"The fraction is upside down: moles go on top, liters on the bottom."]]}},
+ mass(){const s=pick(SOLUTES);const mm=MMs(s[0]);const M=sfStr(rndIn(.05,1.5),3);const V=pick(["50.0","100.","250.","500.","25.0","200."]);const Vn=+V;const Vs=V.endsWith(".")?V:V;const ans=Vn/1000*+M*+mm;
+  return {title:"Grams needed",html:`How many grams of ${s[1]}, ${chemHTML(s[0])} (${mm} g/mol), are needed to make <b>${Vs} mL</b> of <b>${M} M</b> solution?`,round:"Give 3 significant figures.",ans,sf:3,unit:"g",
+   givens:[Vs+" mL of solution",M+" M "+T_(s[0]),mm+" g/mol"],want:"g",pic:{k:"flask",V:Vn,f:s[0],g:sfStr(ans,3)},
+   chain:[{items:[fr(Vs,"mL"),fr(1,"L",1000,"mL"),fr(M,"mol",1,"L"),fr(mm,"g",1,"mol")],res:[ansStr(ans,3),["g"]]}],
+   hints:["Volume (L) × molarity (mol/L) gives moles; moles × molar mass gives grams.",`${Vs} mL = ${Vn/1000} L, so moles = ${Vn/1000} × ${M} = ${fmtSig(Vn/1000*+M,4)} mol.`,`Grams = ${fmtSig(Vn/1000*+M,4)} mol × ${mm} g/mol.`],
+   slips:[[ans*1000,"You kept the volume in mL. Change mL to L (÷ 1000) first."],[Vn/1000*+M,"That is the number of moles. Multiply by the molar mass to get grams."],[+M*+mm,"You left out the volume: grams per liter is not the answer unless you have exactly 1 L."]]}},
+ ions(){const s=pick(SALTS);const M=sfStr(rndIn(.05,.6),3);const askCat=s[2]>s[4]?true:s[4]>s[2]?false:Math.random()<.5;const ion=askCat?s[1]:s[3],k=askCat?s[2]:s[4];const ans=+M*k;
+  return {title:"Ion concentration",html:`What is the concentration of ${chemHTML(ion)} in <b>${M} M ${chemHTML(s[0])}</b>? (It is a strong electrolyte.)`,round:"Give 3 significant figures.",ans,sf:3,unit:"M",
+   givens:[M+" M "+T_(s[0]),"strong electrolyte"],want:"M of "+T_(ion),pic:{k:"ions",salt:s,M:+M},
+   chain:[{items:[fr(M,"mol "+T_(s[0]),1,"L"),fr(k,"mol "+T_(ion),1,"mol "+T_(s[0]))],res:[ansStr(ans,3),["M "+T_(ion)]]}],
+   hints:["Write the dissociation: the subscripts become coefficients.",`${T_(s[0])} → ${s[2]>1?s[2]:""}${T_(s[1])} + ${s[4]>1?s[4]:""}${T_(s[3])}`,`Each unit gives ${k} ${T_(ion)}, so multiply ${M} M by ${k}.`],
+   slips:k>1?[[+M,"That is the concentration of the compound. Each unit releases "+k+" of this ion: multiply by "+k+"."],[+M*(s[2]+s[4]),"That counts every ion. The question asks for only one kind."],[+M/k,"Each unit gives MORE of this ion, so multiply, do not divide."]]:[[+M*(s[2]+s[4]),"That counts every ion. The question asks for only one kind."]]}},
+ dilution(){if(Math.random()<.55){const M1=sfStr(rndIn(.5,6),3),V1=sfStr(rndIn(5,50),3),V2=pick(["100.0","250.0","500.0"]);const ans=+M1*+V1/+V2;
+    return {title:"Dilution: find M₂",html:`<b>${V1} mL</b> of <b>${M1} M</b> NaCl is diluted with water to a total volume of <b>${V2} mL</b>. What is the new molarity?`,round:"Give 3 significant figures.",ans,sf:3,unit:"M",
+     givens:["M₁ = "+M1+" M","V₁ = "+V1+" mL","V₂ = "+V2+" mL (total)"],want:"M₂",pic:{k:"dil",M1:+M1,M2:ans},
+     chain:[{items:[fr(M1,"M"),fr(V1,"mL",V2,"mL")],res:[ansStr(ans,3),["M"]]}],lead:"M₂ = M₁ × V₁ ÷ V₂",
+     hints:["Moles of solute stay the same: M₁V₁ = M₂V₂.","Solve for M₂: M₂ = M₁V₁ ÷ V₂.",`M₂ = ${M1} × ${V1} ÷ ${V2}. Any volume unit works if both match.`],
+     slips:[[+M1*+V2/+V1,"The volumes are upside down: diluting must make the molarity smaller."],[+M1*+V1/(+V2-+V1),"V₂ is the TOTAL final volume, not the water added."]]}}
+  const M1=pick(["6.00","2.00","1.00","3.00","12.0"]),M2=sfStr(rndIn(.05,.8),3),V2=pick(["100.0","250.0","500.0"]);const ans=+M2*+V2/+M1;if(ans>=+V2)return null;
+  return {title:"Dilution: find V₁",html:`What volume of <b>${M1} M</b> HCl stock is needed to make <b>${V2} mL</b> of <b>${M2} M</b> HCl?`,round:"Give 3 significant figures.",ans,sf:3,unit:"mL",
+   givens:["M₁ = "+M1+" M (stock)","M₂ = "+M2+" M","V₂ = "+V2+" mL"],want:"V₁",pic:{k:"dil",M1:+M1,M2:+M2},
+   chain:[{items:[fr(V2,"mL"),fr(M2,"M",M1,"M")],res:[ansStr(ans,3),["mL"]]}],lead:"V₁ = V₂ × M₂ ÷ M₁",
+   hints:["M₁V₁ = M₂V₂. You want V₁.","V₁ = M₂V₂ ÷ M₁.",`V₁ = ${M2} × ${V2} ÷ ${M1}. It should be less than ${V2} mL.`],
+   slips:[[+M1*+V2/+M2,"That is upside down: you need only a small volume of the strong stock."],[+V2*+M2,"Divide by the stock molarity too."]]}},
+ stoich(){const r=pick(PRX);const V=sfStr(rndIn(10,60),3),M=sfStr(rndIn(.05,.4),3);const mm=MMs(r[2]);const ratio=r[3]/r[4];const ans=+V/1000*+M*ratio*+mm;
+  return {title:"Mass of precipitate",html:`What mass of ${chemHTML(r[2])} (${mm} g/mol) forms when <b>${V} mL</b> of <b>${M} M ${chemHTML(r[0])}</b> reacts with excess ${chemHTML(r[1])}?<br><span class="small">${chemHTML(r[5])}</span>`,round:"Give 3 significant figures.",ans,sf:3,unit:"g",
+   givens:[V+" mL of "+M+" M "+T_(r[0]),"excess "+T_(r[1]),T_(r[2])+": "+mm+" g/mol"],want:"g of "+T_(r[2]),pic:{k:"ppt",f:r[2]},eq:r[5],
+   chain:[{items:[fr(V,"mL"),fr(1,"L",1000,"mL"),fr(M,"mol "+T_(r[0]),1,"L"),fr(r[3],"mol "+T_(r[2]),r[4],"mol "+T_(r[0])),fr(mm,"g "+T_(r[2]),1,"mol "+T_(r[2]))],res:[ansStr(ans,3),["g "+T_(r[2])]]}],
+   hints:[`Road map: mL → L → mol ${T_(r[0])} → mol ${T_(r[2])} → g.`,`Moles of ${T_(r[0])}: ${+V/1000} L × ${M} mol/L = ${fmtSig(+V/1000*+M,4)} mol.`,`Mole ratio from the equation: ${r[3]} mol ${T_(r[2])} per ${r[4]} mol ${T_(r[0])}. Then × ${mm} g/mol.`],
+   slips:[[ans*1000,"You kept the volume in mL. Change it to L first."],...(ratio!==1?[[+V/1000*+M*+mm,`You skipped the mole ratio (${r[3]} : ${r[4]}). Use the balanced equation.`]]:[]),[+V/1000*+M*ratio,"That is the number of moles. Multiply by the molar mass for grams."]]}},
+ titration(){const di=Math.random()<.35;const acid=di?"H2SO4":"HCl";const n=di?2:1;const Mb=pick(["0.100","0.1000","0.150","0.200","0.2500"]);const Va=pick(["10.00","20.00","25.00"]);const Vb=(rndIn(10,40)).toFixed(2);
+  const sf=Math.min(sigFigs(Mb),4);const molA=+Vb/1000*+Mb/n;const ans=molA/(+Va/1000);
+  return {title:"Titration",html:`<b>${Vb} mL</b> of <b>${Mb} M</b> NaOH exactly neutralizes <b>${Va} mL</b> of ${chemHTML(acid)}. What is the molarity of the ${chemHTML(acid)}?<br><span class="small">${chemHTML(di?"H2SO4(aq) + 2NaOH(aq) → Na2SO4(aq) + 2H2O(l)":"HCl(aq) + NaOH(aq) → NaCl(aq) + H2O(l)")}</span>`,round:`Give ${sf} significant figures.`,ans,sf,unit:"M",
+   givens:[Vb+" mL of "+Mb+" M NaOH",Va+" mL of "+T_(acid),"ratio "+(di?"1 : 2":"1 : 1")],want:"M of "+T_(acid),pic:{k:"tit"},
+   chain:[{items:[fr(Vb,"mL"),fr(1,"L",1000,"mL"),fr(Mb,"mol NaOH",1,"L"),fr(1,"mol "+T_(acid),n,"mol NaOH")],res:[ansStr(molA,sf),["mol "+T_(acid)]]},{items:[fr(ansStr(molA,sf),"mol "+T_(acid),(+Va/1000).toPrecision(4),"L")],res:[ansStr(ans,sf),["M"]]}],
+   hints:["At the equivalence point, moles of base and acid match by the equation's ratio.",`Moles NaOH = ${+Vb/1000} L × ${Mb} M = ${fmtSig(+Vb/1000*+Mb,4)} mol.`,`Moles acid = moles NaOH ÷ ${n}. Then divide by ${+Va/1000} L.`],
+   slips:[...(di?[[+Vb*+Mb/+Va,"H₂SO₄ gives 2 H⁺, so it needs 2 NaOH: divide the moles of NaOH by 2."]]:[]),[+Va*+Mb/+Vb/n,"The volumes are upside down. Find moles of acid, then divide by the ACID's volume."],[ans/1000,"Divide by the acid volume in liters, not mL."]]}},
+ oxnum(){const o=pick(OXS);const known=o[2].filter(c=>c[2]!=null).reduce((s,c)=>s+c[1]*c[2],0);const u=o[2].find(c=>c[2]==null);const ans=(o[3]-known)/u[1];
+  const wrong0=(0-known)/u[1];
+  return {title:"Oxidation number",html:`What is the oxidation number of <b>${o[1]}</b> in ${chemHTML(o[0])}?`,round:"Type a whole number with its sign, such as +6 or -2.",ans,int:true,sf:null,unit:"",
+   givens:[T_(o[0]),"overall charge: "+(o[3]>0?"+":"")+o[3]],want:"oxidation number of "+o[1],pic:{k:"ox",o},ox:o,
+   hints:["Use the rules: O is −2 (except peroxides), H is +1 with nonmetals, Group 1 metals +1.","Write one equation: the oxidation numbers add up to the overall charge ("+(o[3]>0?"+":"")+o[3]+").",`${u[1]>1?u[1]+"x":"x"} + (${known>=0?"+":""}${known}) = ${o[3]}. Solve for x.`],
+   slips:[...(o[3]!==0?[[wrong0,"You set the total to 0. For an ion, the numbers add up to its charge ("+o[3]+")."]]:[]),...(u[1]>1?[[o[3]-known,`There are ${u[1]} ${o[1]} atoms: divide the total by ${u[1]}.`]]:[]),[-ans,"Check the sign: work out the known atoms' total first."]]}},
+ solubility(){for(let k=0;k<60;k++){const a=pick(SALTSHELF),b=pick(SALTSHELF);if(a===b)continue;const R=mixSolutions(a,b,.1,50,.1,50);if(R.reactions.some(r=>r.k!=="ppt")||R.ppt.some(p=>p.slight))continue;const sa=SOL[a],sb=SOL[b];if(sa.cat===sb.cat||sa.an===sb.an)continue;
+   const want=Math.random()<.65;if(want!==!R.NR)continue;
+   const p1=unitOf(sa.cat,sb.an),p2=unitOf(sb.cat,sa.an);const s1=solubility(sa.cat,sb.an),s2=solubility(sb.cat,sa.an);
+   const opts=[];const ins=[s1.ins,s2.ins];
+   if(!R.NR){const P=ins[0]?p1:p2,Q=ins[0]?p2:p1,sP=ins[0]?s1:s2,sQ=ins[0]?s2:s1;const both=ins[0]&&ins[1];
+     if(both)opts.push({h:`Yes: both ${chemHTML(p1.f)} and ${chemHTML(p2.f)} precipitate`,ok:1,why:RULETXT[s1.rule]+" "+RULETXT[s2.rule]});
+     else{opts.push({h:`Yes: ${chemHTML(P.f)}(s) precipitates`,ok:1,why:RULETXT[sP.rule]+" "+chemTxt(Q.f)+" stays dissolved."});opts.push({h:`Yes: ${chemHTML(Q.f)}(s) precipitates`,ok:0,why:RULETXT[sQ.rule]+" So "+chemTxt(Q.f)+" is soluble."});opts.push({h:`Yes: both ${chemHTML(p1.f)} and ${chemHTML(p2.f)} precipitate`,ok:0,why:chemTxt(Q.f)+" is soluble. "+RULETXT[sQ.rule]})}
+     opts.push({h:"No reaction: both possible products are soluble",ok:0,why:chemTxt(P.f)+" is insoluble. "+RULETXT[sP.rule]})}
+   else{opts.push({h:"No reaction: both possible products are soluble",ok:1,why:RULETXT[s1.rule]+" "+RULETXT[s2.rule]});opts.push({h:`Yes: ${chemHTML(p1.f)}(s) precipitates`,ok:0,why:RULETXT[s1.rule]});opts.push({h:`Yes: ${chemHTML(p2.f)}(s) precipitates`,ok:0,why:RULETXT[s2.rule]});opts.push({h:"Yes: a gas bubbles out",ok:0,why:"Gases form from acids with carbonates; neither solution here is an acid."})}
+   return {title:"Predict, then watch",html:`You mix <b>${chemHTML(solFormula(sa))}(aq)</b> with <b>${chemHTML(solFormula(sb))}(aq)</b>. What happens?`,round:"Pick one, then watch the mixing.",choice:true,opts:shuffle(opts),pic:{k:"mix",a,b},R,
+    hints:["Write the ions in each: "+chemTxt(ionStr(sa.cat))+", "+chemTxt(ionStr(sa.an))+" and "+chemTxt(ionStr(sb.cat))+", "+chemTxt(ionStr(sb.an))+".","Swap partners: "+chemTxt(p1.f)+" and "+chemTxt(p2.f)+".","Check each new pair with the solubility rules. Any insoluble one is the precipitate."]}}return null},
+ netionic(){for(let k=0;k<80;k++){const a=pick(SOLS.filter(s=>s.kind!=="non")).id,b=pick(SOLS.filter(s=>s.kind!=="non")).id;if(a===b)continue;const R=mixSolutions(a,b,.1,50,.2,50);if(R.NR||!R.net)continue;
+   const opts=[{h:eqHTML(R.net),ok:1,why:"Only the species that change remain; spectators ("+R.spect.map(s=>chemTxt(ionStr(s))).join(", ")+") are gone, and atoms and charge balance."}];
+   opts.push({h:eqHTML(R.ionic),ok:0,why:"That is the complete ionic equation. Cross out the spectator ions that appear on both sides: "+R.spect.map(s=>chemTxt(ionStr(s))).join(", ")+"."});
+   opts.push({h:eqHTML(R.mol),ok:0,why:"That is the molecular equation. Split the strong electrolytes into ions, then remove the spectators."});
+   const sc=R.spect.filter(s=>ION[s].q>0),sa=R.spect.filter(s=>ION[s].q<0);
+   if(sc.length&&sa.length){const u=unitOf(sc[0],sa[0]);opts.push({h:eqHTML({left:[{c:u.a,f:ionStr(sc[0]),st:"aq",ion:sc[0]},{c:u.b,f:ionStr(sa[0]),st:"aq",ion:sa[0]}],right:[{c:1,f:u.f,st:"s"}]}),ok:0,why:chemTxt(u.f)+" is soluble, so these ions do not form a solid: they are the spectators."})}
+   else{const w=JSON.parse(JSON.stringify(R.net));w.left.forEach(t=>t.c=1);w.right.forEach(t=>t.c=1);const same=JSON.stringify(w)===JSON.stringify(R.net);if(same)continue;opts.push({h:eqHTML(w),ok:0,why:"Not balanced: count atoms and charges on each side."})}
+   if(new Set(opts.map(o=>o.h)).size<4)continue;
+   return {title:"Net ionic equation",html:`Which is the correct <b>net ionic equation</b> for mixing ${chemHTML(solFormula(R.A))}(aq) and ${chemHTML(solFormula(R.B))}(aq)?`,round:"Pick one.",choice:true,opts:shuffle(opts),pic:{k:"mix",a,b},R,
+    hints:["Write the complete ionic equation: split every strong electrolyte (aq) into ions.","Keep solids, water, gases and weak acids together.","Cross out ions that appear unchanged on both sides, then reduce the coefficients."]}}return null}};
+const TR={type:"mix",p:null,hint:0,first:true,sol:false,solT:0,solved:false,streak:0,best:0,count:0,picked:null,pickT:0};
+function calcNew(){const keys=Object.keys(GEN);const k=TR.type==="mix"?pick(keys):TR.type;let q=null;for(let i=0;i<40&&!q;i++)q=GEN[k]();TR.p=q;q.kind=k;TR.hint=0;TR.first=true;TR.sol=false;TR.solved=false;TR.picked=null;
+  $("#calcProb").innerHTML=`<span class="pt">${q.title} · practice problem</span>${q.html}<span class="rd">${q.round}</span>`;
+  $("#calcNum").hidden=!!q.choice;$("#calcChoice").hidden=!q.choice;$("#calcCheck").hidden=!!q.choice;
+  if(q.choice){const box=$("#calcChoice");box.innerHTML="";q.opts.forEach((o,i)=>{const b=document.createElement("button");b.type="button";b.className="copt";b.innerHTML=o.h;b.onclick=()=>calcPick(i,b);box.appendChild(b)})}
+  else{$("#calcUnit").textContent=q.unit;$("#calcAns").value=""}
+  $("#calcMsg").className="msg";$("#calcHintBox").hidden=true;$("#calcCap").textContent=calcCaption();a11yKey=""}
+function calcCaption(){const p=TR.p;if(p.choice)return TR.picked==null?"Predict first. Then the mixing plays.":"Watch the mixing that matches the right answer.";return TR.sol?"Worked solution: units cancel term by term.":"The givens are on the card. Solve, then check."}
+function calcMsg(cls,t){const m=$("#calcMsg");m.className="msg show "+cls;m.textContent=t}
+function verdict(p,str){const v=parseNum(str);if(!isFinite(v))return {st:"nan"};
+  if(p.int)return Math.abs(v-p.ans)<1e-9?{st:"ok"}:{st:"no",v};
+  const unit=Math.pow(10,Math.floor(Math.log10(Math.abs(p.ans)))-p.sf+1);const tol=Math.max(.6*unit,Math.abs(p.ans)*.003);
+  const s=sigFigs(str);if(Math.abs(v-p.ans)<=tol)return {st:"ok",sfOff:s!==p.sf,s};const rs=+Number(p.ans).toPrecision(Math.max(1,s));if(s>=1&&Math.abs(v-rs)<=Math.abs(rs)*1e-9)return {st:"ok",sfOff:true,s};return {st:"no",v}}
+function calcCheck(){const p=TR.p;if(p.choice)return;const str=$("#calcAns").value;const r=verdict(p,str);
+  if(r.st==="nan"){calcMsg("info","Type a number first, such as 0.250 or 3.75e-3.");return}
+  if(r.st==="ok"){const wasFirst=TR.first&&!TR.sol;if(!TR.solved){TR.count++;if(wasFirst){TR.streak++;if(TR.streak>TR.best){TR.best=TR.streak;store.set("best",TR.best)}}}TR.solved=true;
+    let t=`✓ Correct: ${p.int?(p.ans>0?"+":"")+p.ans:ansStr(p.ans,p.sf)+" "+p.unit}.`;if(r.sfOff)t+=` Your value is right; only the significant figures are off: you gave ${r.s}, the data support ${p.sf} (${ansStr(p.ans,p.sf)}).`;
+    calcMsg("good",t+" Watch the worked solution.");showSol(false)}
+  else{TR.first=false;TR.streak=0;let msg="Not quite. ";const sl=p.slips.find(s=>Math.abs(r.v-s[0])<=Math.max(Math.abs(s[0])*.012,1e-9));msg+=sl?sl[1]:("Check the setup. "+p.hints[Math.min(TR.hint,2)]);calcMsg("warn",msg)}
+  updCalcMeter();a11yKey=""}
+function calcPick(i,b){const p=TR.p;const o=p.opts[i];const box=$("#calcChoice");box.querySelectorAll(".copt").forEach(x=>x.classList.remove("wrong"));
+  if(o.ok){b.classList.add("right");if(!TR.solved){TR.count++;if(TR.first&&!TR.sol){TR.streak++;if(TR.streak>TR.best){TR.best=TR.streak;store.set("best",TR.best)}}}TR.solved=true;calcMsg("good","✓ "+o.why);TR.picked=i;TR.pickT=performance.now();showSol(false)}
+  else{b.classList.add("wrong");TR.first=false;TR.streak=0;calcMsg("warn","Not quite. "+o.why);if(TR.picked==null){TR.picked=-1}}
+  updCalcMeter();$("#calcCap").textContent=calcCaption();a11yKey=""}
+function showSol(byBtn){if(byBtn&&!TR.solved){TR.streak=0;TR.first=false}TR.sol=true;TR.solT=performance.now();if(TR.p.choice&&TR.picked==null){TR.picked=-1;TR.pickT=performance.now()}updCalcMeter();$("#calcCap").textContent=calcCaption();a11yKey=""}
+function updCalcMeter(){$("#calcStreak").textContent=TR.streak;$("#calcBest").textContent=TR.best;$("#calcSolved").textContent=TR.count}
+$("#calcCheck").onclick=calcCheck;$("#calcAns").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();calcCheck()}});
+$("#calcHint").onclick=()=>{const p=TR.p;const b=$("#calcHintBox");if(TR.hint<p.hints.length)TR.hint++;b.hidden=false;b.innerHTML=p.hints.slice(0,TR.hint).map((h,i)=>`<div><b>Hint ${i+1}:</b> ${h}</div>`).join("")+(TR.hint>=p.hints.length?`<div class="small">That is the whole ladder. Try it, or press Show worked solution.</div>`:"")};
+$("#calcSol").onclick=()=>{showSol(true);const p=TR.p;calcMsg("info",p.choice?"The right answer is highlighted; watch the mixing.":`Worked solution: ${p.int?(p.ans>0?"+":"")+p.ans:ansStr(p.ans,p.sf)+" "+p.unit}. Then try a new problem.`);if(p.choice){const i=p.opts.findIndex(o=>o.ok);const b=$("#calcChoice").children[i];if(b)b.classList.add("right")}};
+$("#calcNew").onclick=()=>{calcNew();const f=TR.p.choice?$("#calcChoice .copt"):$("#calcAns");if(f)f.focus()};
+(function(){const sel=$("#calcType");sel.innerHTML=TTYPES.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join("");sel.onchange=()=>{TR.type=sel.value;calcNew()}})();
+TR.best=+(store.get("best")||0);
+/* ---- drawing ---- */
+function drawCalc(now){use(S3);const p=TR.p;const T=now/1000;
+  panelBox(12,12,380,288);title(26,32,p.choice?"Predict, then watch":"The situation");levelTag(26,52,p.choice?"MACROSCOPIC + PARTICLES":"MACROSCOPIC");
+  calcPic(p,T,now);
+  panelBox(402,12,386,288);title(416,32,"Practice card");
+  if(p.givens){txt(416,64,"Given",{size:12,mono:true,weight:700,color:C["ink-soft"]});p.givens.forEach((g,i)=>txt(416,90+i*28,"• "+g,{size:14.5,weight:600}));txt(416,186,"Find",{size:12,mono:true,weight:700,color:C["ink-soft"]});label(416,212,p.want,{size:14,weight:700,mono:true,border:C.good,align:"left"});
+    if(TR.sol&&p.slips&&p.slips.length){const sl=p.slips[0];withA(seg((now-TR.solT)/1000,3.6,4.4),()=>noteBox(416,232,360,"Common mistake",sl[1]+" That would give "+(p.int?(sl[0]>0?"+":"")+String(Math.round(sl[0]*100)/100):fmtSig(sl[0],3)+" "+p.unit)+".",C.warn))}}
+  else{wrapText(chemTxt(p.R.A.name+" + "+p.R.B.name),416,64,350,18,{size:14,weight:600});chem(595,110,solFormula(p.R.A)+"(aq) + "+solFormula(p.R.B)+"(aq)",{size:17,align:"center"});
+    if(TR.picked!=null&&TR.picked>=-1){const R=p.R;withA(seg((now-TR.pickT)/1000,2.5,3.3),()=>{txt(416,160,R.NR?"Result: no reaction":"Result",{size:12,mono:true,weight:700,color:C["ink-soft"]});if(R.net){const parts=[];R.net.left.forEach((t,i)=>{if(i)parts.push(" + ");parts.push({t:termStr(t)})});parts.push(" → ");R.net.right.forEach((t,i)=>{if(i)parts.push(" + ");parts.push({t:termStr(t)})});const w=eqW(parts,16);eqLine(595,196,parts,{size:w>340?13:16})}
+      wrapText(R.NR?R.why:"Spectators: "+(R.spect.map(s=>chemTxt(ionStr(s))).join(", ")||"none")+".",416,236,356,17,{size:13,color:C["ink-soft"]})})}}
+  panelBox(12,310,776,152);title(26,328,p.choice?"How to decide":"Worked solution");
+  const pr=TR.sol?clamp((now-TR.solT)/3600,0,1):0;
+  if(p.choice){const lines=p.kind==="solubility"?["1. Write the ions of each compound.","2. Swap partners to get the two possible products.","3. Check each product with the solubility rules.","4. Insoluble product = precipitate. All soluble = no reaction."]:["1. Molecular: whole formulas.","2. Complete ionic: split every strong electrolyte (aq).","3. Cross out spectators: same ion, same amount, both sides.","4. What is left is the net ionic equation."];
+    lines.forEach((l,i)=>txt(40,358+i*24,l,{size:14,weight:600,color:TR.sol||TR.picked!=null?C.ink:C["ink-soft"]}))}
+  else if(!TR.sol){txt(400,388,"Press Show worked solution, or get it right, to watch the setup build.",{size:14,align:"center",color:C["ink-soft"]})}
+  else if(p.kind==="oxnum"){oxAlgebra(p,pr)}
+  else{const rows=p.chain;rows.forEach((r,i)=>{const fs=r.items.length>=5?13:15;const w=workChainW(r.items,r.res,{size:fs,gap:16});const pp=rows.length>1?(i===0?seg(pr,0,.6):seg(pr,.6,1)):pr;
+      const y=rows.length>1?(i===0?372:430):398;if(p.lead&&i===0)txt(30,350,p.lead,{size:13,mono:true,weight:700,color:C["accent-ink"]});workChain(Math.max(20,400-w/2),y,r.items,r.res,pp,{size:fs,gap:16})});
+    withA(seg(pr,.95,1),()=>{txt(776,328,p.int?"":`${p.sf} significant figures, set by the least precise given`,{size:11.5,mono:true,align:"right",color:C["ink-soft"]})})}}
+function oxAlgebra(p,pr){const o=p.ox;const u=o[2].find(c=>c[2]==null);const known=o[2].filter(c=>c[2]!=null);const sumK=known.reduce((s,c)=>s+c[1]*c[2],0);
+  const term=c=>(c[1]>1?c[1]:"")+"("+(c[2]>0?"+":"")+c[2]+")";const lhs=o[2].map(c=>c[2]==null?(c[1]>1?c[1]+"x":"x"):term(c)).join(" + ");
+  const lines=[[`${o[2].map(c=>(c[1]>1?c[1]+" ":"")+c[0]).join(" + ")} = ${(o[3]>0?"+":"")+o[3]}  (overall charge)`,0],[`${lhs} = ${o[3]}`,.25],[`${u[1]>1?u[1]+"x":"x"} ${sumK>=0?"+":"−"} ${Math.abs(sumK)} = ${o[3]}`,.5],[`x = ${(p.ans>0?"+":"")+p.ans}`,.75]];
+  lines.forEach((l,i)=>{const a=smooth(seg(pr,l[1],l[1]+.2));withA(a,()=>txt(40,350+i*28,l[0],{size:i===3?20:16,mono:true,weight:700,color:i===3?C.good:C.ink}))})}
+function calcPic(p,T,now){const k=p.pic.k;
+  if(k==="flask"){balance(40,250,140,(p.pic.g)+" g",{});volFlask(290,274,44,1,mix(C.water,p.pic.f==="CuSO4"?C["sol-cu"]:C.water,.6),{mark:p.pic.V+" mL"});chem(110,226,p.pic.f,{size:15,align:"center"});
+    magnifier(110,140,58,()=>{for(let i=0;i<12;i++){const q=wander(i+40,T,[52,82,116,116],.5,10);sp(q[0],q[1],p.pic.f==="C6H12O6"?"sugar":pick2(p.pic.f,i),.75,{lab:false})}},{from:[290,220]})}
+  else if(k==="ions"){const s=p.pic.salt;beaker(40,120,140,150,.8,C.water,{grad:false,lab:p.pic.M+" M "+chemTxt(s[0])});
+    const ck={"Na^+":"Na+","Ca^2+":"Ca2+","Al^3+":"Al3+","Mg^2+":"Mg2+","K^+":"K+","Fe^3+":"Fe3+"}[s[1]],ak={"Cl^-":"Cl-","SO4^2-":"SO42-","CO3^2-":"CO32-","NO3^-":"NO3-","PO4^3-":"PO43-"}[s[3]];
+    magnifier(290,160,86,()=>{for(let u=0;u<3;u++){const f=smooth(seg(P(T,6),.15+u*.1,.5+u*.1));for(let i=0;i<s[2];i++){const q=wander(u*9+i,T,[210,80,160,160],.5,14);sp(lerp(250+u*40,q[0],f),lerp(110+i*20,q[1],f),ck,.85,{})}for(let i=0;i<s[4];i++){const q=wander(u*9+i+5,T,[210,80,160,160],.5,14);sp(lerp(262+u*40,q[0],f),lerp(126+i*20,q[1],f),ak,.8,{lab:ak!=="PO43-"})}}},{from:[110,220]});
+    chem(290,272,s[0]+" → "+(s[2]>1?s[2]:"")+s[1]+" + "+(s[4]>1?s[4]:"")+s[3],{size:14,align:"center"})}
+  else if(k==="dil"){volFlask(110,270,40,1,mix(C.water,C["sol-cu"],1-Math.exp(-2*p.pic.M1)),{mark:"stock"});volFlask(290,270,50,1,mix(C.water,C["sol-cu"],1-Math.exp(-2*p.pic.M2)),{mark:"diluted"});arrow(160,200,226,200,C["ink-soft"],2.4);txt(193,184,"+ water",{size:12,weight:700,align:"center"})}
+  else if(k==="ppt"){const pc=PPTCOL[p.pic.f]||["ppt-w"];beaker(70,110,140,170,.7,C.water,{grad:false,ppt:.6,pptCol:C[pc[0]],lab:chemTxt(p.pic.f)+"(s)"});magnifier(300,150,70,()=>{for(let r=0;r<3;r++)for(let c=0;c<5;c++)sp(258+c*21+(r%2)*8,190-r*20,(c+r)%2?"Cl-":"Ag+",.65,{lab:false,charge:false})},{from:[140,260]})}
+  else if(k==="tit"){burette(110,50,150,.55,C.water,{drip:T*1.5,scale:false});erlen(110,284,44,.5,mix(C.water,C["sol-ind"],.35),{swirl:T*3});txt(150,70,"NaOH",{size:12,weight:700});
+    const gx=220,gy=70,gw=150,gh=150;axes(gx,gy,gw,gh,null,null);txt(gx+4,gy-8,"pH",{size:11.5,mono:true,weight:700,color:C["ink-soft"]});txt(gx+gw,gy+gh+14,"volume NaOH",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});
+    ctx.beginPath();for(let i=0;i<=100;i++){const v=i/100;const ph=v<.6?1+2*v/.6:v<.66?3+8*(v-.6)/.06:11+1.5*(v-.66)/.34;const X=gx+v*gw,Y=gy+gh-ph/14*gh;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.act8;ctx.lineWidth=2.2;ctx.stroke()}
+  else if(k==="ox"){const o=p.pic.o;if(o[4]&&POLY[o[4]]){polyIon(200,150,o[4],2.4,0,{charge:false})}else chem(200,150,o[0],{size:40,align:"center"});chem(200,250,o[0],{size:22,align:"center"});if(TR.sol||TR.solved)label(200,40+50,o[1]+": "+(p.ans>0?"+":"")+p.ans,{size:14,weight:700,border:C.good})}
+  else if(k==="mix"){const R=p.R;const watch=TR.picked!=null&&TR.picked>=-1;const t=watch?(now-TR.pickT)/1000:0;const g=smooth(seg(t,.3,1.6));
+    testTube(70,90,30,120,C.water,{level:.6});testTube(130,90,30,120,colSol(R.B),{level:.6});chem(70,236,solFormula(R.A),{size:12.5,align:"center"});chem(130,236,solFormula(R.B),{size:12.5,align:"center"});
+    const pp=R.ppt.length?R.ppt[0]:null;testTube(220,90,40,150,mix(colSol(R.A),colSol(R.B),.5),{level:.25+.45*g,cloud:pp?smooth(seg(t,1.4,2.4))*(1-smooth(seg(t,3,5))):0,ppt:pp?smooth(seg(t,3,5)):0,pc:pp?C[pp.col]:null});
+    txt(220,270,watch?(pp?chemTxt(pp.f)+"(s) forms":R.NR?"stays clear":"reaction"):"mix?",{size:12.5,weight:700,align:"center"});
+    magnifier(320,170,62,()=>{const ions=[];[R.A,R.B].forEach(s=>{if(s.kind==="strong"){ions.push(s.cat,s.an)}});ions.forEach((k2,j)=>{for(let i=0;i<3;i++){const q=wander(j*7+i+200,T,[258,108,124,124],.5,12);
+      const inPpt=watch&&pp&&R.net&&R.net.left.some(t2=>t2.ion===k2);const tg=[290+i*14+(j%2)*7,212-(j%2)*12];const f2=inPpt?smooth(seg(t,1.2,3)):0;sp(lerp(q[0],tg[0],f2),lerp(q[1],tg[1],f2),k2,.7,{lab:false,charge:f2<.9})}})},{from:[220,200]})}}
+function pick2(f,i){const m={NaCl:["Na+","Cl-"],KCl:["K+","Cl-"],CaCl2:["Ca2+","Cl-","Cl-"],NaOH:["Na+","OH-"],KNO3:["K+","NO3-"],CuSO4:["Cu2+","SO42-"],MgSO4:["Mg2+","SO42-"]}[f]||["Na+","Cl-"];return m[i%m.length]}
+function colSol(s){return s.cat==="Cu2+"?mix(C.water,C["sol-cu"],.6):s.cat==="Ni2+"?mix(C.water,C["sol-ni"],.6):C.water}
+function calcA11y(){const p=TR.p;const lab=p.title+" problem: "+$("#calcProb").textContent.replace(p.title+" · practice problem","").trim();
+  let d=lab+" ";if(p.choice)d+=TR.picked==null?"Two test tubes of clear or coloured solution stand beside an empty mixing tube and a zoom circle of moving ions.":"The two solutions pour together in the middle tube. "+(p.R.ppt.length?"A "+p.R.ppt[0].cname+" solid of "+chemTxt(p.R.ppt[0].f)+" clouds the tube and settles, and in the zoom circle the reacting ions pair up at the bottom.":"Nothing forms; the ions in the zoom circle keep moving freely.");
+  else d+=TR.sol?"The worked solution is shown below the picture: each given value appears as a fraction, matching units are crossed out in red, and the answer appears in a green box"+(p.int?".":": "+ansStr(p.ans,p.sf)+" "+p.unit+"."):"The card on the right lists the givens and what to find. The worked solution appears after you check a right answer or press Show worked solution.";
+  return [lab.slice(0,240),d]}
+/* ================= PART 4: sort it out ================= */
+const c_=chemTxt;
+const SROUNDS=[
+{name:"Reaction type",tip:"Count reactants and products. Look for O₂ with a fuel, or an element standing alone.",goal:"Sort each balanced equation by its reaction type.",
+ bins:[["comb","Combination"],["decomp","Decomposition"],["single","Single replacement"],["double","Double replacement"],["combust","Combustion"]],
+ cards:[["2Na + Cl2 → 2NaCl","comb","Two reactants make one product."],["CaO + H2O → Ca(OH)2","comb","Two reactants make one product."],["N2 + 3H2 → 2NH3","comb","Two reactants make one product."],
+  ["2H2O2 → 2H2O + O2","decomp","One reactant breaks into two products."],["CaCO3 → CaO + CO2","decomp","One reactant breaks into two products."],["2KClO3 → 2KCl + 3O2","decomp","One reactant breaks into two products."],
+  ["Zn + CuSO4 → ZnSO4 + Cu","single","An element replaces another in a compound."],["Mg + 2HCl → MgCl2 + H2","single","Mg replaces hydrogen."],["Cl2 + 2KBr → 2KCl + Br2","single","Chlorine replaces bromine."],
+  ["AgNO3 + NaCl → AgCl + NaNO3","double","Two compounds swap partners."],["HCl + NaOH → NaCl + H2O","double","Acid-base neutralization is a double replacement."],["BaCl2 + Na2SO4 → BaSO4 + 2NaCl","double","Two compounds swap partners."],
+  ["CH4 + 2O2 → CO2 + 2H2O","combust","A fuel reacts with O₂ to make CO₂ and H₂O."],["C3H8 + 5O2 → 3CO2 + 4H2O","combust","Propane burning."],["C6H12O6 + 6O2 → 6CO2 + 6H2O","combust","Glucose burning (overall equation of cell respiration)."]]},
+{name:"Soluble or insoluble?",tip:"Check the cation first: Group 1 and NH₄⁺ always dissolve. Then use the anion rule and its exceptions.",goal:"Use the solubility rules: does each compound dissolve in water, or form a precipitate?",
+ bins:[["sol","Soluble"],["insol","Insoluble"]],
+ cards:[["NaNO3","sol","Group 1 and nitrate: always soluble."],["KCl","sol","Group 1: soluble."],["(NH4)2SO4","sol","Ammonium: always soluble."],["Na2CO3","sol","Group 1 beats the carbonate rule."],["KOH","sol","Group 1 hydroxide: soluble."],["CuSO4","sol","Most sulfates are soluble; Cu²⁺ is not an exception."],["Pb(NO3)2","sol","All nitrates are soluble."],["K3PO4","sol","Group 1 phosphate: soluble."],
+  ["AgCl","insol","Chlorides are soluble except with Ag⁺, Pb²⁺, Hg₂²⁺."],["PbI2","insol","Iodides are soluble except with Ag⁺, Pb²⁺, Hg₂²⁺."],["BaSO4","insol","Ba²⁺ is a sulfate exception."],["CaCO3","insol","Carbonates are insoluble except Group 1 and NH₄⁺."],["Fe(OH)3","insol","Hydroxides are insoluble except Group 1, NH₄⁺, Ba²⁺."],["Mg(OH)2","insol","Hydroxides are insoluble except Group 1, NH₄⁺, Ba²⁺."],["AgBr","insol","Bromides are soluble except with Ag⁺, Pb²⁺, Hg₂²⁺."],["Ca3(PO4)2","insol","Phosphates are insoluble except Group 1 and NH₄⁺."]]},
+{name:"Strong, weak or non-electrolyte?",tip:"Strong: the six strong acids, strong bases and soluble salts. Weak: other acids and NH₃. Non: molecular compounds that are not acids.",goal:"How many ions does each substance make in water?",
+ bins:[["strong","Strong electrolyte"],["weak","Weak electrolyte"],["non","Non-electrolyte"]],
+ cards:[["HCl","strong","Strong acid: 100% ionized."],["HNO3","strong","Strong acid."],["H2SO4","strong","Strong acid."],["NaOH","strong","Strong base."],["KBr","strong","Soluble ionic compound."],["CaCl2","strong","Soluble ionic compound."],
+  ["HC2H3O2 (acetic acid)","weak","Weak acid: about 1% ionized."],["HF","weak","HF is a weak acid, unlike HCl, HBr and HI."],["NH3 (ammonia)","weak","Weak base: a few NH₄⁺ and OH⁻."],["H2CO3 (carbonic acid)","weak","Weak acid."],
+  ["C12H22O11 (sugar)","non","Molecular: dissolves as whole molecules."],["C2H5OH (ethanol)","non","Molecular: no ions."],["CO(NH2)2 (urea)","non","Molecular: no ions."],["C3H8O3 (glycerol)","non","Molecular: no ions."]]},
+{name:"Oxidized or reduced?",tip:"Find the oxidation number before and after. Up means oxidized; down means reduced.",goal:"In each reaction, is the named species oxidized (loses electrons), reduced (gains electrons) or neither?",
+ bins:[["ox","Oxidized"],["red","Reduced"],["neither","Neither"]],
+ cards:[["Zn in Zn + Cu^2+ → Zn^2+ + Cu","ox","0 → +2: lost 2 e⁻."],["Cu^2+ in Zn + Cu^2+ → Zn^2+ + Cu","red","+2 → 0: gained 2 e⁻."],["Mg in 2Mg + O2 → 2MgO","ox","0 → +2."],["O2 in 2Mg + O2 → 2MgO","red","0 → −2."],
+  ["Fe in 4Fe + 3O2 → 2Fe2O3","ox","0 → +3: rusting is oxidation."],["H^+ in Zn + 2H^+ → Zn^2+ + H2","red","+1 → 0."],["Cu in Cu + 2Ag^+ → Cu^2+ + 2Ag","ox","0 → +2."],["Ag^+ in Cu + 2Ag^+ → Cu^2+ + 2Ag","red","+1 → 0."],
+  ["Cl2 in Cl2 + 2Br^- → 2Cl^- + Br2","red","0 → −1."],["Br^- in Cl2 + 2Br^- → 2Cl^- + Br2","ox","−1 → 0."],["C in CH4 + 2O2 → CO2 + 2H2O","ox","−4 → +4."],
+  ["SO4^2- in Zn + CuSO4 → ZnSO4 + Cu","neither","Sulfate is a spectator: S stays +6."],["Na^+ in AgNO3 + NaCl → AgCl + NaNO3","neither","No oxidation numbers change in a precipitation."]]},
+{name:"What drives the reaction?",tip:"Look at the products: an (s), H₂O, a (g), or an element changing its charge.",goal:"What makes each reaction happen? Some fit two boxes; either one counts.",
+ bins:[["ppt","A precipitate forms"],["water","Water forms (neutralization)"],["gas","A gas forms"],["redox","Electrons move (redox)"]],
+ cards:[["Pb(NO3)2 + 2KI → PbI2(s) + 2KNO3","ppt","PbI₂ is insoluble."],["CaCl2 + Na2CO3 → CaCO3(s) + 2NaCl","ppt","CaCO₃ is insoluble."],["BaCl2 + H2SO4 → BaSO4(s) + 2HCl","ppt","BaSO₄ is insoluble."],
+  ["HCl + KOH → KCl + H2O","water","H⁺ + OH⁻ → H₂O."],["H2SO4 + 2NaOH → Na2SO4 + 2H2O","water","Neutralization."],["2HNO3 + Mg(OH)2 → Mg(NO3)2 + 2H2O","water","Neutralization (an antacid)."],
+  ["Na2CO3 + 2HCl → 2NaCl + H2O + CO2(g)",["gas","water"],"CO₂ bubbles out (water forms too)."],["NaHCO3 + HC2H3O2 → NaC2H3O2 + H2O + CO2(g)",["gas","water"],"Baking soda and vinegar: CO₂."],["FeS + 2HCl → FeCl2 + H2S(g)","gas","H₂S gas forms."],
+  ["Zn + CuSO4 → ZnSO4 + Cu","redox","Zn gives electrons to Cu²⁺."],["Cu + 2AgNO3 → Cu(NO3)2 + 2Ag","redox","Cu gives electrons to Ag⁺."],["Mg + 2HCl → MgCl2 + H2(g)",["redox","gas"],"Mg is oxidized and H₂ gas forms."]]}];
+SROUNDS.forEach(r=>r.cards.forEach(c=>{c[0]=c[0].replace(/^(.*?)( in )(.*)$/,(m,a,b,d)=>c_(a)+b+c_(d));if(c[0].indexOf(" in ")<0)c[0]=c_(c[0])}));
+function binSVG(k){const s=b=>`<svg viewBox="0 0 56 46" aria-hidden="true" focusable="false">${b}</svg>`;
+  const at=(x,y,r,f,t)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${f}" stroke="var(--ink)" stroke-opacity=".45"/>`+(t?`<text x="${x}" y="${y+3.5}" font-size="9" font-weight="700" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans,sans-serif">${t}</text>`:"");
+  const beak=(inner)=>`<path d="M14 8 v28 q0 4 4 4 h20 q4 0 4 -4 v-28" fill="var(--glass)" stroke="var(--glass-edge)" stroke-width="1.6"/>${inner}`;
+  const bulb=(b)=>`${b>0?`<circle cx="28" cy="18" r="${10+8*b}" fill="var(--bulb)" opacity="${.25+.45*b}"/>`:""}<circle cx="28" cy="18" r="10" fill="${b>0?"var(--bulb)":"var(--glass)"}" stroke="var(--glass-edge)" stroke-width="1.5"/><rect x="23" y="27" width="10" height="9" rx="2" fill="var(--metal)"/>`;
+  const e=(x,y)=>`<circle cx="${x}" cy="${y}" r="5" fill="var(--elec)" stroke="#000" stroke-opacity=".35"/><text x="${x}" y="${y+3}" font-size="7" font-weight="700" text-anchor="middle" fill="#10161A">e</text>`;
+  switch(k){
+    case "comb":return s(`${at(10,23,6,"var(--act1)")}${at(22,23,6,"var(--act6)")}<path d="M30 23 h8" stroke="var(--ink-soft)" stroke-width="2"/><path d="M36 19 l4 4 l-4 4" fill="none" stroke="var(--ink-soft)" stroke-width="2"/>${at(46,23,6,"var(--act1)")}${at(52,23,5,"var(--act6)")}`);
+    case "decomp":return s(`${at(6,23,5,"var(--act1)")}${at(14,23,6,"var(--act6)")}<path d="M22 23 h8" stroke="var(--ink-soft)" stroke-width="2"/><path d="M28 19 l4 4 l-4 4" fill="none" stroke="var(--ink-soft)" stroke-width="2"/>${at(40,15,6,"var(--act1)")}${at(48,32,6,"var(--act6)")}`);
+    case "single":return s(`${at(8,23,6,"var(--act7)")}${at(20,23,6,"var(--act1)")}${at(30,23,6,"var(--act6)")}<path d="M8 14 q6 -10 12 0" fill="none" stroke="var(--ink-soft)" stroke-width="1.8"/>${at(44,23,6,"var(--act7)")}${at(54,23,5,"var(--act6)")}`);
+    case "double":return s(`${at(10,14,6,"var(--act1)")}${at(22,14,6,"var(--act6)")}${at(34,32,6,"var(--act7)")}${at(46,32,6,"var(--act5)")}<path d="M22 20 L34 26 M34 20 L22 26" stroke="var(--ink-soft)" stroke-width="1.8"/>`);
+    case "combust":return s(`<path d="M28 42 q-14 -6 -6 -22 q2 8 6 6 q-4 -12 6 -22 q2 14 10 18 q4 14 -16 20z" fill="var(--flame)" stroke="var(--heat)" stroke-width="1.4"/>`);
+    case "sol":return s(beak(`<rect x="15" y="16" width="26" height="22" fill="var(--water)"/><circle cx="21" cy="24" r="2.4" fill="var(--el-na)"/><circle cx="31" cy="29" r="2.4" fill="var(--el-cl)"/><circle cx="35" cy="20" r="2.4" fill="var(--el-na)"/>`));
+    case "insol":return s(beak(`<rect x="15" y="16" width="26" height="22" fill="var(--water)"/><rect x="15" y="31" width="26" height="8" fill="var(--ppt-w)" stroke="var(--ink)" stroke-opacity=".3"/>`));
+    case "strong":return s(bulb(1));case "weak":return s(bulb(.3));case "non":return s(bulb(0));
+    case "ox":return s(`${at(18,24,9,"var(--el-zn)","Zn")}${e(42,12)}<path d="M28 18 L36 14" stroke="var(--pos)" stroke-width="2"/><text x="40" y="40" font-size="11" font-weight="700" fill="var(--pos)" font-family="IBM Plex Mono,monospace">up</text>`);
+    case "red":return s(`${at(36,24,9,"var(--el-cu)","Cu")}${e(12,12)}<path d="M18 14 L26 18" stroke="var(--neg)" stroke-width="2"/><text x="4" y="40" font-size="11" font-weight="700" fill="var(--neg)" font-family="IBM Plex Mono,monospace">down</text>`);
+    case "neither":return s(`${at(28,22,10,"var(--el-s)","S")}<path d="M10 40 h36 M10 35 h36" stroke="var(--ink-soft)" stroke-width="2"/>`);
+    case "ppt":return s(beak(`<rect x="15" y="16" width="26" height="22" fill="var(--water)"/><rect x="15" y="30" width="26" height="9" fill="var(--ppt-y)"/>`));
+    case "water":return s(`${at(28,26,9,"var(--el-o)","O")}${at(16,16,6,"var(--el-h)")}${at(40,16,6,"var(--el-h)")}`);
+    case "gas":return s(beak(`<rect x="15" y="16" width="26" height="22" fill="var(--water)"/><circle cx="22" cy="30" r="3" fill="none" stroke="var(--ink-soft)"/><circle cx="31" cy="22" r="4" fill="none" stroke="var(--ink-soft)"/><circle cx="26" cy="6" r="3" fill="none" stroke="var(--ink-soft)"/>`));
+    case "redox":return s(`${at(12,24,8,"var(--el-zn)")}${at(44,24,8,"var(--el-cu)")}${e(28,14)}<path d="M20 20 q8 -10 16 0" fill="none" stroke="var(--elec)" stroke-width="2"/>`);
+  }return s("")}
+const SG={r:0,placed:{},mist:0,sel:null,t0:0,timer:null,hint:null,doneRounds:{}};
+function cardBins(c){return Array.isArray(c[1])?c[1]:[c[1]]}
+function sRoundsUI(){$("#sRounds").innerHTML=SROUNDS.map((r,i)=>`<button type="button" class="round" aria-pressed="${i===SG.r}" data-i="${i}">Round ${i+1}: ${r.name}${SG.doneRounds[i]?`<span class="ok" aria-label="${SG.doneRounds[i]} stars">${"★".repeat(SG.doneRounds[i])}</span>`:""}</button>`).join("");
+  $("#sRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>sLoad(+b.dataset.i))}
+function sLoad(i){SG.r=i;SG.placed={};SG.mist=0;SG.sel=null;SG.hint=null;SG.t0=Date.now();const R=SROUNDS[i];SG.order=shuffle(R.cards.map((c,k)=>k));
+  $("#sN").textContent=`Round ${i+1} of ${SROUNDS.length}`;$("#sTitle").textContent=R.name;$("#sGoal").textContent=R.goal;
+  const bins=$("#sBins");bins.innerHTML="";R.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.k=b[0];
+    d.innerHTML=`<button type="button" class="binhead" data-k="${b[0]}">${binSVG(b[0])}<span>${b[1]}</span></button><div class="binitems"></div>`;
+    d.querySelector(".binhead").onclick=()=>{if(SG.sel!=null)sDrop(SG.sel,b[0]);else sMsg("info","Pick a card first, then tap a box.")};bins.appendChild(d)});
+  const best=store.get("best-"+i);$("#sBest").textContent=best?`Best for this round: ${"★".repeat(+best)}`:"";
+  $("#sMsg").className="msg";sRoundsUI();sRender();sTimerUI();a11yKey=""}
+function sRender(){const R=SROUNDS[SG.r];const pool=$("#sPool");pool.innerHTML="";
+  SG.order.forEach(k=>{if(SG.placed[k])return;const c=R.cards[k];const b=document.createElement("button");b.type="button";b.className="scard"+(SG.hint===k?" hinted":"");b.textContent=c[0];b.dataset.k=k;
+    b.setAttribute("aria-pressed",SG.sel===k);b.onclick=e=>{if(b.dataset.dragged){delete b.dataset.dragged;return}SG.sel=SG.sel===k?null:k;sRender();const nb=pool.querySelector(`[data-k="${k}"]`);if(nb)nb.focus()};
+    b.addEventListener("pointerdown",e=>sDragStart(e,b,k));pool.appendChild(b)});
+  if(!pool.children.length)pool.innerHTML='<span class="small">All cards sorted.</span>';
+  document.querySelectorAll("#sBins .bin").forEach(d=>{const items=d.querySelector(".binitems");items.innerHTML="";d.classList.toggle("hintbin",SG.hint!=null&&cardBins(R.cards[SG.hint]).indexOf(d.dataset.k)>=0);
+    R.cards.forEach((c,k)=>{if(SG.placed[k]===d.dataset.k){const s=document.createElement("div");s.className="scard placed";s.textContent="✓ "+c[0];items.appendChild(s)}})});
+  const n=Object.keys(SG.placed).length,tot=R.cards.length;$("#sStars").textContent=n===tot?"★".repeat(sStars())+"☆".repeat(3-sStars()):"";$("#sStars").setAttribute("aria-label",n===tot?sStars()+" of 3 stars":"Stars appear when the round is done")}
+function sStars(){return SG.mist===0?3:SG.mist<=2?2:1}
+function sMsg(cls,t){const m=$("#sMsg");m.className="msg show "+cls;m.textContent=t}
+function sDrop(k,bin){const R=SROUNDS[SG.r];const c=R.cards[k];SG.sel=null;SG.hint=null;
+  if(cardBins(c).indexOf(bin)>=0){SG.placed[k]=bin;sMsg("good","✓ "+c[0]+": "+c[2])}else{SG.mist++;const nm=R.bins.find(b=>b[0]===bin)[1];sMsg("warn",`Not quite. "${c[0]}" does not go in ${nm}. Tip: ${R.tip}`)}
+  sRender();a11yKey="";if(Object.keys(SG.placed).length===R.cards.length)sFinish();else{const f=$("#sPool .scard");if(f&&document.activeElement===document.body)f.focus()}}
+function sFinish(){const st=sStars();SG.doneRounds[SG.r]=Math.max(SG.doneRounds[SG.r]||0,st);const best=+(store.get("best-"+SG.r)||0);if(st>best)store.set("best-"+SG.r,st);
+  const tm=!$("#sRelaxed").checked?` Time: ${fmt((Date.now()-SG.t0)/1000)}.`:"";sMsg("good",`Round complete with ${SG.mist} ${SG.mist===1?"mistake":"mistakes"}: ${st} of 3 stars.${tm} `+(SG.r<SROUNDS.length-1?"Press Next round when you are ready.":"That was the last round. Well done."));sRoundsUI();sRender()}
+let drag=null;
+function sDragStart(e,b,k){if(e.button>0)return;const r=b.getBoundingClientRect();drag={k,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};
+  window.addEventListener("pointermove",sDragMove);window.addEventListener("pointerup",sDragEnd);window.addEventListener("pointercancel",sDragEnd)}
+function sDragMove(e){if(!drag||e.pointerId!==drag.id)return;if(!drag.g){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;const g=drag.b.cloneNode(true);g.classList.add("ghost");g.removeAttribute("id");g.setAttribute("aria-hidden","true");g.tabIndex=-1;g.style.width=drag.b.offsetWidth+"px";document.body.appendChild(g);drag.g=g;drag.b.style.opacity=".35"}
+  e.preventDefault();drag.g.style.left=(e.clientX-drag.dx)+"px";drag.g.style.top=(e.clientY-drag.dy)+"px";
+  const el=document.elementFromPoint(e.clientX,e.clientY);const bin=el&&el.closest?el.closest(".bin"):null;document.querySelectorAll(".bin.over").forEach(x=>x!==bin&&x.classList.remove("over"));if(bin)bin.classList.add("over");drag.over=bin}
+function sDragEnd(e){if(!drag)return;window.removeEventListener("pointermove",sDragMove);window.removeEventListener("pointerup",sDragEnd);window.removeEventListener("pointercancel",sDragEnd);
+  const d=drag;drag=null;document.querySelectorAll(".bin.over").forEach(x=>x.classList.remove("over"));if(!d.g)return;d.g.remove();d.b.style.opacity="";d.b.dataset.dragged="1";
+  if(d.over)sDrop(d.k,d.over.dataset.k);else sRender()}
+$("#sHint").onclick=()=>{const R=SROUNDS[SG.r];const k=SG.sel!=null?SG.sel:SG.order.find(k=>!SG.placed[k]);if(k==null){sMsg("info","Everything is sorted.");return}SG.hint=k;
+  const bn=cardBins(R.cards[k]).map(b=>R.bins.find(x=>x[0]===b)[1]).join(" or ");sMsg("info",`Hint: "${R.cards[k][0]}" goes in the glowing box (${bn}).`);sRender()};
+$("#sShow").onclick=()=>{const R=SROUNDS[SG.r];R.cards.forEach((c,k)=>{if(!SG.placed[k])SG.placed[k]=cardBins(c)[0]});SG.mist=Math.max(SG.mist,3);sMsg("info","All cards placed. Read each box to see why they belong there.");sRender();sFinish()};
+$("#sShuffle").onclick=()=>sLoad(SG.r);$("#sNext").onclick=()=>sLoad((SG.r+1)%SROUNDS.length);
+function sTimerUI(){const relaxed=$("#sRelaxed").checked;$("#sTimer").hidden=relaxed;clearInterval(SG.timer);if(!relaxed){SG.timer=setInterval(()=>{if(Object.keys(SG.placed).length<SROUNDS[SG.r].cards.length)$("#sTimer").textContent=fmt((Date.now()-SG.t0)/1000)},500)}}
+$("#sRelaxed").onchange=()=>{SG.t0=Date.now();sTimerUI()};
+function sortA11y(){const R=SROUNDS[SG.r];const n=Object.keys(SG.placed).length;
+  return [null,`Round ${SG.r+1}, ${R.name}. ${n} of ${R.cards.length} cards sorted. Each box has a small drawing and a name: `+R.bins.map(b=>b[1]).join(", ")+`. Cards still to sort: `+(SG.order.filter(k=>!SG.placed[k]).map(k=>R.cards[k][0]).join("; ")||"none")+"."]}
+/* ================= PART 5: chemistry in real life ================= */
+const LIFE=[
+{name:"Kidney stones",title:"Kidney stones: a precipitate in the body",
+ story:"Most kidney stones are calcium oxalate. When urine carries more Ca²⁺ and oxalate ions (C₂O₄²⁻) than it can keep dissolved, the ions lock together and a crystal grows, just like a precipitate in a test tube. Drinking more water makes more urine, which spreads the same ions through a larger volume.",
+ cap:"Ca²⁺ and oxalate ions in concentrated urine lock into a calcium oxalate crystal; more water spreads them out.",
+ desc:"A bean-shaped kidney sits on the left with a small grey stone in its center. A zoom circle shows urine: olive calcium ions with 2 plus badges and oxalate ions (two grey carbons with four red oxygens and a 2 minus badge) moving around. In the concentrated phase, labelled concentrated urine, many ions crowd the circle and pairs lock onto a growing pale crystal at the bottom. In the diluted phase, labelled after drinking water, the same kinds of ions are fewer per window and the crystal stops growing. The net ionic equation is written below.",
+ qs:[{q:"What type of reaction forms a calcium oxalate stone?",o:[["Precipitation",1,"Yes. Two dissolved ions form an insoluble solid, exactly like AgCl forming in a beaker."],["Neutralization",0,"No acid and base make water here. Ions combine into a solid."],["Oxidation-reduction",0,"No oxidation numbers change: Ca stays +2 and oxalate stays 2−."],["Combustion",0,"Nothing reacts with O₂ to make CO₂ and water."]]},
+  {q:"Which is the net ionic equation for stone formation?",o:[["Ca²⁺(aq) + C₂O₄²⁻(aq) → CaC₂O₄(s)",1,"Yes. The charges (+2 and −2) cancel in a 1 : 1 solid."],["CaC₂O₄(s) → Ca²⁺(aq) + C₂O₄²⁻(aq)",0,"That is the solid dissolving, the reverse of stone formation."],["Ca²⁺(aq) + 2C₂O₄²⁻(aq) → Ca(C₂O₄)₂(s)",0,"Charges would not balance: +2 and 2(−2) = −4. The ions combine 1 : 1."],["Ca(s) + C₂O₄(s) → CaC₂O₄(s)",0,"In urine these are dissolved ions, not solid elements."]]},
+  {q:"Someone doubles their urine volume by drinking more water. What happens to the Ca²⁺ concentration (same amount of calcium)?",o:[["It is cut in half",1,"Yes. M₁V₁ = M₂V₂: twice the volume, half the molarity, so the ions are less likely to lock together."],["It doubles",0,"More water spreads the same ions out, so the concentration goes down."],["It stays the same",0,"The moles stay the same, but the volume doubles, so molarity halves."],["It drops to one quarter",0,"Concentration is inversely proportional to volume: double the volume gives half, not a quarter."]]}]},
+{name:"Antacids",title:"Antacids: neutralizing stomach acid",
+ story:"Stomach acid is mostly hydrochloric acid, with a pH around 1.5 to 3.5. Antacid tablets contain bases such as calcium carbonate (CaCO₃) or magnesium hydroxide (Mg(OH)₂), which neutralize some of the extra acid and raise the pH. Calcium carbonate also makes carbon dioxide gas.",
+ cap:"Carbonate in the tablet takes up H⁺ from stomach acid, making water and CO₂ gas.",
+ desc:"A pink stomach shape holds acid shown as many small white H plus ions. A white antacid tablet sits in it, slowly shrinking while bubbles rise. A zoom circle shows a carbonate ion picking up two H plus ions and splitting into a water molecule and a CO2 molecule that floats up. A pH meter beside the stomach slowly rises from about 1.5 toward about 3 as the H plus ions are used up.",
+ qs:[{q:"Why do people often burp after taking a calcium carbonate antacid?",o:[["CaCO₃ + 2HCl makes CO₂ gas",1,"Yes. Carbonate plus acid gives carbonic acid, which breaks into water and CO₂."],["It makes H₂ gas",0,"H₂ comes from active metals in acid, not from carbonates."],["It makes O₂ gas",0,"No oxygen gas forms in this neutralization."],["It makes Cl₂ gas",0,"Chloride ions stay dissolved as spectators."]]},
+  {q:"How many moles of HCl can 0.500 g of CaCO₃ (100.09 g/mol) neutralize? (CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂)",o:[["9.99 × 10⁻³ mol",1,"Yes. 0.500 g ÷ 100.09 g/mol = 4.996 × 10⁻³ mol CaCO₃; × 2 = 9.99 × 10⁻³ mol HCl."],["5.00 × 10⁻³ mol",0,"That is the moles of CaCO₃. Each one neutralizes 2 HCl, so multiply by 2."],["2.50 × 10⁻³ mol",0,"That divided by 2. The ratio means MORE HCl than CaCO₃."],["5.00 × 10⁻² mol",0,"Check the decimal: 0.500 ÷ 100.09 is about 0.00500, not 0.0500."]]},
+  {q:"Mg(OH)₂ + 2HCl → MgCl₂ + 2H₂O is which kind of reaction?",o:[["Acid-base neutralization",1,"Yes. OH⁻ from the base meets H⁺ from the acid to make water."],["Precipitation",0,"MgCl₂ is soluble; no new solid forms (the Mg(OH)₂ solid actually dissolves)."],["Oxidation-reduction",0,"No oxidation numbers change: Mg stays +2."],["Gas-forming",0,"No gas forms with a hydroxide; that happens with carbonates."]]}]},
+{name:"IV saline",title:"IV saline: concentration matters",
+ story:"Normal saline is 0.9% NaCl: 0.90 g of sodium chloride in every 100 mL of solution. Its concentration of dissolved particles is close to that of blood plasma, so red blood cells neither swell nor shrink. Getting the concentration right is a chemistry calculation.",
+ cap:"Normal saline: 0.90 g NaCl per 100 mL, about 0.154 M, giving about 0.308 M of ions.",
+ desc:"An IV bag labelled 0.9 percent NaCl hangs on the left; drops fall in the drip chamber and a tube runs down. A zoom circle on the bag shows purple sodium ions and green chloride ions spread among water molecules. On the right, a red blood cell is drawn as a red disc while small water molecules drift into it and out of it in equal numbers, labelled water in equals water out, same particle concentration inside and outside the cell. A calculation line reads 0.90 g divided by 58.44 grams per mole divided by 0.100 L equals 0.154 M.",
+ qs:[{q:"What is the molarity of NaCl in normal saline? (0.90 g per 100 mL; NaCl is 58.44 g/mol)",o:[["0.154 M",1,"Yes. 0.90 ÷ 58.44 = 0.0154 mol in 0.100 L, so 0.0154 ÷ 0.100 = 0.154 M."],["0.0154 M",0,"That is the moles in 100 mL. Divide by 0.100 L to get mol per liter."],["9.0 M",0,"That is grams per liter (9.0 g/L), not moles per liter. Divide by the molar mass."],["1.54 M",0,"Check the volume: 100 mL is 0.100 L, not 0.0100 L."]]},
+  {q:"NaCl is a strong electrolyte. What is the total concentration of dissolved ions?",o:[["About 0.308 M",1,"Yes. Each NaCl gives Na⁺ and Cl⁻: 2 × 0.154 M. (Clinically this is about 308 mOsm/L in the ideal case.)"],["0.154 M",0,"That counts formula units. Each one splits into two ions."],["0.077 M",0,"Splitting into ions doubles the particle count; it does not halve it."],["0.462 M",0,"NaCl gives 2 ions per unit, not 3."]]},
+  {q:"How many grams of NaCl does a 1.0 L bag of normal saline deliver?",o:[["9.0 g",1,"Yes. 0.90 g per 100 mL × 10 = 9.0 g per liter."],["0.90 g",0,"That is per 100 mL. A liter is ten times as much."],["90 g",0,"That is 100 times too much: 0.90 g per 100 mL is 9.0 g per 1000 mL."],["0.154 g",0,"0.154 is the molarity (mol/L). Multiply by 58.44 g/mol to get grams."]]}]},
+{name:"Rust",title:"Rusting: slow oxidation of iron",
+ story:"Iron rusts when both water and oxygen touch it. Iron atoms lose electrons (they are oxidized), and O₂ molecules gain them (they are reduced). Salt water speeds rusting because its ions carry charge between the places where the two halves happen. Rust is a hydrated iron(III) oxide; a simplified overall equation is 4Fe + 3O₂ → 2Fe₂O₃.",
+ cap:"Iron gives electrons to oxygen through a water droplet; brown iron(III) oxide builds up.",
+ desc:"A grey iron bar lies under a pale blue water droplet. Under the middle of the droplet, iron atoms turn into Fe2 plus ions that move into the water, and yellow electrons travel through the metal toward the droplet's edge, where red O2 molecules from the air pick them up. Brown rust specks build up around the droplet's rim over time. Small purple and green salt ions float in the droplet. A zinc-coated bar is shown at the right with the zinc layer, not the iron, losing electrons.",
+ qs:[{q:"In 4Fe + 3O₂ → 2Fe₂O₃, which substance is oxidized?",o:[["Fe: 0 → +3",1,"Yes. Iron loses electrons, so its oxidation number goes up."],["O₂: 0 → −2",0,"Oxygen's number goes DOWN, so it is reduced."],["Both",0,"One substance is oxidized while the other is reduced."],["Neither: no electrons move",0,"Iron goes from 0 to +3: electrons definitely move."]]},
+  {q:"What is the oxidizing agent in rusting?",o:[["O₂",1,"Yes. O₂ takes electrons (it is reduced), which makes it the oxidizing agent."],["Fe",0,"Iron is oxidized, so it is the reducing agent."],["Fe₂O₃",0,"That is the product, not a reactant."],["Water only",0,"Water carries ions and helps, but O₂ is what gains the electrons."]]},
+  {q:"Galvanized steel has a zinc coating. Even if it is scratched, the iron does not rust quickly. Why?",o:[["Zn is above Fe in the activity series, so zinc is oxidized instead of iron",1,"Yes. The more active zinc gives up electrons first and protects the iron."],["Zn is below Fe, so it cannot react",0,"Zinc is above iron: it is MORE easily oxidized, which is exactly why it protects."],["Zinc turns rust back into iron",0,"Zinc protects by being oxidized first, not by reversing rust."],["The coating keeps all water away forever",0,"A scratch lets water in, yet the iron is still protected, so the reason must be chemical."]]}]},
+{name:"Breathalyzer",title:"Breath-alcohol test: a redox colour change",
+ story:"Older breath-alcohol testers bubble breath through an acidic orange solution of potassium dichromate. Ethanol (C₂H₅OH) from the breath is oxidized to acetic acid, and orange dichromate (Cr₂O₇²⁻, chromium +6) is reduced to green Cr³⁺. The more alcohol, the more of the orange turns green.",
+ cap:"Ethanol gives electrons to orange dichromate, which turns into green Cr³⁺.",
+ desc:"A breath tube on the left blows small ethanol molecules into a glass vial of orange liquid. Over time the vial's colour shifts from orange toward green, starting where the breath enters. A zoom circle shows a dichromate ion (two blue-grey chromium atoms bridged by oxygen) receiving yellow electrons from ethanol molecules; the chromium atoms leave as green Cr3 plus ions, and the ethanol becomes acetic acid. A scale under the vial runs from orange, no alcohol, to green, more alcohol.",
+ qs:[{q:"What is the oxidation number of Cr in Cr₂O₇²⁻?",o:[["+6",1,"Yes. 2x + 7(−2) = −2, so 2x = +12 and x = +6."],["+12",0,"That is the total for two Cr atoms. Divide by 2."],["+7",0,"Set the sum to the ion's charge, −2: 2x − 14 = −2, x = +6."],["+3",0,"+3 is chromium AFTER the reaction (Cr³⁺)."]]},
+  {q:"Chromium goes from +6 to +3. What happened to dichromate?",o:[["It was reduced, so it is the oxidizing agent",1,"Yes. Its oxidation number went down (gained electrons), so it oxidized the ethanol."],["It was oxidized, so it is the reducing agent",0,"Oxidation means the number goes UP. Here it goes down."],["It was reduced, so it is the reducing agent",0,"The reduced substance is the OXIDIZING agent."],["Nothing: the colour change is just dilution",0,"Dilution would fade the orange, not turn it green. A new ion, Cr³⁺, forms."]]},
+  {q:"Which substance is the reducing agent?",o:[["Ethanol",1,"Yes. Ethanol is oxidized to acetic acid, giving its electrons to dichromate."],["Dichromate",0,"Dichromate is reduced: it is the oxidizing agent."],["The acid (H⁺)",0,"The acid is needed for the reaction but does not give up electrons."],["Water",0,"Water forms as a product; it is not the electron donor."]]}]}];
+const LS={i:0,ans:{},doneSc:{}};
+function lifeChips(){$("#lifeChips").innerHTML=LIFE.map((s,i)=>`<button type="button" class="casechip" aria-pressed="${i===LS.i}" data-i="${i}">${s.name}${LS.doneSc[i]?'<span class="ok" aria-hidden="true">✓</span><span class="gk-sr"> (all answered)</span>':""}</button>`).join("");$("#lifeChips").querySelectorAll("button").forEach(b=>b.onclick=()=>lifeGo(+b.dataset.i))}
+function lifeGo(i){LS.i=(i+LIFE.length)%LIFE.length;LS.t0=performance.now();const S=LIFE[LS.i];$("#lifeN").textContent=`Scenario ${LS.i+1} of ${LIFE.length}`;$("#lifeTitle").textContent=S.title;$("#lifeStory").textContent=S.story;$("#lifeCap").textContent=S.cap;
+  const box=$("#lifeQs");box.innerHTML="";S.qs.forEach((q,qi)=>{const d=document.createElement("div");d.className="qblock";const id=`lq${LS.i}_${qi}`;d.innerHTML=`<p class="qlab" id="${id}">${qi+1}. ${q.q}</p><div class="opts" role="group" aria-labelledby="${id}"></div><div class="fb" role="status"></div>`;
+    const ob=d.querySelector(".opts"),fb=d.querySelector(".fb");q.o.map((o,oi)=>[o,oi]).sort((a,b)=>rnd(LS.i*13+qi*7+a[1])-rnd(LS.i*13+qi*7+b[1])).forEach(([o])=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{ob.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];LS.ans[LS.i+"_"+qi]=1;if(S.qs.every((x,k)=>LS.ans[LS.i+"_"+k])){LS.doneSc[LS.i]=1;lifeChips()}}else{b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};ob.appendChild(b)});box.appendChild(d)});
+  lifeChips();a11yKey=""}
+$("#lifePrev").onclick=()=>lifeGo(LS.i-1);$("#lifeNext").onclick=()=>lifeGo(LS.i+1);
+/* scenes */
+function lifeKidney(T){const ph=Math.floor(T/7)%2,t=P(T,7);panelBox(12,12,580,436);title(26,32,ph?"After drinking more water":"Concentrated urine");levelTag(26,52,"MACROSCOPIC + PARTICLES");
+  kidneyBig(150,240,1.5);ell(150,248,14,10,.4,mix(C["ppt-w"],C["ink-soft"],.25),hexA(C.ink,.4),1.2);txt(150,350,"kidney (stone in the center)",{size:12.5,align:"center",color:C["ink-soft"]});
+  const mx=420,my=220,mr=140;magnifier(mx,my,mr,()=>{const n=ph?4:9;for(let k=0;k<n;k++){const q=wander(k+500,T,[mx-mr,my-mr,2*mr,2*mr-60],.45,16);sp(q[0],q[1],"Ca2+",1.05,{});const q2=wander(k+520,T,[mx-mr,my-mr,2*mr,2*mr-60],.45,18);polyIon(q2[0],q2[1],"C2O4",.95,T*.3+k,{})}
+    for(let k=0;k<8;k++){const q=wander(k+540,T,[mx-mr,my-mr,2*mr,2*mr],.4,10);water(q[0],q[1],T+k,.9,{a:.45})}
+    const grow=ph?3:3+Math.floor(t*7);for(let c=0;c<grow;c++){const x=mx-60+(c%6)*22,y=my+mr-28-Math.floor(c/6)*18;atom(x,y,c%2?"Ca":"C",c%2?9:7,{lab:false})}
+    rr(mx-72,my+mr-46,140,34,6);ctx.strokeStyle=hexA(C["ink-soft"],.6);ctx.setLineDash([4,3]);ctx.lineWidth=1.4;ctx.stroke();ctx.setLineDash([])},{from:[150,248]});
+  label(mx,my+mr+16,ph?"fewer ions per drop: crystal stops growing":"crowded ions lock onto the crystal",{size:12.5,weight:700,border:ph?C.good:C.warn});
+  panelBox(12,456-60,580,52);chem(302,422,"Ca^2+(aq) + C2O4^2-(aq) → CaC2O4(s)",{size:17,align:"center"})}
+function kidneyBig(x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.beginPath();ctx.moveTo(10,-60);ctx.bezierCurveTo(-60,-70,-60,70,10,60);ctx.bezierCurveTo(30,56,28,24,16,14);ctx.bezierCurveTo(6,6,6,-6,16,-14);ctx.bezierCurveTo(28,-24,30,-56,10,-60);ctx.closePath();ctx.restore();fillStroke(mix("#B3403A",C.panel,isDark()?.15:.35),hexA(C.ink,.4),1.6)}
+function lifeAntacid(T){const t=P(T,12);panelBox(12,12,580,436);title(26,32,"Stomach acid meets an antacid");levelTag(26,52,"MACROSCOPIC + PARTICLES");
+  ctx.save();ctx.translate(170,230);ctx.beginPath();ctx.moveTo(-20,-120);ctx.bezierCurveTo(-110,-100,-120,60,-40,100);ctx.bezierCurveTo(20,130,110,90,110,30);ctx.bezierCurveTo(112,0,80,-6,60,14);ctx.bezierCurveTo(30,40,0,30,-6,0);ctx.bezierCurveTo(-12,-40,10,-90,14,-120);ctx.closePath();ctx.restore();fillStroke(mix("#E0AE8A",C.panel,isDark()?.1:.3),hexA(C.ink,.4),1.6);
+  for(let k=0;k<Math.round(14*(1-t*.6));k++){const q=wander(k+600,T,[100,180,120,130],.6,6);sp(q[0],q[1],"H+",.55,{lab:false})}
+  const sz=1-.7*t;rr(150-18*sz,300-8*sz,36*sz,16*sz,6);fillStroke(C["ppt-w"],hexA(C.ink,.4),1.2);for(let k=0;k<8;k++){const q=P(T*.8+k/8,1);circ(150+Math.sin(k*2+T)*12,300-q*100,2+q*2,null,hexA(C["ink-soft"],.7),1.1)}
+  const pH=1.5+1.5*smooth(t);rr(40,70,90,46,6);fillStroke("#0A1014",null);txt(85,84,"pH",{size:11,mono:true,color:"#A3B2BA",align:"center"});txt(85,102,pH.toFixed(1),{size:16,mono:true,weight:700,color:"#7FE0A8",align:"center"});
+  const mx=430,my=220,mr=130;magnifier(mx,my,mr,()=>{const f=P(T,4);const c=[mx,lerp(my+60,my,smooth(seg(f,0,.3)))];const ha=[lerp(mx-110,c[0]-22,smooth(seg(f,.2,.45))),lerp(my-80,c[1]-14,smooth(seg(f,.2,.45)))],hb=[lerp(mx+110,c[0]+22,smooth(seg(f,.25,.5))),lerp(my-60,c[1]-14,smooth(seg(f,.25,.5)))];
+    if(f<.55){polyIon(c[0],c[1],"CO3",1.6,0,{charge:f<.45});sp(ha[0],ha[1],"H+",1.4,{charge:f<.45});sp(hb[0],hb[1],"H+",1.4,{charge:f<.45})}else{const r=smooth(seg(f,.6,1));water(c[0]-40,c[1]+10,-Math.PI/2,1.8,{});polyIon(c[0]+30,lerp(c[1],my-mr+20,r),"CO2",1.6,0,{});circ(c[0]+30,lerp(c[1],my-mr+20,r),32,null,hexA(C["ink-soft"],.6),1.5)}
+    for(let k=0;k<4;k++){const q=wander(k+620,T,[mx-mr,my-mr,2*mr,2*mr],.5,12);sp(q[0],q[1],"Cl-",.9,{})}},{from:[150,300]});
+  panelBox(12,396,580,52);chem(302,422,"CaCO3(s) + 2H^+(aq) → Ca^2+(aq) + H2O(l) + CO2(g)",{size:16,align:"center"})}
+function lifeSaline(T){panelBox(12,12,580,436);title(26,32,"Normal saline, 0.9% NaCl");levelTag(26,52,"MACROSCOPIC + PARTICLES");
+  rr(60,70,100,140,14);fillStroke(hexA(C.water,.9),C["glass-edge"],2);txt(110,130,"0.9%",{size:16,weight:700,align:"center"});txt(110,152,"NaCl",{size:14,weight:700,align:"center"});line(110,210,110,236,C["glass-edge"],3);
+  rr(98,236,24,46,6);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.6);const dq=P(T*1.2,1);circ(110,244+dq*28,3,C["water-edge"]);line(110,282,110,420,C["glass-edge"],3);txt(120,412,"to a vein",{size:12,color:C["ink-soft"]});
+  magnifier(300,160,96,()=>{for(let k=0;k<6;k++){const q=wander(k+650,T,[204,64,192,192],.5,14);sp(q[0],q[1],"Na+",1,{});const q2=wander(k+660,T,[204,64,192,192],.5,14);sp(q2[0],q2[1],"Cl-",1,{})}for(let k=0;k<10;k++){const q=wander(k+670,T,[204,64,192,192],.45,10);water(q[0],q[1],T+k,.9,{a:.55})}},{from:[110,150]});
+  /* red blood cell */
+  const cx=480,cy=180;ell(cx,cy,70,46,0,mix("#C4483C",C.panel,isDark()?.1:.15),hexA(C.ink,.4),1.6);ell(cx,cy,34,20,0,mix("#C4483C",C.panel,isDark()?.3:.45),null);
+  for(let k=0;k<4;k++){const a=k/4*TAU+.4;const ph=P(T*.6+k*.25,1);const inw=k%2===0;const r0=inw?110:74,r1=inw?74:110;const r=lerp(r0,r1,ph);withA(Math.sin(ph*Math.PI),()=>water(cx+Math.cos(a)*r,cy+Math.sin(a)*r*.75,a,1,{}))}
+  txt(cx,262,"water in = water out",{size:12.5,weight:700,align:"center"});txt(cx,282,"same particle concentration",{size:12,align:"center",color:C["ink-soft"]});txt(cx,298,"inside and outside the cell",{size:12,align:"center",color:C["ink-soft"]});
+  panelBox(180,320,400,120);title(194,340,"The math");txt(194,368,"0.90 g ÷ 58.44 g/mol = 0.0154 mol",{size:13.5,mono:true,weight:600});txt(194,392,"0.0154 mol ÷ 0.100 L = 0.154 M NaCl",{size:13.5,mono:true,weight:600});txt(194,416,"ions: 2 × 0.154 = 0.308 M",{size:13.5,mono:true,weight:700,color:C["accent-ink"]})}
+function lifeRust(T){const t=P(T,14);panelBox(12,12,580,436);title(26,32,"A water droplet on iron");levelTag(26,52,"MACROSCOPIC + PARTICLES");
+  rr(30,300,420,50,6);fillStroke(C.metal,hexA(C.ink,.4),1.6);txt(240,372,"iron (Fe)",{size:12.5,weight:700,align:"center"});
+  ctx.beginPath();ctx.moveTo(90,300);ctx.quadraticCurveTo(240,150,390,300);ctx.closePath();fillStroke(hexA(C.water,.85),C["water-edge"],1.6);
+  for(let k=0;k<Math.floor(6+t*22);k++){const s=rnd(k*3.3)<.5?-1:1;const x=240+s*(110+rnd(k*7.7)*45),y=298-rnd(k*1.9)*12;circ(x,y,2.4+rnd(k)*2.6,C.rust,hexA(C.ink,.3),.8)}
+  for(let k=0;k<5;k++){const f=P(T*.5+k/5,1);sp(lerp(240,240+(k%2?-1:1)*(40+k*10),f),lerp(296,230,f),f<.15?"Fe":"Fe2+",.9,{charge:f>.15})}
+  for(let k=0;k<6;k++){const f=P(T*.6+k/6,1);const sd=k%2?-1:1;electron(lerp(240,240+sd*140,f),lerp(318,318,f),4.5)}
+  for(let k=0;k<2;k++){const sd=k?-1:1;const f=P(T*.4+k*.5,1);polyIon(240+sd*140,lerp(140,288,smooth(f)),"O2",1.1,0,{})}
+  for(let k=0;k<3;k++){const q=wander(k+700,T,[180,220,120,60],.4,10);sp(q[0],q[1],k%2?"Cl-":"Na+",.7,{lab:false})}
+  txt(240,200,"Fe → Fe²⁺ + 2e⁻ (oxidation)",{size:12.5,weight:700,align:"center",color:C.pos});txt(240,104,"O₂ + 2H₂O + 4e⁻ → 4OH⁻ (reduction at the edge)",{size:12.5,weight:700,align:"center",color:C.neg});
+  label(240,410,"brown rust builds up at the droplet's edge",{size:12.5,weight:600,border:C.rust});
+  /* galvanized */
+  panelBox(462,70,120,290);title(474,90,"Galvanized");rr(480,220,84,40,4);fillStroke(C.metal,hexA(C.ink,.4),1.4);rr(480,206,84,14,3);fillStroke(C["el-zn"],hexA(C.ink,.4),1.2);
+  txt(522,214,"Zn",{size:11,weight:700,align:"center",color:"#fff"});txt(522,240,"Fe",{size:12,weight:700,align:"center"});for(let k=0;k<3;k++){const f=P(T*.7+k/3,1);electron(500+k*22,lerp(200,150,f),4)}
+  wrapText("Zinc is oxidized first and protects the iron.",472,290,104,16,{size:12})}
+function lifeBreath(T){const t=P(T,12);panelBox(12,12,580,436);title(26,32,"Breath through orange dichromate");levelTag(26,52,"MACROSCOPIC + PARTICLES");
+  rr(30,140,120,22,8);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.6);txt(90,128,"breath",{size:12,weight:700,align:"center"});for(let k=0;k<4;k++){const f=P(T*.8+k/4,1);polyIon(lerp(40,180,f),151,"EtOH",.6,0,{lab:false})}
+  const vx=180,vy=100,vw=60,vh=260;rr(vx,vy,vw,vh,20);fillStroke(hexA(C.glass,.6),C["glass-edge"],2);
+  ctx.save();rr(vx+3,vy+3,vw-6,vh-6,18);ctx.clip();const g=ctx.createLinearGradient(0,vy,0,vy+vh);const gf=clamp(t*1.3,0,1);g.addColorStop(0,C["sol-cr"]);g.addColorStop(Math.max(0,1-gf),C["sol-cr"]);g.addColorStop(Math.min(1,1-gf+.15),C["sol-cr3"]);g.addColorStop(1,C["sol-cr3"]);ctx.fillStyle=g;ctx.fillRect(vx,vy,vw,vh);ctx.restore();
+  for(let k=0;k<6;k++){const f=P(T*.7+k/6,1);circ(vx+20+rnd(k)*20,vy+vh-10-f*(vh-30),3,null,hexA(C.ink,.35),1)}
+  rr(60,390,240,18,4);const sg=ctx.createLinearGradient(60,0,300,0);sg.addColorStop(0,C["sol-cr"]);sg.addColorStop(1,C["sol-cr3"]);ctx.fillStyle=sg;ctx.fill();txt(60,420,"no alcohol",{size:12,weight:600});txt(300,420,"more alcohol",{size:12,weight:600,align:"right"});
+  const mx=440,my=210,mr=130;magnifier(mx,my,mr,()=>{const f=P(T,5);polyIon(mx,my-10,"Cr2O7",1.4,0,{a:1-smooth(seg(f,.55,.7))});
+    for(let k=0;k<3;k++){const q=[mx-100+k*40,my+70];const g2=smooth(seg(f,.1+k*.08,.5));polyIon(lerp(q[0],mx-60+k*40,g2),lerp(q[1],my+60,g2),g2>.95&&f>.6?"HAc":"EtOH",.85,0,{lab:false});if(f>.25&&f<.55)electron(lerp(q[0],mx,seg(f,.25+k*.05,.55)),lerp(q[1],my-10,seg(f,.25+k*.05,.55)),4.5)}
+    if(f>.6){const r=smooth(seg(f,.6,1));sp(mx-30-r*40,my-20-r*30,"Cr3+",1.2,{});sp(mx+30+r*40,my-20-r*20,"Cr3+",1.2,{})}},{from:[vx+vw/2,vy+vh/2]});
+  label(mx,my+mr+16,"Cr: +6 (orange) → +3 (green)",{size:12.5,weight:700,border:C["sol-cr3"]})}
+const LSCENES=[lifeKidney,lifeAntacid,lifeSaline,lifeRust,lifeBreath];
+function drawLife(now){use(S5);const T=now/1000;LSCENES[LS.i](T)}
+function lifeA11y(){const S=LIFE[LS.i];return [S.cap,S.desc]}
+/* ---------------- stages ---------------- */
+const S1=makeStage("cvBench",800,470),S2=makeStage("cvDil",800,470),S3=makeStage("cvCalc",800,470),S5=makeStage("cvLife",600,460);
+/* ---------------- accessibility: live labels and picture descriptions ---------------- */
+const A11Y={bench:{cv:"#cvBench",f:benchA11y},dil:{cv:"#cvDil",f:dilA11y},calc:{cv:"#cvCalc",f:calcA11y},sort:{cv:null,f:sortA11y},life:{cv:"#cvLife",f:lifeA11y}};
+let a11yKey="",a11yT=0,lastBenchUI="";
+function a11yTick(){if((++a11yT)%20)return;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#sPool");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="bench";
+const TABS=["bench","dil","calc","sort","life"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey="";a11yT=19}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S3,S5].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors();benchShelf()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now();
+function frame(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{benchStep(dt);dilStep(dt);
+    const key=BS.phase+"|"+(BS.phase==="mixed"&&BS.t>2);if(key!==lastBenchUI){lastBenchUI=key;benchUI()}
+    if(curTab==="bench")drawBench(now);else if(curTab==="dil")drawDil(now);else if(curTab==="calc")drawCalc(now);else if(curTab==="life")drawLife(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+/* test hooks */
+window.__lab={tab:k=>showTab(k),
+  bench:(a,b,cA,vA,cB,vB)=>{BS.a=a;BS.b=b;if(cA)BS.cA=cA;if(vA)BS.vA=vA;if(cB)BS.cB=cB;if(vB)BS.vB=vB;["cA","vA","cB","vB"].forEach(k=>$("#"+k).value=BS[k]);benchOut();benchReset()},
+  pour:()=>benchPour(),benchState:()=>({phase:BS.phase,t:BS.t,done:[...BS.done],R:{NR:BS.R.NR,ppt:BS.R.ppt.map(p=>p.f),gas:BS.R.gas,dT:BS.R.dT}}),
+  mix:(a,b,cA,vA,cB,vB)=>{const R=mixSolutions(a,b,cA,vA,cB,vB);return {NR:R.NR,mol:R.mol?eqStr(R.mol):null,net:R.net?eqStr(R.net):null,ppt:R.ppt.map(p=>[p.f,p.g]),gas:R.gas,dT:R.dT,spect:R.spect}},
+  dil:o=>{Object.assign(DS,o);dilChange()},dilRun:()=>{$("#dilRun").click()},dilCalc:()=>dilCalc(),
+  calcTypes:()=>TTYPES.map(c=>c[0]),calcSet:t=>{TR.type=t;$("#calcType").value=t;calcNew()},calcProb:()=>TR.p,calcVerdict:s=>verdict(TR.p,s),gen:k=>{let q=null;for(let i=0;i<40&&!q;i++)q=GEN[k]();if(q)q.kind=k;return q},verdictFor:(p,s)=>verdict(p,s),ansStr:(v,sf)=>ansStr(v,sf),
+  calcAnswer:v=>{$("#calcAns").value=v;calcCheck()},calcShow:()=>$("#calcSol").click(),
+  sortGo:i=>sLoad(i),sortN:()=>SROUNDS.length,sortShow:()=>$("#sShow").click(),sortState:()=>({r:SG.r,placed:Object.keys(SG.placed).length,mist:SG.mist}),
+  lifeGo:i=>lifeGo(i),lifeN:()=>LIFE.length};
+readColors();benchOut();benchReset();dilUI();calcNew();updCalcMeter();sLoad(0);lifeGo(0);fitAll();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>General Chemistry Study Tools</title>
+<meta name="description" content="Animated walkthroughs, virtual labs and problem trainers for general chemistry, Modules 1 to 17. Dr. Akash Garg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600&display=swap" rel="stylesheet">
+<script src="chem-kit.js"></script>
+<style>
+:root{--ground:#F0E8E1;--panel:#FCF9F6;--panel-2:#F5EEE7;--ink:#1F150E;--ink-soft:#64544A;--rule:#DCCDBF;--accent:#8E3E0E;--accent-wash:#F7E5D6;--shadow:0 1px 2px rgba(31,21,14,.08),0 6px 18px -8px rgba(31,21,14,.18)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0E1519;--panel:#211A15;--panel-2:#2A211A;--ink:#F4EDE7;--ink-soft:#C9B9AC;--rule:#40342B;--accent:#F4A86A;--accent-wash:#3A1F0E;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{--ground:#0E1519;--panel:#211A15;--panel-2:#2A211A;--ink:#F4EDE7;--ink-soft:#C9B9AC;--rule:#40342B;--accent:#F4A86A;--accent-wash:#3A1F0E}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+header{background:var(--panel);border-bottom:1px solid var(--rule)}
+.in{max-width:1040px;margin:0 auto;padding:22px 16px}
+.k{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:"IBM Plex Serif",Georgia,serif;font-size:32px;margin:4px 0 6px;line-height:1.15}
+.lead{margin:0;color:var(--ink-soft);font-size:16.5px;max-width:740px}
+h2{font-family:"IBM Plex Serif",Georgia,serif;font-size:22px;margin:30px 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;scroll-margin-top:12px}
+h2 i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.sub{margin:0 0 8px;color:var(--ink-soft)}
+.ch{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-soft);font-weight:500}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}.jump a{font-family:"IBM Plex Mono",monospace;font-size:12.5px;padding:5px 9px;border:1px solid var(--rule);border-radius:99px;background:var(--panel);color:var(--ink);text-decoration:none}.jump a:hover,.jump a:focus-visible{border-color:var(--accent)}
+.find{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.find label{font-weight:600}
+.find input{font:inherit;padding:8px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--panel);color:var(--ink);min-width:0;flex:1 1 260px;max-width:440px}
+.find input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+#count{color:var(--ink-soft);font-size:14px}
+.dz{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-wrap:wrap;gap:5px}
+.dz li{font-size:13px;padding:2px 9px;border-radius:99px;background:var(--panel-2);border:1px solid var(--rule);color:var(--ink)}
+.dz li.hit{background:var(--accent-wash);border-color:var(--accent);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+a.card{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;box-shadow:var(--shadow);color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+a.card:hover,a.card:focus-visible{border-color:var(--accent);transform:translateY(-2px)}
+.type{font-family:"IBM Plex Mono",monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.card b{font-size:18px}
+.card span.d{color:var(--ink-soft);font-size:14.5px}
+.tip{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:12px 14px;margin-top:22px;font-size:15px}
+footer{max-width:1040px;margin:0 auto;padding:24px 16px 36px;font-size:13px;color:var(--ink-soft)}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <div class="k">General Chemistry &middot; Modules 1 to 17</div>
+  <h1>General Chemistry Study Tools</h1>
+  <p class="lead">See chemistry happen. Every module shows each idea three ways at once: what you see in the beaker, what the atoms and molecules are actually doing, and the equation or number that describes it. Walkthroughs include animated worked examples where you watch the units cancel, and every Lab has a simulator, a practice-problem trainer with hints, a game and real-life chemistry. Everything runs in your browser on a computer, tablet or phone. No login, nothing graded.</p>
+</div></header>
+<main class="in" id="top" style="padding-top:4px">
+  <div class="find" role="search">
+    <label for="q">Find a topic</label>
+    <input id="q" type="search" placeholder="Try: limiting reactant, Lewis, buffer, ideal gas" autocomplete="off">
+    <span id="count" role="status" aria-live="polite"></span>
+  </div>
+  <nav class="jump" aria-label="Jump to module"><a href="#m1">M1</a><a href="#m2">M2</a><a href="#m3">M3</a><a href="#m4">M4</a><a href="#m5">M5</a><a href="#m6">M6</a><a href="#m7">M7</a><a href="#m8">M8</a><a href="#m9">M9</a><a href="#m10">M10</a><a href="#m11">M11</a><a href="#m12">M12</a><a href="#m13">M13</a><a href="#m14">M14</a><a href="#m15">M15</a><a href="#m16">M16</a><a href="#m17">M17</a></nav>
+  <p class="tip"><b>How to use this:</b> open the walkthrough first and go at your own pace with the arrow keys or Next. Then open the Lab: run the simulator, then practice in the Problem Trainer, using the hints and the animated worked solutions. Use the tools bar at the top of each page to pause the animations, slow them down, have the text read aloud, or get a written description of each picture.</p>
+  <section class="mod" id="m1" data-search="measurement, units and dimensional analysis states of matter elements, compounds, mixtures physical vs chemical change si prefixes scientific notation significant figures accuracy vs precision density temperature scales dimensional analysis">
+  <h2><i style="background:#2F7FC1" aria-hidden="true"></i><span class="ch">Module 1</span> Measurement, units and dimensional analysis</h2>
+  <p class="sub">Classifying matter, the metric system, significant figures, density, temperature and the master skill of unit conversion.</p>
+  <ul class="dz" aria-label="Topics in module 1"><li>States of matter</li><li>Elements, compounds, mixtures</li><li>Physical vs chemical change</li><li>SI prefixes</li><li>Scientific notation</li><li>Significant figures</li><li>Accuracy vs precision</li><li>Density</li><li>Temperature scales</li><li>Dimensional analysis</li></ul>
+  <div class="grid">
+    <a class="card" href="Measurement-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Measurement, units and dimensional analysis Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Measurement-Lab.html"><span class="type">Simulators + practice</span><b>Module 1 Lab</b><span class="d">Measurement bench, problem trainer, sorting rounds, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m2" data-search="atoms, isotopes and the periodic table dalton&#x27;s atomic theory cathode ray tube gold foil experiment protons, neutrons, electrons isotopes ions average atomic mass mass spectrometry groups and families naming ions">
+  <h2><i style="background:#7B5CC9" aria-hidden="true"></i><span class="ch">Module 2</span> Atoms, isotopes and the periodic table</h2>
+  <p class="sub">From Dalton to Rutherford&#x27;s nucleus, isotopes, average atomic mass, and how the periodic table is organized.</p>
+  <ul class="dz" aria-label="Topics in module 2"><li>Dalton&#x27;s atomic theory</li><li>Cathode ray tube</li><li>Gold foil experiment</li><li>Protons, neutrons, electrons</li><li>Isotopes</li><li>Ions</li><li>Average atomic mass</li><li>Mass spectrometry</li><li>Groups and families</li><li>Naming ions</li></ul>
+  <div class="grid">
+    <a class="card" href="Atoms-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Atoms, isotopes and the periodic table Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Atoms-Lab.html"><span class="type">Simulators + practice</span><b>Module 2 Lab</b><span class="d">Atom builder and gold-foil simulator, problem trainer, periodic table game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m3" data-search="light, electrons and orbitals wavelength and frequency photons / e = hν photoelectric effect line spectra bohr model quantum numbers s, p, d orbitals aufbau / pauli / hund electron configurations paramagnetism">
+  <h2><i style="background:#C2407A" aria-hidden="true"></i><span class="ch">Module 3</span> Light, electrons and orbitals</h2>
+  <p class="sub">Light as waves and photons, line spectra, the Bohr model, orbitals and electron configurations.</p>
+  <ul class="dz" aria-label="Topics in module 3"><li>Wavelength and frequency</li><li>Photons / E = hν</li><li>Photoelectric effect</li><li>Line spectra</li><li>Bohr model</li><li>Quantum numbers</li><li>s, p, d orbitals</li><li>Aufbau / Pauli / Hund</li><li>Electron configurations</li><li>Paramagnetism</li></ul>
+  <div class="grid">
+    <a class="card" href="Electrons-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Light, electrons and orbitals Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Electrons-Lab.html"><span class="type">Simulators + practice</span><b>Module 3 Lab</b><span class="d">Photon and atom simulator, photoelectric bench, configuration builder, trainer, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m4" data-search="periodic trends effective nuclear charge shielding atomic radius ionic radius isoelectronic series ionization energy electron affinity electronegativity metallic character">
+  <h2><i style="background:#5A6FB0" aria-hidden="true"></i><span class="ch">Module 4</span> Periodic trends</h2>
+  <p class="sub">Effective nuclear charge and how it explains size, ionization energy, electron affinity and electronegativity.</p>
+  <ul class="dz" aria-label="Topics in module 4"><li>Effective nuclear charge</li><li>Shielding</li><li>Atomic radius</li><li>Ionic radius</li><li>Isoelectronic series</li><li>Ionization energy</li><li>Electron affinity</li><li>Electronegativity</li><li>Metallic character</li></ul>
+  <div class="grid">
+    <a class="card" href="Periodic-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Periodic trends Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Periodic-Lab.html"><span class="type">Simulators + practice</span><b>Module 4 Lab</b><span class="d">Trend explorer, rank-them trainer, placement game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m5" data-search="ionic and covalent bonding octet rule ionic bonding lattice energy covalent bonds bond polarity lewis structures formal charge resonance octet exceptions naming compounds bond energies">
+  <h2><i style="background:#2E8B7A" aria-hidden="true"></i><span class="ch">Module 5</span> Ionic and covalent bonding</h2>
+  <p class="sub">Why atoms bond, ionic lattices, covalent sharing, polarity, Lewis structures, resonance and naming.</p>
+  <ul class="dz" aria-label="Topics in module 5"><li>Octet rule</li><li>Ionic bonding</li><li>Lattice energy</li><li>Covalent bonds</li><li>Bond polarity</li><li>Lewis structures</li><li>Formal charge</li><li>Resonance</li><li>Octet exceptions</li><li>Naming compounds</li><li>Bond energies</li></ul>
+  <div class="grid">
+    <a class="card" href="Bonding-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Ionic and covalent bonding Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Bonding-Lab.html"><span class="type">Simulators + practice</span><b>Module 5 Lab</b><span class="d">Bonding simulator, naming and ΔH trainer, Lewis structure builder, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m6" data-search="molecular shape and polarity vsepr electron vs molecular geometry bond angles lone pairs molecular polarity dipole moments hybridization sigma and pi bonds molecular orbitals">
+  <h2><i style="background:#9C7A3C" aria-hidden="true"></i><span class="ch">Module 6</span> Molecular shape and polarity</h2>
+  <p class="sub">VSEPR shapes in 3D, molecular polarity, hybridization, sigma and pi bonds, and molecular orbitals.</p>
+  <ul class="dz" aria-label="Topics in module 6"><li>VSEPR</li><li>Electron vs molecular geometry</li><li>Bond angles</li><li>Lone pairs</li><li>Molecular polarity</li><li>Dipole moments</li><li>Hybridization</li><li>Sigma and pi bonds</li><li>Molecular orbitals</li></ul>
+  <div class="grid">
+    <a class="card" href="Shapes-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Molecular shape and polarity Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Shapes-Lab.html"><span class="type">Simulators + practice</span><b>Module 6 Lab</b><span class="d">Shape builder, polarity field bench, predict-the-shape trainer, matching game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m7" data-search="moles and stoichiometry the mole avogadro&#x27;s number molar mass percent composition empirical formula balancing equations mole ratios limiting reactant percent yield">
+  <h2><i style="background:#C0392B" aria-hidden="true"></i><span class="ch">Module 7</span> Moles and stoichiometry</h2>
+  <p class="sub">Making the mole tangible: molar mass, formulas, balancing equations, limiting reactants and yield.</p>
+  <ul class="dz" aria-label="Topics in module 7"><li>The mole</li><li>Avogadro&#x27;s number</li><li>Molar mass</li><li>Percent composition</li><li>Empirical formula</li><li>Balancing equations</li><li>Mole ratios</li><li>Limiting reactant</li><li>Percent yield</li></ul>
+  <div class="grid">
+    <a class="card" href="Stoich-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Moles and stoichiometry Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Stoich-Lab.html"><span class="type">Simulators + practice</span><b>Module 7 Lab</b><span class="d">Reaction particle simulator, balancing game, stoichiometry trainer, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m8" data-search="reactions in aqueous solution hydration shells electrolytes molarity dilution precipitation solubility rules net ionic equations neutralization oxidation numbers activity series titration">
+  <h2><i style="background:#1B6E88" aria-hidden="true"></i><span class="ch">Module 8</span> Reactions in aqueous solution</h2>
+  <p class="sub">Water as a solvent, electrolytes, molarity, precipitation, net ionic equations, acid-base and redox reactions.</p>
+  <ul class="dz" aria-label="Topics in module 8"><li>Hydration shells</li><li>Electrolytes</li><li>Molarity</li><li>Dilution</li><li>Precipitation</li><li>Solubility rules</li><li>Net ionic equations</li><li>Neutralization</li><li>Oxidation numbers</li><li>Activity series</li><li>Titration</li></ul>
+  <div class="grid">
+    <a class="card" href="Reactions-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Reactions in aqueous solution Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Reactions-Lab.html"><span class="type">Simulators + practice</span><b>Module 8 Lab</b><span class="d">Mixing bench, dilution simulator, problem trainer, sorting rounds, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m9" data-search="gases pressure units kinetic molecular theory boyle&#x27;s law charles&#x27;s law ideal gas law gas density dalton&#x27;s law maxwell-boltzmann graham&#x27;s law real gases">
+  <h2><i style="background:#6B8E23" aria-hidden="true"></i><span class="ch">Module 9</span> Gases</h2>
+  <p class="sub">Pressure, kinetic molecular theory, the gas laws, partial pressures, molecular speeds and real gases.</p>
+  <ul class="dz" aria-label="Topics in module 9"><li>Pressure units</li><li>Kinetic molecular theory</li><li>Boyle&#x27;s law</li><li>Charles&#x27;s law</li><li>Ideal gas law</li><li>Gas density</li><li>Dalton&#x27;s law</li><li>Maxwell-Boltzmann</li><li>Graham&#x27;s law</li><li>Real gases</li></ul>
+  <div class="grid">
+    <a class="card" href="Gases-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Gases Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Gases-Lab.html"><span class="type">Simulators + practice</span><b>Module 9 Lab</b><span class="d">Gas piston simulator, speed and effusion bench, problem trainer, which-law game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m10" data-search="thermochemistry first law heat vs temperature exothermic / endothermic enthalpy specific heat calorimetry hess&#x27;s law enthalpy of formation bond enthalpies food calories">
+  <h2><i style="background:#B5651D" aria-hidden="true"></i><span class="ch">Module 10</span> Thermochemistry</h2>
+  <p class="sub">Energy, heat and work, exothermic and endothermic changes, calorimetry, Hess&#x27;s law and enthalpies of formation.</p>
+  <ul class="dz" aria-label="Topics in module 10"><li>First law</li><li>Heat vs temperature</li><li>Exothermic / endothermic</li><li>Enthalpy</li><li>Specific heat</li><li>Calorimetry</li><li>Hess&#x27;s law</li><li>Enthalpy of formation</li><li>Bond enthalpies</li><li>Food Calories</li></ul>
+  <div class="grid">
+    <a class="card" href="Thermo-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Thermochemistry Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Thermo-Lab.html"><span class="type">Simulators + practice</span><b>Module 10 Lab</b><span class="d">Calorimetry bench, problem trainer, Hess&#x27;s law puzzle, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m11" data-search="intermolecular forces, liquids and solids london dispersion dipole-dipole hydrogen bonding ion-dipole surface tension viscosity vapor pressure heating curves phase diagrams types of solids unit cells">
+  <h2><i style="background:#A52A3A" aria-hidden="true"></i><span class="ch">Module 11</span> Intermolecular forces, liquids and solids</h2>
+  <p class="sub">Dispersion forces, dipoles and hydrogen bonds, liquid properties, vapor pressure, phase changes and solids.</p>
+  <ul class="dz" aria-label="Topics in module 11"><li>London dispersion</li><li>Dipole-dipole</li><li>Hydrogen bonding</li><li>Ion-dipole</li><li>Surface tension</li><li>Viscosity</li><li>Vapor pressure</li><li>Heating curves</li><li>Phase diagrams</li><li>Types of solids</li><li>Unit cells</li></ul>
+  <div class="grid">
+    <a class="card" href="IMF-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Intermolecular forces, liquids and solids Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="IMF-Lab.html"><span class="type">Simulators + practice</span><b>Module 11 Lab</b><span class="d">Heating simulator, vapor pressure and phase diagram bench, trainer, sorting game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m12" data-search="solutions and colligative properties like dissolves like saturated / supersaturated solubility curves henry&#x27;s law molality raoult&#x27;s law boiling point elevation freezing point depression van &#x27;t hoff factor osmotic pressure tonicity">
+  <h2><i style="background:#2F6F4F" aria-hidden="true"></i><span class="ch">Module 12</span> Solutions and colligative properties</h2>
+  <p class="sub">How things dissolve, solubility, concentration units, colligative properties and osmosis.</p>
+  <ul class="dz" aria-label="Topics in module 12"><li>Like dissolves like</li><li>Saturated / supersaturated</li><li>Solubility curves</li><li>Henry&#x27;s law</li><li>Molality</li><li>Raoult&#x27;s law</li><li>Boiling point elevation</li><li>Freezing point depression</li><li>van &#x27;t Hoff factor</li><li>Osmotic pressure</li><li>Tonicity</li></ul>
+  <div class="grid">
+    <a class="card" href="Solutions-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Solutions and colligative properties Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Solutions-Lab.html"><span class="type">Simulators + practice</span><b>Module 12 Lab</b><span class="d">Dissolving simulator, osmosis and colligative bench, problem trainer, sorting game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m13" data-search="chemical kinetics reaction rate collision theory activation energy arrhenius equation rate laws method of initial rates integrated rate laws half-life mechanisms catalysts / enzymes">
+  <h2><i style="background:#C9A227" aria-hidden="true"></i><span class="ch">Module 13</span> Chemical kinetics</h2>
+  <p class="sub">Reaction rates, collision theory, activation energy, rate laws, half-life, mechanisms and catalysts.</p>
+  <ul class="dz" aria-label="Topics in module 13"><li>Reaction rate</li><li>Collision theory</li><li>Activation energy</li><li>Arrhenius equation</li><li>Rate laws</li><li>Method of initial rates</li><li>Integrated rate laws</li><li>Half-life</li><li>Mechanisms</li><li>Catalysts / enzymes</li></ul>
+  <div class="grid">
+    <a class="card" href="Kinetics-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Chemical kinetics Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Kinetics-Lab.html"><span class="type">Simulators + practice</span><b>Module 13 Lab</b><span class="d">Reaction chamber, rate law bench, problem trainer, sorting game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m14" data-search="chemical equilibrium dynamic equilibrium k expressions kc and kp reaction quotient q ice tables le chatelier&#x27;s principle haber process ksp common-ion effect">
+  <h2><i style="background:#8A2E62" aria-hidden="true"></i><span class="ch">Module 14</span> Chemical equilibrium</h2>
+  <p class="sub">Dynamic equilibrium, K and Q, ICE tables, Le Chatelier&#x27;s principle and solubility equilibria.</p>
+  <ul class="dz" aria-label="Topics in module 14"><li>Dynamic equilibrium</li><li>K expressions</li><li>Kc and Kp</li><li>Reaction quotient Q</li><li>ICE tables</li><li>Le Chatelier&#x27;s principle</li><li>Haber process</li><li>Ksp</li><li>Common-ion effect</li></ul>
+  <div class="grid">
+    <a class="card" href="Equilibrium-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Chemical equilibrium Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Equilibrium-Lab.html"><span class="type">Simulators + practice</span><b>Module 14 Lab</b><span class="d">Equilibrium reactor, ICE table trainer, problem trainer, Le Chatelier game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m15" data-search="acids, bases and buffers brønsted-lowry conjugate pairs ph and poh kw ka and kb weak acid ph salt hydrolysis buffers henderson-hasselbalch titration curves indicators blood buffer">
+  <h2><i style="background:#3A49A8" aria-hidden="true"></i><span class="ch">Module 15</span> Acids, bases and buffers</h2>
+  <p class="sub">Proton transfer, pH, strong and weak acids and bases, buffers, and titration curves built live.</p>
+  <ul class="dz" aria-label="Topics in module 15"><li>Brønsted-Lowry</li><li>Conjugate pairs</li><li>pH and pOH</li><li>Kw</li><li>Ka and Kb</li><li>Weak acid pH</li><li>Salt hydrolysis</li><li>Buffers</li><li>Henderson-Hasselbalch</li><li>Titration curves</li><li>Indicators</li><li>Blood buffer</li></ul>
+  <div class="grid">
+    <a class="card" href="AcidBase-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Acids, bases and buffers Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="AcidBase-Lab.html"><span class="type">Simulators + practice</span><b>Module 15 Lab</b><span class="d">Titration bench, buffer stress test, problem trainer, sorting game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m16" data-search="entropy, free energy and electrochemistry entropy second law gibbs free energy δg and k balancing redox galvanic cells standard potentials nernst equation batteries corrosion electrolysis / faraday">
+  <h2><i style="background:#9A4410" aria-hidden="true"></i><span class="ch">Module 16</span> Entropy, free energy and electrochemistry</h2>
+  <p class="sub">Why reactions happen: entropy, Gibbs free energy, K, and how redox reactions power batteries.</p>
+  <ul class="dz" aria-label="Topics in module 16"><li>Entropy</li><li>Second law</li><li>Gibbs free energy</li><li>ΔG and K</li><li>Balancing redox</li><li>Galvanic cells</li><li>Standard potentials</li><li>Nernst equation</li><li>Batteries</li><li>Corrosion</li><li>Electrolysis / Faraday</li></ul>
+  <div class="grid">
+    <a class="card" href="Electrochem-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Entropy, free energy and electrochemistry Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Electrochem-Lab.html"><span class="type">Simulators + practice</span><b>Module 16 Lab</b><span class="d">Galvanic cell builder, free-energy explorer, problem trainer, sorting game, and real-life scenarios.</span></a>
+  </div>
+  </section>
+  <section class="mod" id="m17" data-search="nuclear chemistry band of stability alpha, beta, gamma nuclear equations half-life carbon-14 dating radiation units time, distance, shielding pet scans binding energy fission and fusion">
+  <h2><i style="background:#4F5E66" aria-hidden="true"></i><span class="ch">Module 17</span> Nuclear chemistry</h2>
+  <p class="sub">The nucleus, radioactive decay, half-life and dating, radiation safety, medical isotopes and nuclear energy.</p>
+  <ul class="dz" aria-label="Topics in module 17"><li>Band of stability</li><li>Alpha, beta, gamma</li><li>Nuclear equations</li><li>Half-life</li><li>Carbon-14 dating</li><li>Radiation units</li><li>Time, distance, shielding</li><li>PET scans</li><li>Binding energy</li><li>Fission and fusion</li></ul>
+  <div class="grid">
+    <a class="card" href="Nuclear-Walkthrough.html"><span class="type">Start here · Animated walkthrough</span><b>Nuclear chemistry Walkthrough</b><span class="d">See it in the beaker, at the particle level and in the equation, all at once, with animated worked examples.</span></a>
+    <a class="card" href="Nuclear-Lab.html"><span class="type">Simulators + practice</span><b>Module 17 Lab</b><span class="d">Half-life simulator, decay bench, shielding and distance bench, problem trainer, and real-life scenarios.</span></a>
+  </div>
+  </section>
+</main>
+<footer>Dr. Akash Garg &middot; General Chemistry Study Tools &middot; Particle drawings are simplified and not to scale. Licensed <a href="LICENSE">CC BY-NC-SA 4.0</a>.</footer>
+<script>
+(function(){
+  var q=document.getElementById('q'),count=document.getElementById('count'),mods=[].slice.call(document.querySelectorAll('.mod'));
+  function run(){
+    var v=q.value.trim().toLowerCase(),shown=0;
+    mods.forEach(function(m){
+      var ok=!v||m.getAttribute('data-search').indexOf(v)>=0;
+      m.hidden=!ok; if(ok)shown++;
+      [].forEach.call(m.querySelectorAll('.dz li'),function(li){li.classList.toggle('hit',!!v&&li.textContent.toLowerCase().indexOf(v)>=0);});
+    });
+    count.textContent=v?(shown?shown+(shown===1?' module matches':' modules match'):'No match. Try a shorter word.'):'';
+  }
+  q.addEventListener('input',run);
+})();
+</script>
+</body>
+</html>

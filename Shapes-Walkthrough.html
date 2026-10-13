@@ -1,0 +1,1508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Molecular Shapes Walkthrough</title>
+<meta name="description" content="Step-by-step animated walkthrough of molecular shape and polarity: VSEPR, electron and molecular geometry, every main shape in 3D, bond dipoles and polarity, valence bond theory and hybridization, and an introduction to molecular orbital theory.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#9A4410;--accent-ink:#7A340A;--accent-wash:#F7E6D9;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#2F7FC1;--act3:#C4644F;--act4:#2E8A7A;--act5:#A04E8C;--act6:#5E7F1A;--act7:#C27A12;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#7E6410;
+  --ecf:#F1F0EC;--grid:#D8DAD6;
+  --elH:#FFFFFF;--elH-edge:#5A6670;--elC:#3D4248;--elN:#2F5BC8;--elO:#D0342C;--elF:#6FAE2F;--elCl:#2E9E4A;--elBr:#8E2A1C;--elI:#6B2C8F;
+  --elNa:#8A4FD0;--elK:#6A35A8;--elLi:#B26AD6;--elMg:#3E8E3E;--elCa:#57816A;--elAl:#98A2AC;--elS:#D8B416;--elP:#E07B1A;--elB:#E59A8E;--elFe:#B85A1E;--elXe:#3FA0B8;--elSi:#C8A878;
+  --elec:#0F6E86;--rich:#C8402F;--poor:#2F6FC1;--heat:#D9822B;--absorb:#2F7FC1;--sea:#7FC4DA;
+  --water:#D6E9F4;--glass:#DCE8EE;--glass-edge:#7F99A6;--liq:#CFE3EF;--paper:#FFFDF7;--scr:#10161A;--metal:#B9C2CA;--metal-edge:#6E7A84;--flame:#E8A13A;--blood:#B5303A;
+  --bond:#7C848C;--bond-hi:#C9CFD4;--lp:#7046B0;--lp-fill:#B89BE0;--dpos:#2F6FC1;--dneg:#C8372D;--dip:#0F7A72;--net:#B0186E;
+  --ax:#B08A12;--eq:#1F72B0;--sigma:#2F6FC1;--pi:#B0408E;--ph1:#3A78C9;--ph2:#D06A2A;--hyb:#2E8A5A;--orbs:#3A78C9;
+  --plate-p:#C8372D;--plate-n:#2F6FC1;--o2liq:#8FC0EA;--magnet:#9AA4AC;--n-pole:#C8372D;--s-pole:#2F6FC1;--ice:#D9EEF8;--grease:#D9A520;--soap-head:#C8372D;--soap-tail:#5E6B74;
+  --face:#E59A4E;--balloon:#D9534F;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;--serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2416;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#5AA9E6;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#A3C95A;--act7:#F2A93B;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#26303A;
+  --elH:#E8EEF1;--elH-edge:#A3B2BA;--elC:#8E989F;--elN:#7A9CF0;--elO:#F0766C;--elF:#A6D86A;--elCl:#62CC7E;--elBr:#D0705C;--elI:#B07AD6;
+  --elNa:#B48AF0;--elK:#A07EE6;--elLi:#CFA2EC;--elMg:#7CC77C;--elCa:#8FC2A5;--elAl:#C2CAD2;--elS:#F2D44E;--elP:#F29A4A;--elB:#F0B5AA;--elFe:#E08A4A;--elXe:#6FC6DA;--elSi:#D8C094;
+  --elec:#7FD3EA;--rich:#F07A6A;--poor:#78AEEE;--heat:#F2A950;--absorb:#6FB1EC;--sea:#2F6E84;
+  --water:#1F3A4A;--glass:#1E2C34;--glass-edge:#7F99A6;--liq:#1D3442;--paper:#1E262B;--scr:#0A0F12;--metal:#5A6670;--metal-edge:#A3B2BA;--flame:#F2B04B;--blood:#E0707A;
+  --bond:#9AA3AA;--bond-hi:#E0E6EA;--lp:#C6A2F2;--lp-fill:#7E5CB8;--dpos:#78AEEE;--dneg:#F07A6A;--dip:#4FD0C0;--net:#F07ABF;
+  --ax:#E0BE48;--eq:#6FB1EC;--sigma:#78AEEE;--pi:#E08AC8;--ph1:#6FA8F0;--ph2:#F2A060;--hyb:#6BC293;--orbs:#6FA8F0;
+  --plate-p:#F07A6A;--plate-n:#78AEEE;--o2liq:#6FA8E0;--magnet:#6E7A84;--n-pole:#F07A6A;--s-pole:#78AEEE;--ice:#2A4656;--grease:#E0B848;--soap-head:#F07A6A;--soap-tail:#A3B2BA;
+  --face:#F2A950;--balloon:#F07A6A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2416;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#5AA9E6;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#A3C95A;--act7:#F2A93B;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#26303A;
+  --elH:#E8EEF1;--elH-edge:#A3B2BA;--elC:#8E989F;--elN:#7A9CF0;--elO:#F0766C;--elF:#A6D86A;--elCl:#62CC7E;--elBr:#D0705C;--elI:#B07AD6;
+  --elNa:#B48AF0;--elK:#A07EE6;--elLi:#CFA2EC;--elMg:#7CC77C;--elCa:#8FC2A5;--elAl:#C2CAD2;--elS:#F2D44E;--elP:#F29A4A;--elB:#F0B5AA;--elFe:#E08A4A;--elXe:#6FC6DA;--elSi:#D8C094;
+  --elec:#7FD3EA;--rich:#F07A6A;--poor:#78AEEE;--heat:#F2A950;--absorb:#6FB1EC;--sea:#2F6E84;
+  --water:#1F3A4A;--glass:#1E2C34;--glass-edge:#7F99A6;--liq:#1D3442;--paper:#1E262B;--scr:#0A0F12;--metal:#5A6670;--metal-edge:#A3B2BA;--flame:#F2B04B;--blood:#E0707A;
+  --bond:#9AA3AA;--bond-hi:#E0E6EA;--lp:#C6A2F2;--lp-fill:#7E5CB8;--dpos:#78AEEE;--dneg:#F07A6A;--dip:#4FD0C0;--net:#F07ABF;
+  --ax:#E0BE48;--eq:#6FB1EC;--sigma:#78AEEE;--pi:#E08AC8;--ph1:#6FA8F0;--ph2:#F2A060;--hyb:#6BC293;--orbs:#6FA8F0;
+  --plate-p:#F07A6A;--plate-n:#78AEEE;--o2liq:#6FA8E0;--magnet:#6E7A84;--n-pole:#F07A6A;--s-pole:#78AEEE;--ice:#2A4656;--grease:#E0B848;--soap-head:#F07A6A;--soap-tail:#A3B2BA;
+  --face:#F2A950;--balloon:#F07A6A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+.tbtn:hover{border-color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.chain{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.actgrp{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:6px;flex:1 1 150px}
+.actgrp .an{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.actgrp .an i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--rule);background:var(--panel-2);font-family:var(--mono);font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0}
+.dot:hover{border-color:var(--accent)}
+.dot.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.dot.done:not(.cur){background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);min-width:0}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%}
+.stagebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.stagebar input[type=range]{accent-color:var(--accent);width:110px}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2);flex:0 0 auto}
+.legend i.s{border-radius:2px}
+.legend i.d{border-radius:1px;transform:rotate(45deg);width:9px;height:9px}
+.legend i.r{border-radius:3px;width:14px}
+.legend i.l{width:18px;height:4px;border-radius:2px;border:0}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.legend i.dl{width:18px;height:0;border-radius:0;border:0;border-top:2px dashed;background:none!important}
+.legend i.y{width:12px;height:12px;border:0;border-radius:0;background:none!important;position:relative}
+.legend i.y::before{content:"Y";position:absolute;left:0;top:-4px;font:700 14px var(--sans);color:var(--yc)}
+.explain{padding:18px 20px}
+.stepno{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.actchip{padding:1px 8px 1px 6px;border-radius:99px;color:var(--ink);font-size:11px;border:1.5px solid var(--c,var(--accent));background:var(--panel);display:inline-flex;align-items:center;gap:5px}.actchip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent))}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin:6px 0 10px}
+.body p{margin:0 0 10px}
+.body ol,.body ul{margin:0 0 10px;padding-left:22px}
+.body li{margin-bottom:4px}
+.body .tx{border-left:3px solid var(--accent);padding:2px 0 2px 10px;color:var(--ink)}
+.analogy{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:12px 0}
+.analogy b{display:block;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.analogy p{margin:0}
+.terms{margin:12px 0 0;padding:0}
+.terms div{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.terms dt{font-weight:600}
+.terms dd{margin:0;color:var(--ink-soft)}
+.check{margin-top:16px;border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:var(--panel-2)}
+.check h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.check .q{font-weight:600;margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;margin:0 0 8px;cursor:pointer;font-size:15px;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:6px 0 0;font-size:14.5px}
+.fb.ok{color:var(--good)}
+.fb.no{color:var(--warn-ink)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.nav{display:flex;align-items:center;gap:12px;margin-top:14px}
+.navbtn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:11px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.navbtn.sec{background:var(--panel);color:var(--ink);border:1px solid var(--rule)}
+.navbtn:disabled{opacity:.4;cursor:default}
+.prog{flex:1;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+footer{max-width:1240px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+sub,sup{line-height:0}
+
+</style>
+<script src="chem-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">General Chemistry &middot; Module 6 &middot; Molecular shape and polarity</div>
+    <h1>Molecular Shapes Walkthrough</h1>
+    <p class="sub">Watch electron groups push apart and fix the 3D shape of a molecule, see why some molecules are polar and others are not, and look inside bonds at orbitals mixing and overlapping. Go at your own pace. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+
+<div class="wrap">
+  <nav class="chain" id="chain" aria-label="Steps"></nav>
+  <div class="grid">
+    <section class="card stage" aria-label="Animation">
+      <div class="canvas-holder"><canvas id="stage" role="img" aria-label=""></canvas></div>
+      <div class="stagebar">
+        <button class="tbtn" id="pauseBtn" type="button">Pause</button>
+        <button class="tbtn" id="replayBtn" type="button">Replay</button>
+        <label>Speed <input type="range" id="speed" min="0.25" max="1.75" step="0.25" value="1"></label>
+        <span class="caption" id="caption"></span>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <section class="card explain" aria-live="polite">
+      <div class="stepno" id="stepno"></div>
+      <h2 id="title"></h2>
+      <div class="body" id="body"></div>
+      <div class="analogy" id="analogy"><b>Think of it like this</b><p></p></div>
+      <dl class="terms" id="terms"></dl>
+      <div class="check" id="check">
+        <h3>Quick check</h3>
+        <p class="q" id="q"></p>
+        <div id="opts"></div>
+        <p class="fb" id="fb"></p>
+        <p class="calm">Wrong answers are fine here. Read why, then try again.</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn sec" id="prev" type="button">&larr; Back</button>
+        <div class="prog"><i id="progbar"></i></div>
+        <button class="navbtn" id="next" type="button">Next &rarr;</button>
+      </div>
+    </section>
+  </div>
+</div>
+<footer>Dr. Akash Garg &middot; General Chemistry Study Tools &middot; Particle drawings are simplified and not to scale. CC BY-NC-SA 4.0<br>Use the left and right arrow keys to move between steps. Practice next in the <a href="Shapes-Lab.html">Molecular Shapes Lab</a>. Atoms are drawn as balls in the usual model-kit colours (each one is labelled with its symbol), lone pairs as purple balloons, and motions are slowed down or sped up so you can follow them. Bond angles with lone pairs are typical measured values.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "act7", "gold", "gold-wash", "gold-ink", "ecf", "grid", "elH", "elH-edge", "elC", "elN", "elO", "elF", "elCl", "elBr", "elI", "elNa", "elK", "elLi", "elMg", "elCa", "elAl", "elS", "elP", "elB", "elFe", "elXe", "elSi", "elec", "rich", "poor", "heat", "absorb", "sea", "water", "glass", "glass-edge", "liq", "paper", "scr", "metal", "metal-edge", "flame", "blood", "bond", "bond-hi", "lp", "lp-fill", "dpos", "dneg", "dip", "net", "ax", "eq", "sigma", "pi", "ph1", "ph2", "hyb", "orbs", "plate-p", "plate-n", "o2liq", "magnet", "n-pole", "s-pole", "ice", "grease", "soap-head", "soap-tail", "face", "balloon"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase().replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= chemistry drawing helpers ================= */
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+function fillPoly(pts,f,s,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();fillStroke(f,s,lw)}
+function crossMark(x,y,s,col,lw){line(x-s,y-s,x+s,y+s,col||C.bad,lw||3);line(x-s,y+s,x+s,y-s,col||C.bad,lw||3)}
+function checkMark(x,y,s,col,lw){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,lw||3)}
+function lum3(c){const A=hx(c).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*A[0]+.7152*A[1]+.0722*A[2]}
+function inkOn(c){return lum3(c)>.3?"#10161A":"#FFFFFF"}
+function lighten(c,t){return mix(c,"#FFFFFF",t)}
+function darken(c,t){return mix(c,"#000000",t)}
+/* subscript digits for canvas text */
+const SUBD="₀₁₂₃₄₅₆₇₈₉";
+function subs(s){return String(s).replace(/(\D)(\d+)/g,(m,a,d)=>a+d.split("").map(x=>SUBD[+x]).join(""))}
+/* formula with charge, e.g. f("NH4","+") */
+function chemTxt(s){return subs(s).replace(/\^\+/g,"⁺").replace(/\^-/g,"⁻").replace(/\^2-/g,"²⁻")}
+
+/* ================= element data (Pauling electronegativity, valence electrons) ================= */
+const EL={
+  H:{en:2.20,v:1,r:.30,name:"hydrogen"},Be:{en:1.57,v:2,r:.46,name:"beryllium"},B:{en:2.04,v:3,r:.44,name:"boron"},
+  C:{en:2.55,v:4,r:.42,name:"carbon"},N:{en:3.04,v:5,r:.41,name:"nitrogen"},O:{en:3.44,v:6,r:.40,name:"oxygen"},
+  F:{en:3.98,v:7,r:.38,name:"fluorine"},Si:{en:1.90,v:4,r:.50,name:"silicon"},P:{en:2.19,v:5,r:.50,name:"phosphorus"},
+  S:{en:2.58,v:6,r:.50,name:"sulfur"},Cl:{en:3.16,v:7,r:.48,name:"chlorine"},Br:{en:2.96,v:7,r:.52,name:"bromine"},
+  I:{en:2.66,v:7,r:.56,name:"iodine"},Xe:{en:2.60,v:8,r:.56,name:"xenon"},Se:{en:2.55,v:6,r:.52,name:"selenium"}
+};
+function elCol(e){return C["el"+e]||C.elC}
+
+/* ================= 3D vector maths ================= */
+const v3={
+  add:(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],sub:(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],sc:(a,s)=>[a[0]*s,a[1]*s,a[2]*s],
+  dot:(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
+  len:a=>Math.hypot(a[0],a[1],a[2]),nrm:a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/l,a[1]/l,a[2]/l]},
+  lerp:(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t],
+  ang:(a,b)=>Math.acos(clamp(v3.dot(v3.nrm(a),v3.nrm(b)),-1,1))*180/Math.PI
+};
+/* spherical helper: polar angle th from +y (degrees), azimuth ph in the x-z plane (degrees, 0 = +x, 90 = +z toward viewer) */
+function sph(th,ph){const t=th*Math.PI/180,p=ph*Math.PI/180;return [Math.sin(t)*Math.cos(p),Math.cos(t),Math.sin(t)*Math.sin(p)]}
+/* slerp between unit vectors */
+function slerp(a,b,t){const d=clamp(v3.dot(a,b),-1,1);const om=Math.acos(d);if(om<1e-4)return v3.nrm(v3.lerp(a,b,t));
+  if(Math.PI-om<1e-3){const ax=Math.abs(a[0])<.9?[1,0,0]:[0,1,0];const p=v3.nrm(v3.cross(a,ax));const q=v3.cross(p,a);const ang=t*Math.PI;return v3.add(v3.sc(a,Math.cos(ang)),v3.sc(q,Math.sin(ang)))}
+  const s=Math.sin(om);return v3.add(v3.sc(a,Math.sin((1-t)*om)/s),v3.sc(b,Math.sin(t*om)/s))}
+/* rotate about the y axis (yaw) then the x axis (pitch) */
+function rot3(p,yaw,pitch){const cy=Math.cos(yaw),sy=Math.sin(yaw);const x=p[0]*cy+p[2]*sy,z=-p[0]*sy+p[2]*cy,y=p[1];
+  const cp=Math.cos(pitch),sp=Math.sin(pitch);return [x,y*cp-z*sp,y*sp+z*cp]}
+function view(cx,cy,s,yaw,pitch){return {cx,cy,s,yaw,pitch:pitch==null?-.32:pitch,d:7}}
+function pj(V,p){const q=rot3(p,V.yaw,V.pitch);const f=V.d/(V.d-q[2]);return {x:V.cx+q[0]*V.s*f,y:V.cy-q[1]*V.s*f,z:q[2],f}}
+
+/* ================= VSEPR classes ================= */
+/* each class: b bonding groups, e lone pairs; B and E are direction lists (unit vectors, y = up, z = toward viewer).
+   Angles with lone pairs are squeezed to the textbook example values (NH3 107, H2O 104.5, SO2 119, SF4, ClF3, BrF5). */
+const D2R=Math.PI/180;
+const VS={};
+function addClass(key,o){VS[key]=Object.assign({key},o)}
+const TH=Math.acos(-1/3)*180/Math.PI; /* 109.47 */
+addClass("AX2",{b:2,e:0,eg:"linear",mg:"linear",ang:"180°",angKey:"180",hyb:"sp",sym:true,B:[[1,0,0],[-1,0,0]],E:[],arcs:[[0,1,"180°"]]});
+addClass("AX3",{b:3,e:0,eg:"trigonal planar",mg:"trigonal planar",ang:"120°",angKey:"120",hyb:"sp²",sym:true,B:[[0,1,0],[Math.sin(120*D2R),Math.cos(120*D2R),0],[-Math.sin(120*D2R),Math.cos(120*D2R),0]],E:[],arcs:[[1,2,"120°"]]});
+addClass("AX2E",{b:2,e:1,eg:"trigonal planar",mg:"bent",ang:"less than 120° (about 119° in SO₂)",angKey:"lt120",hyb:"sp²",sym:false,B:[[Math.sin(120.5*D2R),Math.cos(120.5*D2R),0],[-Math.sin(120.5*D2R),Math.cos(120.5*D2R),0]],E:[[0,1,0]],arcs:[[0,1,"<120°"]]});
+addClass("AX4",{b:4,e:0,eg:"tetrahedral",mg:"tetrahedral",ang:"109.5°",angKey:"109",hyb:"sp³",sym:true,B:[[0,1,0],sph(TH,90),sph(TH,210),sph(TH,330)],E:[],arcs:[[0,2,"109.5°"]]});
+(function(){/* NH3: three bonds at polar angle th so that bond-bond angle is 107 degrees */
+  const c=(Math.cos(107*D2R)+.5)/1.5;const th=Math.acos(-Math.sqrt(c))*180/Math.PI;
+  addClass("AX3E",{b:3,e:1,eg:"tetrahedral",mg:"trigonal pyramidal",ang:"less than 109.5° (about 107° in NH₃)",angKey:"lt109",hyb:"sp³",sym:false,B:[sph(th,90),sph(th,210),sph(th,330)],E:[[0,1,0]],arcs:[[1,2,"≈107°"]]});
+})();
+addClass("AX2E2",{b:2,e:2,eg:"tetrahedral",mg:"bent",ang:"less than 109.5° (about 104.5° in H₂O)",angKey:"lt109",hyb:"sp³",sym:false,
+  B:[[Math.sin(52.25*D2R),-Math.cos(52.25*D2R),0],[-Math.sin(52.25*D2R),-Math.cos(52.25*D2R),0]],E:[[0,Math.cos(58*D2R),Math.sin(58*D2R)],[0,Math.cos(58*D2R),-Math.sin(58*D2R)]],arcs:[[0,1,"≈104.5°"]]});
+addClass("AX5",{b:5,e:0,eg:"trigonal bipyramidal",mg:"trigonal bipyramidal",ang:"90°, 120° and 180°",angKey:"90-120-180",hyb:"sp³d",sym:true,
+  B:[[0,1,0],[0,-1,0],sph(90,0),sph(90,120),sph(90,240)],E:[],arcs:[[0,2,"90°"],[2,3,"120°"]],ax:[0,1]});
+addClass("AX4E",{b:4,e:1,eg:"trigonal bipyramidal",mg:"seesaw",ang:"less than 90° and less than 120°",angKey:"seesaw",hyb:"sp³d",sym:false,
+  B:[[Math.sin(3.5*D2R),Math.cos(3.5*D2R),0],[Math.sin(3.5*D2R),-Math.cos(3.5*D2R),0],sph(90,51),sph(90,-51)],E:[[-1,0,0]],arcs:[[0,2,"<90°"],[2,3,"<120°"]],ax:[0,1]});
+addClass("AX3E2",{b:3,e:2,eg:"trigonal bipyramidal",mg:"T-shaped",ang:"less than 90° (about 87.5° in ClF₃)",angKey:"lt90",hyb:"sp³d",sym:false,
+  B:[[Math.sin(2.5*D2R),Math.cos(2.5*D2R),0],[Math.sin(2.5*D2R),-Math.cos(2.5*D2R),0],[1,0,0]],E:[sph(90,120),sph(90,240)],arcs:[[0,2,"≈87.5°"]],ax:[0,1]});
+addClass("AX2E3",{b:2,e:3,eg:"trigonal bipyramidal",mg:"linear",ang:"180°",angKey:"180",hyb:"sp³d",sym:true,B:[[0,1,0],[0,-1,0]],E:[sph(90,0),sph(90,120),sph(90,240)],arcs:[[0,1,"180°"]],ax:[0,1]});
+addClass("AX6",{b:6,e:0,eg:"octahedral",mg:"octahedral",ang:"90° and 180°",angKey:"90-180",hyb:"sp³d²",sym:true,B:[[0,1,0],[0,-1,0],[1,0,0],[-1,0,0],[0,0,1],[0,0,-1]],E:[],arcs:[[0,2,"90°"]]});
+addClass("AX5E",{b:5,e:1,eg:"octahedral",mg:"square pyramidal",ang:"less than 90° (about 85° in BrF₅)",angKey:"lt90",hyb:"sp³d²",sym:false,
+  B:[[0,1,0],sph(85,0),sph(85,90),sph(85,180),sph(85,270)],E:[[0,-1,0]],arcs:[[0,1,"<90°"]]});
+addClass("AX4E2",{b:4,e:2,eg:"octahedral",mg:"square planar",ang:"90° and 180°",angKey:"90-180",hyb:"sp³d²",sym:true,B:[[1,0,0],[0,0,1],[-1,0,0],[0,0,-1]],E:[[0,1,0],[0,-1,0]],arcs:[[0,1,"90°"]]});
+/* only two atoms (one bond) */
+addClass("AXE0",{b:1,e:0,eg:"none (only two atoms)",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"none",sym:false,B:[[0,-1,0]],E:[],arcs:[]});
+addClass("AXE",{b:1,e:1,eg:"linear",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"sp",sym:false,B:[[0,-1,0]],E:[[0,1,0]],arcs:[]});
+addClass("AXE2",{b:1,e:2,eg:"trigonal planar",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"sp²",sym:false,B:[[0,-1,0]],E:[sph(60,0),sph(60,180)],arcs:[]});
+addClass("AXE3",{b:1,e:3,eg:"tetrahedral",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"sp³",sym:false,B:[[0,-1,0]],E:[sph(180-TH,90),sph(180-TH,210),sph(180-TH,330)],arcs:[]});
+function vsKey(b,e){if(b===1)return e===0?"AXE0":e===1?"AXE":e===2?"AXE2":e===3?"AXE3":null;const k="AX"+b+(e?("E"+(e>1?e:"")):"");return VS[k]?k:null}
+function axeLabel(k){const c=VS[k];if(!c)return "";if(c.b===1)return "AXE"+(c.e>1?c.e:c.e?"":"").replace(/^AXE$/,"AXE")+"";return "AX"+c.b+(c.e?"E"+(c.e>1?c.e:""):"")}
+function axeTxt(b,e){return "AX"+(b>1?b:"")+(e?"E"+(e>1?e:""):"")}
+const EG_NAMES=["linear","trigonal planar","tetrahedral","trigonal bipyramidal","octahedral"];
+function egFromN(n){return EG_NAMES[n-2]}
+function hybFromN(n){return ["sp","sp²","sp³","sp³d","sp³d²"][n-2]}
+
+/* ================= build a molecule model from a class ================= */
+/* outer: array of element symbols for the bonding positions; ord: bond orders */
+function molFromClass(key,center,outer,o){o=o||{};const c=VS[key];const atoms=[{el:center,p:[0,0,0]}];const bonds=[],lps=[];
+  c.B.forEach((d,i)=>{const el=outer[i%outer.length];const L=(el==="H"?.95:1.18)*(o.L||1);atoms.push({el,p:v3.sc(d,L)});bonds.push([0,i+1,(o.ord&&o.ord[i])||1])});
+  c.E.forEach(d=>lps.push({a:0,dir:d}));
+  return {atoms,bonds,lps,arcs:(o.arcs===false?[]:c.arcs.map(a=>[0,a[0]+1,a[1]+1,a[2]])),cls:key}}
+
+/* ================= renderer ================= */
+/* teardrop / balloon lobe from screen point c toward screen point t */
+function lobePath(cx,cy,tx,ty,w){const dx=tx-cx,dy=ty-cy;const l=Math.hypot(dx,dy);
+  if(l<w*1.05){const k=l/(w*1.05);const ex=cx+dx*.55,ey=cy+dy*.55;ctx.beginPath();ctx.ellipse(ex,ey,Math.max(2,w*(.7+.25*k)),Math.max(2,w*.72),Math.atan2(dy,dx),0,TAU);return}
+  const ux=dx/l,uy=dy/l,nx=-uy,ny=ux;ctx.beginPath();ctx.moveTo(cx,cy);
+  ctx.bezierCurveTo(cx+dx*.12+nx*w*.95,cy+dy*.12+ny*w*.95,tx+ux*w*.55+nx*w*.95,ty+uy*w*.55+ny*w*.95,tx+ux*w*.55,ty+uy*w*.55);
+  ctx.bezierCurveTo(tx+ux*w*.55-nx*w*.95,ty+uy*w*.55-ny*w*.95,cx+dx*.12-nx*w*.95,cy+dy*.12-ny*w*.95,cx,cy);ctx.closePath()}
+function lobe3(V,o3,dir,len,w,col,a,o){o=o||{};const P0=pj(V,o3),P1=pj(V,v3.add(o3,v3.sc(dir,len)));const ww=w*V.s*P1.f;
+  ctx.save();ctx.globalAlpha*=a==null?1:a;lobePath(P0.x,P0.y,P1.x,P1.y,ww);
+  const g=ctx.createRadialGradient(P1.x-ww*.3,P1.y-ww*.35,ww*.1,P1.x,P1.y,ww*1.6);g.addColorStop(0,hexA(lighten(col,.55),o.fa==null?.75:o.fa));g.addColorStop(1,hexA(col,o.fb==null?.45:o.fb));
+  ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=hexA(o.edge||col,.95);ctx.lineWidth=o.lw||1.4;ctx.stroke();ctx.restore();return [P0,P1,ww]}
+/* ball: shaded sphere with element symbol */
+function ball(x,y,r,col,sym,o){o=o||{};const g=ctx.createRadialGradient(x-r*.38,y-r*.42,r*.08,x,y,r);g.addColorStop(0,lighten(col,.6));g.addColorStop(.55,col);g.addColorStop(1,darken(col,.32));
+  ctx.beginPath();ctx.arc(x,y,Math.max(1,r),0,TAU);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=o.edge||hexA(darken(col,.5),.85);ctx.lineWidth=o.lw||1.2;ctx.stroke();
+  if(o.hl){ctx.strokeStyle=o.hl;ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,r+4,0,TAU);ctx.stroke()}
+  if(sym&&o.label!==false){const fs=clamp(r*.95,11,17);ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col);ctx.fillText(sym,x,y+.5)}}
+/* stick between two screen points (with bond order) */
+function stick(a,b,w,ord,col,o){o=o||{};const dx=b.x-a.x,dy=b.y-a.y;const l=Math.hypot(dx,dy)||1;const nx=-dy/l,ny=dx/l;const offs=ord===2?[-.75,.75]:ord===3?[-1.25,0,1.25]:[0];
+  const ww=ord>1?w*.62:w;offs.forEach((k,i)=>{const ox=nx*k*w,oy=ny*k*w;const c2=(o.cols&&o.cols[i])||col;
+    ctx.lineCap="butt";line(a.x+ox,a.y+oy,b.x+ox,b.y+oy,darken(c2,.25),ww+1.6);line(a.x+ox,a.y+oy,b.x+ox,b.y+oy,c2,ww);line(a.x+ox-nx*ww*.2,a.y+oy-ny*ww*.2,b.x+ox-nx*ww*.2,b.y+oy-ny*ww*.2,hexA(C["bond-hi"],.55),Math.max(1,ww*.3));ctx.lineCap="butt"})}
+/* draw a molecule. M: {atoms:[{el,p,hl,lab,a}], bonds:[[i,j,ord,{col}]], lps:[{a,dir,hl,scale,alpha}], arcs:[[c,i,j,text]]} */
+function drawMol(V,M,o){o=o||{};const items=[];const S=o.atomScale||1;
+  const P=M.atoms.map(at=>pj(V,at.p));
+  M.bonds.forEach(b=>{const A=P[b[0]],B=P[b[1]];const Mid={x:(A.x+B.x)/2,y:(A.y+B.y)/2,f:(A.f+B.f)/2};const w=(o.bondW||.11)*V.s*(A.f+B.f)/2;
+    const al=((b[3]&&b[3].a!=null)?b[3].a:1)*Math.min(M.atoms[b[0]].a==null?1:M.atoms[b[0]].a,M.atoms[b[1]].a==null?1:M.atoms[b[1]].a);
+    const dx=B.x-A.x,dy=B.y-A.y;const ext=(Math.hypot(dx,dy)||1);const Mx={x:Mid.x+dx/ext*.4,y:Mid.y+dy/ext*.4},My={x:Mid.x-dx/ext*.1,y:Mid.y-dy/ext*.1};
+    items.push({z:A.z-.015,f:()=>withA(al,()=>stick(A,Mx,w,b[2],(b[3]&&b[3].col)||C.bond,b[3]))});
+    items.push({z:B.z-.015,f:()=>withA(al,()=>stick(My,B,w,b[2],(b[3]&&b[3].col)||C.bond,b[3]))})});
+  if(o.lp!==false)(M.lps||[]).forEach(L=>{const base=v3.add(M.atoms[L.a].p,v3.sc(L.dir,.16));const tip=v3.add(base,v3.sc(L.dir,.85*(L.scale||1)));const Pt=pj(V,tip);
+    items.push({z:(P[L.a].z+Pt.z)/2,f:()=>{const al=(L.alpha==null?1:L.alpha)*(o.lpA==null?1:o.lpA);if(al<=0)return;
+      const r=lobe3(V,base,L.dir,.85*(L.scale||1),.3*(L.w||1),L.col||C["lp-fill"],al*.9,{edge:L.col||C.lp,fa:.7,fb:.35});
+      const P0=r[0],P1=r[1];const dx=P1.x-P0.x,dy=P1.y-P0.y;const l=Math.hypot(dx,dy)||1;const nx=-dy/l*5*P1.f,ny=dx/l*5*P1.f;const mx=P0.x+dx*.68,my=P0.y+dy*.68;
+      withA(al,()=>{circ(mx+nx,my+ny,3*P1.f,C.lp);circ(mx-nx,my-ny,3*P1.f,C.lp);if(L.hl){ctx.save();ctx.globalAlpha*=.8;lobePath(P0.x,P0.y,P1.x,P1.y,r[2]+4);ctx.strokeStyle=L.hl;ctx.lineWidth=3;ctx.stroke();ctx.restore()}})}})});
+  M.atoms.forEach((at,i)=>{const p=P[i];items.push({z:p.z,f:()=>{const al=at.a==null?1:at.a;if(al<=0)return;withA(al,()=>{
+    if(at.cloud)glow(p.x,p.y,EL[at.el].r*V.s*p.f*S*1.5,at.cloud,.55);
+    ball(p.x,p.y,EL[at.el].r*V.s*p.f*S*.55*(at.big||1),elCol(at.el),at.lab===undefined?at.el:at.lab,{hl:at.hl,label:o.labels});
+    if(at.tag)label(p.x+(at.tagDx||0),p.y-EL[at.el].r*V.s*p.f*S*.55-14,at.tag,{size:12,weight:700,color:at.tagCol||C.ink,border:at.tagCol});})}})});
+  (o.extra||[]).forEach(e=>items.push(e));
+  items.sort((a,b)=>a.z-b.z).forEach(it=>it.f());
+  if(o.arcs!==false)(M.arcs||[]).forEach(A=>angleArc(V,M.atoms[A[0]].p,M.atoms[A[1]].p,M.atoms[A[2]].p,A[3],o.arcCol||C.accent,o.arcR||.5,o.arcA));
+  return P}
+/* angle arc between bonds c->i and c->j, drawn in 3D */
+function angleArc(V,c,pi,pjv,text,col,r,a){if(a!=null&&a<=0)return;const u=v3.nrm(v3.sub(pi,c)),w=v3.nrm(v3.sub(pjv,c));const pts=[];for(let k=0;k<=28;k++){const d=slerp(u,w,k/28);const q=pj(V,v3.add(c,v3.sc(d,r)));pts.push([q.x,q.y])}
+  ctx.save();ctx.globalAlpha*=a==null?1:a;poly(pts,col,2.4);const mid=slerp(u,w,.5);const q=pj(V,v3.add(c,v3.sc(mid,r+.42)));if(text)label(q.x,q.y,text,{size:13,weight:700,color:C.ink,border:col,mono:true});ctx.restore()}
+/* dipole arrow in screen space with a crossed tail (+ end) */
+function dipArrow(x1,y1,x2,y2,col,lw){lw=lw||3;arrow(x1,y1,x2,y2,col,lw);const a=Math.atan2(y2-y1,x2-x1);const tx=x1+Math.cos(a)*8,ty=y1+Math.sin(a)*8;const nx=-Math.sin(a)*7,ny=Math.cos(a)*7;line(tx-nx,ty-ny,tx+nx,ty+ny,col,lw)}
+function dip3(V,from,to,col,lw,off){const A=pj(V,from),B=pj(V,to);let ox=0,oy=0;if(off){const dx=B.x-A.x,dy=B.y-A.y,l=Math.hypot(dx,dy)||1;ox=-dy/l*off;oy=dx/l*off}dipArrow(A.x+ox,A.y+oy,B.x+ox,B.y+oy,col,lw)}
+/* shaded face polygon in 3D (for showing the molecular shape outline) */
+function face3(V,pts,col,a){const P=pts.map(p=>pj(V,p));ctx.save();ctx.globalAlpha*=a==null?.18:a;fillPoly(P.map(p=>[p.x,p.y]),col,null);ctx.globalAlpha=Math.min(1,(a==null?.18:a)*3);ctx.setLineDash([4,4]);fillPoly(P.map(p=>[p.x,p.y]),null,col,1.4);ctx.setLineDash([]);ctx.restore()}
+/* net dipole vector of a molecule: sum of (EN outer - EN centre) along bonds, plus lone-pair pull */
+function netDipole(M){let s=[0,0,0];M.bonds.forEach(b=>{const A=M.atoms[b[0]],B=M.atoms[b[1]];const d=EL[B.el].en-EL[A.el].en;s=v3.add(s,v3.sc(v3.nrm(v3.sub(B.p,A.p)),d))});
+  (M.lps||[]).forEach(L=>{s=v3.add(s,v3.sc(L.dir,.5))});return s}
+
+/* ================= Lewis structure (2D, symbolic level) ================= */
+/* L={c:"N",clp:[deg...],out:[[el,deg,ord,nLP]],charge:"+"|"-",s} angles: 0 = right, 90 = up */
+function lewis(x,y,L,o){o=o||{};const s=o.s||1;const R=46*s;const hl=o.hl||{};
+  const fs=Math.round(20*s);
+  function dots(px,py,ang,col,glowIt,sym){const a=ang*D2R;const r=15*s*((sym||"").length>1?1+.45*Math.abs(Math.cos(a)):1);const cx=px+Math.cos(a)*r,cy=py-Math.sin(a)*r;const nx=-Math.sin(a)*4*s,ny=-Math.cos(a)*4*s;
+    if(glowIt)glow(cx,cy,14*s,C.lp,.55);circ(cx+nx,cy+ny,2.6*s,col||C.lp);circ(cx-nx,cy-ny,2.6*s,col||C.lp)}
+  L.out.forEach((ot,i)=>{const a=ot[1]*D2R;const ox=x+Math.cos(a)*R,oy=y-Math.sin(a)*R;const ord=ot[2]||1;
+    const x1=x+Math.cos(a)*12*s,y1=y-Math.sin(a)*12*s,x2=ox-Math.cos(a)*12*s,y2=oy+Math.sin(a)*12*s;const nx=-Math.sin(a),ny=-Math.cos(a);
+    const offs=ord===2?[-3,3]:ord===3?[-5,0,5]:[0];const bc=hl.bond===i||hl.bonds?C.accent:C.ink;offs.forEach(k=>line(x1+nx*k*s,y1+ny*k*s,x2+nx*k*s,y2+ny*k*s,bc,hl.bond===i||hl.bonds?3:2));
+    const n=ot[3]||0;const base=ot[1];const angs=n===3?[base,base+90,base-90]:n===2?(ord===2?[base+60,base-60]:[base+90,base-90]):n===1?[base]:[];
+    angs.forEach(g=>dots(ox,oy,g,C["ink-soft"],false,ot[0]));
+    txt(ox,oy,ot[0],{size:fs,weight:700,align:"center",color:hl.atom===i+1?C.accent:C.ink})});
+  (L.clp||[]).forEach((g,i)=>dots(x,y,g,C.lp,hl.lp===i||hl.lps,L.c));
+  txt(x,y,L.c,{size:fs,weight:700,align:"center",color:hl.atom===0?C.accent:C.ink});
+  if(L.charge){const w=R+30*s;line(x-w,y-w*.8,x-w,y+w*.8,C.ink,1.6);line(x-w,y-w*.8,x-w+6,y-w*.8,C.ink,1.6);line(x-w,y+w*.8,x-w+6,y+w*.8,C.ink,1.6);
+    line(x+w,y-w*.8,x+w,y+w*.8,C.ink,1.6);line(x+w,y-w*.8,x+w-6,y-w*.8,C.ink,1.6);line(x+w,y+w*.8,x+w-6,y+w*.8,C.ink,1.6);txt(x+w+4,y-w*.8,L.charge,{size:15,weight:700})}}
+
+/* ================= macroscopic vignettes ================= */
+function beaker(x,y,w,h,level,col){ctx.save();rr(x,y,w,h,8);ctx.clip();ctx.fillStyle=hexA(C.glass,.5);ctx.fillRect(x,y,w,h);const lh=h*clamp(level,0,1);ctx.fillStyle=col||C.liq;ctx.fillRect(x,y+h-lh,w,lh);ctx.restore();rr(x,y,w,h,8);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke()}
+function glassCup(x,y,w,h,level,col){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w*.1,y+h);ctx.lineTo(x+w*.9,y+h);ctx.lineTo(x+w,y);ctx.closePath();ctx.save();ctx.clip();ctx.fillStyle=hexA(C.glass,.5);ctx.fillRect(x,y,w,h);ctx.fillStyle=col||C.liq;ctx.fillRect(x,y+h*(1-level),w,h*level);ctx.restore();
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w*.1,y+h);ctx.lineTo(x+w*.9,y+h);ctx.lineTo(x+w,y);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke()}
+function vigSoda(x,y,T){glassCup(x-40,y-70,80,100,.8,hexA(C.liq,.9));for(let i=0;i<14;i++){const p=P(T*.5+rnd(i),1);const bx=x-26+rnd(i+7)*52+Math.sin(T*3+i)*2,by=y+26-p*80;circ(bx,by,1.8+rnd(i+3)*2.2,null,C["glass-edge"],1.2)}
+  label(x,y+48,"bubbles of CO₂ gas",{size:12,weight:600})}
+function vigFlame(x,y,T){rr(x-50,y+14,100,14,4);fillStroke(C.metal,C["metal-edge"],1.4);for(let i=0;i<5;i++){const fx=x-34+i*17;const h=26+6*Math.sin(T*9+i*1.7);ctx.beginPath();ctx.moveTo(fx-6,y+14);ctx.quadraticCurveTo(fx-7,y+14-h*.6,fx,y+14-h);ctx.quadraticCurveTo(fx+7,y+14-h*.6,fx+6,y+14);ctx.closePath();
+    const g=ctx.createLinearGradient(0,y+14,0,y+14-h);g.addColorStop(0,"#2F6FC1");g.addColorStop(1,hexA("#7FB3F0",.4));ctx.fillStyle=g;ctx.fill()}
+  label(x,y+48,"methane burning on a gas stove",{size:12,weight:600})}
+function vigBottle(x,y,T,lab,col,o){o=o||{};ctx.beginPath();ctx.moveTo(x-12,y-62);ctx.lineTo(x-12,y-48);ctx.quadraticCurveTo(x-34,y-40,x-34,y-20);ctx.lineTo(x-34,y+30);ctx.quadraticCurveTo(x-34,y+36,x-28,y+36);ctx.lineTo(x+28,y+36);ctx.quadraticCurveTo(x+34,y+36,x+34,y+30);ctx.lineTo(x+34,y-20);ctx.quadraticCurveTo(x+34,y-40,x+12,y-48);ctx.lineTo(x+12,y-62);ctx.closePath();
+  ctx.save();ctx.clip();ctx.fillStyle=hexA(C.glass,.6);ctx.fillRect(x-40,y-70,80,110);if(!o.solid){ctx.fillStyle=col||C.liq;ctx.fillRect(x-40,y-8+2*Math.sin(T*2),80,50)}else{for(let i=0;i<26;i++){const cx=x-28+rnd(i)*56,cy=y+30-rnd(i+40)*24;ctx.save();ctx.translate(cx,cy);ctx.rotate(rnd(i+9)*3);ctx.fillStyle=col;ctx.fillRect(-4,-3,8,6);ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=.8;ctx.strokeRect(-4,-3,8,6);ctx.restore()}
+    const sp=Math.floor(T*3)%26;glow(x-28+rnd(sp)*56,y+30-rnd(sp+40)*24,8,"#FFFFFF",.9)}ctx.restore();
+  ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();rr(x-14,y-72,28,12,3);fillStroke(o.cap||C["ink-soft"],null);
+  rr(x-26,y-30,52,20,3);fillStroke(C.paper,hexA(C.ink,.4),1);txt(x,y-20,lab,{size:11.5,weight:700,align:"center",mono:true});
+  if(o.fumes){for(let i=0;i<4;i++){const p=P(T*.4+i/4,1);ctx.save();ctx.globalAlpha*=.5*(1-p);ctx.strokeStyle=o.fumes;ctx.lineWidth=2.4;ctx.beginPath();for(let k=0;k<=10;k++){const yy=y-74-k*4-p*30,xx=x+Math.sin(k*.7+T*2+i)*6+(i-1.5)*6;k?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)}ctx.stroke();ctx.restore()}}}
+function vigCylinder(x,y,T,lab,col){rr(x-22,y-58,44,96,18);const g=ctx.createLinearGradient(x-22,0,x+22,0);g.addColorStop(0,darken(col,.2));g.addColorStop(.4,lighten(col,.3));g.addColorStop(1,darken(col,.3));ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.4;ctx.stroke();
+  rr(x-6,y-72,12,16,2);fillStroke(C.metal,C["metal-edge"],1.2);circ(x+18,y-66,9,C.paper,C["metal-edge"],1.4);const a=-2.2+.25*Math.sin(T);line(x+18,y-66,x+18+Math.cos(a)*7,y-66+Math.sin(a)*7,C.bad,1.6);
+  rr(x-18,y-14,36,18,3);fillStroke(C.paper,hexA(C.ink,.4),1);txt(x,y-5,lab,{size:11.5,weight:700,align:"center",mono:true})}
+function vigVolcano(x,y,T){fillPoly([[x-70,y+34],[x-16,y-26],[x+16,y-26],[x+70,y+34]],mix(C["ink-soft"],C.ecf,.3),hexA(C.ink,.4),1.2);
+  for(let i=0;i<9;i++){const p=P(T*.25+i/9,1);const r=8+p*22;ctx.save();ctx.globalAlpha*=.55*(1-p);circ(x+Math.sin(i*2.3+T*.5)*10+p*30,y-30-p*70,r,mix(C["ink-soft"],C.elS,.35));ctx.restore()}
+  label(x,y+48,"volcanoes and burning sulfur release SO₂",{size:12,weight:600})}
+function vigDrop(x,y,T){beaker(x-44,y-20,88,54,.6,hexA(C.water,.95));const p=P(T,1.6);const dy=y-80+p*80;if(p<.85){ctx.beginPath();ctx.moveTo(x,dy-12);ctx.quadraticCurveTo(x+8,dy,x,dy+6);ctx.quadraticCurveTo(x-8,dy,x,dy-12);fillStroke(C.water,C.elN,1.2)}
+  else{const q=(p-.85)/.15;ell(x,y+2,10+q*30,3+q*4,0,null,hexA(C.elN,1-q),1.4)}label(x,y+48,"liquid water",{size:12,weight:600})}
+function vigTank(x,y,T){rr(x-70,y-40,140,74,4);fillStroke(hexA(C.glass,.35),C["glass-edge"],2);ctx.save();rr(x-70,y-40,140,74,4);ctx.clip();ctx.fillStyle=hexA(C.elXe,.13);ctx.fillRect(x-70,y-2,140,40);ctx.restore();
+  line(x-70,y-2,x+70,y-2,hexA(C.elXe,.5),1,[4,4]);const bx=x+Math.sin(T*.6)*24;fillPoly([[bx-22,y-12],[bx+22,y-12],[bx+16,y-2],[bx-16,y-2]],C.metal,C["metal-edge"],1.4);
+  label(x,y+48,"a foil boat floats on invisible SF₆ gas",{size:12,weight:600})}
+function vigPanel(x,y,w,h,T,kind,o){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});title(x+12,y+18,"What you see");const cx=x+w/2,cy=y+h/2+12;o=o||{};
+  if(kind==="soda")vigSoda(cx,cy,T);else if(kind==="flame")vigFlame(cx,cy,T);else if(kind==="volcano")vigVolcano(cx,cy+4,T);else if(kind==="drop")vigDrop(cx,cy,T);else if(kind==="tank")vigTank(cx,cy,T);
+  else if(kind==="bottle"){vigBottle(cx,cy+4,T,o.lab,o.col,o);if(o.note)label(cx,y+h-14,o.note,{size:12,weight:600})}
+  else if(kind==="cyl"){vigCylinder(cx,cy+6,T,o.lab,o.col||C.metal);if(o.note)label(cx,y+h-14,o.note,{size:12,weight:600})}}
+
+/* ================= steps ================= */
+const ACTS={0:{name:"Start",col:"accent"},
+            1:{name:"Part 1 · The VSEPR idea",col:"act1"},
+            2:{name:"Part 2 · Two to four groups",col:"act2"},
+            3:{name:"Part 3 · Five and six groups",col:"act3"},
+            4:{name:"Part 4 · Bigger molecules",col:"act4"},
+            5:{name:"Part 5 · Polarity",col:"act5"},
+            6:{name:"Part 6 · Valence bond theory",col:"act6"},
+            7:{name:"Part 7 · Molecular orbitals",col:"act7"}};
+const NACT=7;
+const LEG_SHAPE=[["elH","Hydrogen (H)"],["elC","Carbon (C)"],["lp-fill","Lone pair (purple balloon)"],["accent","Lit-up part and angle","s"]];
+const STEPS=[
+{act:0,scene:"map",desc:"On the left, twelve small 3D ball-and-stick models sit in a grid of three columns and four rows, each slowly spinning. Each model has a grey central ball, outer balls, and for some shapes purple balloon shapes for lone pairs. A name is printed under each one: linear, trigonal planar, bent, tetrahedral, trigonal pyramidal, bent, trigonal bipyramidal, seesaw, T-shaped, octahedral, square pyramidal and square planar. One model at a time is outlined in orange. On the right, seven numbered cards list the seven parts of this walkthrough and light up one at a time.",
+ title:"The big picture: molecules have shapes",
+ body:`<p>A <b>molecule</b> is not flat like the drawing on your paper. Its atoms sit at fixed places in 3D space, and that <b>shape</b> decides a lot: whether it dissolves in water, how it boils, how a drug fits a receptor in your body, and whether a gas traps heat.</p>
+ <p>The good news: you can <b>predict</b> the shape from a Lewis structure with one simple rule. Electron groups around a central atom <b>repel</b> each other and spread out as far as possible. This is <b>VSEPR</b> (valence shell electron pair repulsion) theory, and it gives the twelve shapes on the left.</p>
+ <ol><li><b>The VSEPR idea:</b> electron groups, and two kinds of geometry.</li><li><b>Two to four groups:</b> CO₂, BF₃, SO₂, CH₄, NH₃, H₂O.</li><li><b>Five and six groups:</b> PCl₅, SF₄, ClF₃, XeF₂, SF₆, BrF₅, XeF₄.</li><li><b>Bigger molecules:</b> ethanol and acetic acid.</li><li><b>Polarity:</b> when bond dipoles cancel and when they do not.</li><li><b>Valence bond theory:</b> overlap, sigma and pi bonds, hybrid orbitals.</li><li><b>Molecular orbitals:</b> bond order and why oxygen sticks to a magnet.</li></ol>`,
+ analogy:"Think of building with a model kit. The Lewis structure is the parts list. VSEPR is the instruction sheet that tells you which way each stick points.",
+ terms:[["Molecular shape","The 3D arrangement of the atoms in a molecule."],["VSEPR","Valence shell electron pair repulsion: electron groups around a central atom spread out to get as far apart as possible."],["Central atom","The atom in the middle that the other atoms are bonded to."]],
+ check:null,caption:"Twelve molecular shapes predicted by VSEPR, and the seven parts ahead.",
+ legend:[["elC","Central atom"],["elF","Outer atom"],["lp-fill","Lone pair"],["accent","Highlighted shape","s"]]},
+
+/* ---------- Part 1 ---------- */
+{act:1,scene:"balloons",desc:"On the left, coloured balloons are tied together at one knot in the middle and spin slowly in 3D. The picture starts with 2 balloons pointing in opposite directions. Every few seconds a new balloon grows from the knot and all the balloons slide to new positions: 3 balloons make a flat triangle, 4 make a tetrahedron, 5 make a trigonal bipyramid and 6 make an octahedron. Each balloon carries a number, and a black arc with an angle label (180, 120, 109.5 or 90 degrees) appears between two balloons. On the right, a list of five arrangements lights up the current one. Below it, two blue electron clouds marked with minus signs bounce toward each other and red arrows push them apart.",
+ title:"The VSEPR idea: electron groups spread out",
+ body:`<p>Around a central atom, electrons sit in <b>electron groups</b>. An electron group is any region of electron density: a <b>single bond</b>, a <b>double bond</b>, a <b>triple bond</b>, or a <b>lone pair</b> (a pair of electrons that is not shared).</p>
+ <p>Electrons are all negative, so the groups <b>repel</b> each other. They move until they are as far apart as possible. Only the <b>number of groups</b> matters for the basic arrangement: 2 groups are 180° apart (<b>linear</b>), 3 spread to 120° (<b>trigonal planar</b>), 4 point to the corners of a <b>tetrahedron</b> (109.5°), 5 make a <b>trigonal bipyramid</b>, and 6 make an <b>octahedron</b>.</p>
+ <p>Notice that 4 groups do not lie flat at 90°. In 3D they can get farther apart, to 109.5°. That is why the drawings must be 3D.</p>`,
+ analogy:"Tie balloons together at their knots. Two balloons point in opposite directions, three make a flat triangle, four make a pyramid shape with a triangle base. The balloons push on each other just like electron groups do.",
+ terms:[["Electron group","A region of electrons around the central atom: one bond (single, double or triple) or one lone pair."],["Lone pair","Two valence electrons on an atom that are not shared in a bond."],["Electron-group arrangement","The way the groups spread out in 3D: linear, trigonal planar, tetrahedral, trigonal bipyramidal or octahedral."]],
+ check:{q:"Four electron groups surround a central atom. What angle do they spread to?",opts:[
+  ["109.5°, the corners of a tetrahedron",1,"Yes. In 3D, four groups get farthest apart by pointing to the corners of a tetrahedron, 109.5° apart."],
+  ["90°, a flat cross",0,"A flat cross keeps them only 90° apart. Moving into 3D lets them spread further, to 109.5°."],
+  ["120°, a flat triangle",0,"120° is the angle for three groups in a plane. Four groups cannot all be 120° apart."],
+  ["180°, a straight line",0,"Only two groups can be 180° apart."]]},
+ caption:"Balloons tied at one knot spread out just like electron groups (sped up).",
+ legend:[["act1","Balloon 1"],["act2","Balloon 2"],["act3","Balloon 3"],["elec","Electron cloud"]]},
+
+{act:1,scene:"count",desc:"The left panel shows a large Lewis structure that changes every few seconds: carbon dioxide, then formaldehyde, then hydrogen cyanide, then sulfur dioxide. Dashed orange ovals circle each electron group on the central atom one at a time, each with a numbered badge. Double and triple bonds get one oval each with the label 'double bond = 1 group' or 'triple bond = 1 group'. In sulfur dioxide, a purple lone pair on the sulfur is circled and labelled 'lone pair = 1 group'. A box below adds the valence electrons, counts the groups, and names the arrangement. On the right, a spinning 3D model of the same molecule fades in once the counting is done.",
+ title:"Counting electron groups: multiple bonds count once",
+ body:`<p>To predict a shape, start with a correct <b>Lewis structure</b>. Then look only at the <b>central atom</b> and count its electron groups.</p>
+ <p>The key rule: a <b>double</b> or <b>triple bond counts as ONE group</b>. All of its electrons sit in the same region between the same two atoms, so they point in one direction. In CO₂, carbon has two double bonds, so it has <b>2 groups</b> and CO₂ is linear. In HCN, carbon has a single bond and a triple bond: also 2 groups, also linear.</p>
+ <p><b>Lone pairs on the central atom count</b> too. In SO₂, sulfur has two bonds and one lone pair: 3 groups. Lone pairs on the outer atoms do not affect the central atom's shape.</p>`,
+ analogy:"Count the doors out of a room, not the people walking through them. A double bond is one doorway with two pairs of people going through it; it still points one way.",
+ terms:[["Lewis structure","A drawing that shows every valence electron as bonds (lines) and lone pairs (dots)."],["Valence electrons","The outer-shell electrons; for main-group elements, the group number's last digit (C 4, N 5, O 6, F 7)."],["Multiple bond","A double or triple bond; it counts as one electron group."]],
+ check:{q:"SO₂ has 18 valence electrons. Its Lewis structure has an S=O double bond, an S–O single bond and one lone pair on S. How many electron groups are on sulfur?",opts:[
+  ["3",1,"Right: one double bond (1 group) + one single bond (1 group) + one lone pair (1 group) = 3. That gives a trigonal planar arrangement and a bent shape."],
+  ["4",0,"This is the common slip of counting the double bond as 2 groups. A double bond is one group."],
+  ["2",0,"You counted the bonds but left out the lone pair on sulfur. Central-atom lone pairs are groups too."],
+  ["9",0,"That is 18 ÷ 2, the number of electron pairs in the whole molecule. Count only the groups around the central atom."]]},
+ caption:"Count groups on the central atom: each bond (single, double or triple) and each lone pair is one group.",
+ legend:[["accent","Electron group being counted","s"],["lp","Lone pair dots"],["elO","Oxygen (O)"],["elS","Sulfur (S)"]]},
+
+{act:1,scene:"egmg",desc:"On the left, a 3D model of ammonia spins: a blue nitrogen ball with three white hydrogen balls below it and a purple lone-pair balloon on top. At first, a faint purple dashed tetrahedron joins the ends of all four groups, and a label says 'Count every group: 3 bonds + 1 lone pair = 4'. Then the lone pair fades to a ghost, the tetrahedron disappears, and orange shaded faces join nitrogen and the three hydrogens into a pyramid. The label changes to 'Look only at where the ATOMS are'. On the right, the card 'Electron geometry: tetrahedral' glows purple first, then the card 'Molecular geometry: trigonal pyramidal' glows orange. Below, the Lewis structure of NH3 and the code AX3E are explained: A central atom, X bonded atom, E lone pair.",
+ title:"Electron geometry vs molecular geometry",
+ body:`<p>Every molecule has two geometry names, and mixing them up is the most common mistake in this chapter.</p>
+ <p>The <b>electron geometry</b> (electron-group geometry) describes where <b>all</b> the electron groups point, lone pairs included. It depends only on the number of groups.</p>
+ <p>The <b>molecular geometry</b> describes where the <b>atoms</b> are. Lone pairs are there and they push, but you cannot "see" them as part of the shape. When there are no lone pairs, the two names are the same. When there are lone pairs, they differ. NH₃ has 4 groups (tetrahedral electron geometry) but only 3 atoms around N, so its molecular shape is a <b>trigonal pyramid</b>.</p>
+ <p>A handy code is <b>AXₘEₙ</b>: A is the central atom, X the bonded atoms, E the lone pairs. NH₃ is AX₃E.</p>`,
+ analogy:"A tent with four poles where one pole is hidden inside the fabric. The poles (electron groups) set the frame, but from outside you only see the shape made by the three you can see.",
+ terms:[["Electron geometry","The arrangement of all electron groups (bonds and lone pairs) around the central atom."],["Molecular geometry","The arrangement of the atoms only; this is the molecule's shape."],["AXₘEₙ notation","A = central atom, X = bonded atoms (m of them), E = lone pairs (n of them)."]],
+ check:{q:"A molecule is AX₂E₂. What are its electron geometry and molecular geometry?",opts:[
+  ["Tetrahedral electron geometry, bent molecular geometry",1,"Yes. Four groups make a tetrahedral electron geometry; with two of them lone pairs, the three atoms form a bent shape. Water is the classic example."],
+  ["Bent electron geometry, tetrahedral molecular geometry",0,"These are swapped. The electron geometry counts all four groups (tetrahedral); the atoms alone make the bent shape."],
+  ["Linear for both",0,"Linear would need just two groups. Here the two lone pairs are groups too, making four."],
+  ["Tetrahedral for both",0,"Tetrahedral for both would need four atoms around the centre (no lone pairs), like CH₄."]]},
+ caption:"Ammonia: four groups point to a tetrahedron, but the atoms make a pyramid.",
+ legend:[["elN","Nitrogen (N)"],["elH","Hydrogen (H)"],["lp-fill","Lone pair"],["face","Shape made by the atoms","s"]]},
+
+/* ---------- Part 2 ---------- */
+{act:2,scene:"linear",desc:"Left: a spinning 3D model of carbon dioxide. A dark grey carbon ball sits in the middle with a red oxygen ball on each side, each joined by a double stick. An orange arc over the carbon is labelled 180 degrees. Every few seconds the bonds or the angle light up in orange, and a chip at the bottom left says which part is lit. Top right: the Lewis structure O=C=O with two dot pairs on each oxygen; its bonds light up at the same time as the 3D bonds. Text lines list 2 groups, linear shape and 180 degrees. Bottom right: a glass of soda with small gas bubbles rising, labelled 'bubbles of CO2 gas'.",
+ title:"Linear: carbon dioxide, CO₂",
+ body:`<p>In CO₂, carbon forms two <b>double bonds</b>, one to each oxygen, and has <b>no lone pairs</b>. That is <b>2 electron groups</b>.</p>
+ <p>Two groups get farthest apart on opposite sides of the atom, so the molecule is a straight line: <b>linear</b>, with an O–C–O <b>bond angle</b> of <b>180°</b>.</p>
+ <p>The same shape shows up for every central atom with two groups and no lone pairs: BeCl₂, HCN and CS₂ are linear too.</p>`,
+ analogy:"Two kids on a seesaw sit at the two ends, as far apart as the board allows.",
+ terms:[["Linear","Atoms in a straight line; bond angle 180°."],["Bond angle","The angle formed by two bonds that share the central atom."],["AX₂","Two bonded atoms, no lone pairs: always linear."]],
+ check:{q:"Which molecule is linear for the same reason as CO₂?",opts:[
+  ["BeCl₂: Be has two single bonds and no lone pairs",1,"Yes. Two groups and no lone pairs give a 180° linear shape, no matter whether the bonds are single or double."],
+  ["H₂O: O has two single bonds",0,"Oxygen in water also has two lone pairs, so it has four groups and is bent."],
+  ["SO₂: S has two bonds to O",0,"Sulfur in SO₂ also has a lone pair: three groups, so it is bent."],
+  ["NH₃: N has three bonds",0,"Three bonds plus a lone pair make four groups: a trigonal pyramid."]]},
+ caption:"CO₂: two groups, linear, 180°. The 3D bonds and the Lewis bonds light up together.",
+ legend:[["elC","Carbon (C)"],["elO","Oxygen (O)"],["accent","Lit-up part and angle","s"]]},
+
+{act:2,scene:"trigonal",desc:"Left: a spinning 3D model of boron trifluoride, a pink boron ball in the centre with three green-yellow fluorine balls around it in one flat plane, like a peace-sign triangle. An orange arc between two fluorines is labelled 120 degrees. The bonds and the angle light up in turn. Top right: the Lewis structure with B in the middle and three F atoms, each F carrying three dot pairs, and lines of text: 3 bonds and 0 lone pairs, trigonal planar, 120 degrees. Bottom right: a steel gas cylinder labelled BF3 with a gauge whose needle wobbles.",
+ title:"Trigonal planar: boron trifluoride, BF₃",
+ body:`<p>Boron has only 3 valence electrons. In BF₃ it makes three single bonds and has <b>no lone pairs</b>: <b>3 electron groups</b>.</p>
+ <p>Three groups spread out in one flat plane, pointing to the corners of a triangle. The shape is <b>trigonal planar</b> and every F–B–F angle is <b>120°</b>.</p>
+ <p>BF₃ is an exception to the octet rule (boron has only six electrons around it), but VSEPR does not care: it only counts groups. Formaldehyde (H₂CO) and SO₃ are trigonal planar too.</p>`,
+ analogy:"A three-bladed fan or a peace sign: three arms spread evenly in one flat circle, 120° apart.",
+ terms:[["Trigonal planar","Three atoms around a centre in one plane, 120° apart."],["AX₃","Three bonded atoms, no lone pairs."],["Incomplete octet","A central atom with fewer than 8 electrons around it, such as boron in BF₃."]],
+ check:{q:"Formaldehyde, H₂CO, has a C=O double bond and two C–H bonds, with no lone pairs on carbon. What is its shape?",opts:[
+  ["Trigonal planar, about 120°",1,"Yes. The double bond counts as one group, so carbon has 3 groups and no lone pairs: trigonal planar."],
+  ["Tetrahedral, 109.5°",0,"That would need 4 groups. Counting the double bond as two groups is the slip here."],
+  ["Bent",0,"Bent needs a lone pair on the central atom. Carbon in H₂CO has none."],
+  ["Linear",0,"Linear needs only 2 groups; carbon here has 3."]]},
+ caption:"BF₃: three groups, flat triangle, 120°.",
+ legend:[["elB","Boron (B)"],["elF","Fluorine (F)"],["accent","Lit-up part and angle","s"]]},
+
+{act:2,scene:"bentso2",desc:"Left: a spinning 3D model of sulfur dioxide, a yellow sulfur ball with two red oxygen balls below it to the left and right (one joined by a double stick, one by a single stick) and a purple lone-pair balloon pointing straight up. An orange arc between the two oxygens is labelled less than 120 degrees. The lone pair, the bonds and the angle light up in turn, and the lone pair dots in the Lewis structure at the top right glow purple at the same time as the 3D balloon. Text lines: 3 groups, bent, about 119 degrees. Bottom right: a grey volcano with yellow-grey smoke puffs rising, labelled 'volcanoes and burning sulfur release SO2'.",
+ title:"Bent (from three groups): sulfur dioxide, SO₂",
+ body:`<p>Sulfur in SO₂ has two bonds to oxygen and <b>one lone pair</b>: <b>3 electron groups</b>, so the <b>electron geometry is trigonal planar</b>.</p>
+ <p>But only two of the three groups have atoms on them. The atoms form a <b>bent</b> (V-shaped) molecule. The lone pair is held by only one nucleus, so it spreads out more and pushes the bonds a little closer together: the O–S–O angle is <b>slightly less than 120°</b> (about 119°).</p>
+ <p>SO₂ has two resonance forms (the double bond can be on either side). Either form gives the same count: 3 groups.</p>`,
+ analogy:"Three balloons tied together, but one is invisible. You still see the other two angled apart as if the third were there, because it is.",
+ terms:[["Bent","Three atoms not in a straight line; also called angular or V-shaped."],["AX₂E","Two bonded atoms and one lone pair: trigonal planar electron geometry, bent shape."],["Resonance forms","Two or more valid Lewis structures for the same molecule that differ only in where the electrons are drawn."]],
+ check:{q:"Ozone, O₃, has a central O with one double bond, one single bond and one lone pair. What is its shape and approximate angle?",opts:[
+  ["Bent, a little less than 120°",1,"Yes. O₃ is AX₂E just like SO₂: three groups, one of them a lone pair, so it is bent with an angle slightly under 120° (about 117°)."],
+  ["Linear, 180°",0,"Linear would need only two groups. The lone pair on the middle O is a third group."],
+  ["Bent, about 104.5°",0,"104.5° is water's angle, from four groups. O₃'s central atom has three groups."],
+  ["Trigonal planar, 120°",0,"Trigonal planar is the electron geometry. The shape of the atoms alone is bent."]]},
+ caption:"SO₂: three groups, one is a lone pair, so the atoms are bent.",
+ legend:[["elS","Sulfur (S)"],["elO","Oxygen (O)"],["lp-fill","Lone pair"],["accent","Lit-up part and angle","s"]]},
+
+{act:2,scene:"tetra",desc:"Left: a spinning 3D model of methane: a dark grey carbon ball with four white hydrogen balls, one straight up and three below spread around. Faint orange triangular faces join the four hydrogens into a tetrahedron. An orange arc between two hydrogens is labelled 109.5 degrees. Bonds and the angle light up in turn, matching the bonds of the flat Lewis structure at the top right, which shows C with four H around it in a cross. Text explains that the flat drawing shows 90 degrees but the real angle is 109.5. Bottom right: a gas-stove burner with five blue flames flickering.",
+ title:"Tetrahedral: methane, CH₄",
+ body:`<p>Carbon in CH₄ has four single bonds and no lone pairs: <b>4 electron groups</b>.</p>
+ <p>Four groups point to the corners of a <b>tetrahedron</b>, a pyramid with four triangular faces. Every H–C–H angle is <b>109.5°</b>.</p>
+ <p>Careful: the flat Lewis structure looks like a cross with 90° angles. That is only a drawing. In 3D the bonds can spread out further, to 109.5°, and that is the real shape. Chemists draw this with <b>wedges</b> (toward you) and <b>dashes</b> (away from you).</p>`,
+ analogy:"A camera tripod with one leg pointing straight up: four legs as evenly spread in 3D as they can be.",
+ terms:[["Tetrahedral","Four atoms around a centre at the corners of a tetrahedron, 109.5° apart."],["AX₄","Four bonded atoms, no lone pairs."],["Wedge and dash","Drawing tricks: a solid wedge points toward you, a dashed line points away."]],
+ check:{q:"Why is the H–C–H angle in methane 109.5° and not the 90° shown in the Lewis drawing?",opts:[
+  ["In 3D the four groups can spread farther apart than in a flat cross",1,"Yes. A flat cross only allows 90°. Using all three dimensions lets the four groups get to 109.5°, which lowers repulsion."],
+  ["Carbon has a hidden lone pair",0,"Carbon in CH₄ has four bonds and no lone pairs."],
+  ["Hydrogen atoms attract each other",0,"Outer atoms do not pull together. The angle comes from the electron groups repelling."],
+  ["The Lewis drawing is correct; methane is flat",0,"Lewis structures show bonding, not shape. Methane is tetrahedral."]]},
+ caption:"CH₄: four groups at the corners of a tetrahedron, 109.5°.",
+ legend:[["elC","Carbon (C)"],["elH","Hydrogen (H)"],["face","Tetrahedron faces","s"],["accent","Lit-up part and angle","s"]]},
+
+{act:2,scene:"nh3",desc:"Left: a spinning 3D model of ammonia: a blue nitrogen ball, three white hydrogen balls below it like the legs of a short tripod, and a large purple lone-pair balloon pointing up. An orange arc between two hydrogens is labelled about 107 degrees. The lone pair, the bonds and the angle light up in turn, and the lone-pair dots on the Lewis structure at the top right glow purple whenever the 3D balloon does. Text lines: 4 groups, electron geometry tetrahedral, shape trigonal pyramidal, angle about 107 degrees. Bottom right: a bottle of household ammonia cleaner with wisps of vapour rising.",
+ title:"Trigonal pyramidal: ammonia, NH₃",
+ body:`<p>Nitrogen has 5 valence electrons. Three are used in N–H bonds, and the other two form <b>one lone pair</b>. So N has <b>4 electron groups</b>: tetrahedral electron geometry.</p>
+ <p>Three groups hold H atoms, so the atoms make a <b>trigonal pyramid</b>: N on top, three H atoms as the base.</p>
+ <p>The lone pair is attracted by only one nucleus, so it is fatter and pushes harder than a bonding pair. It squeezes the H–N–H angles from 109.5° down to about <b>107°</b>.</p>`,
+ analogy:"A camera tripod with an invisible handle on top: the handle (lone pair) is there and pushes the legs slightly closer together.",
+ terms:[["Trigonal pyramidal","Three atoms forming the base of a pyramid with the central atom at the top."],["AX₃E","Three bonded atoms and one lone pair."],["Lone-pair repulsion","Lone pairs repel more strongly than bonding pairs, shrinking the bond angles."]],
+ check:{q:"Nitrogen has 5 valence electrons and uses 3 of them in N–H bonds. How many lone pairs are on N in NH₃?",opts:[
+  ["1",1,"Yes: 5 − 3 = 2 electrons left, and 2 electrons make 1 pair."],
+  ["2",0,"There are 2 leftover electrons, but a lone pair holds 2 electrons, so that is 1 pair. Divide by 2."],
+  ["0",0,"Nitrogen has 5 valence electrons and only 3 are used in bonds, so 2 remain as a lone pair."],
+  ["3",0,"3 is the number of bonds. The lone pairs come from the electrons left over: 5 − 3 = 2, which is one pair."]]},
+ caption:"NH₃: four groups, one lone pair, so the atoms form a pyramid (about 107°).",
+ legend:[["elN","Nitrogen (N)"],["elH","Hydrogen (H)"],["lp-fill","Lone pair"],["accent","Lit-up part and angle","s"]]},
+
+{act:2,scene:"h2o",desc:"Left: a slowly spinning 3D model of water: a red oxygen ball with two white hydrogen balls below it in a V and two purple lone-pair balloons pointing up and to the front and back. As the animation runs, the two lone-pair balloons swell and the hydrogens are pushed closer together; the orange angle label counts down from 109.5 degrees to 104.5 degrees, then the cycle repeats. A small box at the lower left ranks repulsion strength with bars: lone pair to lone pair is longest, lone pair to bond is middle, bond to bond is shortest. Top right: the Lewis structure of H2O with two dot pairs on O, which glow when the balloons are lit. Bottom right: a drop of water falls into a beaker and makes ripples.",
+ title:"Bent (from four groups): water, H₂O",
+ body:`<p>Oxygen in water has two O–H bonds and <b>two lone pairs</b>: <b>4 groups</b>, tetrahedral electron geometry. With only two atoms attached, the shape is <b>bent</b>.</p>
+ <p>Two lone pairs push even harder than one. The order of repulsion is <b>lone pair–lone pair &gt; lone pair–bond &gt; bond–bond</b>. The H–O–H angle closes from 109.5° to about <b>104.5°</b>, smaller than in NH₃ (107°), which has only one lone pair.</p>
+ <p>This bent shape makes water <b>polar</b> (Part 5), and that one fact explains why water dissolves salt, has a high boiling point and why ice floats.</p>`,
+ analogy:"Two big, overstuffed backpacks (lone pairs) on a bench push the two people sitting next to them (the H atoms) closer together.",
+ terms:[["Bent (AX₂E₂)","Two bonded atoms and two lone pairs: tetrahedral electron geometry, bent shape, about 104.5°."],["Repulsion order","Lone pair–lone pair > lone pair–bonding pair > bonding pair–bonding pair."],["Bonding pair","A pair of electrons shared in a bond between two atoms."]],
+ check:{q:"Put these in order of bond angle, largest first: CH₄, NH₃, H₂O.",opts:[
+  ["CH₄ (109.5°) > NH₃ (107°) > H₂O (104.5°)",1,"Yes. All three have four groups. Each extra lone pair squeezes the bonds a bit more."],
+  ["H₂O > NH₃ > CH₄",0,"This is reversed. More lone pairs means more squeezing and a smaller angle."],
+  ["All three are 109.5°",0,"109.5° is the ideal tetrahedral angle. Lone pairs push harder than bonds and shrink it."],
+  ["NH₃ > CH₄ > H₂O",0,"Methane has no lone pairs, so it keeps the full 109.5°, the largest of the three."]]},
+ caption:"H₂O: two lone pairs swell and squeeze the angle from 109.5° to 104.5°.",
+ legend:[["elO","Oxygen (O)"],["elH","Hydrogen (H)"],["lp-fill","Lone pair"],["accent","Lit-up part and angle","s"]]},
+
+/* ---------- Part 3 ---------- */
+{act:3,scene:"pcl5",desc:"Left: a spinning 3D model of phosphorus pentachloride: an orange phosphorus ball with five green chlorine balls. Two chlorines, straight above and below, have gold rings and the label 'axial'. Three chlorines around the middle, in a flat triangle, have blue rings and the label 'equatorial'. Orange arcs mark 90 degrees between an axial and an equatorial chlorine, 120 degrees between two equatorial chlorines, and 180 degrees between the two axial ones. The bonds and the angles light up in turn. Top right: the Lewis structure with P in the centre and five Cl atoms, each with three dot pairs, and lines of text naming the shape and the three angles. Bottom right: a bottle of pale yellow-white crystals labelled PCl5, with one crystal sparkling.",
+ title:"Trigonal bipyramidal: PCl₅, axial and equatorial",
+ body:`<p>Atoms in period 3 and below (P, S, Cl, Xe and others) can hold more than 8 electrons around them, an <b>expanded octet</b>. In PCl₅, phosphorus has five bonds and no lone pairs: <b>5 groups</b>.</p>
+ <p>Five groups make a <b>trigonal bipyramid</b>: two triangular pyramids glued base to base. Unlike every shape so far, the positions are <b>not all the same</b>.</p>
+ <ul><li>Three <b>equatorial</b> positions lie in a flat triangle around the middle, 120° apart.</li><li>Two <b>axial</b> positions point straight up and down, 90° from the equator and 180° from each other.</li></ul>
+ <p>An axial group has three neighbours only 90° away; an equatorial group has just two. So equatorial spots are roomier. That will matter for lone pairs on the next step.</p>`,
+ analogy:"A globe on a stand: two poles (axial) at the top and bottom, and three cities spaced evenly around the equator.",
+ terms:[["Trigonal bipyramidal","Five groups: three in a triangle (equatorial) and two above and below (axial)."],["Axial position","One of the two positions along the vertical axis; 90° from the equatorial ones."],["Equatorial position","One of the three positions around the middle; 120° from each other."],["Expanded octet","More than eight electrons around a central atom; possible for period 3 and heavier atoms."]],
+ check:{q:"In PCl₅, what is the angle between an axial Cl and an equatorial Cl?",opts:[
+  ["90°",1,"Yes. The axis is perpendicular to the equatorial plane, so axial-to-equatorial angles are 90°."],
+  ["120°",0,"120° is the angle between two equatorial positions."],
+  ["180°",0,"180° is between the two axial positions."],
+  ["109.5°",0,"109.5° belongs to the tetrahedron (four groups). Five groups give 90°, 120° and 180°."]]},
+ caption:"PCl₅: five groups, two kinds of positions (axial and equatorial).",
+ legend:[["elP","Phosphorus (P)"],["elCl","Chlorine (Cl)"],["ax","Axial ring"],["eq","Equatorial ring"]]},
+
+{act:3,scene:"sf4",desc:"Left: a spinning 3D model of sulfur tetrafluoride: a yellow sulfur ball, four green-yellow fluorine balls and one purple lone-pair balloon. Two fluorines are axial (gold rings, top and bottom, tilted slightly away from the lone pair) and two are equatorial (blue rings). The lone pair sits in the third equatorial spot. The atoms look like a seesaw. Orange arcs are labelled less than 90 degrees and less than 120 degrees. Top right: the Lewis structure with S, four F atoms and one dot pair on S. Bottom right, a box titled 'Where does the lone pair go?' shows two small models side by side: lone pair axial, with a red X and the note '3 bonds at 90 degrees', and lone pair equatorial, with a green check and the note '2 bonds at 90 degrees'.",
+ title:"Seesaw: SF₄, the lone pair goes equatorial",
+ body:`<p>Sulfur in SF₄ has four bonds and <b>one lone pair</b>: 5 groups, trigonal bipyramidal electron geometry. But which of the five spots does the lone pair take?</p>
+ <p>Groups that are only 90° apart repel the most. An <b>axial</b> lone pair would have <b>three</b> bonds at 90°. An <b>equatorial</b> lone pair has only <b>two</b> at 90°. So lone pairs always go <b>equatorial</b> first.</p>
+ <p>The four F atoms then look like a <b>seesaw</b> (or a sawhorse). The lone pair pushes the bonds a little, so the angles are slightly less than 90° and 120°.</p>`,
+ analogy:"Choosing a seat on a crowded bus: a big person (lone pair) picks the seat with the fewest people right next to them.",
+ terms:[["Seesaw","AX₄E: four atoms around a centre with one equatorial lone pair."],["Lone pairs go equatorial","In five-group molecules, lone pairs occupy equatorial positions to have the fewest 90° neighbours."]],
+ check:{q:"Why does the lone pair in SF₄ sit in an equatorial position?",opts:[
+  ["It has only two neighbours at 90° there instead of three",1,"Yes. Fewer close (90°) neighbours means less repulsion, so the equatorial spot is lower in energy."],
+  ["Axial positions are reserved for atoms with lone pairs",0,"There is no such rule. The choice comes from counting close (90°) neighbours."],
+  ["Equatorial positions are 180° from each other",0,"Equatorial positions are 120° from each other. The axial ones are 180° apart."],
+  ["Lone pairs are smaller than bonds",0,"Lone pairs are actually larger (they spread out more), which is why they need the roomier spot."]]},
+ caption:"SF₄: the lone pair takes a roomy equatorial spot, leaving a seesaw.",
+ legend:[["elS","Sulfur (S)"],["elF","Fluorine (F)"],["lp-fill","Lone pair"],["ax","Axial ring"],["eq","Equatorial ring"]]},
+
+{act:3,scene:"clf3",desc:"Left: two spinning 3D models side by side. On the left, ClF3: a green chlorine ball with three fluorines, two axial (gold rings) and one equatorial, plus two purple lone-pair balloons in the other equatorial spots, so the atoms form a T. Its arc reads about 87.5 degrees. On the right, XeF2: a teal xenon ball with two axial fluorines in a straight line and three purple lone-pair balloons around the middle, with an arc labelled 180 degrees. Captions read 'ClF3 · T-shaped' and 'XeF2 · linear'. Top right: Lewis structures of both with codes AX3E2 and AX2E3 and a short explanation. Bottom right: four small spinning models of the trigonal bipyramid family labelled trigonal bipyramidal PCl5, seesaw SF4, T-shaped ClF3 and linear XeF2, lighting up one at a time.",
+ title:"T-shaped ClF₃ and linear XeF₂",
+ body:`<p>Keep adding lone pairs to the five-group arrangement and they keep filling the <b>equatorial</b> spots.</p>
+ <ul><li><b>ClF₃</b> (AX₃E₂): 3 bonds + 2 lone pairs. Two equatorial spots hold lone pairs, leaving one equatorial F and two axial F: a <b>T shape</b>. The lone pairs bend the axial F atoms back slightly: about 87.5°.</li>
+ <li><b>XeF₂</b> (AX₂E₃): 2 bonds + 3 lone pairs. All three equatorial spots hold lone pairs. The two F atoms are axial, exactly opposite: <b>linear</b>, 180°.</li></ul>
+ <p>XeF₂ shows why you must count lone pairs: it has 5 groups, not 2, yet it still ends up linear because the three lone pairs are spread evenly around the middle.</p>`,
+ analogy:"Three people sit evenly around a round table (the lone pairs). The only seats left are at the very top and bottom, directly opposite each other.",
+ terms:[["T-shaped","AX₃E₂: three atoms in a T, with two equatorial lone pairs."],["Linear (AX₂E₃)","Two axial atoms 180° apart, with three equatorial lone pairs."],["Noble-gas compound","A compound of a noble gas such as xenon; XeF₂ and XeF₄ are real, stable solids."]],
+ check:{q:"Xenon has 8 valence electrons. In XeF₂ it uses 2 of them in Xe–F bonds. How many lone pairs does Xe have?",opts:[
+  ["3",1,"Yes: 8 − 2 = 6 electrons left, which is 3 lone pairs. With 2 bonds that makes 5 groups."],
+  ["6",0,"6 is the number of leftover electrons. A lone pair holds 2, so 6 ÷ 2 = 3 pairs."],
+  ["4",0,"4 pairs would need 8 leftover electrons, but 2 of xenon's 8 are used in bonds."],
+  ["0",0,"Xenon keeps its unused valence electrons as lone pairs: 6 of them, which is 3 pairs."]]},
+ caption:"Two and three equatorial lone pairs give a T shape and a straight line.",
+ legend:[["elCl","Chlorine (Cl)"],["elXe","Xenon (Xe)"],["elF","Fluorine (F)"],["lp-fill","Lone pair"],["ax","Axial ring"]]},
+
+{act:3,scene:"sf6",desc:"Left: a spinning 3D model of sulfur hexafluoride: a yellow sulfur ball with six green-yellow fluorine balls, one up, one down, and four around the middle, like the six faces of a die. Faint orange triangular faces outline the octahedron. An orange arc between the top fluorine and a side fluorine reads 90 degrees. Top right: the Lewis structure with S and six F atoms, each with three dot pairs; text: 6 bonds, 0 lone pairs, octahedral, 90 degrees. Bottom right: a glass tank whose lower half is filled with a faintly tinted, invisible gas; a small foil boat floats on the gas and slowly drifts side to side. Caption: a foil boat floats on invisible SF6 gas.",
+ title:"Octahedral: SF₆",
+ body:`<p>Sulfur in SF₆ has six bonds and no lone pairs: <b>6 groups</b>.</p>
+ <p>Six groups point to the corners of an <b>octahedron</b>: one up, one down and four around the middle. Every group is <b>90°</b> from its four neighbours and 180° from the one opposite. All six positions are equivalent: there is no axial vs equatorial difference here.</p>
+ <p>SF₆ is a very dense, unreactive gas (about five times denser than air). It is so heavy that a foil boat can float on a layer of it in a tank.</p>`,
+ analogy:"Six balloons tied together, or the six faces of a die: one on top, one on the bottom and four around the sides.",
+ terms:[["Octahedral","Six groups at 90° to each other, pointing to the corners of an octahedron."],["AX₆","Six bonded atoms and no lone pairs."],["Octahedron","A solid with eight triangular faces and six corners."]],
+ check:{q:"How many 90° F–S–F angles does each F in SF₆ have with the other F atoms?",opts:[
+  ["4 (and one 180° to the F opposite it)",1,"Yes. Each corner of an octahedron is 90° from four corners and 180° from one."],
+  ["5",0,"One of the five other F atoms is directly opposite, at 180°, not 90°."],
+  ["2",0,"Two is too few. Picture the top F: all four F around the middle are 90° away."],
+  ["3",0,"Three is the axial count in a trigonal bipyramid. In an octahedron it is four."]]},
+ caption:"SF₆: six groups at 90°, an octahedron.",
+ legend:[["elS","Sulfur (S)"],["elF","Fluorine (F)"],["face","Octahedron faces","s"],["accent","Lit-up part and angle","s"]]},
+
+{act:3,scene:"brf5",desc:"Left: a spinning 3D model of bromine pentafluoride: a dark red bromine ball with one fluorine straight up and four fluorines around a square slightly above the middle, and a purple lone-pair balloon pointing straight down. A faint orange square joins the four base fluorines. An orange arc reads less than 90 degrees. Top right: the Lewis structure with Br, five F atoms and one dot pair on Br, and text: 6 groups, octahedral electron geometry, square pyramidal shape, about 85 degrees. Bottom right: a bottle of colourless liquid labelled BrF5 with wisps of fumes, captioned a fuming, very reactive liquid.",
+ title:"Square pyramidal: BrF₅",
+ body:`<p>Bromine in BrF₅ has five bonds and <b>one lone pair</b>: 6 groups, octahedral electron geometry.</p>
+ <p>In an octahedron every position is the same, so the lone pair can go anywhere. Put it at the bottom, and the five F atoms form a <b>square pyramid</b>: a square base of four F atoms with one F on top.</p>
+ <p>The lone pair pushes the four base F atoms up a little, so the top-to-base angles are slightly <b>less than 90°</b> (about 85°).</p>`,
+ analogy:"An umbrella blown slightly upward: the handle (top F) points up, and the spokes (base F atoms) are pushed up a little by the wind below (the lone pair).",
+ terms:[["Square pyramidal","AX₅E: four atoms in a square base and one on top, with a lone pair below."],["Octahedral electron geometry","Six groups; the starting arrangement for AX₆, AX₅E and AX₄E₂."]],
+ check:{q:"BrF₅ has 42 valence electrons. Five Br–F bonds use 10, and each F keeps 3 lone pairs (6 electrons × 5 = 30). How many lone pairs are left on Br?",opts:[
+  ["1",1,"Yes: 42 − 10 − 30 = 2 electrons, which is 1 lone pair on Br. With five bonds that is 6 groups."],
+  ["2",0,"2 is the number of leftover electrons, not pairs. Divide by 2: one lone pair."],
+  ["0",0,"Check the subtraction: 42 − 10 − 30 = 2 electrons remain, and they go on Br."],
+  ["3",0,"Three lone pairs would need 6 leftover electrons. Only 2 remain after the bonds and the F lone pairs."]]},
+ caption:"BrF₅: one lone pair below a square pyramid of F atoms.",
+ legend:[["elBr","Bromine (Br)"],["elF","Fluorine (F)"],["lp-fill","Lone pair"],["face","Square base","s"]]},
+
+{act:3,scene:"xef4",desc:"Left: a spinning 3D model of xenon tetrafluoride: a teal xenon ball with four green-yellow fluorine balls in one flat square, joined by a faint orange square, and two purple lone-pair balloons pointing straight up and straight down. An orange arc between two neighbouring fluorines reads 90 degrees. Top right: the Lewis structure with Xe, four F atoms and two dot pairs on Xe, with text: 6 groups, octahedral electron geometry, square planar shape, 90 degrees. Bottom right: a bottle of colourless crystals labelled XeF4, with one crystal sparkling.",
+ title:"Square planar: XeF₄",
+ body:`<p>Xenon in XeF₄ has four bonds and <b>two lone pairs</b>: 6 groups, octahedral electron geometry.</p>
+ <p>Where do two lone pairs go in an octahedron? As far apart as possible: <b>opposite each other</b> (180°), one above and one below. The four F atoms are left in one flat square: <b>square planar</b>, with 90° angles.</p>
+ <p>Because the two lone pairs point in opposite directions, their pushes balance, and the F–Xe–F angles stay exactly 90°.</p>`,
+ analogy:"Two people pulling a sheet up and down equally hard: the sheet in the middle stays perfectly flat.",
+ terms:[["Square planar","AX₄E₂: four atoms in a flat square around the centre, with two lone pairs above and below."],["Trans","Opposite each other, 180° apart."]],
+ check:{q:"XeF₄ has 36 valence electrons. Four Xe–F bonds use 8, and the four F atoms hold 24 in lone pairs. How many electron groups are on Xe?",opts:[
+  ["6: four bonds and two lone pairs",1,"Yes: 36 − 8 − 24 = 4 electrons = 2 lone pairs on Xe. 4 bonds + 2 lone pairs = 6 groups, octahedral electron geometry."],
+  ["4: just the four bonds",0,"This leaves out the lone pairs on Xe. 36 − 8 − 24 = 4 electrons remain on xenon: 2 more groups."],
+  ["8",0,"8 is the number of xenon's valence electrons, not its groups."],
+  ["5",0,"5 would mean only one lone pair, but 4 leftover electrons make 2 pairs."]]},
+ caption:"XeF₄: two lone pairs opposite each other leave a flat square.",
+ legend:[["elXe","Xenon (Xe)"],["elF","Fluorine (F)"],["lp-fill","Lone pair"],["face","Square","s"]]},
+
+/* ---------- Part 4 ---------- */
+{act:4,scene:"ethanol",desc:"Left: a 3D model of ethanol rocks gently from side to side: two dark grey carbon balls, a red oxygen ball, six white hydrogen balls, and two purple lone-pair balloons on the oxygen. Every few seconds one central atom gets an orange ring: first the left carbon, then the middle carbon, then the oxygen. Faint orange faces show its local shape, an orange arc shows its angle, and a box at the bottom names it: tetrahedral 109.5 degrees for each carbon, and bent, less than 109.5 degrees for the oxygen. Top right: the structural formula H–C–C–O–H with H atoms above and below each carbon and lone-pair dots on O; the matching atom is circled in orange. Below it, the condensed formula CH3CH2OH. Bottom right: a bottle labelled ETHANOL.",
+ title:"More than one central atom: ethanol",
+ body:`<p>Bigger molecules have <b>several central atoms</b>. There is no single shape name for the whole molecule. Instead, apply VSEPR to <b>each central atom</b> one at a time.</p>
+ <p>In ethanol, CH₃CH₂OH:</p>
+ <ul><li>The first carbon: 4 bonds, 0 lone pairs: <b>tetrahedral</b>, 109.5°.</li><li>The second carbon: also 4 bonds: <b>tetrahedral</b>.</li><li>The oxygen: 2 bonds + 2 lone pairs: <b>bent</b>, a bit less than 109.5°.</li></ul>
+ <p>Put the pieces together and you get the zigzag 3D molecule. The bent C–O–H end, like water, is what lets ethanol mix with water.</p>`,
+ analogy:"A train is not one shape: each car has its own shape, and the couplings between cars set how the whole train bends.",
+ terms:[["Central atom (in a big molecule)","Any atom bonded to two or more other atoms; each has its own local shape."],["Condensed formula","A shorthand that lists atoms in order, such as CH₃CH₂OH."]],
+ check:{q:"What is the shape around the oxygen atom in ethanol?",opts:[
+  ["Bent, a bit less than 109.5°",1,"Yes. The O has 2 bonds and 2 lone pairs, just like water: tetrahedral electron geometry, bent shape."],
+  ["Linear, because O sits in a chain",0,"Being in a chain does not make it linear. Count the groups: 2 bonds + 2 lone pairs = 4."],
+  ["Tetrahedral",0,"Tetrahedral is the electron geometry. With two of the four groups being lone pairs, the shape of the atoms is bent."],
+  ["Trigonal planar",0,"Trigonal planar needs 3 groups. The oxygen here has 4."]]},
+ caption:"Ethanol: find the shape around each central atom, one at a time.",
+ legend:[["elC","Carbon (C)"],["elO","Oxygen (O)"],["elH","Hydrogen (H)"],["lp-fill","Lone pair"],["face","Local shape","s"]]},
+
+{act:4,scene:"acetic",desc:"Left: a 3D model of acetic acid rocks gently: a methyl carbon with three white hydrogens on the left, a middle carbon with a double bond up to a red oxygen, and a single bond to a second red oxygen that carries a hydrogen and two purple lone-pair balloons. Fainter lone-pair balloons sit on the double-bonded oxygen. Each central atom gets an orange ring in turn: the CH3 carbon (tetrahedral, 109.5 degrees), the C=O carbon (trigonal planar, 120 degrees, with an orange triangle joining its three neighbours), and the OH oxygen (bent). A box at the bottom names the shape. Top right: the structural formula with the matching atom circled, and the condensed formula CH3COOH. Bottom right: a bottle labelled VINEGAR.",
+ title:"Mixed shapes: acetic acid",
+ body:`<p>Acetic acid, CH₃COOH, is the acid in vinegar. It has three central atoms with three different shapes:</p>
+ <ul><li><b>CH₃ carbon:</b> 4 single bonds: <b>tetrahedral</b>, 109.5°.</li><li><b>C=O carbon:</b> a double bond to O, a single bond to the other O and a single bond to C. The double bond counts once, so 3 groups: <b>trigonal planar</b>, about 120°.</li><li><b>OH oxygen:</b> 2 bonds + 2 lone pairs: <b>bent</b>.</li></ul>
+ <p>So part of this molecule is flat (around the C=O carbon) and part is tetrahedral. That mix of flat and 3D pieces is common in biological molecules too.</p>`,
+ analogy:"A lamp with a flat lampshade on a tripod base: one object, different shapes in different places.",
+ terms:[["Carboxylic acid group","–COOH: a carbon double-bonded to one O and single-bonded to an OH; trigonal planar around that carbon."],["Local geometry","The shape around one particular atom in a larger molecule."]],
+ check:{q:"In acetic acid, how many atoms have a TETRAHEDRAL electron geometry? (Count the CH₃ carbon, the C=O carbon, the C=O oxygen and the OH oxygen.)",opts:[
+  ["2: the CH₃ carbon (4 bonds) and the OH oxygen (2 bonds + 2 lone pairs)",1,"Yes. The CH₃ C has 4 groups. The OH O has 4 groups. The C=O carbon has 3 groups, and the C=O oxygen has 3 groups (1 double bond + 2 lone pairs)."],
+  ["3: both carbons and the OH oxygen",0,"The C=O carbon has only 3 groups once the double bond is counted as one: trigonal planar."],
+  ["4: every one of them",0,"Both atoms in the C=O have 3 groups each (the double bond counts once), so they are trigonal planar."],
+  ["1: just the CH₃ carbon",0,"The OH oxygen also has 4 groups: 2 bonds and 2 lone pairs. Its electron geometry is tetrahedral even though its shape is bent."]]},
+ caption:"Acetic acid: tetrahedral, trigonal planar and bent pieces in one molecule.",
+ legend:[["elC","Carbon (C)"],["elO","Oxygen (O)"],["elH","Hydrogen (H)"],["lp-fill","Lone pair"],["face","Local shape","s"]]},
+
+/* ---------- Part 5 ---------- */
+{act:5,scene:"dipole",desc:"Top left: a white hydrogen ball and a larger green chlorine ball sit side by side inside a blue electron cloud, with small blue electron dots circling. At first the cloud is centred between the atoms. Then it slides toward chlorine; a blue glow appears around H and a red glow around Cl, with the labels delta plus over H and delta minus over Cl. A teal arrow appears under the bond, pointing from H to Cl, with a small cross on its tail. Bottom left: three small pairs compared: H–H with a centred cloud, nonpolar covalent, difference 0; H–Cl, polar covalent, 0.96; and Na plus with Cl minus, ionic, 2.23. Right: an electronegativity number line from 1 to 4 with dots for Na, H, C, Cl, O and F. Below it the calculation builds line by line: difference equals 3.16 minus 2.20 equals 0.96, then a coloured band marks 0 to 0.4 nonpolar, 0.4 to 1.8 polar covalent and above 1.8 ionic, with a pointer at 0.96.",
+ title:"Bond dipoles: unequal sharing",
+ body:`<p><b>Electronegativity (EN)</b> is how strongly an atom pulls on shared electrons. It rises toward fluorine (3.98, the highest). When two atoms with different EN share electrons, the electrons spend more time near the more electronegative atom.</p>
+ <p>That makes a <b>polar covalent bond</b>: one end gets a <b>partial negative charge (δ−)</b> and the other a <b>partial positive charge (δ+)</b>. The separated charges are a <b>bond dipole</b>, drawn as an arrow pointing toward the δ− end, with a cross on the tail at the δ+ end.</p>
+ <p>The bigger the EN difference (ΔEN), the more polar the bond. As a rough guide: below about 0.4 is nonpolar, 0.4 to 1.8 polar covalent, and above about 1.8 mostly ionic.</p>`,
+ analogy:"A tug-of-war over a rope (the shared electrons). If one team is stronger, the rope's middle drifts toward them.",
+ terms:[["Electronegativity","How strongly an atom attracts shared electrons in a bond (Pauling scale; F = 3.98)."],["Polar covalent bond","A bond with unequal sharing, giving δ+ and δ− ends."],["Bond dipole","The separation of partial charges along a bond, drawn as an arrow toward δ−."]],
+ check:{q:"Using EN values C = 2.55 and Cl = 3.16, what is ΔEN for a C–Cl bond, and which end is δ−?",opts:[
+  ["0.61, with Cl as the δ− end",1,"Yes: 3.16 − 2.55 = 0.61, a polar covalent bond. Cl is more electronegative, so it is the δ− end."],
+  ["5.71, with Cl as the δ− end",0,"That is the sum, 3.16 + 2.55. ΔEN is the difference: subtract the smaller from the larger."],
+  ["0.61, with C as the δ− end",0,"The number is right, but the electrons are pulled toward the MORE electronegative atom, Cl."],
+  ["−0.61, so the bond is nonpolar",0,"Order does not matter: use the size of the difference, 0.61. That is polar covalent."]]},
+ caption:"Cl pulls the shared electrons harder than H does: a polar bond.",
+ legend:[["elH","Hydrogen (H)"],["elCl","Chlorine (Cl)"],["elec","Shared electrons"],["dpos","δ+ end"],["dneg","δ− end"],["dip","Bond dipole arrow","l"]]},
+
+{act:5,scene:"vectors",desc:"Two rows. Top row: a ball-and-stick CO2 molecule, grey carbon between two red oxygens, rocks gently. Teal arrows appear along both C=O bonds, each pointing outward toward an oxygen, labelled 'each C=O bond: arrow toward O'. On the right, the two arrows are added tip to tail: the first points left, then the second slides so its tail starts at the first one's tip and points right, ending back where it started. A green circle and the label 'net = 0: nonpolar' appear. Bottom row: a bent water molecule with teal arrows along both O–H bonds pointing up toward the oxygen. On the right the two slanted arrows join tip to tail and a thick magenta arrow pointing straight up appears with the label 'net dipole: polar'.",
+ title:"Adding bond dipoles: CO₂ vs H₂O",
+ body:`<p>A molecule can have polar bonds and still be <b>nonpolar overall</b>. What matters is the <b>shape</b>. Bond dipoles are <b>vectors</b> (they have size and direction), so you add them like arrows, tip to tail.</p>
+ <p>In <b>CO₂</b> the two C=O dipoles are equal and point in exactly opposite directions (linear, 180°). They cancel: the <b>net dipole is zero</b>, and CO₂ is <b>nonpolar</b>.</p>
+ <p>In <b>H₂O</b> the two O–H dipoles point up at an angle (bent shape). Their sideways parts cancel, but their upward parts add. The molecule has a <b>net dipole</b> toward O: water is <b>polar</b>. The lone pairs on O push the same way.</p>`,
+ analogy:"Two people pulling a box with ropes. Pull in opposite directions with equal force and the box does not move (CO₂). Pull at an angle, both somewhat forward, and the box moves forward (H₂O).",
+ terms:[["Vector","A quantity with a size and a direction, drawn as an arrow."],["Net dipole (dipole moment)","The sum of all bond dipoles in a molecule; zero for a nonpolar molecule."],["Nonpolar molecule","A molecule whose bond dipoles cancel, usually because of a symmetric shape."]],
+ check:{q:"Two equal bond dipoles of size 1.0 make a 180° angle in a linear molecule. What is the size of the net dipole?",opts:[
+  ["0",1,"Yes. Equal arrows pointing in opposite directions cancel completely: 1.0 − 1.0 = 0."],
+  ["2.0",0,"2.0 is what you would get if both arrows pointed the SAME way. Here they point opposite ways."],
+  ["1.0",0,"One arrow alone is 1.0, but the second points exactly the other way and cancels it."],
+  ["1.4",0,"About 1.4 is the sum for two arrows at 90°. At 180° they cancel."]]},
+ caption:"Bond dipoles add like arrows: CO₂'s cancel, H₂O's do not.",
+ legend:[["dip","Bond dipole","l"],["net","Net dipole","l"],["elO","Oxygen (O)"],["elC","Carbon (C)"]]},
+
+{act:5,scene:"ccl4",desc:"Two panels side by side, each with a spinning tetrahedral molecule. Left: CCl4, a grey carbon with four green chlorines, each chlorine glowing red and the carbon glowing blue. Teal arrows along each bond point outward toward chlorine. Right: CHCl3, the same but with one white hydrogen at the top, glowing blue, and a small teal arrow on the C–H bond pointing toward the carbon. Halfway through the cycle, a green circle and the word NONPOLAR appear under CCl4, while a thick magenta net-dipole arrow appears through CHCl3, pointing away from the hydrogen toward the three chlorines, with the word POLAR. Text under each explains whether the arrows cancel.",
+ title:"Same shape, different polarity: CCl₄ vs CHCl₃",
+ body:`<p>CCl₄ and CHCl₃ (chloroform) are both <b>tetrahedral</b>. Each C–Cl bond is polar (ΔEN = 0.61).</p>
+ <p>In <b>CCl₄</b>, four <b>identical</b> bond dipoles point to the four corners of a tetrahedron. By symmetry they cancel exactly: CCl₄ is <b>nonpolar</b>.</p>
+ <p>In <b>CHCl₃</b>, one Cl is replaced by H. The C–H bond is only slightly polar (ΔEN 0.35) and points the other way, so the arrows <b>no longer cancel</b>. CHCl₃ is <b>polar</b>, with its net dipole pointing toward the three Cl atoms.</p>
+ <p>The rule of thumb: a molecule is nonpolar only if its shape is symmetric (no lone pairs on the central atom in an unsymmetric spot) <b>and</b> all the outer atoms are the same.</p>`,
+ analogy:"Four equal teams pulling on a knot from four symmetric directions: the knot stays put. Swap one team for a weak team and the knot slides toward the strong side.",
+ terms:[["Symmetric molecule","A molecule whose identical bond dipoles point in balanced directions and cancel."],["Chloroform","CHCl₃, a polar tetrahedral molecule."],["Molecular polarity","Whether a whole molecule has a net dipole (polar) or not (nonpolar)."]],
+ check:{q:"Which molecule is nonpolar?",opts:[
+  ["CF₄: tetrahedral, four identical C–F bonds",1,"Yes. Four identical bond dipoles in a symmetric tetrahedron cancel, just like CCl₄."],
+  ["CH₂Cl₂: tetrahedral, two C–H and two C–Cl",0,"The outer atoms are not all the same, so the C–Cl dipoles are not balanced. CH₂Cl₂ is polar."],
+  ["NH₃: trigonal pyramidal",0,"The N–H dipoles and the lone pair all point the same general way. NH₃ is polar."],
+  ["H₂O: bent",0,"Bent water has a net dipole toward O. It is the classic polar molecule."]]},
+ caption:"Symmetric and identical: dipoles cancel. Swap one atom: they do not.",
+ legend:[["dip","Bond dipole","l"],["net","Net dipole","l"],["dneg","δ− glow"],["dpos","δ+ glow"],["elCl","Chlorine (Cl)"]]},
+
+{act:5,scene:"field",desc:"Left: two tall plates, a red one marked with plus signs on the left and a blue one marked with minus signs on the right. Between them, six small bent water molecules (red O ball, two white H balls) and six straight carbon dioxide molecules (grey C between two red O) jiggle and tumble at random. After a few seconds the plates darken, dashed field arrows appear running from the plus plate to the minus plate, and the label 'Field ON' explains that water molecules turn their O end toward the plus plate. Each water molecule rotates until its oxygen points left and then only wobbles slightly, while the CO2 molecules keep tumbling. Right: two burettes drip thin streams. When the field turns on, a blue charged rod appears beside each stream: the water stream curves toward the rod, while the hexane stream barely bends.",
+ title:"Polar molecules line up in an electric field",
+ body:`<p>How do we know a molecule is polar? Put it in an <b>electric field</b>. A polar molecule has a δ+ end and a δ− end, so the field <b>turns</b> it: the δ− end swings toward the positive plate and the δ+ end toward the negative plate.</p>
+ <p>A nonpolar molecule has no net dipole, so the field has nothing to grab. It keeps tumbling at random.</p>
+ <p>You can see a version of this at the bench: a charged rod held near a thin stream of <b>water</b> pulls the stream sideways, while a stream of nonpolar <b>hexane</b> barely bends. Heat from random motion keeps knocking the molecules around, so the alignment is never perfect.</p>`,
+ analogy:"Compass needles near a magnet all swing to point the same way, but bits of plain wood ignore the magnet. Polar molecules are the compass needles.",
+ terms:[["Electric field","The region around charges where another charge feels a push or pull."],["Alignment","Polar molecules turning so their δ− end faces the positive side."],["Dipole moment","The measured size of a molecule's net dipole; zero for nonpolar molecules."]],
+ check:{q:"Molecules of NH₃, CH₄, H₂O and CO₂ sit between charged plates. Which ones turn to line up with the field?",opts:[
+  ["NH₃ and H₂O",1,"Yes. NH₃ (trigonal pyramidal) and H₂O (bent) are polar, so they align. CH₄ and CO₂ are symmetric and nonpolar."],
+  ["All four, because they all have polar bonds",0,"Polar bonds are not enough. In CH₄ and CO₂ the bond dipoles cancel, so the field cannot turn them."],
+  ["CO₂ and CH₄",0,"These are the symmetric, nonpolar ones. They keep tumbling."],
+  ["Only H₂O",0,"NH₃ is polar too: its N–H dipoles and its lone pair do not cancel."]]},
+ caption:"Field ON: polar water molecules turn and line up; nonpolar CO₂ keeps tumbling.",
+ legend:[["plate-p","Positive plate","s"],["plate-n","Negative plate","s"],["elO","Oxygen (O)"],["elC","Carbon (C)"]]},
+
+/* ---------- Part 6 ---------- */
+{act:6,scene:"overlap",desc:"Top left: two white hydrogen nuclei, each inside a soft blue glowing sphere (its 1s orbital), slide toward each other. A readout above shows the distance in picometres falling from 260 to 74. As the spheres overlap, a bright blue glow builds in the space between the nuclei and two electron dots circle there. Briefly the atoms are pushed too close (about 50 picometres), a red label says the nuclei repel, and they spring back to 74. Top right: an energy-versus-distance curve dips to a minimum, and a dot rides along it, sitting at the bottom of the dip at 74 picometres and minus 436 kilojoules per mole. Bottom: two pairs of dumbbell-shaped p orbitals. On the left they approach end to end and overlap on the line between the nuclei, with a blue glow labelled sigma bond. On the right they stand side by side and overlap above and below the line, with two pink glows labelled pi bond.",
+ title:"Valence bond theory: bonds are overlapping orbitals",
+ body:`<p>VSEPR tells us the shape. <b>Valence bond theory</b> explains the bond itself: a covalent bond forms when an <b>orbital</b> on one atom <b>overlaps</b> an orbital on another, and the overlap region holds a pair of electrons with opposite spins.</p>
+ <p>For H₂, the two 1s orbitals overlap. Energy drops as the atoms approach, down to a minimum at the <b>bond length</b> (74 pm). Pushed closer, the nuclei repel and energy rises. The depth of the dip, 436 kJ/mol, is the <b>bond energy</b>.</p>
+ <p>Two kinds of overlap matter. A <b>sigma (σ) bond</b> forms by head-on overlap, with electron density <b>on the line</b> between the nuclei. A <b>pi (π) bond</b> forms when two parallel p orbitals overlap <b>side by side</b>, with density above and below that line.</p>`,
+ analogy:"Two flashlight beams pointed at each other overlap in the middle (σ). Two beams pointed straight up from side by side overlap along their edges, above and below (π).",
+ terms:[["Orbital overlap","Two atomic orbitals sharing the same region of space, holding the bonding pair of electrons."],["Sigma (σ) bond","Head-on overlap; electron density along the axis between the nuclei."],["Pi (π) bond","Side-by-side overlap of parallel p orbitals; density above and below the axis."],["Bond length","The distance between nuclei at the lowest energy (74 pm in H₂)."]],
+ check:{q:"Where is the electron density of a π bond?",opts:[
+  ["Above and below the line joining the two nuclei",1,"Yes. A π bond comes from side-by-side p overlap, so its density sits in two regions off the axis."],
+  ["Directly on the line between the nuclei",0,"That describes a σ bond, from head-on overlap."],
+  ["Only around one of the two atoms",0,"A bond's electrons are shared in the overlap region between both atoms."],
+  ["In a sphere around the molecule",0,"Spheres are s orbitals. A π bond has two lobes, above and below the bond axis."]]},
+ caption:"Orbitals overlap to make bonds: head-on (σ) or side by side (π). Motion slowed down.",
+ legend:[["orbs","1s orbital"],["elec","Shared electrons"],["sigma","σ overlap"],["pi","π overlap"],["ph1","p lobe (one phase)"],["ph2","p lobe (other phase)"]]},
+
+{act:6,scene:"sp3",desc:"Left: orbital boxes for carbon on an energy scale. First a 2s box holds two opposite arrows and three 2p boxes hold one, one and zero arrows, labelled ground state 2s2 2p2. Then one arrow jumps from the 2s box up to the empty 2p box (promote one 2s electron). Then all four boxes fade and four green boxes, each with one arrow, appear at a middle energy, labelled four sp3 hybrid orbitals. Right: a 3D picture on a slow spin. First a blue sphere (the s orbital) and three blue-and-orange dumbbells along x, y and z (the p orbitals) surround the carbon. They fade as four green teardrop lobes, each with a small orange back lobe, grow toward the corners of a tetrahedron. Finally four white hydrogen balls, each in a blue 1s glow, glide in along the lobes to make methane, and a label says each C–H bond is a sigma bond at 109.5 degrees.",
+ title:"Hybridization: sp³ orbitals in methane",
+ body:`<p>Carbon's valence orbitals are one <b>2s</b> (a sphere) and three <b>2p</b> (dumbbells at 90° to each other). But methane's four C–H bonds are identical and 109.5° apart. Plain s and p orbitals cannot point that way.</p>
+ <p>The fix is <b>hybridization</b>: the atom mixes its orbitals into new <b>hybrid orbitals</b>. One s + three p mix to give <b>four sp³ orbitals</b> (the name counts what went in: s¹p³). Each sp³ orbital has a big lobe and a small back lobe, and the four big lobes point to the corners of a tetrahedron.</p>
+ <p>Each sp³ orbital, holding one electron, overlaps an H 1s orbital head-on to form a <b>σ bond</b>. The rule: <b>number of electron groups = number of hybrid orbitals</b>. Four groups (CH₄, NH₃, H₂O) means sp³. In NH₃ and H₂O, some sp³ orbitals hold lone pairs.</p>`,
+ analogy:"Mixing one cup of white paint with three cups of red gives four cups of the same pink. The four cups are identical, and each is a blend of what went in.",
+ terms:[["Hybridization","Mixing atomic orbitals on one atom to make new, equivalent orbitals that match the molecule's shape."],["sp³ hybrid","One of four orbitals made from one s and three p; 109.5° apart."],["Promotion","Moving an electron to a higher orbital before hybridizing (a bookkeeping step)."]],
+ check:{q:"How many sp³ hybrid orbitals form when one s and three p orbitals mix?",opts:[
+  ["4",1,"Yes. Orbitals are never created or lost when they mix: 1 + 3 in, 4 hybrids out."],
+  ["3",0,"That forgets the s orbital. All four orbitals that go in come out as hybrids."],
+  ["1",0,"Mixing does not merge orbitals into one. The number of orbitals stays the same."],
+  ["8",0,"8 is the number of electrons in a full octet, not the number of orbitals."]]},
+ caption:"One s + three p mix into four sp³ orbitals, which bond to four H atoms.",
+ legend:[["orbs","s orbital"],["ph1","p lobe (one phase)"],["ph2","p lobe (other phase)"],["hyb","sp³ hybrid lobe"],["sigma","σ bond"]]},
+
+{act:6,scene:"sp2",desc:"Left: a 3D model of ethene rocks gently, seen from slightly above. Two grey carbon balls are joined by a blue sigma stick. Each carbon has three green sp2 lobes lying flat in one plane at 120 degrees: one pointing at the other carbon and two pointing to white hydrogen balls. A blue and orange p-orbital dumbbell stands straight up and down on each carbon. Halfway through, the upright p orbitals fade and merge into two pink sausage-shaped clouds, one above and one below the carbon–carbon axis, labelled pi, while the axis bond is labelled sigma. Right: orbital boxes change from one 2s box and three 2p boxes to three green sp2 boxes plus one pink p box, each with one arrow, with a short explanation.",
+ title:"sp² hybrids and the C=C double bond",
+ body:`<p>When a carbon has <b>3 electron groups</b> (as in ethene, C₂H₄, or in BF₃'s boron), it mixes <b>one s and two p</b> orbitals into <b>three sp² orbitals</b>. They lie flat in one plane, 120° apart: trigonal planar.</p>
+ <p>One p orbital is left over, <b>unhybridized</b>, standing perpendicular to that plane. In ethene, the sp² orbitals form σ bonds to two H atoms and to the other carbon. The two leftover p orbitals, one on each carbon, overlap side by side to form a <b>π bond</b>.</p>
+ <p>So a <b>double bond = one σ + one π</b>. The π bond locks the two ends: they cannot twist without breaking the side-by-side overlap. That is why ethene is flat.</p>`,
+ analogy:"A table top (the sp² plane) with a flagpole through each end (the p orbitals). Line the flagpoles up side by side and their flags touch: that contact is the π bond.",
+ terms:[["sp² hybrid","One of three orbitals from one s and two p; 120° apart in a plane."],["Unhybridized p orbital","The p orbital left out of the mixing; it forms π bonds."],["Double bond","One σ bond plus one π bond."]],
+ check:{q:"In ethene, which orbitals make the π bond?",opts:[
+  ["The unhybridized p orbitals on the two carbons, overlapping side by side",1,"Yes. Each sp² carbon keeps one p orbital perpendicular to the plane; the two overlap sideways."],
+  ["Two sp² orbitals overlapping head-on",0,"Head-on sp² overlap makes the C–C σ bond, not the π bond."],
+  ["The carbon sp² orbital and a hydrogen 1s orbital",0,"That overlap makes a C–H σ bond."],
+  ["Two s orbitals",0,"s orbitals are spheres; they can only form σ bonds."]]},
+ caption:"Ethene: sp² σ framework in a plane, plus a π bond above and below.",
+ legend:[["hyb","sp² lobe"],["ph1","p lobe (one phase)"],["pi","π bond cloud"],["sigma","σ bond"],["elH","Hydrogen (H)"]]},
+
+{act:6,scene:"sp",desc:"Top: a 3D model of ethyne rocks gently. Two grey carbons sit on a straight line with a white hydrogen at each end and a blue sigma stick between the carbons. Each carbon has two green sp lobes pointing in opposite directions along the line, and two p-orbital dumbbells, one vertical and one pointing toward the viewer. Part way through, the p orbitals merge into four sausage-shaped clouds around the carbon–carbon axis: pink ones above and below, blue ones in front and behind, forming two pi bonds that wrap the sigma bond. Bottom: five cards in a row, one lit at a time, each with a small cluster of green hybrid lobes: sp, 2 groups, 180 degrees, CO2 and C2H2; sp2, 3 groups, 120 degrees, BF3 and C2H4; sp3, 4 groups, 109.5 degrees, CH4, NH3, H2O; sp3d, 5 groups, PCl5 and SF4; sp3d2, 6 groups, SF6 and XeF4.",
+ title:"sp hybrids, triple bonds, and sp³d / sp³d²",
+ body:`<p>With <b>2 electron groups</b>, an atom mixes <b>one s and one p</b> into <b>two sp orbitals</b>, 180° apart. Two p orbitals are left over, at right angles to each other.</p>
+ <p>In ethyne (acetylene, HC≡CH), the sp orbitals make the σ bonds along the line. The two leftover p orbitals on each carbon overlap side by side twice, making <b>two π bonds</b> at right angles. A <b>triple bond = one σ + two π</b>.</p>
+ <p>The pattern continues: <b>5 groups → sp³d</b> (PCl₅, SF₄) and <b>6 groups → sp³d²</b> (SF₆, XeF₄). Just match the number of hybrid orbitals to the number of electron groups. (Modern calculations show d orbitals play only a small role here, but these labels are still the standard way to name the arrangement.)</p>`,
+ analogy:"Groups and hybrids are like guests and chairs: count the guests (electron groups) and set out that many chairs (hybrid orbitals).",
+ terms:[["sp hybrid","One of two orbitals from one s and one p; 180° apart."],["Triple bond","One σ bond plus two π bonds."],["sp³d and sp³d²","The hybrid labels used for 5 and 6 electron groups."]],
+ check:{q:"What is the hybridization of the central atom in XeF₄ (4 bonds and 2 lone pairs on Xe)?",opts:[
+  ["sp³d²",1,"Yes. 4 bonds + 2 lone pairs = 6 groups, so 6 hybrid orbitals: sp³d²."],
+  ["sp³",0,"sp³ would match 4 groups. This counts only the bonds and forgets the 2 lone pairs."],
+  ["sp³d",0,"sp³d matches 5 groups. Xe has 6."],
+  ["sp²",0,"sp² matches 3 groups. Count bonds and lone pairs: 6."]]},
+ caption:"Two groups make sp hybrids; leftover p orbitals make two π bonds.",
+ legend:[["hyb","Hybrid lobe"],["pi","π bond (up and down)"],["orbs","π bond (front and back)"],["sigma","σ bond"]]},
+
+{act:6,scene:"sigmapi",desc:"Left: a large structural formula of acrylonitrile: a carbon on the left with two hydrogens, a double bond to a second carbon that has one hydrogen above it, a single bond to a third carbon, and a triple bond to nitrogen, which carries one lone pair. One bond at a time turns colour and gets a tag: single bonds turn blue with the tag sigma; in the double bond one line turns blue and one pink, tagged sigma plus pi; in the triple bond the middle line turns blue and the outer two pink, tagged sigma plus 2 pi. Right: two big counters, sigma bonds and pi bonds, tick up as each bond is tagged, finishing at 6 and 3. A small table lists single equals 1 sigma, double equals 1 sigma plus 1 pi, triple equals 1 sigma plus 2 pi, and a final box reads 'Total: 6 sigma and 3 pi'.",
+ title:"Counting σ and π bonds",
+ body:`<p>Counting σ and π bonds is quick once you know the rule:</p>
+ <ul><li>Every <b>single bond</b> is <b>1 σ</b>.</li><li>Every <b>double bond</b> is <b>1 σ + 1 π</b>.</li><li>Every <b>triple bond</b> is <b>1 σ + 2 π</b>.</li></ul>
+ <p>So: the number of σ bonds equals the number of bonded atom pairs (every connection has exactly one σ), and the number of π bonds equals the extra lines in double and triple bonds.</p>
+ <p>For acrylonitrile, H₂C=CH–C≡N: there are 6 connections (3 C–H, C=C, C–C, C≡N), so <b>6 σ</b>. The double bond adds 1 π and the triple bond adds 2 π: <b>3 π</b>.</p>`,
+ analogy:"Every handshake between two people is one σ. A double bond adds a high-five on top (π), and a triple bond adds two.",
+ terms:[["σ count","One per bonded pair of atoms."],["π count","One per extra line in each double bond; two per triple bond."]],
+ check:{q:"How many σ and π bonds are in acetic acid, CH₃COOH (3 C–H, 1 C–C, 1 C=O, 1 C–O, 1 O–H)?",opts:[
+  ["7 σ and 1 π",1,"Yes. There are 7 bonded pairs, so 7 σ. Only the C=O double bond adds a π: 1 π."],
+  ["8 σ and 0 π",0,"This counts the C=O double bond as two σ bonds. A double bond is 1 σ + 1 π."],
+  ["7 σ and 2 π",0,"A double bond has one π, not two. Two π bonds belong to a triple bond."],
+  ["6 σ and 1 π",0,"Count every connection, including the O–H bond: 3 + 1 + 1 + 1 + 1 = 7 σ."]]},
+ caption:"Tag each bond: single = σ, double = σ + π, triple = σ + 2π.",
+ legend:[["sigma","σ bond","l"],["pi","π bond","l"],["lp","Lone pair dots"]]},
+
+/* ---------- Part 7 ---------- */
+{act:7,scene:"mo",desc:"Left, two panels. Top panel, titled bonding: two dashed blue wave peaks sit on two hydrogen nuclei, and a solid blue curve shows their sum, which stays high in the middle, labelled 'waves add: electrons pile up between the nuclei'. Bottom panel, titled antibonding: one dashed peak points up and one points down, and the solid red curve passes through zero halfway between the nuclei at a dashed red line labelled 'node: no electrons here'. The waves gently pulse. Right: a molecular orbital energy diagram. Atomic 1s levels on the left and right connect with dashed lines to a lower sigma 1s level and a higher sigma star 1s level. Electron arrows drop into the levels one at a time. For H2, two electrons fill sigma 1s and the bond order is worked out as (2 minus 0) divided by 2 equals 1. Then the diagram switches to He2: four electrons fill both levels, and the bond order is (2 minus 2) divided by 2 equals 0, with a note that He2 does not form.",
+ title:"Molecular orbital theory: bonding, antibonding, bond order",
+ body:`<p><b>Molecular orbital (MO) theory</b> treats electrons as waves spread over the <b>whole molecule</b>. When two atomic orbitals combine, they always make <b>two</b> molecular orbitals:</p>
+ <ul><li>A <b>bonding MO</b> (σ1s): the waves add <b>in phase</b>, electron density builds up between the nuclei, and the energy is <b>lower</b> than the atoms'.</li><li>An <b>antibonding MO</b> (σ*1s): the waves <b>cancel</b> between the nuclei, leaving a <b>node</b>, and the energy is <b>higher</b>.</li></ul>
+ <p>Fill the MOs from the bottom, two electrons each. Then <b>bond order = (bonding electrons − antibonding electrons) ÷ 2</b>. H₂: (2 − 0) ÷ 2 = 1, a single bond. He₂: (2 − 2) ÷ 2 = 0, no bond, which is why helium exists as single atoms.</p>`,
+ analogy:"Two ripples on a pond. Crest meets crest: a bigger wave between them (bonding). Crest meets trough: they flatten each other out (antibonding).",
+ terms:[["Molecular orbital","An orbital that spreads over the whole molecule."],["Antibonding orbital (σ*)","A higher-energy MO with a node between the nuclei; electrons here weaken the bond."],["Bond order","(Bonding − antibonding electrons) ÷ 2; 1 = single, 2 = double, 0 = no bond."]],
+ check:{q:"The ion He₂⁺ has 3 electrons: 2 in σ1s and 1 in σ*1s. What is its bond order?",opts:[
+  ["0.5",1,"Yes: (2 − 1) ÷ 2 = 0.5. A half bond is weak, but He₂⁺ can exist briefly."],
+  ["1",0,"That would need no antibonding electrons. One electron sits in σ*1s: (2 − 1) ÷ 2."],
+  ["1.5",0,"This adds the antibonding electron instead of subtracting it: (2 + 1) ÷ 2. Antibonding electrons weaken the bond."],
+  ["0",0,"Zero would need 2 antibonding electrons, as in He₂. Here there is only 1."]]},
+ caption:"In phase: bonding. Out of phase: antibonding. Bond order decides if a bond exists.",
+ legend:[["sigma","Bonding (σ1s)","l"],["bad","Antibonding (σ*1s)","l"],["ph1","Atomic wave","dl"],["elH","Nucleus"]]},
+
+{act:7,scene:"o2",desc:"Left: a molecular orbital diagram for the valence electrons of O2, with levels from low to high: sigma 2s, sigma star 2s, sigma 2p, two pi 2p levels side by side, two pi star 2p levels side by side, and sigma star 2p at the top. Electron arrows drop in one at a time, counted up to 12. The last two electrons go into the two separate pi star levels with parallel spins, and gold circles mark them with the label '2 unpaired electrons'. Then the bond order is built: bonding 2 plus 2 plus 4 equals 8, antibonding 2 plus 2 equals 4, bond order (8 minus 4) divided by 2 equals 2. Right: a red N pole piece and a blue S pole piece of a magnet with a gap between them, and a tilted flask pouring. In one phase, pale blue drops of liquid oxygen fall and collect as a blob stuck between the poles, labelled 'liquid O2 sticks between the poles'. In the other phase, colourless liquid nitrogen drops fall straight through the gap and splash below.",
+ title:"Why oxygen is magnetic: O₂ in MO theory",
+ body:`<p>The Lewis structure of O₂ shows a double bond with every electron paired. But liquid oxygen <b>sticks to a strong magnet</b>. Substances pulled into a magnetic field are <b>paramagnetic</b>, and that requires <b>unpaired electrons</b>. The Lewis structure cannot explain it.</p>
+ <p>MO theory can. Place O₂'s 12 valence electrons into the MOs from the bottom. The last two go into the two <b>π*2p</b> orbitals, which have equal energy. By <b>Hund's rule</b> they go in separately with parallel spins: <b>two unpaired electrons</b>, so O₂ is paramagnetic.</p>
+ <p>Bond order = (8 − 4) ÷ 2 = <b>2</b>, matching the double bond. Liquid nitrogen, with all electrons paired, is <b>diamagnetic</b> and pours straight past the magnet.</p>`,
+ analogy:"Bus seats in pairs: when two people board and two empty double seats are equally good, each takes a seat alone. Those two lone riders are the unpaired electrons.",
+ terms:[["Paramagnetic","Attracted into a magnetic field; has unpaired electrons."],["Diamagnetic","Not attracted (slightly repelled); all electrons paired."],["Hund's rule","Electrons fill equal-energy orbitals one at a time, with parallel spins, before pairing."]],
+ check:{q:"For O₂, there are 8 bonding and 4 antibonding valence electrons. What is the bond order, and is O₂ paramagnetic?",opts:[
+  ["Bond order 2; paramagnetic (two unpaired π* electrons)",1,"Yes: (8 − 4) ÷ 2 = 2, and the two π* electrons are unpaired."],
+  ["Bond order 6; paramagnetic",0,"6 comes from (8 + 4) ÷ 2. Antibonding electrons are subtracted, not added."],
+  ["Bond order 2; diamagnetic, because the Lewis structure has all electrons paired",0,"The bond order is right, but MO theory shows two unpaired electrons in π*2p. Experiment agrees: liquid O₂ sticks to a magnet."],
+  ["Bond order 4; paramagnetic",0,"4 is the number of antibonding electrons. Bond order is (8 − 4) ÷ 2 = 2."]]},
+ caption:"Two unpaired electrons in π* make O₂ paramagnetic: liquid oxygen clings to a magnet.",
+ legend:[["sigma","Bonding level","l"],["bad","Antibonding level","l"],["gold","Unpaired electron"],["o2liq","Liquid oxygen"],["n-pole","N pole","s"],["s-pole","S pole","s"]]},
+
+/* ---------- Finish ---------- */
+{act:0,scene:"recap",desc:"On the left, the grid of twelve spinning 3D shape models returns, from linear to square planar, with one outlined at a time. On the right, the seven part cards light up one after another until all seven are lit.",
+ title:"Recap: from Lewis structure to 3D shape and beyond",
+ body:`<p>You can now go from a formula to a 3D molecule. The steps:</p>
+ <ol><li><b>Lewis structure</b>, then count <b>electron groups</b> on each central atom (multiple bonds count once; lone pairs count).</li><li>Groups give the <b>electron geometry</b>: 2 linear, 3 trigonal planar, 4 tetrahedral, 5 trigonal bipyramidal, 6 octahedral.</li><li>Atoms only give the <b>molecular geometry</b>. Lone pairs squeeze angles and, with 5 groups, sit equatorial.</li><li><b>Polarity:</b> polar bonds + an unsymmetric shape (or different outer atoms) = polar molecule.</li><li><b>Hybridization:</b> groups → sp, sp², sp³, sp³d, sp³d². Single = σ, double = σ + π, triple = σ + 2π.</li><li><b>MO theory:</b> bond order = (bonding − antibonding) ÷ 2; unpaired electrons make O₂ paramagnetic.</li></ol>
+ <p>Next, try the <b>Molecular Shapes Lab</b>: build any shape, drop molecules into an electric field, practise predictions and play the matching game.</p>`,
+ analogy:"You now have the instruction sheet: count the groups, place the lone pairs, then read off the shape, the angle, the polarity and the hybridization.",
+ terms:[["VSEPR","Electron groups repel and spread out; their number sets the geometry."],["Polar molecule","Has a net dipole because bond dipoles do not cancel."],["Hybrid orbitals","Number of hybrids = number of electron groups."]],
+ check:null,caption:"Every shape comes from counting electron groups.",
+ legend:[["act1","VSEPR"],["act2","2 to 4 groups"],["act3","5 and 6 groups"],["act4","Bigger molecules"],["act5","Polarity"],["act6","Valence bond"],["act7","MO theory"]]}
+];
+/* ---------------- DOM ---------------- */
+const $=s=>document.querySelector(s);
+const chainEl=$("#chain");
+const done=new Set();
+let cur=0;
+function buildChain(){
+  chainEl.innerHTML="";
+  const groups=[[0,"Start","accent",[0]]];
+  for(let a=1;a<=NACT;a++)groups.push([a,ACTS[a].name,ACTS[a].col,[]]);
+  groups.push([NACT+1,"Finish","accent",[STEPS.length-1]]);
+  STEPS.forEach((s,i)=>{if(s.act>0)groups[s.act][3].push(i)});
+  groups.forEach(g=>{
+    const d=document.createElement("div");d.className="actgrp";
+    if(g[0]===0||g[0]===NACT+1)d.style.flex="0 0 auto";
+    d.innerHTML=`<div class="an"><i style="background:var(--${g[2]})"></i>${g[1]}</div>`;
+    const dots=document.createElement("div");dots.className="dots";
+    g[3].forEach(i=>{const b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i===0?"★":(i===STEPS.length-1?"✓":i);
+      b.setAttribute("aria-label",(i===0?"Start":i===STEPS.length-1?"Finish":"Step "+i)+": "+STEPS[i].title);b.onclick=()=>go(i);b.dataset.i=i;dots.appendChild(b)});
+    d.appendChild(dots);chainEl.appendChild(d);
+  });
+}
+function refreshDots(){document.querySelectorAll(".dot").forEach(b=>{const i=+b.dataset.i;b.classList.toggle("cur",i===cur);b.classList.toggle("done",done.has(i));if(i===cur)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+function legendHTML(l){const v="--"+l[0];const sh=l[2]||"c";
+  if(sh==="dl")return `<span><i class="dl" style="border-top-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="t")return `<span><i class="t" style="border-bottom-color:var(${v})"></i>${l[1]}</span>`;
+  if(sh==="y")return `<span><i class="y" style="--yc:var(${v})"></i>${l[1]}</span>`;
+  return `<span><i class="${sh}" style="background:var(${v})"></i>${l[1]}</span>`}
+function render(){
+  const s=STEPS[cur];
+  const a=ACTS[s.act];
+  $("#stepno").innerHTML=(s.act?`<span class="actchip" style="--c:var(--${a.col})">${a.name}</span>`:"")+
+    (cur>0&&cur<STEPS.length-1?`<span>Step ${cur} of ${STEPS.length-2}</span>`:"");
+  $("#title").textContent=s.title;
+  $("#body").innerHTML=s.body;
+  $("#analogy p").textContent=s.analogy;
+  $("#terms").innerHTML=s.terms.map(t=>`<div><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`).join("");
+  $("#caption").textContent=s.caption;
+  cv.setAttribute("aria-label","Animation: "+s.caption);if(window.gkDescribe)window.gkDescribe(s.desc);
+  $("#legend").innerHTML=(s.legend||[]).map(legendHTML).join("");
+  const ck=$("#check");
+  if(!s.check){ck.style.display="none"}else{
+    ck.style.display="";
+    $("#q").textContent=s.check.q;
+    const fb=$("#fb");fb.textContent="";fb.className="fb";
+    const box=$("#opts");box.innerHTML="";
+    s.check.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+        if(o[1]){b.classList.add("right");fb.className="fb ok";fb.textContent="✓ "+o[2];done.add(cur);refreshDots()}
+        else{b.classList.add("wrong");fb.className="fb no";fb.textContent="Not quite. "+o[2]}};
+      box.appendChild(b)});
+  }
+  $("#prev").disabled=cur===0;
+  $("#next").textContent=cur===STEPS.length-1?"Start over":"Next →";
+  $("#progbar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  refreshDots();
+}
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));T=0;render();}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT"||e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)});
+let paused=false;
+$("#pauseBtn").onclick=()=>{paused=!paused;$("#pauseBtn").textContent=paused?"Play":"Pause"};
+$("#replayBtn").onclick=()=>{T=0};
+let speed=1;$("#speed").oninput=e=>speed=+e.target.value;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";
+  r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+
+/* ---------------- canvas ---------------- */
+const W=800,H=480;
+const cv=document.getElementById("stage");ctx=cv.getContext("2d");
+let K=1;
+function fit(){const w=cv.parentElement.clientWidth;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);K=cv.width/W}
+window.addEventListener("resize",fit);
+
+/* ================= shared scene pieces ================= */
+const SHOW_ORDER=["AX2","AX3","AX2E","AX4","AX3E","AX2E2","AX5","AX4E","AX3E2","AX6","AX5E","AX4E2"];
+function miniMol(key,cx,cy,s,yaw,o){o=o||{};const M=molFromClass(key,o.center||"C",[o.outer||"F"],{arcs:false});const V=view(cx,cy,s,yaw,o.pitch==null?-.3:o.pitch);drawMol(V,M,{labels:false,lpA:o.lpA,atomScale:o.as||1.05});return V}
+function hlPhase(T,hasLP){const k=Math.floor(T/3.2)%3;return hasLP?k:(k===0?1:k)}
+function litChip(x,y,ph){const t=ph===0?"Lit up: lone pairs":ph===1?"Lit up: bonds":"Lit up: bond angle";const col=ph===0?C.lp:ph===1?C.accent:C.accent;chipL(x,y,t,col,onFill())}
+/* clone a molecule with highlight settings for the current phase */
+function litMol(M,ph){const N={atoms:M.atoms,bonds:M.bonds.map(b=>ph===1?[b[0],b[1],b[2],{col:C.accent}]:b),lps:(M.lps||[]).map(L=>Object.assign({},L,{hl:ph===0?C.lp:null})),arcs:M.arcs,cls:M.cls};return N}
+function symLines(x,y,rows){let yy=y;rows.forEach(r=>{if(!r)return;txt(x,yy,r[0],{size:12,mono:true,weight:600,color:C["ink-soft"]});yy=wrapText(r[1],x+r[2],yy,300-r[2]-14,16,{size:13.5,weight:r[3]?700:500,color:r[3]?C.accent:C.ink})+20});return yy}
+/* the main three-panel layout used by most shape steps */
+function shapeScene(T,o){const M0=o.mol(T);const hasLP=(M0.lps||[]).length>0;const ph=o.noCycle?1:hlPhase(T,hasLP);const M=o.noCycle?M0:litMol(M0,ph);
+  panelBox(12,12,456,456);title(26,32,o.t3||"Particles: 3D ball-and-stick model");txt(454,32,"spinning",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});
+  const V=view(o.cx||240,o.cy||250,o.s||118,(o.yaw0==null?.5:o.yaw0)+T*(o.spin==null?.42:o.spin),o.pitch);
+  drawMol(V,M,Object.assign({arcA:o.noCycle?1:(ph===2?1:.45)},o.draw||{}));
+  if(o.after)o.after(V,M,ph);
+  if(!o.noCycle)litChip(26,448,ph);
+  if(o.axe)chipText(440-o.axe.length*3.6,448,o.axe,C["ink-soft"],onFill());
+  /* symbolic panel */
+  const sh=o.symH||262;panelBox(480,12,308,sh);title(494,32,"Symbols");
+  if(o.lewis)lewis(634,o.ly||100,o.lewis,{s:o.ls||1.25,hl:{lps:ph===0,bonds:ph===1}});
+  if(o.lewisNote)txt(774,30,o.lewisNote,{size:11.5,align:"right",color:C["ink-soft"]});
+  symLines(494,o.ty||184,o.rows||[]);
+  /* macroscopic */
+  if(o.vig)vigPanel(480,12+sh+12,308,456-sh-12,T,o.vig,o.vigO);
+  if(o.inset)o.inset(480,12+sh+12,308,456-sh-12,T);
+  return {V,M,ph}}
+
+/* ================= Start map ================= */
+const PARTS=[["The VSEPR idea","act1","Electron groups repel and spread out"],["Two to four groups","act2","Linear, trigonal planar, tetrahedral, bent"],["Five and six groups","act3","Trigonal bipyramid and octahedron families"],["Bigger molecules","act4","Shapes around each central atom"],["Polarity","act5","Bond dipoles add like arrows"],["Valence bond theory","act6","Overlap, sigma and pi, hybrid orbitals"],["Molecular orbitals","act7","Bond order and magnetic oxygen"]];
+function partCards(T,mode){const lit=Math.floor(P(T,16)*8);
+  PARTS.forEach((pt,i)=>{const x=412,y=12+i*65.5,w=376,h=59;const l=mode==="all"?i<=lit:i===lit%7;panelBox(x,y,w,h,{stroke:l?C[pt[1]]:C.rule,lw:l?2.6:1.2,fill:hexA(C.panel,l?.98:.7)});
+    ctx.save();if(mode==="all"&&!l)ctx.globalAlpha=.55;badge(x+22,y+h/2,i+1,C[pt[1]],12);txt(x+44,y+20,pt[0],{size:14,weight:700});txt(x+44,y+40,pt[2],{size:12.5,color:C["ink-soft"]});ctx.restore()})}
+function shapeGrid(T,x0,y0,cw,chh,litI){SHOW_ORDER.forEach((k,i)=>{const c=i%3,r=Math.floor(i/3);const cx=x0+c*cw+cw/2,cy=y0+r*chh+chh/2-8;const on=i===litI;
+  if(on){rr(cx-cw/2+4,cy-chh/2+10,cw-8,chh-6,8);fillStroke(hexA(C.accent,.12),C.accent,2)}
+  miniMol(k,cx,cy,on?31:27,T*.7+i,{lpA:.9});txt(cx,cy+chh/2-12,VS[k].mg,{size:11.5,weight:on?700:600,align:"center",color:C.ink})})}
+function sceneMap(T){panelBox(12,12,392,456);title(26,32,"Twelve shapes you will meet");
+  const lit=Math.floor(T/1.6)%12;shapeGrid(T,16,40,128,106,lit);
+  txt(208,456,"purple balloons = lone pairs",{size:11.5,align:"center",color:C["ink-soft"]});partCards(T)}
+
+/* ================= Part 1: the VSEPR idea ================= */
+const BAL_COL=["act1","act2","act3","act4","act5","act6"];
+function balloonDirs(n){return VS["AX"+n].B}
+function matchDirs(from,to){const used=new Set();return from.map(f=>{let best=-1,bd=-9;to.forEach((t,j)=>{if(used.has(j))return;const d=v3.dot(f,t);if(d>bd){bd=d;best=j}});used.add(best);return best})}
+const BAL_MATCH={};for(let n=2;n<6;n++)BAL_MATCH[n]=matchDirs(balloonDirs(n),balloonDirs(n+1));
+function balloonState(T){const per=4.5;const k=Math.floor(T/per)%5;const n=2+k;const p=(T%per)/per;const tr=smooth(seg(p,0,.35));
+  if(n===2)return {n,dirs:balloonDirs(2).map(d=>d),grow:[1,1],tr:1,p};
+  const prev=balloonDirs(n-1),now=balloonDirs(n),m=BAL_MATCH[n-1];const dirs=[],grow=[];const usedNew=new Set(m);
+  prev.forEach((d,i)=>{dirs[i]=slerp(d,now[m[i]],tr);grow[i]=1});const newIdx=[...now.keys()].find(j=>!usedNew.has(j));dirs[n-1]=now[newIdx];grow[n-1]=smooth(seg(p,.02,.3));
+  return {n,dirs,grow,tr,p}}
+function sceneBalloons(T){panelBox(12,12,456,456);title(26,32,"Balloons tied together at one knot");
+  const B=balloonState(T);const V=view(240,240,130,.6+T*.35,-.28);
+  const items=B.dirs.map((d,i)=>{const tip=pj(V,v3.sc(d,1.1));return {z:tip.z,d,i}}).sort((a,b)=>a.z-b.z);
+  items.forEach(it=>{const L=1.1*B.grow[it.i];if(L<.05)return;lobe3(V,[0,0,0],it.d,L,.42*B.grow[it.i],C[BAL_COL[it.i]],.95,{fa:.95,fb:.8});
+    const tp=pj(V,v3.sc(it.d,L*.8));label(tp.x,tp.y,String(it.i+1),{size:12,weight:700,mono:true,bga:.75})});
+  const c=pj(V,[0,0,0]);circ(c.x,c.y,6,C["ink-soft"],C.ink,1.2);
+  if(B.tr>.95){const a=B.n;const pr=a===5?[0,2,"90°"]:a===6?[0,2,"90°"]:[0,1,VS["AX"+a].arcs[0][2]];const ii=a===3?[1,2]:a===4?[0,2]:[pr[0],pr[1]];
+    angleArc(V,[0,0,0],B.dirs[ii[0]],B.dirs[ii[1]],(a===2?"180°":a===3?"120°":a===4?"109.5°":"90°"),C.ink,.55,seg(B.p,.4,.55));
+    if(a===5)angleArc(V,[0,0,0],B.dirs[2],B.dirs[3],"120°",C.ink,.55,seg(B.p,.5,.65))}
+  label(240,448,B.n+" balloons push apart as far as they can",{size:13,weight:700});
+  /* right: arrangement list */
+  panelBox(480,12,308,262);title(494,32,"Number of groups → arrangement");
+  ["linear · 180°","trigonal planar · 120°","tetrahedral · 109.5°","trigonal bipyramidal · 90°, 120°","octahedral · 90°"].forEach((s,i)=>{const y=62+i*42;const on=i===B.n-2;
+    rr(494,y-16,280,34,6);fillStroke(on?hexA(C.accent,.14):hexA(C["panel-2"],.8),on?C.accent:C.rule,on?2:1);badge(514,y+1,i+2,on?C.accent:C["ink-soft"],11);txt(534,y+1,s,{size:13.5,weight:on?700:500})});
+  /* right bottom: why they spread: two electron clouds repel */
+  panelBox(480,286,308,182);title(494,306,"Why: electrons repel electrons");
+  const sep=40+26*Math.sin(T*1.6)**2;const cx=634,cy=380;[-1,1].forEach(s=>{const x=cx+s*sep;glow(x,cy,30,C.elec,.55);for(let k=0;k<6;k++){const a=T*3+k;circ(x+Math.cos(a*1.3+k)*12,cy+Math.sin(a+k*2)*12,2.6,C.elec)}label(x,cy-38,"− −",{size:13,weight:700,color:C.elec})});
+  arrow(cx-sep-30,cy,cx-sep-62,cy,C.bad,2.4);arrow(cx+sep+30,cy,cx+sep+62,cy,C.bad,2.4);txt(cx,446,"pairs of electrons push each other away",{size:12,align:"center",color:C["ink-soft"]})}
+
+/* counting groups: four example molecules */
+const COUNT_EX=[
+  {f:"CO₂",c:"C",tot:"C 4 + O 6 + O 6 = 16 valence electrons",out:[["O",180,2,2],["O",0,2,2]],clp:[],groups:[["bond",180,2],["bond",0,2]],cls:"AX2",outerEls:["O"],ord:[2,2]},
+  {f:"H₂CO",c:"C",tot:"H 1 + H 1 + C 4 + O 6 = 12 valence electrons",out:[["O",90,2,2],["H",210,1,0],["H",330,1,0]],clp:[],groups:[["bond",90,2],["bond",210,1],["bond",330,1]],cls:"AX3",outerEls:["O","H","H"],ord:[2,1,1]},
+  {f:"HCN",c:"C",tot:"H 1 + C 4 + N 5 = 10 valence electrons",out:[["H",180,1,0],["N",0,3,1]],clp:[],groups:[["bond",180,1],["bond",0,3]],cls:"AX2",outerEls:["H","N"],ord:[1,3]},
+  {f:"SO₂",c:"S",tot:"S 6 + O 6 + O 6 = 18 valence electrons",out:[["O",210,2,2],["O",330,1,3]],clp:[90],groups:[["bond",210,2],["bond",330,1],["lp",90]],cls:"AX2E",outerEls:["O","O"],ord:[2,1]}];
+function sceneCount(T){const per=7;const k=Math.floor(T/per)%4,p=(T%per)/per;const E=COUNT_EX[k];
+  panelBox(12,12,456,456);title(26,32,"Symbols: count the groups on the central atom");txt(454,32,E.f,{size:15,weight:700,align:"right",mono:true});
+  const lx=240,ly=180;lewis(lx,ly,{c:E.c,clp:E.clp,out:E.out},{s:1.6});
+  const n=E.groups.length;let shown=0;
+  E.groups.forEach((g,i)=>{const t0=.12+i*.16;const a=seg(p,t0,t0+.08);if(a<=0)return;shown=i+1;const ang=g[1]*D2R;const rg=g[0]==="lp"?26:37;const gx=lx+Math.cos(ang)*rg,gy=ly-Math.sin(ang)*rg;
+    withA(a,()=>{ctx.save();ctx.translate(gx,gy);ctx.rotate(-ang);ctx.setLineDash([5,4]);ell(0,0,g[0]==="lp"?22:30,g[0]==="lp"?18:(g[2]>1?20:14),0,hexA(C.accent,.08),C.accent,2);ctx.setLineDash([]);ctx.restore();
+      badge(gx+Math.cos(ang+1.2)*34,gy-Math.sin(ang+1.2)*34,i+1,C.accent,11);
+      if(g[2]===2)label(gx,gy+(g[1]>180?36:-36),"double bond = 1 group",{size:12,weight:700,color:C.accent});if(g[2]===3)label(gx,gy+40,"triple bond = 1 group",{size:12,weight:700,color:C.accent});
+      if(g[0]==="lp")label(gx,gy-36,"lone pair = 1 group",{size:12,weight:700,color:C.lp})})});
+  panelBox(28,300,424,150,{fill:hexA(C["panel-2"],.9)});txt(44,322,E.tot,{size:13.5,mono:true});
+  txt(44,350,"Electron groups on "+E.c+": "+(shown?Array.from({length:shown},(_,i)=>i+1).join(", "):"…"),{size:14.5,weight:700});
+  const done=p>.12+n*.16;withA(seg(p,.12+n*.16,.12+n*.16+.06),()=>{txt(44,378,"Total: "+n+" groups → "+egFromN(n)+" arrangement",{size:14.5,weight:700,color:C.accent});
+    txt(44,404,n===2?"Two groups sit on opposite sides: 180°.":"Three groups spread to the corners of a triangle: about 120°.",{size:13,color:C["ink-soft"]});
+    txt(44,428,"Shape of the atoms: "+VS[E.cls].mg,{size:13.5,weight:600})});
+  /* right: the 3D result */
+  panelBox(480,12,308,456);title(494,32,"Particles: the result in 3D");const M=molFromClass(E.cls,E.c,E.outerEls,{ord:E.ord});
+  withA(done?seg(p,.12+n*.16,.12+n*.16+.1):.18,()=>{const V=view(634,230,96,T*.5,-.3);drawMol(V,M,{arcA:done?1:0})});
+  wrapText("Single, double and triple bonds each count as ONE electron group, because all their electrons sit in the same region between the two atoms.",496,392,280,17,{size:12.5,color:C["ink-soft"]})}
+
+/* electron geometry vs molecular geometry (NH3) */
+function sceneEgMg(T){const per=9;const p=(T%per)/per;const lpA=1-smooth(seg(p,.38,.55));const molA=smooth(seg(p,.5,.65));
+  panelBox(12,12,456,456);title(26,32,"Particles: ammonia, NH₃");
+  const M=molFromClass("AX3E","N",["H"],{arcs:false});M.lps[0].alpha=.15+.85*lpA;M.lps[0].hl=lpA>.9?C.lp:null;
+  const V=view(240,262,128,.4+T*.4,-.3);
+  /* electron-geometry tetrahedron (dashed, through all four group directions) */
+  const G=VS.AX4.B.map(d=>v3.sc(d,1.05));const tdirs=[...VS.AX3E.E,...VS.AX3E.B].map(d=>v3.sc(d,1.05));
+  withA(lpA,()=>{[[0,1,2],[0,1,3],[0,2,3],[1,2,3]].forEach(f=>face3(V,f.map(i=>tdirs[i]),C.lp,.07))});
+  withA(molA,()=>{face3(V,[1,2,3].map(i=>v3.sc(VS.AX3E.B[i-1],1.0)),C.face,.22);[0,1,2].forEach(i=>face3(V,[[0,0,0],v3.sc(VS.AX3E.B[i],1.0),v3.sc(VS.AX3E.B[(i+1)%3],1.0)],C.face,.12))});
+  drawMol(V,M,{});
+  label(240,72,lpA>.5?"Count every group: 3 bonds + 1 lone pair = 4":"Look only at where the ATOMS are",{size:13,weight:700,color:lpA>.5?C.lp:C.accent});
+  /* right: two name cards */
+  panelBox(480,12,308,300);title(494,32,"Two different names");
+  const c1=lpA>.5,c2=molA>.5;
+  rr(494,52,280,110,8);fillStroke(c1?hexA(C.lp,.14):hexA(C["panel-2"],.8),c1?C.lp:C.rule,c1?2.4:1);
+  txt(508,74,"Electron geometry",{size:12,mono:true,weight:700,color:C["ink-soft"]});txt(508,100,"tetrahedral",{size:19,weight:700});
+  wrapText("Where ALL electron groups point, lone pairs included.",508,128,256,16,{size:12.5,color:C["ink-soft"]});
+  rr(494,176,280,118,8);fillStroke(c2?hexA(C.accent,.14):hexA(C["panel-2"],.8),c2?C.accent:C.rule,c2?2.4:1);
+  txt(508,198,"Molecular geometry",{size:12,mono:true,weight:700,color:C["ink-soft"]});txt(508,224,"trigonal pyramidal",{size:19,weight:700});
+  wrapText("The shape made by the ATOMS only. This is the shape of the molecule.",508,252,256,16,{size:12.5,color:C["ink-soft"]});
+  panelBox(480,324,308,144);title(494,344,"Symbols");lewis(560,404,{c:"N",clp:[90],out:[["H",180,1,0],["H",0,1,0],["H",270,1,0]]},{s:.8,hl:{lps:lpA>.9}});
+  txt(640,384,"AX₃E",{size:18,weight:700,mono:true});txt(640,410,"A = central atom",{size:12,color:C["ink-soft"]});txt(640,428,"X = bonded atom",{size:12,color:C["ink-soft"]});txt(640,446,"E = lone pair",{size:12,color:C["ink-soft"]})}
+
+/* ================= Part 2: two to four groups ================= */
+function sceneLinear(T){shapeScene(T,{mol:()=>molFromClass("AX2","C",["O"],{ord:[2,2]}),s:112,axe:"AX₂",
+  lewis:{c:"C",clp:[],out:[["O",180,2,2],["O",0,2,2]]},
+  rows:[["GROUPS","2 (each C=O double bond is one group)",64],["SHAPE","linear",64,1],["ANGLE","180°",64,1]],vig:"soda"})}
+function sceneTrigonal(T){shapeScene(T,{mol:()=>molFromClass("AX3","B",["F"]),s:118,axe:"AX₃",pitch:-.55,
+  lewis:{c:"B",clp:[],out:[["F",90,1,3],["F",210,1,3],["F",330,1,3]]},ls:1.1,ly:100,
+  rows:[["GROUPS","3 bonds, 0 lone pairs",64],["SHAPE","trigonal planar (flat)",64,1],["ANGLE","120°",64,1]],vig:"cyl",vigO:{lab:"BF₃",col:C.elB,note:"boron trifluoride gas"}})}
+function sceneBentSO2(T){shapeScene(T,{mol:()=>molFromClass("AX2E","S",["O"],{ord:[2,1]}),s:122,axe:"AX₂E",cy:236,
+  lewis:{c:"S",clp:[90],out:[["O",210,2,2],["O",330,1,3]]},ls:1.2,ly:104,lewisNote:"one resonance form",
+  rows:[["GROUPS","3: two bonds + one lone pair",64],["SHAPE","bent",64,1],["ANGLE","less than 120° (about 119°)",64,1]],vig:"volcano"})}
+function sceneTetra(T){shapeScene(T,{mol:()=>molFromClass("AX4","C",["H"]),s:124,axe:"AX₄",
+  lewis:{c:"C",clp:[],out:[["H",90,1,0],["H",180,1,0],["H",0,1,0],["H",270,1,0]]},
+  rows:[["GROUPS","4 bonds, 0 lone pairs",64],["SHAPE","tetrahedral",64,1],["ANGLE","109.5°",64,1]],vig:"flame",
+  after:(V,M,ph)=>{const pts=M.atoms.slice(1).map(a=>a.p);withA(.9,()=>{[[0,1,2],[0,1,3],[0,2,3],[1,2,3]].forEach(f=>face3(V,f.map(i=>pts[i]),C.face,.06))})}})}
+function sceneNH3(T){shapeScene(T,{mol:()=>molFromClass("AX3E","N",["H"]),s:128,axe:"AX₃E",cy:262,
+  lewis:{c:"N",clp:[90],out:[["H",180,1,0],["H",0,1,0],["H",270,1,0]]},
+  rows:[["GROUPS","4: three bonds + one lone pair",64],["E-GEOM","tetrahedral",64],["SHAPE","trigonal pyramidal",64,1],["ANGLE","about 107° (less than 109.5°)",64,1]],vig:"bottle",vigO:{lab:"NH₃(aq)",col:hexA(C.water,.9),fumes:C["ink-soft"],note:"household ammonia cleaner"}})}
+/* water: lone pairs inflate and squeeze the bond angle from 109.5 to 104.5 */
+function waterMol(f){const half=(109.47-(109.47-104.5)*f)/2;const lpH=(109.47+(115-109.47)*f)/2;
+  const M={atoms:[{el:"O",p:[0,0,0]},{el:"H",p:v3.sc([Math.sin(half*D2R),-Math.cos(half*D2R),0],.95)},{el:"H",p:v3.sc([-Math.sin(half*D2R),-Math.cos(half*D2R),0],.95)}],bonds:[[0,1,1],[0,2,1]],
+    lps:[{a:0,dir:[0,Math.cos(lpH*D2R),Math.sin(lpH*D2R)],scale:1+.15*f,w:1+.2*f},{a:0,dir:[0,Math.cos(lpH*D2R),-Math.sin(lpH*D2R)],scale:1+.15*f,w:1+.2*f}],arcs:[[0,1,2,(2*half).toFixed(1)+"°"]],cls:"AX2E2"};return M}
+function sceneH2O(T){const per=8;const f=smooth(seg((T%per)/per,.15,.6));
+  const r=shapeScene(T,{mol:()=>waterMol(f),s:122,axe:"AX₂E₂",cy:200,yaw0:.9,spin:.3,
+    lewis:{c:"O",clp:[45,135],out:[["H",210,1,0],["H",330,1,0]]},ly:100,
+    rows:[["GROUPS","4: two bonds + two lone pairs",64],["E-GEOM","tetrahedral",64],["SHAPE","bent",64,1],["ANGLE","about 104.5°",64,1]],vig:"drop"});
+  panelBox(28,356,262,78,{fill:hexA(C.panel,.95)});txt(40,374,"Repulsion strength",{size:12,mono:true,weight:700,color:C["ink-soft"]});
+  [["lone pair – lone pair",1,C.lp],["lone pair – bond",.72,C.lp],["bond – bond",.48,C.accent]].forEach((b,i)=>{const y=392+i*14;txt(40,y,b[0],{size:11.5});rr(170,y-4,108*b[1],8,3);fillStroke(hexA(b[2],.75),null)})}
+
+/* ================= Part 3: five and six groups ================= */
+function axialTags(M,idx,eq){idx.forEach(i=>{M.atoms[i+1].hl=C.ax});(eq||[]).forEach(i=>{M.atoms[i+1].hl=C.eq})}
+function scenePCl5(T){shapeScene(T,{mol:()=>{const M=molFromClass("AX5","P",["Cl"]);axialTags(M,[0,1],[2,3,4]);return M},s:112,axe:"AX₅",pitch:-.42,
+  lewis:{c:"P",clp:[],out:[["Cl",90,1,3],["Cl",270,1,3],["Cl",0,1,3],["Cl",150,1,3],["Cl",210,1,3]]},ls:1.05,
+  rows:[["GROUPS","5 bonds, 0 lone pairs",64],["SHAPE","trigonal bipyramidal",64,1],["ANGLES","90° (axial to equatorial), 120° (equatorial), 180° (axial to axial)",64,1]],
+  vig:"bottle",vigO:{lab:"PCl₅",col:"#F2EBA8",solid:true,note:"pale yellow-white solid"},
+  after:(V,M,ph)=>{const a=pj(V,M.atoms[1].p),b=pj(V,M.atoms[3].p);label(a.x+44,a.y-8,"axial",{size:12.5,weight:700,color:C.ink,border:C.ax});label(b.x+10,b.y+30,"equatorial",{size:12.5,weight:700,color:C.ink,border:C.eq})}})}
+/* inset: why the lone pair sits in an equatorial spot */
+function lpChoiceInset(x,y,w,h,T){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});title(x+12,y+18,"Where does the lone pair go?");
+  [["AX4Eax","axial",3],["AX4E","equatorial",2]].forEach((o,i)=>{const cx=x+78+i*152,cy=y+h/2+4;
+    const M=o[0]==="AX4Eax"?(()=>{const m={atoms:[{el:"S",p:[0,0,0]}],bonds:[],lps:[{a:0,dir:[0,1,0]}],arcs:[]};[[0,-1,0],sph(90,0),sph(90,120),sph(90,240)].forEach((d,j)=>{m.atoms.push({el:"F",p:v3.sc(d,1.1)});m.bonds.push([0,j+1,1])});return m})():molFromClass("AX4E","S",["F"],{arcs:false});
+    const V=view(cx,cy,40,T*.4+.6,-.25);drawMol(V,M,{labels:false});
+    label(cx,y+h-34,"lone pair "+o[1],{size:12,weight:700});label(cx,y+h-14,o[2]+" bonds at 90°",{size:12,weight:700,color:o[2]===2?C.good:C.bad,border:o[2]===2?C.good:C.bad});
+    if(o[2]===2)checkMark(cx+52,y+34,8,C.good,3);else crossMark(cx+52,y+34,7,C.bad,3)})}
+function sceneSF4(T){shapeScene(T,{mol:()=>{const M=molFromClass("AX4E","S",["F"]);axialTags(M,[0,1],[2,3]);return M},s:116,axe:"AX₄E",
+  lewis:{c:"S",clp:[180],out:[["F",90,1,3],["F",270,1,3],["F",30,1,3],["F",330,1,3]]},ls:.95,
+  rows:[["GROUPS","5: four bonds + one lone pair",64],["E-GEOM","trigonal bipyramidal",64],["SHAPE","seesaw",64,1],["ANGLES","less than 90° and less than 120°",64,1]],inset:lpChoiceInset})}
+function tbpFamilyInset(x,y,w,h,T){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});title(x+12,y+18,"Trigonal bipyramid family");
+  [["AX5","PCl₅"],["AX4E","SF₄"],["AX3E2","ClF₃"],["AX2E3","XeF₂"]].forEach((o,i)=>{const cx=x+40+i*76,cy=y+h/2;const on=Math.floor(T/2)%4===i;miniMol(o[0],cx,cy,24,T*.5+i,{lpA:.95});
+    const nm=VS[o[0]].mg.split(" ");if(nm.length>1){txt(cx,y+h-48,nm[0],{size:11.5,weight:on?700:600,align:"center",color:C.ink});txt(cx,y+h-34,nm[1],{size:11.5,weight:on?700:600,align:"center",color:on?C.accent:C.ink})}else txt(cx,y+h-34,nm[0],{size:11.5,weight:on?700:600,align:"center",color:C.ink});txt(cx,y+h-16,o[1],{size:11.5,align:"center",color:C["ink-soft"]})})}
+function sceneClF3(T){const ph=hlPhase(T,true);
+  panelBox(12,12,456,456);title(26,32,"Particles: two shapes from five groups");
+  [["AX3E2","Cl","F",130,"ClF₃ · T-shaped"],["AX2E3","Xe","F",350,"XeF₂ · linear"]].forEach((o,i)=>{const M=litMol(molFromClass(o[0],o[1],[o[2]]),ph);if(i===0){M.atoms[1].hl=C.ax;M.atoms[2].hl=C.ax}else{M.atoms[1].hl=C.ax;M.atoms[2].hl=C.ax}
+    const V=view(o[3],236,82,.5+T*.4,-.25);drawMol(V,M,{arcA:ph===2?1:.45});label(o[3],420,o[4],{size:13.5,weight:700})});
+  litChip(26,448,ph);
+  panelBox(480,12,308,262);title(494,32,"Symbols");
+  lewis(552,106,{c:"Cl",clp:[150,210],out:[["F",90,1,3],["F",270,1,3],["F",0,1,3]]},{s:.98,hl:{lps:ph===0,bonds:ph===1}});
+  lewis(716,106,{c:"Xe",clp:[0,120,240],out:[["F",90,1,3],["F",270,1,3]]},{s:.98,hl:{lps:ph===0,bonds:ph===1}});
+  txt(552,192,"AX₃E₂",{size:14,weight:700,mono:true,align:"center"});txt(716,192,"AX₂E₃",{size:14,weight:700,mono:true,align:"center"});
+  wrapText("Lone pairs take the roomy equatorial spots first. Two leave a T; three leave a straight line (180°).",494,218,282,16,{size:12.5});
+  tbpFamilyInset(480,286,308,182,T)}
+function sceneSF6(T){shapeScene(T,{mol:()=>molFromClass("AX6","S",["F"]),s:112,axe:"AX₆",pitch:-.35,
+  lewis:{c:"S",clp:[],out:[["F",90,1,3],["F",270,1,3],["F",0,1,3],["F",180,1,3],["F",45,1,3],["F",225,1,3]]},ls:.9,
+  rows:[["GROUPS","6 bonds, 0 lone pairs",64],["SHAPE","octahedral",64,1],["ANGLES","90° (and 180° across)",64,1]],vig:"tank",
+  after:(V,M)=>{const p=M.atoms.slice(1).map(a=>a.p);[[0,2,4],[0,4,3],[0,3,5],[0,5,2],[1,2,4],[1,4,3],[1,3,5],[1,5,2]].forEach(f=>face3(V,f.map(i=>p[i]),C.face,.05))}})}
+function sceneBrF5(T){shapeScene(T,{mol:()=>molFromClass("AX5E","Br",["F"]),s:116,axe:"AX₅E",cy:236,
+  lewis:{c:"Br",clp:[270],out:[["F",90,1,3],["F",18,1,3],["F",162,1,3],["F",215,1,3],["F",325,1,3]]},ls:.9,
+  rows:[["GROUPS","6: five bonds + one lone pair",64],["E-GEOM","octahedral",64],["SHAPE","square pyramidal",64,1],["ANGLE","less than 90° (about 85°)",64,1]],vig:"bottle",vigO:{lab:"BrF₅",col:hexA(C.water,.8),fumes:C["ink-soft"],note:"a fuming, very reactive liquid"},
+  after:(V,M)=>{const p=M.atoms.slice(2).map(a=>a.p);face3(V,p,C.face,.12)}})}
+function sceneXeF4(T){shapeScene(T,{mol:()=>molFromClass("AX4E2","Xe",["F"]),s:118,axe:"AX₄E₂",pitch:-.45,
+  lewis:{c:"Xe",clp:[45,225],out:[["F",90,1,3],["F",0,1,3],["F",180,1,3],["F",270,1,3]]},ls:.95,
+  rows:[["GROUPS","6: four bonds + two lone pairs",64],["E-GEOM","octahedral",64],["SHAPE","square planar",64,1],["ANGLES","90° (and 180° across)",64,1]],vig:"bottle",vigO:{lab:"XeF₄",col:"#F4F6F8",solid:true,note:"colourless crystals"},
+  after:(V,M)=>{face3(V,M.atoms.slice(1).map(a=>a.p),C.face,.14)}})}
+
+/* ================= Part 4: molecules with more than one central atom ================= */
+function twoKnown(a,b){const m=v3.nrm(v3.sc(v3.add(a,b),-1));const n=v3.nrm(v3.cross(a,b));const c=Math.cos(54.75*D2R),s=Math.sin(54.75*D2R);return [v3.add(v3.sc(m,c),v3.sc(n,s)),v3.add(v3.sc(m,c),v3.sc(n,-s))]}
+function tetraAround(u,phase){const ax=Math.abs(u[1])<.9?[0,1,0]:[1,0,0];const p=v3.nrm(v3.cross(u,ax)),q=v3.cross(u,p);
+  return [0,1,2].map(k=>{const f=phase+k*TAU/3;return v3.nrm(v3.add(v3.sc(u,-1/3),v3.sc(v3.add(v3.sc(p,Math.cos(f)),v3.sc(q,Math.sin(f))),Math.sqrt(8/9))))})}
+function dirAng(deg){return [Math.cos(deg*D2R),Math.sin(deg*D2R),0]}
+/* ethanol: centres C1, C2, O */
+function ethanolMol(){const C1=[-1.0,-.36,0],C2=[0,.36,0],O=[1.0,-.36,0];const atoms=[{el:"C",p:C1},{el:"C",p:C2},{el:"O",p:O}];const bonds=[[0,1,1],[1,2,1]];const lps=[];
+  tetraAround(v3.nrm(v3.sub(C2,C1)),.5).forEach(d=>{atoms.push({el:"H",p:v3.add(C1,v3.sc(d,.92))});bonds.push([0,atoms.length-1,1])});
+  twoKnown(v3.nrm(v3.sub(C1,C2)),v3.nrm(v3.sub(O,C2))).forEach(d=>{atoms.push({el:"H",p:v3.add(C2,v3.sc(d,.92))});bonds.push([1,atoms.length-1,1])});
+  const oc=v3.nrm(v3.sub(C2,O));const hd=dirAng(Math.atan2(oc[1],oc[0])/D2R-108.5);atoms.push({el:"H",p:v3.add(O,v3.sc(hd,.88))});bonds.push([2,atoms.length-1,1]);
+  twoKnown(oc,hd).forEach(d=>lps.push({a:2,dir:d}));
+  const M={atoms,bonds,lps,arcs:[]};const cen=[0,0,0];atoms.forEach(a=>{a.p=v3.sub(a.p,[0,0,0])});return M}
+function aceticMol(){const C2=[0,0,0];const C1=v3.sc(dirAng(210),1.2),O1=[0,1.08,0],O2=v3.sc(dirAng(330),1.18);
+  const atoms=[{el:"C",p:C1},{el:"C",p:C2},{el:"O",p:O1},{el:"O",p:O2}];const bonds=[[0,1,1],[1,2,2],[1,3,1]];const lps=[];
+  tetraAround(v3.nrm(v3.sub(C2,C1)),.4).forEach(d=>{atoms.push({el:"H",p:v3.add(C1,v3.sc(d,.92))});bonds.push([0,atoms.length-1,1])});
+  const oc=v3.nrm(v3.sub(C2,O2));const hd=dirAng(Math.atan2(oc[1],oc[0])/D2R-108.5);atoms.push({el:"H",p:v3.add(O2,v3.sc(hd,.88))});bonds.push([3,atoms.length-1,1]);
+  twoKnown(oc,hd).forEach(d=>lps.push({a:3,dir:d}));lps.push({a:2,dir:dirAng(30),scale:.8,alpha:.5},{a:2,dir:dirAng(150),scale:.8,alpha:.5});
+  atoms.forEach(a=>{a.p=v3.add(a.p,[.15,-.1,0])});return {atoms,bonds,lps,arcs:[]}}
+function neighbours(M,i){const n=[];M.bonds.forEach(b=>{if(b[0]===i)n.push(b[1]);else if(b[1]===i)n.push(b[0])});return n}
+function localShape(V,M,i,col){const nb=neighbours(M,i).map(j=>M.atoms[j].p);const c=M.atoms[i].p;
+  if(nb.length===4){[[0,1,2],[0,1,3],[0,2,3],[1,2,3]].forEach(f=>face3(V,f.map(k=>nb[k]),col,.12))}
+  else if(nb.length===3)face3(V,nb,col,.2);
+  else if(nb.length===2)face3(V,[c,nb[0],nb[1]],col,.22)}
+function multiScene(T,o){const M=o.mol();const per=3.4;const k=Math.floor(T/per)%o.centres.length;const C0=o.centres[k];
+  M.atoms[C0[0]].hl=C.accent;
+  panelBox(12,12,456,456);title(26,32,"Particles: "+o.name+" in 3D");txt(454,32,"spinning",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});
+  const V=view(240,236,96,.35+.55*Math.sin(T*.35),-.25);localShape(V,M,C0[0],C.face);
+  drawMol(V,M,{lpA:1});
+  /* local angle arc around the highlighted centre */
+  const nb=neighbours(M,C0[0]);if(nb.length>=2)angleArc(V,M.atoms[C0[0]].p,M.atoms[nb[0]].p,M.atoms[nb[1]].p,C0[3],C.accent,.42,1);
+  panelBox(28,384,424,68,{fill:hexA(C.panel,.96),stroke:C.accent});txt(42,404,"Centre "+(k+1)+" of "+o.centres.length+": "+C0[1],{size:14,weight:700,color:C.accent});
+  txt(42,428,C0[2],{size:13.5});
+  /* symbolic */
+  panelBox(480,12,308,262);title(494,32,"Symbols: structural formula");o.struct(634,128,k);
+  txt(634,226,o.formula,{size:17,weight:700,mono:true,align:"center"});txt(634,250,"each central atom has its own shape",{size:12,align:"center",color:C["ink-soft"]});
+  vigPanel(480,286,308,182,T,"bottle",o.vig)}
+function sAtom(x,y,t,on){txt(x,y,t,{size:17,weight:700,align:"center",color:on?C.accent:C.ink});if(on){ctx.beginPath();ctx.arc(x,y,14,0,TAU);ctx.strokeStyle=C.accent;ctx.lineWidth=2;ctx.stroke()}}
+function sBond(x1,y1,x2,y2,ord){const dx=x2-x1,dy=y2-y1,l=Math.hypot(dx,dy);const ux=dx/l,uy=dy/l;const a=[x1+ux*11,y1+uy*11],b=[x2-ux*11,y2-uy*11];const nx=-uy,ny=ux;
+  (ord===2?[-3,3]:[0]).forEach(k=>line(a[0]+nx*k,a[1]+ny*k,b[0]+nx*k,b[1]+ny*k,C.ink,1.8))}
+function sDots(x,y,ang){const a=ang*D2R;const cx=x+Math.cos(a)*15,cy=y-Math.sin(a)*15;const nx=-Math.sin(a)*3.5,ny=-Math.cos(a)*3.5;circ(cx+nx,cy+ny,2.3,C.lp);circ(cx-nx,cy-ny,2.3,C.lp)}
+function structEthanol(x,y,k){const g=44;const P0=[[x-1.5*g,y],[x-.5*g,y],[x+.5*g,y],[x+1.5*g,y]];
+  /* H-C-C-O-H with H above/below the carbons */
+  sAtom(x-2.5*g,y,"H");sBond(x-2.5*g,y,P0[0][0],y);
+  [[0,"C"],[1,"C"],[2,"O"],[3,"H"]].forEach((a,i)=>{sAtom(P0[i][0],y,a[1],i===k);if(i<3)sBond(P0[i][0],y,P0[i+1][0],y)});
+  [0,1].forEach(i=>{sAtom(P0[i][0],y-g,"H");sAtom(P0[i][0],y+g,"H");sBond(P0[i][0],y,P0[i][0],y-g);sBond(P0[i][0],y,P0[i][0],y+g)});
+  sDots(P0[2][0],y,90);sDots(P0[2][0],y,270)}
+function structAcetic(x,y,k){const g=46;const X=[x-1.5*g,x-.5*g,x+.5*g,x+1.5*g];
+  sAtom(x-2.5*g,y+10,"H");sBond(x-2.5*g,y+10,X[0],y+10);sAtom(X[0],y+10,"C",k===0);sAtom(X[0],y+10-g,"H");sAtom(X[0],y+10+g,"H");sBond(X[0],y+10,X[0],y+10-g);sBond(X[0],y+10,X[0],y+10+g);
+  sBond(X[0],y+10,X[1],y+10);sAtom(X[1],y+10,"C",k===1);sAtom(X[1],y+10-g,"O");sBond(X[1],y+10,X[1],y+10-g,2);sDots(X[1],y+10-g,30);sDots(X[1],y+10-g,150);
+  sBond(X[1],y+10,X[2],y+10);sAtom(X[2],y+10,"O",k===2);sDots(X[2],y+10,90);sDots(X[2],y+10,270);sBond(X[2],y+10,X[3],y+10);sAtom(X[3],y+10,"H")}
+function sceneEthanol(T){multiScene(T,{name:"ethanol",mol:ethanolMol,formula:"CH₃CH₂OH",struct:structEthanol,
+  centres:[[0,"first carbon, tetrahedral","4 bonds, 0 lone pairs: 109.5°","109.5°"],[1,"second carbon, tetrahedral","4 bonds, 0 lone pairs: 109.5°","109.5°"],[2,"oxygen, bent","2 bonds + 2 lone pairs: bent, less than 109.5°","<109.5°"]],
+  vig:{lab:"ETHANOL",col:hexA(C.water,.85),note:"hand sanitizer and drinks contain ethanol"}})}
+function sceneAcetic(T){multiScene(T,{name:"acetic acid",mol:aceticMol,formula:"CH₃COOH",struct:structAcetic,
+  centres:[[0,"CH₃ carbon, tetrahedral","4 bonds, 0 lone pairs: 109.5°","109.5°"],[1,"C=O carbon, trigonal planar","3 groups (C=O counts once): 120°","120°"],[2,"OH oxygen, bent","2 bonds + 2 lone pairs: bent, less than 109.5°","<109.5°"]],
+  vig:{lab:"VINEGAR",col:hexA("#E8D9A8",.9),note:"vinegar is about 5% acetic acid in water"}})}
+
+/* ================= Part 5: polarity ================= */
+const ENX={H:2.20,C:2.55,N:3.04,O:3.44,F:3.98,Cl:3.16,Na:0.93};
+function sceneBondDipole(T){const per=8;const p=(T%per)/per;const f=smooth(seg(p,.08,.4));
+  panelBox(12,12,456,300);title(26,32,"Particles: the shared electrons in H–Cl");
+  const hx_=150,clx=330,y=160;const cx=lerp(240,282,f);
+  /* electron cloud */
+  ctx.save();const g=ctx.createRadialGradient(cx,y,4,cx,y,150);g.addColorStop(0,hexA(C.elec,.45));g.addColorStop(1,hexA(C.elec,0));ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(cx,y,150-16*f,82,0,0,TAU);ctx.fill();ctx.restore();
+  glow(hx_,y,60,C.dpos,.45*f);glow(clx,y,74,C.dneg,.45*f);
+  ball(hx_,y,26,C.elH,"H");ball(clx,y,40,C.elCl,"Cl");
+  for(let i=0;i<8;i++){const a=T*(1.4+rnd(i)*.8)+i*.8;const rx=70-10*f,ry=34;const ex=cx+Math.cos(a)*rx*(.5+.5*rnd(i+3))+ (f*14*Math.max(0,Math.cos(a))),ey=y+Math.sin(a*1.3)*ry*(.5+.5*rnd(i+5));circ(ex,ey,3,C.elec)}
+  withA(f,()=>{label(hx_,y-58,"δ+",{size:18,weight:700,color:C.dpos,border:C.dpos});label(clx,y-66,"δ−",{size:18,weight:700,color:C.dneg,border:C.dneg});
+    dipArrow(hx_,y+70,clx,y+70,C.dip,3.5);label(240,y+96,"bond dipole: arrow points to the δ− end",{size:12.5,weight:600})});
+  withA(1-f,()=>label(240,y+96,"electrons start out shared evenly...",{size:12.5,weight:600}));
+  label(240,286,f>.5?"...but Cl pulls harder, so the cloud shifts toward Cl":"",{size:12.5,weight:700,color:C.accent,pill:f>.5});
+  /* comparison strip */
+  panelBox(12,324,456,144);title(26,344,"Three kinds of bond");
+  [["H–H","0","nonpolar covalent",0],["H–Cl","0.96","polar covalent",.5],["Na⁺ Cl⁻","2.23","ionic",1]].forEach((b,i)=>{const x=90+i*150,yy=396;const s=b[3];
+    const e1=i===2?C.elNa:C.elH,e2=i===0?C.elH:C.elCl;const l1=i===2?"Na":"H",l2=i===0?"H":"Cl";
+    if(i<2){glow(x+s*14,yy,46,C.elec,.5)}else{glow(x+22,yy,26,C.elec,.55)}
+    ball(x-22,yy,i===2?15:13,e1,l1);ball(x+22,yy,i===0?13:17,e2,l2);if(i===2){label(x-22,yy-26,"+",{size:13,weight:700,color:C.dpos});label(x+22,yy-30,"−",{size:13,weight:700,color:C.dneg})}
+    txt(x,yy+34,b[0]+"  ΔEN "+b[1],{size:12,mono:true,align:"center",weight:600});txt(x,yy+52,b[2],{size:12.5,align:"center",weight:700,color:i===1?C.accent:C.ink})});
+  /* symbolic: electronegativity scale and the calculation */
+  panelBox(480,12,308,456);title(494,32,"Symbols: electronegativity (EN)");
+  const sx=500,sw=268,v2x=v=>sx+(v-.7)/(4.1-.7)*sw;line(sx,92,sx+sw,92,C["ink-soft"],2);[1,2,3,4].forEach(v=>{line(v2x(v),88,v2x(v),96,C["ink-soft"],1.5);txt(v2x(v),108,String(v),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})});
+  [["Na",.93,1],["H",2.20,0],["C",2.55,1],["Cl",3.16,0],["O",3.44,1],["F",3.98,0]].forEach(e=>{const x=v2x(e[1]);const on=e[0]==="H"||e[0]==="Cl";const yy=e[2]?70:56;circ(x,92,on?6:4,elCol(e[0]),hexA(C.ink,.5),1);txt(x,yy,e[0]+" "+e[1].toFixed(2),{size:11.5,mono:true,align:"center",weight:on?700:500,color:on?C.accent:C.ink})});
+  const c1=seg(p,.42,.5),c2=seg(p,.5,.58),c3=seg(p,.58,.66),c4=seg(p,.66,.76);
+  txt(494,146,"ΔEN = EN(Cl) − EN(H)",{size:14,mono:true,weight:600});
+  withA(c1,()=>txt(494,172,"    = 3.16 − 2.20",{size:14,mono:true}));withA(c2,()=>txt(494,198,"    = 0.96",{size:15,mono:true,weight:700,color:C.accent}));
+  withA(c3,()=>{const bx=500,bw=268,bxv=v=>bx+v/3.3*bw;[[0,.4,"nonpolar",C.good],[.4,1.8,"polar covalent",C.accent],[1.8,3.3,"ionic",C.dneg]].forEach(r=>{rr(bxv(r[0]),232,bxv(r[1])-bxv(r[0])-2,14,3);fillStroke(hexA(r[3],.25),r[3],1.2);txt((bxv(r[0])+bxv(r[1]))/2+(r[0]===0?6:0),258,r[2],{size:11.5,align:"center",weight:600})});
+    const mx=bxv(.96);fillPoly([[mx,230],[mx-6,220],[mx+6,220]],C.ink);txt(500,278,"(the boundaries are a rough guide)",{size:11.5,color:C["ink-soft"]})});
+  withA(c4,()=>{wrapText("0.96 falls in the polar covalent range. The electrons are shared, but not equally: Cl gets a partial negative charge (δ−) and H a partial positive charge (δ+).",494,306,282,17,{size:13})});
+  withA(c4,()=>{dipArrow(520,420,640,420,C.dip,3.5);txt(650,420,"δ+ → δ−",{size:13,mono:true,weight:700});txt(494,446,"The + on the tail marks the positive end.",{size:12,color:C["ink-soft"]})})}
+/* vector addition: CO2 cancels, H2O does not */
+function vecPanel(x,y,w,h,T,p,mol,vecs,netLab){panelBox(x,y,w,h,{fill:hexA(C.panel,.96)});title(x+12,y+18,"Symbols: add the arrows tip to tail");
+  const ox=x+w/2,oy=y+h/2+18;const S=70;const a1=seg(p,.3,.5),a2=seg(p,.5,.7),a3=seg(p,.7,.8);
+  const v1=vecs[0],v2=vecs[1];circ(ox,oy,3,C.ink);
+  withA(a1,()=>dipArrow(ox,oy,ox+v1[0]*S,oy-v1[1]*S,C.dip,3));
+  const sx=lerp(ox,ox+v1[0]*S,a2),sy=lerp(oy,oy-v1[1]*S,a2);withA(a1,()=>dipArrow(sx,sy,sx+v2[0]*S,sy-v2[1]*S,C.dip,3));
+  const ex=ox+(v1[0]+v2[0])*S,ey=oy-(v1[1]+v2[1])*S;const net=Math.hypot(v1[0]+v2[0],v1[1]+v2[1]);
+  withA(a3,()=>{if(net<.05){circ(ox,oy,12,null,C.good,2.5);label(ox,oy+34,netLab,{size:13.5,weight:700,color:C.good,border:C.good})}else{arrow(ox,oy,ex,ey,C.net,5);label(ox,oy+24,netLab,{size:13.5,weight:700,color:C.net,border:C.net})}})}
+function sceneVectors(T){const per=9;const p=(T%per)/per;const a0=seg(p,.05,.25);
+  /* CO2 */
+  panelBox(12,12,456,222);title(26,32,"Particles: CO₂, polar bonds");const M1=molFromClass("AX2","C",["O"],{ord:[2,2],arcs:false});const V1=view(240,128,92,.25*Math.sin(T*.5),-.15);drawMol(V1,M1,{});
+  withA(a0,()=>{[1,2].forEach(i=>{dip3(V1,v3.sc(M1.atoms[i].p,.25),v3.sc(M1.atoms[i].p,.95),C.dip,3,-40)});label(240,210,"each C=O bond: arrow toward O",{size:12.5,weight:600})});
+  vecPanel(480,12,308,222,T,p,M1,[[-1,0],[1,0]],"net = 0: nonpolar");
+  /* H2O */
+  panelBox(12,246,456,222);title(26,266,"Particles: H₂O, polar bonds");const M2=waterMol(1);M2.arcs=[];const V2=view(240,350,92,.25*Math.sin(T*.5),-.1);drawMol(V2,M2,{});
+  withA(a0,()=>{[1,2].forEach(i=>{const hp=M2.atoms[i].p;dip3(V2,v3.sc(hp,.95),v3.sc(hp,.3),C.dip,3,i===1?-28:28)});label(240,446,"each O–H bond: arrow toward O",{size:12.5,weight:600})});
+  const h=52.25*D2R;vecPanel(480,246,308,222,T,p,M2,[[-Math.sin(h)*.8,Math.cos(h)*.8],[Math.sin(h)*.8,Math.cos(h)*.8]],"net dipole: polar")}
+/* CCl4 vs CHCl3 */
+function polMol(V,M,T,showNet){const cen=M.atoms[0].p;M.atoms.forEach((a,i)=>{if(i===0){a.cloud=hexA(C.dpos,.6)}else a.cloud=a.el==="Cl"?hexA(C.dneg,.7):hexA(C.dpos,.5)});
+  drawMol(V,M,{});M.bonds.forEach(b=>{const q=M.atoms[b[1]];const d=EL[q.el].en-EL.C.en;const u=v3.nrm(q.p);if(d>0)dip3(V,v3.sc(u,.32),v3.sc(u,1.0),C.dip,2.6,16);else dip3(V,v3.sc(u,.9),v3.sc(u,.45),C.dip,2.2,14)});
+  if(showNet){const n=netDipole(M);const l=v3.len(n);if(l>.05){const u=v3.nrm(n);const A=pj(V,v3.sc(u,-.7)),B=pj(V,v3.sc(u,1.45));arrow(A.x,A.y,B.x,B.y,C.net,6)}}}
+function sceneCCl4(T){const per=8;const p=(T%per)/per;const shn=p>.45;
+  [["CCl₄",["Cl"],"nonpolar","four equal arrows point to the corners of a tetrahedron and cancel",0],["CHCl₃",["H","Cl","Cl","Cl"],"polar","the C–H arrow is small and points the other way: the arrows do not cancel",1]].forEach((o,i)=>{const x=12+i*394;
+    panelBox(x,12,382,456);ctx.save();rr(x,12,382,456,8);ctx.clip();title(x+14,32,"Particles: "+o[0]);const M=molFromClass("AX4","C",o[1],{arcs:false});const V=view(x+191,214,112,.4+T*.4,-.3);polMol(V,M,T,shn);
+    if(shn){label(x+191,384,o[2].toUpperCase(),{size:15,weight:700,color:o[2]==="polar"?C.net:C.good,border:o[2]==="polar"?C.net:C.good});if(o[2]==="polar")checkMark(x+250,384,7,C.net,3);else{circ(x+254,384,8,null,C.good,2.5)}}
+    wrapText(shn?("Net (magenta arrow): "+o[3]):"Teal arrows are bond dipoles. Each C–Cl bond is polar (ΔEN = 0.61).",x+18,416,346,17,{size:13});ctx.restore()});
+}
+/* molecules in an electric field */
+const FIELD_MOLS=Array.from({length:12},(_,i)=>({x:96+(i%4)*112+(rnd(i)*22-11),y:96+Math.floor(i/4)*120+(rnd(i+20)*22-11),polar:i%2===0,a0:rnd(i+40)*TAU,w:(rnd(i+60)-.5)*2.4,k:1.6+rnd(i+80)*.8}));
+function fieldAngle(m,T,on,ton){const tumble=t=>m.a0+m.w*t+.6*Math.sin(t*1.7+m.a0);if(!m.polar||!on)return tumble(T);
+  const a0=tumble(ton);let d=Math.PI-a0;d=Math.atan2(Math.sin(d),Math.cos(d));return Math.PI-d*Math.exp(-m.k*(T-ton))+.12*Math.sin(T*3+m.a0)}
+function miniWater(x,y,a,s){const h=52.25*D2R;const ux=Math.cos(a),uy=Math.sin(a);/* dipole points from H side to O: O at +u */
+  const ox=x+ux*6*s,oy=y+uy*6*s;[1,-1].forEach(k=>{const b=a+Math.PI+k*h;const hx2=ox+Math.cos(b)*20*s,hy2=oy+Math.sin(b)*20*s;line(ox,oy,hx2,hy2,C.bond,4*s);ball(hx2,hy2,7*s,C.elH,null)});ball(ox,oy,11*s,C.elO,"O")}
+function miniCO2(x,y,a,s){const ux=Math.cos(a),uy=Math.sin(a);[1,-1].forEach(k=>{const ex=x+ux*22*k*s,ey=y+uy*22*k*s;line(x,y,ex,ey,C.bond,5*s);ball(ex,ey,10*s,C.elO,"O")});ball(x,y,10*s,C.elC,"C")}
+function sceneField(T){const per=11;const t=T%per;const ton=3.5;const on=t>=ton;
+  panelBox(12,12,520,456);title(26,32,"Particles: molecules between charged plates");
+  rr(30,52,26,400,4);fillStroke(hexA(C["plate-p"],on?.85:.3),C["plate-p"],1.5);rr(488,52,26,400,4);fillStroke(hexA(C["plate-n"],on?.85:.3),C["plate-n"],1.5);
+  for(let i=0;i<8;i++){txt(43,72+i*50,"+",{size:16,weight:700,align:"center",color:on?"#FFFFFF":C["plate-p"]});txt(501,72+i*50,"−",{size:16,weight:700,align:"center",color:on?"#FFFFFF":C["plate-n"]})}
+  if(on)for(let i=0;i<5;i++){const yy=78+i*84;ctx.save();ctx.globalAlpha*=.35;arrow(64,yy,476,yy,C["ink-soft"],1.4,[6,6]);ctx.restore()}
+  FIELD_MOLS.forEach(m=>{const a=fieldAngle(m,t,on,ton);const jx=Math.sin(t*2.3+m.a0*3)*4,jy=Math.cos(t*2.1+m.a0*2)*4;if(m.polar)miniWater(m.x+jx+20,m.y+jy,a,1);else miniCO2(m.x+jx+20,m.y+jy,a,1)});
+  label(272,450,on?"Field ON: water molecules turn their O (δ−) end toward the + plate":"Field OFF: every molecule tumbles at random",{size:12.5,weight:700,color:on?C.accent:C.ink});
+  /* macroscopic */
+  panelBox(544,12,244,456);title(558,32,"What you see");
+  [["water (polar)",140,true],["hexane (nonpolar)",310,false]].forEach(s=>{const bx=630,by=s[1]-56;rr(bx-10,by-30,20,40,3);fillStroke(hexA(C.glass,.7),C["glass-edge"],1.5);rr(bx-3,by+10,6,10,1);fillStroke(C["glass-edge"],null);
+    const bend=on&&s[2]?24*smooth(seg(t,ton,ton+1.2)):on?2*smooth(seg(t,ton,ton+1.2)):0;ctx.beginPath();for(let k=0;k<=20;k++){const yy=by+20+k*4.6;const xx=bx+bend*Math.pow(k/20,2);k?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)}ctx.strokeStyle=s[2]?C.elN:C.grease;ctx.lineWidth=3;ctx.stroke();
+    txt(670,by-10,s[0],{size:12,weight:600});
+    if(on){rr(696,by+40,14,70,7);fillStroke(hexA(C["plate-n"],.8),C["plate-n"],1.2);txt(703,by+75,"−",{size:14,weight:700,align:"center",color:"#FFFFFF"});txt(703,by+124,"charged rod",{size:11.5,align:"center",color:C["ink-soft"]})}});
+  wrapText(on?"A charged rod pulls a thin stream of water sideways. A stream of hexane barely bends.":"No charged rod nearby: both thin streams fall straight down.",558,410,218,16,{size:12.5})}
+
+/* ================= Part 6: valence bond theory ================= */
+function zRun(items){items.sort((a,b)=>a.z-b.z).forEach(it=>it.f())}
+function pLobes(V,c,axis,len,w,a,items,cols){[1,-1].forEach(sg=>{const d=v3.sc(axis,sg);const tip=pj(V,v3.add(c,v3.sc(d,len)));items.push({z:tip.z,f:()=>lobe3(V,c,d,len,w,sg>0?(cols?cols[0]:C.ph1):(cols?cols[1]:C.ph2),a,{fa:.65,fb:.4})})})}
+function hybLobe(V,c,dir,a,items,len){len=len||1;const tip=pj(V,v3.add(c,v3.sc(dir,len)));items.push({z:tip.z,f:()=>{lobe3(V,c,v3.sc(dir,-1),.28*len,.15,C.ph2,a*.9,{fa:.6,fb:.35});lobe3(V,c,dir,len,.34,C.hyb,a,{fa:.7,fb:.45})}})}
+function sOrb(V,c,r,col,a,items){const P0=pj(V,c);items.push({z:P0.z-.01,f:()=>withA(a,()=>{glow(P0.x,P0.y,r*V.s*P0.f*1.25,col,.6);circ(P0.x,P0.y,r*V.s*P0.f,null,hexA(col,.8),1.4)})})}
+function nucleus(V,c,el,items,r){const P0=pj(V,c);items.push({z:P0.z+.02,f:()=>ball(P0.x,P0.y,(r||9)*P0.f,elCol(el),el)})}
+/* orbital box diagram: boxes [[label,x,y,electrons(0..2),opts]] */
+function oBox(x,y,n,col,o){o=o||{};rr(x-15,y-15,30,30,3);fillStroke(o.fill||C.panel,col||C.ink,o.lw||1.6);
+  if(n>=1)arrow(x-5,y+10,x-5,y-10,o.ec||C.ink,2);if(n>=2)arrow(x+5,y-10,x+5,y+10,o.ec||C.ink,2)}
+function boxRow(x,y,ns,col,lab,o){ns.forEach((n,i)=>oBox(x+i*32,y,n,col,o));if(lab)txt(x-26,y,lab,{size:13,mono:true,weight:700,align:"right"})}
+function sceneOverlap(T){const per=9;const p=(T%per)/per;
+  const r=p<.6?lerp(260,74,smooth(p/.6)):p<.75?lerp(74,50,smooth((p-.6)/.15)):lerp(50,74,smooth((p-.75)/.25));
+  panelBox(12,12,520,250);title(26,32,"Particles: two H atoms approach");const cx=272,cy=146,sep=r*1.25;
+  const ov=clamp(Math.exp(-(r-74)/55),0,1);
+  [-1,1].forEach(s=>{const x=cx+s*sep/2;glow(x,cy,62,C.orbs,.55);circ(x,cy,52,null,hexA(C.orbs,.6),1.3)});
+  glow(cx,cy,48*ov+4,C.elec,.75*ov);[-1,1].forEach(s=>ball(cx+s*sep/2,cy,10,C.elH,null));
+  for(let k=0;k<2;k++){const a=T*3+k*Math.PI;circ(cx+Math.cos(a)*(sep/2*(1-ov)+20)*(k?1:-1)*.9,cy+Math.sin(a*1.3)*14,3.2,C.elec)}
+  txt(cx,62,"distance between nuclei: "+Math.round(r)+" pm",{size:13.5,mono:true,weight:600,align:"center"});
+  label(cx,236,r>140?"far apart: no overlap, no bond":r<65?"too close: the nuclei repel":"orbitals overlap: electrons gather between the nuclei",{size:12.5,weight:700,color:r<65?C.bad:r<140?C.accent:C.ink});
+  /* energy curve */
+  panelBox(544,12,244,250);title(558,32,"Symbols: energy vs distance");const gx=580,gy=52,gw=190,gh=170;const Emin=-480,Emax=300;const ey=e=>gy+gh-(e-Emin)/(Emax-Emin)*gh;line(gx,gy,gx,gy+gh,C.ink,1.4);line(gx,ey(0),gx+gw,ey(0),C["ink-soft"],1,[3,3]);
+  const E=rr_=>436*Math.pow(1-Math.exp(-.0194*(rr_-74)),2)-436;
+  plotFn(x=>E(x),35,300,gx,gy,gw,gh,Emin,Emax,C.accent,2.4);
+  const mx=gx+(r-35)/(300-35)*gw;circ(mx,clamp(ey(E(r)),gy,gy+gh),6,C.accent,C.panel,2);
+  txt(gx-4,ey(0),"0",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});txt(gx+gw,gy+gh+30,"distance →",{size:11.5,align:"right",color:C["ink-soft"]});txt(gx+4,gy+6,"energy",{size:11.5,color:C["ink-soft"]});
+  const xm=gx+(74-35)/(300-35)*gw;line(xm,ey(-436),xm,gy+gh,C["ink-soft"],1,[3,3]);
+  txt(gx,gy+gh+13,"min: 74 pm, −436 kJ/mol",{size:11.5,mono:true,weight:600});
+  /* sigma vs pi */
+  panelBox(12,274,776,194);title(26,294,"Two ways p orbitals can overlap");const q=smooth(seg(p,.1,.5));
+  const V1=view(200,382,58,.25,-.15),V2=view(590,382,58,.25,-.15);const items=[],items2=[];
+  const d1=lerp(2.1,1.15,q);pLobes(V1,[-d1/2,0,0],[1,0,0],.95,.36,.85,items);pLobes(V1,[d1/2,0,0],[-1,0,0],.95,.36,.85,items);zRun(items);
+  withA(q,()=>{const P0=pj(V1,[0,0,0]);glow(P0.x,P0.y,30,C.sigma,.7)});ball(pj(V1,[-d1/2,0,0]).x,pj(V1,[-d1/2,0,0]).y,8,C.elC,null);ball(pj(V1,[d1/2,0,0]).x,pj(V1,[d1/2,0,0]).y,8,C.elC,null);
+  label(200,450,"σ bond: head-on, ON the axis",{size:13,weight:700,color:C.sigma,border:C.sigma});
+  const d2=lerp(1.9,1.25,q);pLobes(V2,[-d2/2,0,0],[0,1,0],.9,.34,.85,items2);pLobes(V2,[d2/2,0,0],[0,1,0],.9,.34,.85,items2);zRun(items2);
+  withA(q,()=>{[1,-1].forEach(s=>{const P0=pj(V2,[0,s*.6,0]);glow(P0.x,P0.y,28,C.pi,.7)})});ball(pj(V2,[-d2/2,0,0]).x,pj(V2,[-d2/2,0,0]).y,8,C.elC,null);ball(pj(V2,[d2/2,0,0]).x,pj(V2,[d2/2,0,0]).y,8,C.elC,null);
+  label(590,450,"π bond: side by side, ABOVE and BELOW the axis",{size:13,weight:700,color:C.pi,border:C.pi});
+  line(400,300,400,458,C.rule,1)}
+/* sp3 hybridization of carbon */
+function sceneSp3(T){const per=12;const p=(T%per)/per;const st=p<.28?0:p<.45?1:p<.7?2:3;
+  panelBox(12,12,300,456);title(26,32,"Symbols: carbon's orbital boxes");
+  const pr=smooth(seg(p,.3,.42));const hy=smooth(seg(p,.47,.62));
+  /* energy axis */
+  arrow(36,440,36,70,C["ink-soft"],1.4);txt(30,58,"energy",{size:11.5,color:C["ink-soft"]});
+  withA(1-hy,()=>{boxRow(150,330,[2-(pr>.5?1:0)],C.ink,"2s");boxRow(150,190,[1,1,pr>.5?1:0],C.ink,"2p");
+    if(pr>0&&pr<1){const ex=lerp(155,214,pr),ey=lerp(330,190,pr);arrow(ex,ey+10,ex,ey-10,C.accent,2.4)}
+    if(st===0)label(166,390,"ground state: 2s² 2p²",{size:12.5,weight:600});if(st===1)label(166,390,"promote one 2s electron",{size:12.5,weight:600,color:C.accent})});
+  withA(hy,()=>{boxRow(102,262,[1,1,1,1],C.hyb,"",{lw:2.2});txt(150,232,"four sp³ hybrid orbitals",{size:13,weight:700,align:"center",color:C.hyb});
+    txt(150,296,"same energy, one electron each",{size:12,align:"center",color:C["ink-soft"]});label(166,390,"mix 1 s + 3 p → 4 sp³",{size:12.5,weight:700,color:C.hyb})});
+  /* 3D orbitals */
+  panelBox(324,12,464,456);title(338,32,st<2?"Particles: one s and three p orbitals":st===2?"Particles: the orbitals mix and reshape":"Particles: four sp³ orbitals bond to four H");
+  const V=view(556,250,120,.5+T*.3,-.3);const items=[];const a0=1-hy;
+  sOrb(V,[0,0,0],.42,C.orbs,a0*.9,items);
+  [[1,0,0],[0,1,0],[0,0,1]].forEach(ax=>pLobes(V,[0,0,0],ax,1.0,.3,a0*.75,items));
+  const bondP=smooth(seg(p,.72,.9));
+  VS.AX4.B.forEach(d=>{hybLobe(V,[0,0,0],d,hy,items,1.0);if(bondP>0){const hpos=v3.sc(d,lerp(2.4,1.25,bondP));sOrb(V,hpos,.32,C.orbs,bondP*.8,items);
+    const P0=pj(V,hpos);items.push({z:P0.z+.03,f:()=>withA(bondP,()=>ball(P0.x,P0.y,9*P0.f,C.elH,null))})}});
+  nucleus(V,[0,0,0],"C",items,11);zRun(items);
+  if(st===3){withA(seg(p,.86,.92),()=>{label(556,440,"each C–H bond is a σ bond: sp³ overlaps H 1s · 109.5°",{size:12.5,weight:700,color:C.sigma,border:C.sigma})})}
+  else label(556,440,st<2?"s is a sphere; each p is a dumbbell along x, y or z":"four identical lobes point to the corners of a tetrahedron",{size:12.5,weight:600})}
+/* sp2: ethene and its pi bond */
+function piCloud(V,a,b,up,col,al,items){/* sausage above (up) the a-b axis */const n=12;for(let k=0;k<=n;k++){const c=v3.add(v3.lerp(a,b,k/n),up);const P0=pj(V,c);items.push({z:P0.z,f:()=>withA(al,()=>glow(P0.x,P0.y,.34*V.s*P0.f,col,.32))})}}
+function sceneSp2(T){const per=11;const p=(T%per)/per;const m=smooth(seg(p,.45,.68));
+  panelBox(12,12,500,456);title(26,32,"Particles: ethene, C₂H₄ (sp² carbons)");
+  const V=view(262,250,104,.35+.4*Math.sin(T*.35),-.42);const items=[];const C1=[-.7,0,0],C2=[.7,0,0];
+  [[C1,1],[C2,-1]].forEach(([c,s])=>{const dTo=[s,0,0];const others=[dirAng(s>0?120:60),dirAng(s>0?240:300)].map(d=>[d[0],0,d[1]]);
+    hybLobe(V,c,dTo,.55*(1-m)+.15,items,.7);others.forEach(d=>{hybLobe(V,c,d,.45*(1-m)+.1,items,.8);const hp=v3.add(c,v3.sc(d,1.05));const P0=pj(V,hp);items.push({z:P0.z+.02,f:()=>ball(P0.x,P0.y,10*P0.f,C.elH,"H")});
+      const A=pj(V,c);items.push({z:(A.z+P0.z)/2-.01,f:()=>withA(.5+.5*m,()=>stick(A,P0,7*P0.f,1,C.bond))})});
+    /* unhybridized p, perpendicular to the plane */
+    pLobes(V,c,[0,1,0],.75,.24,.8*(1-m),items)});
+  piCloud(V,C1,C2,[0,.48,0],C.pi,m,items);piCloud(V,C1,C2,[0,-.48,0],C.pi,m,items);
+  const A=pj(V,C1),B=pj(V,C2);items.push({z:(A.z+B.z)/2-.02,f:()=>stick(A,B,8*A.f,1,C.sigma)});
+  nucleus(V,C1,"C",items,13);nucleus(V,C2,"C",items,13);zRun(items);
+  label(262,440,m<.5?"three sp² lobes in a flat plane, plus one p orbital standing up":"side-by-side p overlap: a π bond above and below the σ bond",{size:12.5,weight:700,color:m<.5?C.ink:C.pi});
+  if(m>.5){const P0=pj(V,[0,.85,0]);label(P0.x+60,P0.y-6,"π",{size:16,weight:700,color:C.pi,border:C.pi});const Q=pj(V,[0,0,0]);label(Q.x+4,Q.y+30,"σ",{size:16,weight:700,color:C.sigma,border:C.sigma})}
+  /* boxes */
+  panelBox(524,12,264,456);title(538,32,"Symbols: sp² carbon");
+  const hy=smooth(seg(p,.12,.32));withA(1-hy,()=>{boxRow(636,330,[1],C.ink,"2s");boxRow(636,200,[1,1,1],C.ink,"2p")});
+  withA(hy,()=>{boxRow(604,260,[1,1,1],C.hyb,"sp²",{lw:2.2});boxRow(718,200,[1],C.pi,"",{lw:2.2});txt(718,172,"p",{size:13,mono:true,weight:700,align:"center",color:C.pi})});
+  wrapText("Mix 1 s + 2 p → 3 sp² orbitals at 120° in a plane. The third p orbital is left over, standing straight up. It makes the π part of the C=C double bond.",540,370,236,16,{size:12.5})}
+/* sp and the rest */
+function sceneSp(T){const per=10;const p=(T%per)/per;const m=smooth(seg(p,.35,.6));
+  panelBox(12,12,776,284);title(26,32,"Particles: ethyne, C₂H₂ (sp carbons): one σ and two π bonds");
+  const V=view(400,160,96,.3+.35*Math.sin(T*.4),-.35);const items=[];const C1=[-.65,0,0],C2=[.65,0,0];
+  [[C1,1],[C2,-1]].forEach(([c,s])=>{hybLobe(V,c,[s,0,0],.5*(1-m)+.15,items,.65);hybLobe(V,c,[-s,0,0],.5*(1-m)+.15,items,.8);const hp=v3.add(c,[-s*1.05,0,0]);const P0=pj(V,hp);items.push({z:P0.z+.02,f:()=>ball(P0.x,P0.y,10*P0.f,C.elH,"H")});
+    const A=pj(V,c);items.push({z:(A.z+P0.z)/2-.01,f:()=>stick(A,P0,7*P0.f,1,C.bond)});
+    pLobes(V,c,[0,1,0],.7,.22,.8*(1-m),items);pLobes(V,c,[0,0,1],.7,.22,.8*(1-m),items,[C.ph1,C.ph2])});
+  [[0,.45,0],[0,-.45,0]].forEach(u=>piCloud(V,C1,C2,u,C.pi,m,items));[[0,0,.45],[0,0,-.45]].forEach(u=>piCloud(V,C1,C2,u,C.orbs,m,items));
+  const A=pj(V,C1),B=pj(V,C2);items.push({z:(A.z+B.z)/2-.02,f:()=>stick(A,B,8*A.f,1,C.sigma)});nucleus(V,C1,"C",items,13);nucleus(V,C2,"C",items,13);zRun(items);
+  label(400,276,m<.5?"two sp lobes on a line (180°) and two p orbitals at right angles":"two π bonds (pink up-down, blue front-back) wrap the σ bond: a triple bond",{size:12.5,weight:700});
+  /* table of hybrid sets */
+  panelBox(12,308,776,160);title(26,328,"Groups → hybridization");const lit=Math.floor(T/2)%5;
+  [["sp","2 groups","180°","CO₂, C₂H₂","AX2"],["sp²","3 groups","120°","BF₃, C₂H₄","AX3"],["sp³","4 groups","109.5°","CH₄, NH₃, H₂O","AX4"],["sp³d","5 groups","90°, 120°","PCl₅, SF₄","AX5"],["sp³d²","6 groups","90°","SF₆, XeF₄","AX6"]].forEach((r,i)=>{const x=28+i*152,y=342;const on=i===lit;
+    rr(x,y,144,116,8);fillStroke(on?hexA(C.hyb,.14):hexA(C["panel-2"],.8),on?C.hyb:C.rule,on?2.4:1);
+    const Vv=view(x+38,y+52,26,T*.6+i,-.3);const it=[];VS[r[4]].B.forEach(d=>hybLobe(Vv,[0,0,0],d,.9,it,1));zRun(it);
+    txt(x+72,y+22,r[0],{size:17,weight:700,color:on?C.hyb:C.ink});txt(x+72,y+44,r[1],{size:12});txt(x+72,y+62,r[2],{size:12,mono:true});wrapText(r[3],x+10,y+96,128,14,{size:11.5,color:C["ink-soft"]})})}
+/* counting sigma and pi bonds: acrylonitrile */
+const ACRY={atoms:[["C",110,250],["H",50,180],["H",50,320],["C",230,250],["H",230,160],["C",350,250],["N",470,250]],
+  bonds:[[0,1,1],[0,2,1],[0,3,2],[3,4,1],[3,5,1],[5,6,3]]};
+function sceneSigmaPi(T){const per=14;const p=(T%per)/per;const nb=ACRY.bonds.length;let sig=0,pi=0;
+  panelBox(12,12,520,456);title(26,32,"Symbols: acrylonitrile, H₂C=CH–C≡N");
+  ACRY.bonds.forEach((b,i)=>{const A=ACRY.atoms[b[0]],B=ACRY.atoms[b[1]];const t0=.06+i*.12;const on=seg(p,t0,t0+.06);const dx=B[1]-A[1],dy=B[2]-A[2],l=Math.hypot(dx,dy),ux=dx/l,uy=dy/l,nx=-uy,ny=ux;
+    const offs=b[2]===2?[-5,5]:b[2]===3?[-8,0,8]:[0];offs.forEach((k,j)=>{const col=on>0?(j===(b[2]===3?1:0)||b[2]===1?C.sigma:C.pi):C.ink;line(A[1]+ux*16+nx*k,A[2]+uy*16+ny*k,B[1]-ux*16+nx*k,B[2]-uy*16+ny*k,col,on>0?3.4:2.2)});
+    if(on>0){sig+=1;pi+=b[2]-1;withA(on,()=>{const mx=(A[1]+B[1])/2,my=(A[2]+B[2])/2;const tag=b[2]===1?"σ":b[2]===2?"σ + π":"σ + 2π";label(mx+(b[2]===1&&Math.abs(dx)<10?28:0),my+(Math.abs(dx)<10?0:-26)+(b[0]===0&&b[1]<3?0:0),tag,{size:13,weight:700,color:b[2]===1?C.sigma:C.pi,border:b[2]===1?C.sigma:C.pi})})}});
+  ACRY.atoms.forEach(a=>txt(a[1],a[2],a[0],{size:24,weight:700,align:"center"}));txt(470+22,250,"",{});
+  [[470,250,0],[470,250,0]].forEach(()=>{});circ(470+20,244,2.6,C.lp);circ(470+20,256,2.6,C.lp);
+  wrapText("Every bond between two atoms contains exactly one σ bond. Each extra line in a double or triple bond is a π bond.",30,396,480,18,{size:13.5});
+  /* counters */
+  panelBox(544,12,244,456);title(558,32,"Running count");
+  txt(560,90,"σ bonds",{size:15,weight:700,color:C.sigma});txt(770,90,String(sig),{size:34,weight:700,mono:true,align:"right",color:C.sigma});
+  txt(560,150,"π bonds",{size:15,weight:700,color:C.pi});txt(770,150,String(pi),{size:34,weight:700,mono:true,align:"right",color:C.pi});
+  line(560,186,772,186,C.rule,1);
+  [["single","1 σ"],["double","1 σ + 1 π"],["triple","1 σ + 2 π"]].forEach((r,i)=>{txt(560,214+i*30,r[0],{size:13.5,weight:600});txt(772,214+i*30,r[1],{size:13.5,mono:true,align:"right"})});
+  withA(seg(p,.06+nb*.12,.06+nb*.12+.05),()=>{rr(560,316,212,112,8);fillStroke(hexA(C.accent,.12),C.accent,2);txt(666,346,"Total",{size:13,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+    txt(666,376,"6 σ and 3 π",{size:19,weight:700,align:"center"});txt(666,406,"9 bonds' worth of lines",{size:12,align:"center",color:C["ink-soft"]})})}
+
+/* ================= Part 7: molecular orbitals ================= */
+function waveRow(x,y,w,h,T,sign,title_){panelBox(x,y,w,h);title(x+14,y+20,title_);const xa=x+w*.34,xb=x+w*.66,yb=y+h*.55;const sc=w*.08;
+  const f=(X,x0)=>Math.exp(-Math.abs(X-x0)/sc);line(x+20,yb,x+w-20,yb,C.rule,1);
+  const wob=.85+.15*Math.sin(T*2.2);
+  poly(Array.from({length:120},(_,i)=>{const X=x+20+(w-40)*i/119;return [X,yb-f(X,xa)*58*wob]}),hexA(C.ph1,.75),1.6,[4,4]);
+  poly(Array.from({length:120},(_,i)=>{const X=x+20+(w-40)*i/119;return [X,yb-sign*f(X,xb)*58*wob]}),hexA(sign>0?C.ph1:C.ph2,.75),1.6,[4,4]);
+  const pts=Array.from({length:160},(_,i)=>{const X=x+20+(w-40)*i/159;return [X,yb-(f(X,xa)+sign*f(X,xb))*58*wob]});poly(pts,sign>0?C.sigma:C.bad,3);
+  ball(xa,yb,7,C.elH,null);ball(xb,yb,7,C.elH,null);
+  if(sign<0){line((xa+xb)/2,y+34,(xa+xb)/2,y+h-26,C.bad,1.6,[4,4]);label((xa+xb)/2,y+h-18,"node: no electrons here",{size:12,weight:700,color:C.bad})}
+  else label((xa+xb)/2,y+h-18,"waves add: electrons pile up between the nuclei",{size:12,weight:700,color:C.sigma})}
+function moLevel(x,y,w,lab,n,col,o){o=o||{};line(x,y,x+w,y,col||C.ink,3);if(lab)txt(x+(o.labR?w+8:-8),y,lab,{size:12.5,mono:true,weight:700,align:o.labR?"left":"right",color:col||C.ink});
+  const cx=x+w/2;if(n>=1)arrow(cx-6,y+12,cx-6,y-14,o.ec||C.ink,2.2);if(n>=2)arrow(cx+6,y-14,cx+6,y+12,o.ec||C.ink,2.2)}
+function sceneMO(T){const per=14;const k=Math.floor(T/per)%2;const p=(T%per)/per;const he=k===1;
+  waveRow(12,12,456,222,T,1,"Bonding: waves in phase (σ1s)");waveRow(12,246,456,222,T,-1,"Antibonding: waves out of phase (σ*1s)");
+  panelBox(480,12,308,456);title(494,32,"Symbols: MO diagram for "+(he?"He₂":"H₂"));
+  const ne=he?4:2;const shown=Math.min(ne,Math.floor(seg(p,.1,.5)*ne+.0001));
+  const aoY=210,sY=268,ssY=146;const L=[506,196],R=[724,196];
+  const aoL=he?Math.max(0,2-Math.min(2,Math.floor(seg(p,.1,.5)*3))):(seg(p,.1,.5)>0?0:1);
+  moLevel(522,aoY,40,"1s",he?(shown>0?0:2):(shown>0?0:1),C.ink);moLevel(712,aoY,40,"1s",he?(shown>0?0:2):(shown>0?0:1),C.ink,{labR:true});
+  txt(542,aoY+28,he?"He":"H",{size:13,weight:700,align:"center"});txt(732,aoY+28,he?"He":"H",{size:13,weight:700,align:"center"});
+  line(562,aoY,616,sY,C.rule,1,[3,3]);line(562,aoY,616,ssY,C.rule,1,[3,3]);line(712,aoY,660,sY,C.rule,1,[3,3]);line(712,aoY,660,ssY,C.rule,1,[3,3]);
+  moLevel(616,sY,44,"σ1s",Math.min(2,shown),C.sigma,{labR:true});moLevel(616,ssY,44,"σ*1s",Math.max(0,shown-2),C.bad,{labR:true});
+  arrow(498,300,498,80,C["ink-soft"],1.2);txt(504,72,"energy",{size:11.5,color:C["ink-soft"]});
+  const c1=seg(p,.55,.65),c2=seg(p,.65,.75),c3=seg(p,.75,.85);
+  txt(494,330,"bond order = (bonding − antibonding) ÷ 2",{size:12,mono:true,weight:600});
+  withA(c1,()=>txt(494,356,he?"= (2 − 2) ÷ 2":"= (2 − 0) ÷ 2",{size:15,mono:true}));
+  withA(c2,()=>txt(494,382,he?"= 0":"= 1",{size:17,mono:true,weight:700,color:C.accent}));
+  withA(c3,()=>{wrapText(he?"Bond order 0: the antibonding electrons cancel the bonding ones. He₂ does not form; helium stays as single atoms.":"Bond order 1: a single bond. H₂ is stable.",494,410,282,16,{size:12.5,weight:600})})}
+/* O2: MO diagram and liquid oxygen on a magnet */
+function sceneO2(T){const per=16;const p=(T%per)/per;const nE=Math.min(12,Math.floor(seg(p,.04,.55)*12+1e-4));
+  panelBox(12,12,456,456);title(26,32,"Symbols: MO diagram for O₂ (valence electrons)");
+  /* order of filling: sigma2s(2) sigma*2s(2) sigma2p(2) pi2p(4) pi*2p(2) */
+  const levels=[["σ2s",432,1,C.sigma],["σ*2s",390,1,C.bad],["σ2p",312,1,C.sigma],["π2p",272,2,C.pi],["π*2p",196,2,C.bad],["σ*2p",150,1,C.bad]];
+  const fill=[[0,0],[0,0],[1,0],[1,0],[2,0],[2,0],[3,0],[3,1],[3,0],[3,1],[4,0],[4,1]];/* level, box */
+  const occ=levels.map(l=>Array(l[2]).fill(0));for(let i=0;i<nE;i++){const f=fill[i];occ[f[0]][f[1]]++}
+  arrow(40,450,40,120,C["ink-soft"],1.2);txt(34,110,"energy",{size:11.5,color:C["ink-soft"]});
+  levels.forEach((l,i)=>{const n=l[2];for(let b=0;b<n;b++){const x=200+b*56-(n-1)*28;const o=occ[i][b];
+    line(x-20,l[1],x+20,l[1],l[3],3);if(o>=1)arrow(x-6,l[1]+12,x-6,l[1]-14,C.ink,2.2);if(o>=2)arrow(x+6,l[1]-14,x+6,l[1]+12,C.ink,2.2)}
+    txt(200+(n>1?62:34),l[1],l[0],{size:13,mono:true,weight:700,color:l[3]})});
+  const lit=nE>=12&&seg(p,.55,.6)>0;
+  if(lit){[0,1].forEach(b=>{const x=200+b*56-28;ctx.beginPath();ctx.arc(x-6,196,17,0,TAU);ctx.strokeStyle=C.gold;ctx.lineWidth=3;ctx.stroke()});label(330,230,"2 unpaired electrons",{size:12.5,weight:700,color:C.ink,border:C.gold})}
+  txt(30,60,"Each O brings 6 valence electrons: 12 in all.",{size:12.5});txt(30,82,"Electrons placed: "+nE+" of 12",{size:12.5,mono:true,weight:600});
+  const c1=seg(p,.6,.68),c2=seg(p,.68,.76);
+  withA(c1,()=>{txt(282,330,"bonding: 2 + 2 + 4 = 8",{size:12.5,mono:true});txt(282,350,"antibonding: 2 + 2 = 4",{size:12.5,mono:true})});
+  withA(c2,()=>{txt(282,378,"bond order = (8 − 4) ÷ 2",{size:12.5,mono:true});txt(282,402,"= 2  (a double bond)",{size:14,mono:true,weight:700,color:C.accent})});
+  /* macroscopic: pour liquid oxygen / nitrogen between magnet poles */
+  panelBox(480,12,308,456);title(494,32,"What you see");const per2=8;const k=Math.floor(T/per2)%2;const q=(T%per2)/per2;const o2=k===0;
+  /* magnet pole pieces */
+  const mx=634,my=236;rr(mx-92,my-30,70,60,6);fillStroke(C["n-pole"],hexA(C.ink,.5),1.4);rr(mx+22,my-30,70,60,6);fillStroke(C["s-pole"],hexA(C.ink,.5),1.4);
+  txt(mx-57,my,"N",{size:18,weight:700,align:"center",color:"#FFFFFF"});txt(mx+57,my,"S",{size:18,weight:700,align:"center",color:"#FFFFFF"});
+  /* flask pouring */
+  ctx.save();ctx.translate(mx+6,96);ctx.rotate(.5);rr(-16,-30,32,44,6);fillStroke(hexA(C.glass,.7),C["glass-edge"],1.6);ctx.fillStyle=o2?C.o2liq:hexA(C.water,.6);ctx.fillRect(-14,-6,28,18);ctx.restore();
+  const col=o2?C.o2liq:hexA(C["ink-soft"],.45);
+  for(let i=0;i<10;i++){const t=P(q*3+i/10,1);const y0=124+t*(o2?(my-124):236);const x0=mx+Math.sin(i)*2;if(o2&&y0>my-34)continue;circ(x0,y0,4,col,o2?darken(C.o2liq,.25):C["ink-soft"],1)}
+  if(o2){const amt=smooth(seg(q,.1,.8));ctx.beginPath();ctx.ellipse(mx,my,22+2*Math.sin(T*3),10+amt*14,0,0,TAU);fillStroke(hexA(C.o2liq,.85),darken(C.o2liq,.3),1.4);
+    label(mx,392,"liquid O₂ sticks between the poles",{size:12.5,weight:700,color:C.ink,border:C.o2liq})}
+  else{ctx.beginPath();ctx.ellipse(mx,366,40,6,0,0,TAU);fillStroke(hexA(C["ink-soft"],.25),null);label(mx,392,"liquid N₂ pours straight through",{size:12.5,weight:700})}
+  wrapText(o2?"Liquid oxygen (−183 °C, pale blue) is attracted by a strong magnet: it is paramagnetic.":"Liquid nitrogen has all its electrons paired, so the magnet does not hold it.",494,420,282,16,{size:12.5})}
+/* finish */
+function sceneRecap(T){panelBox(12,12,392,456);title(26,32,"Every shape, from counting groups");const lit=Math.floor(T/1.4)%12;shapeGrid(T,16,40,128,106,lit);partCards(T,"all")}
+
+const SCENES={map:sceneMap,balloons:sceneBalloons,count:sceneCount,egmg:sceneEgMg,linear:sceneLinear,trigonal:sceneTrigonal,bentso2:sceneBentSO2,tetra:sceneTetra,nh3:sceneNH3,h2o:sceneH2O,
+  pcl5:scenePCl5,sf4:sceneSF4,clf3:sceneClF3,sf6:sceneSF6,brf5:sceneBrF5,xef4:sceneXeF4,ethanol:sceneEthanol,acetic:sceneAcetic,dipole:sceneBondDipole,vectors:sceneVectors,ccl4:sceneCCl4,field:sceneField,
+  overlap:sceneOverlap,sp3:sceneSp3,sp2:sceneSp2,sp:sceneSp,sigmapi:sceneSigmaPi,mo:sceneMO,o2:sceneO2,recap:sceneRecap};
+/* ---------------- loop ---------------- */
+let T=0,last=performance.now();
+function draw(){
+  ctx.setTransform(K,0,0,K,0,0);ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;bg(C.ecf);
+  const s=STEPS[cur];
+  try{(SCENES[s.scene]||SCENES.map)(T)}catch(e){console.error(e)}
+  ctx.globalAlpha=1;
+}
+function frame(now){
+  const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;if(!paused)T+=dt*speed;
+  draw();
+  requestAnimationFrame(frame);
+}
+window.__setT=v=>{T=v;paused=true;draw()};
+window.__go=i=>go(i);
+window.__n=()=>STEPS.length;
+readColors();buildChain();fit();render();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

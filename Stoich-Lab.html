@@ -1,0 +1,1260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stoichiometry Lab</title>
+<meta name="description" content="Stoichiometry lab: a reaction particle simulator with limiting reactant and yield, a balancing equations game, a randomized stoichiometry problem trainer with animated worked solutions, and real-life chemistry scenarios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E6EE;--panel:#F8F9FC;--panel-2:#EEF0F6;--sunk:#D6DAE6;
+  --ink:#10161A;--ink-soft:#56606F;--ink-faint:#566570;--rule:#C4C9D8;--rule-soft:#D9DDE8;
+  --accent:#9A4410;--accent-ink:#7A340A;--accent-wash:#F6E5D8;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#B5451B;--act2:#2F6FB0;--act3:#7A4FC0;--act4:#2E8A6A;--act5:#B7791F;--act6:#C0446E;--act7:#4F7A1A;--act8:#1E7F95;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#7E6410;
+  /* chemistry palette */
+  --ecf:#F4F1EC;--grid:#DCD6CE;--glass:#DCE8EE;--glass-edge:#7F99A6;--water:#CFE5F1;--liquid:#BCDDF2;--paper:#FFFFFF;
+  --flame:#F2A93B;--flame2:#E0533A;--metal:#9AA3AA;--wood:#B98A5A;--crystal:#E9EEF2;--sugar:#F3EEE2;--soot:#2B2F33;
+  --el-H:#FFFFFF;--el-C:#3D4247;--el-N:#2F56D6;--el-O:#D7342A;--el-Cl:#2E9E46;--el-Na:#8B4FC8;--el-S:#D8B110;--el-K:#6D3BB5;
+  --el-Fe:#C2642A;--el-Mg:#2F7D50;--el-Ca:#5B8F2F;--el-Al:#9A8C94;--el-Cu:#B97835;--el-P:#E07800;--el-Ag:#A6ABB0;--el-Pb:#575A63;
+  --el-I:#7B2B8C;--el-Zn:#7D80B0;--el-X:#A7A7A7;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2414;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#F08A5D;--act2:#6FA8E8;--act3:#B79AF0;--act4:#5CC4A2;--act5:#E8B45A;--act6:#EE86AC;--act7:#A3C95A;--act8:#5CC0D6;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A22;--grid:#2A3440;--glass:#1E2C34;--glass-edge:#7F99A6;--water:#1F3A4A;--liquid:#24465A;--paper:#1D282F;
+  --flame:#F2B85A;--flame2:#FF7A5C;--metal:#7D878E;--wood:#8A6A48;--crystal:#3A4650;--sugar:#4A4538;--soot:#C9CED2;
+  --el-H:#E8EEF1;--el-C:#9AA4AC;--el-N:#7E9BFF;--el-O:#FF7466;--el-Cl:#62D17C;--el-Na:#BC96F2;--el-S:#F0D24A;--el-K:#A783EE;
+  --el-Fe:#EC9A60;--el-Mg:#5EC58C;--el-Ca:#97CB5D;--el-Al:#C7BBC2;--el-Cu:#E2A464;--el-P:#FFA040;--el-Ag:#CDD2D6;--el-Pb:#9EA1AB;
+  --el-I:#C277D2;--el-Zn:#A9ACDA;--el-X:#B5B5B5;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2414;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#F08A5D;--act2:#6FA8E8;--act3:#B79AF0;--act4:#5CC4A2;--act5:#E8B45A;--act6:#EE86AC;--act7:#A3C95A;--act8:#5CC0D6;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A22;--grid:#2A3440;--glass:#1E2C34;--glass-edge:#7F99A6;--water:#1F3A4A;--liquid:#24465A;--paper:#1D282F;
+  --flame:#F2B85A;--flame2:#FF7A5C;--metal:#7D878E;--wood:#8A6A48;--crystal:#3A4650;--sugar:#4A4538;--soot:#C9CED2;
+  --el-H:#E8EEF1;--el-C:#9AA4AC;--el-N:#7E9BFF;--el-O:#FF7466;--el-Cl:#62D17C;--el-Na:#BC96F2;--el-S:#F0D24A;--el-K:#A783EE;
+  --el-Fe:#EC9A60;--el-Mg:#5EC58C;--el-Ca:#97CB5D;--el-Al:#C7BBC2;--el-Cu:#E2A464;--el-P:#FFA040;--el-Ag:#CDD2D6;--el-Pb:#9EA1AB;
+  --el-I:#C277D2;--el-Zn:#A9ACDA;--el-X:#B5B5B5;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+.diskgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.diskgrid .tbtn{text-align:left;font-size:13.5px;line-height:1.25;padding:7px 8px}
+.diskgrid .tbtn b{font-family:var(--mono);display:inline-block;min-width:34px}
+.readouts.chart td{text-align:center;padding-left:4px}
+.readouts.chart th,.readouts.chart td{font-size:13px}
+.readouts thead th{color:var(--ink-soft)}
+.scen .tbtn{font-family:var(--mono);font-size:13.5px}
+.seg3 .tbtn.right,.scen .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.seg3 .tbtn.wrong,.scen .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.ok-ic{color:var(--good);font-weight:700}
+.no-ic{color:var(--warn-ink);font-weight:700}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.methods .tbtn{text-align:left;line-height:1.25;font-size:14px}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.seg3 .tbtn,.seg4 .tbtn{font-size:13.5px;line-height:1.2;padding:8px 6px}
+.seg4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.verdict{font-weight:700}
+.drugbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.drugbtns .tbtn{font-size:13.5px;line-height:1.25;padding:7px 8px;text-align:left}
+.drugbtns .tbtn small{display:block;font-family:var(--mono);font-size:12px;color:var(--ink-soft);font-weight:500}
+.drugbtns .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.alerts{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:var(--r);border:1px solid var(--rule);border-left-width:5px;background:var(--panel-2);font-size:14.5px}
+.alert b{white-space:nowrap}
+.alert .ic{flex:0 0 auto;font-family:var(--mono);font-weight:700;font-size:12px;padding:1px 6px;border-radius:4px;border:1.5px solid currentColor}
+.alert.bad{border-color:var(--bad);background:var(--bad-wash)}.alert.bad .ic{color:var(--bad)}
+.alert.warn{border-color:var(--warn);background:var(--warn-wash)}.alert.warn .ic{color:var(--warn-ink)}
+.alert.good{border-color:var(--good);background:var(--good-wash)}.alert.good .ic{color:var(--good)}
+.alert.info{border-color:var(--accent);background:var(--accent-wash)}.alert.info .ic{color:var(--accent-ink)}
+.readouts td.hi{color:var(--bad);font-weight:700}.readouts td.lo{color:var(--accent-ink);font-weight:700}.readouts td.ok{color:var(--good);font-weight:600}
+.bins{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))}.binhead span{min-width:0;overflow-wrap:break-word}
+.practice-banner{background:var(--gold-wash);border-left:4px solid var(--gold);border-radius:4px;padding:8px 12px;margin:0 0 12px;font-size:14.5px;color:var(--ink)}
+.practice-tag{display:inline-block;background:var(--gold-wash);border:1.5px solid var(--gold);color:var(--ink);border-radius:6px;padding:4px 8px;font-size:13px;font-weight:600;line-height:1.3}
+.lab-sel{display:block;font-weight:600;font-size:14.5px;margin:12px 0 4px}
+#calcType{width:100%;padding:7px 8px;font-size:15px}
+.probcard{margin:12px 0 8px;padding:12px 14px;border:1px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);background:var(--panel-2);font-size:15.5px;line-height:1.5}
+.probcard .pt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:4px}
+.probcard .rd{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+.ansrow{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ans-l{font-weight:600;font-size:14.5px}
+.ansbox{display:flex;align-items:center;gap:8px}
+.ansbox input{font:600 18px var(--mono);width:150px;padding:7px 9px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);color:var(--ink)}
+.ansbox input:focus{outline:3px solid var(--accent);outline-offset:1px}
+.unit{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--ink-soft)}
+.streak{margin-top:10px}
+.seg2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg4b{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.seg2 .tbtn,.seg4b .tbtn{font-size:13.5px;line-height:1.25;padding:8px 6px}
+.marfields{display:grid;grid-template-columns:1fr;gap:6px}
+.mf{display:grid;grid-template-columns:118px 1fr;gap:10px;align-items:baseline;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:8px 10px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.mf:hover{border-color:var(--accent)}
+.mf .k{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+.mf.right{border-color:var(--good);background:var(--good-wash)}
+.mf.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.mf.hinted{box-shadow:0 0 0 3px var(--gold)}
+.antis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.antis .tbtn{text-align:left;font-size:14px;line-height:1.25;padding:8px 9px}
+.antis .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.antis .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.antis .tbtn.hinted{box-shadow:0 0 0 3px var(--gold)}
+@media (max-width:420px){.mf{grid-template-columns:1fr;gap:2px}.antis{grid-template-columns:1fr}}
+.case.wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+@media (max-width:900px){.case.wide{grid-template-columns:1fr}}
+
+.segbtns{display:flex;gap:6px;flex-wrap:wrap}
+.segbtns .tbtn{font-size:13.5px;padding:7px 10px;line-height:1.25}
+.rxbtns{display:grid;grid-template-columns:1fr;gap:6px}
+.rxbtns .tbtn{text-align:left;font-size:14px;line-height:1.3}
+.rxbtns .tbtn small{display:block;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.rxbtns .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.amt{display:grid;grid-template-columns:auto 1fr auto;gap:6px;align-items:center;margin:6px 0}
+.amt .pm{width:34px;height:34px;padding:0;font-size:18px;font-weight:700}
+.amt .lab{display:flex;flex-direction:column;gap:2px;min-width:0}
+.amt .lab label{font-weight:600;font-size:14.5px}
+.amt .lab input[type=range]{width:100%;accent-color:var(--accent)}
+.amt output{font-family:var(--mono);font-size:13px;color:var(--accent-ink);font-weight:600}
+.readouts td.l{font-family:var(--sans);text-align:left}
+.readouts thead th{font-size:11.5px}
+/* balancing game */
+.eqrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 6px;margin:6px 0 10px;font-size:19px}
+.sp{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--rule);border-radius:var(--r);padding:4px 6px;background:var(--panel)}
+.sp .cf{font-family:var(--mono);font-weight:700;font-size:20px;min-width:24px;text-align:center;color:var(--accent-ink)}
+.sp .fm{font-weight:600;font-size:19px;padding:0 4px}
+.sp .fm sub{font-size:.68em}
+.sp button{width:30px;height:30px;padding:0;font-size:17px;font-weight:700;border:1px solid var(--rule);background:var(--panel-2);border-radius:5px;cursor:pointer;line-height:1}
+.sp button:hover{border-color:var(--accent)}
+.sp.hinted{box-shadow:0 0 0 3px var(--gold)}
+.op{font-weight:700;color:var(--ink-soft);font-size:20px}
+.tally{display:flex;flex-direction:column;gap:5px;margin:6px 0}
+.trow{display:grid;grid-template-columns:44px 1fr 92px 1fr;gap:6px;align-items:center;font-size:14px}
+.trow .el{font-weight:700;font-family:var(--mono)}
+.tbar{height:18px;background:var(--sunk);border-radius:4px;overflow:hidden;display:flex}
+.tbar.l{justify-content:flex-end}
+.tbar i{display:block;height:100%;background:var(--bad);transition:width .25s}
+.trow.ok .tbar i{background:var(--good)}
+.trow .mid{text-align:center;font-family:var(--mono);font-weight:700;font-size:13px}
+.trow.ok .mid{color:var(--good)}
+.trow:not(.ok) .mid{color:var(--warn-ink)}
+.lvls{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.lvls .round{padding:5px 10px;font-size:13px}
+.tier{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin:8px 0 4px}
+.ansbox input{width:200px}
+.ansbox input.fml{font-family:var(--sans)}
+.qopts{display:grid;grid-template-columns:1fr;gap:6px;margin:6px 0}
+.lifeq{border-top:1px solid var(--rule-soft);padding-top:10px;margin-top:12px}
+.lifeq .qlab{margin:0 0 8px}
+.lifefb{margin:6px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px}
+.lifefb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.lifefb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.side{padding:14px 16px}
+.probcard sub,.msg sub,.hintbox sub{font-size:.72em}
+.probcard sup,.msg sup,.hintbox sup{font-size:.72em}
+</style>
+<script src="chem-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">General Chemistry &middot; Module 7 &middot; Moles and stoichiometry</div>
+    <h1>Stoichiometry Lab</h1>
+    <p class="sub">Run reactions particle by particle and watch the limiting reactant run out, balance equations with live atom tallies, practice every kind of mole problem with worked solutions, and see stoichiometry in medicine, kitchens and cars. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-sim" data-tab="sim" id="tabbtn-sim" type="button">Part 1 &middot; Reaction Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-bal" data-tab="bal" id="tabbtn-bal" type="button" tabindex="-1">Part 2 &middot; Balancing Game</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-calc" data-tab="calc" id="tabbtn-calc" type="button" tabindex="-1">Part 3 &middot; Problem Trainer</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-life" data-tab="life" id="tabbtn-life" type="button" tabindex="-1">Part 4 &middot; Chemistry in Real Life</button>
+  </div>
+
+  <!-- PART 1 -->
+  <section id="tab-sim" role="tabpanel" aria-labelledby="tabbtn-sim">
+    <h2 class="gk-sr">Part 1: Reaction Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvSim" role="img" aria-label="Reaction simulator."></canvas></div>
+        <div class="stagebar">
+          <button class="btn" id="simRun" type="button">React</button>
+          <button class="tbtn" id="simReset" type="button">Reset</button>
+          <span class="caption" id="simCap"></span>
+        </div>
+        <div class="legend" id="simLegend"></div>
+        <p class="sim-note">Each drawn molecule stands for one particle (Particles mode) or for 0.1 mol (Grams mode). Motion is sped up. The balance shows the total mass inside the closed vessel.</p>
+      </div>
+      <aside class="card side" aria-label="Simulator controls">
+        <h3 id="simRxLab">1. Reaction</h3>
+        <div class="rxbtns" id="simRx" role="group" aria-labelledby="simRxLab"></div>
+        <h3 id="simModeLab">2. Measure reactants by</h3>
+        <div class="segbtns" id="simMode" role="group" aria-labelledby="simModeLab"></div>
+        <h3>3. Amounts</h3>
+        <div id="simAmts"></div>
+        <div class="ctl"><label for="simLoss">4. Lab losses when collecting product <output id="simLossOut" for="simLoss">10%</output></label>
+          <input type="range" id="simLoss" min="0" max="40" step="1" value="10"></div>
+        <table class="readouts" id="simRead"><caption class="sr">Simulator readouts</caption><thead><tr><th scope="col">Species</th><th scope="col">Before</th><th scope="col">After</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="simStatus" role="status"></div>
+        <h3>Challenges</h3>
+        <ul class="chal" id="simChal"></ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2 -->
+  <section id="tab-bal" role="tabpanel" aria-labelledby="tabbtn-bal" hidden>
+    <h2 class="gk-sr">Part 2: Balancing Game</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvBal" role="img" aria-label="Balancing picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="balCap"></span></div>
+        <p class="sim-note">The picture draws each formula as many times as its coefficient (up to 8). Atoms are rearranged in a reaction, never created or destroyed.</p>
+      </div>
+      <aside class="card side" aria-label="Balancing controls">
+        <div class="lvl-n" id="balN"></div>
+        <div class="lvls" id="balLvls" role="group" aria-label="Choose an equation"></div>
+        <p class="goal"><b class="h">Goal</b>Change only the coefficients (the big numbers) with the − and + buttons until every element's tally matches. Use the smallest whole numbers.</p>
+        <div class="eqrow" id="balEq"></div>
+        <div class="tally" id="balTally" aria-live="polite"></div>
+        <div class="bar">
+          <button class="btn" id="balCheck" type="button">Check</button>
+          <button class="tbtn" id="balHint" type="button">Hint</button>
+          <button class="tbtn" id="balShow" type="button">Show answer</button>
+          <button class="tbtn" id="balReset" type="button">Reset</button>
+          <button class="tbtn" id="balNext" type="button">Next equation</button>
+        </div>
+        <div class="msg" id="balMsg" role="status"></div>
+        <div class="meter"><span>Stars <b id="balStarsTot">0</b></span><span>Balanced <b id="balDone">0</b></span></div>
+        <p class="small">Stars: 3 for balancing without hints, 2 with a hint or several tries, 1 after showing the answer. There is no timer.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3 -->
+  <section id="tab-calc" role="tabpanel" aria-labelledby="tabbtn-calc" hidden>
+    <h2 class="gk-sr">Part 3: Problem Trainer</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvCalc" role="img" aria-label="Problem trainer picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="calcCap"></span></div>
+        <p class="sim-note">The worked solution follows the mole map. Watch matching units get struck through, the numbers combine, and the answer appear with the right significant figures.</p>
+      </div>
+      <aside class="card side" aria-label="Problem trainer controls">
+        <label class="lab-sel" for="calcType">Problem type</label>
+        <select id="calcType"></select>
+        <div class="probcard" id="calcProb" aria-live="polite"></div>
+        <div class="ansrow">
+          <label for="calcAns" class="ans-l">Your answer</label>
+          <div class="ansbox"><input type="text" id="calcAns" inputmode="text" autocomplete="off" spellcheck="false"><span id="calcUnit" class="unit"></span></div>
+          <span class="small" id="calcFmt"></span>
+        </div>
+        <div class="bar">
+          <button class="btn" id="calcCheck" type="button">Check</button>
+          <button class="tbtn" id="calcHint" type="button">Hint</button>
+          <button class="tbtn" id="calcSol" type="button">Show worked solution</button>
+          <button class="tbtn" id="calcNew" type="button">New problem</button>
+        </div>
+        <div class="msg" id="calcMsg" role="status"></div>
+        <div class="hintbox" id="calcHintBox" role="status" hidden></div>
+        <div class="meter streak"><span>Streak <b id="calcStreak">0</b></span><span>Best <b id="calcBest">0</b></span><span>Solved <b id="calcSolved">0</b></span></div>
+        <p class="small">The streak counts answers right on the first check without opening the solution. Atomic masses: H 1.008, C 12.01, N 14.01, O 16.00, Na 22.99, Cl 35.45 and so on (two decimals).</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 4 -->
+  <section id="tab-life" role="tabpanel" aria-labelledby="tabbtn-life" hidden>
+    <h2 class="gk-sr">Part 4: Chemistry in Real Life</h2>
+    <div class="casechips" id="lifeChips" role="group" aria-label="Choose a scenario"></div>
+    <div class="case wide">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvLife" role="img" aria-label="Scenario picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="lifeCap"></span></div>
+      </div>
+      <div class="card" id="lifeCard"></div>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; General Chemistry Study Tools &middot; Particle drawings are simplified and not to scale. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Stoich-Walkthrough.html">Stoichiometry Walkthrough</a>. Molecules are drawn flat, each drawn particle stands for many real ones in Grams mode, and reactions are sped up. Medication numbers in the scenarios are practice numbers for learning the chemistry, not dosing guidance. Atomic masses are rounded table values.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "act7", "act8", "gold", "gold-wash", "gold-ink", "ecf", "grid", "glass", "glass-edge", "water", "liquid", "paper", "flame", "flame2", "metal", "wood", "crystal", "sugar", "soot", "el-H", "el-C", "el-N", "el-O", "el-Cl", "el-Na", "el-S", "el-K", "el-Fe", "el-Mg", "el-Ca", "el-Al", "el-Cu", "el-P", "el-Ag", "el-Pb", "el-I", "el-Zn", "el-X"];
+/* ================= drawing kit (shared by both Stoich pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function lumOf(c){const A=hx(c).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*A[0]+.7152*A[1]+.0722*A[2]}
+function inkOn(c){return lumOf(c)>.36?"#10161A":"#FFFFFF"}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.92:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y);return ctx.measureText(t).width}
+function tw(t,size,weight,mono){ctx.font=`${weight||500} ${size||12}px ${mono?MONO:FONT}`;return ctx.measureText(t).width}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg,size){const fs=size||11.5;ctx.font=`600 ${fs}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-fs*.85,w+12,fs*1.7,fs*.85);ctx.fill();ctx.fillStyle=fg||inkOn(col);ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg,size){ctx.font=`600 ${size||11.5}px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg,size)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col||C.ink);ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.88);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=String(t).split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function withA(a,fn){if(a<=0)return;ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase(),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+function fillPoly(pts,f,s,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();fillStroke(f,s,lw)}
+function crossMark(x,y,s,col,lw){line(x-s,y-s,x+s,y+s,col||C.bad,lw||3);line(x-s,y+s,x+s,y-s,col||C.bad,lw||3)}
+function checkMark(x,y,s,col,lw){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,lw||3)}
+function okBadge(x,y,ok,r){r=r||11;circ(x,y,r,ok?C.good:C.bad);if(ok)checkMark(x,y,r*.5,onFill(),2.4);else crossMark(x,y,r*.42,onFill(),2.4)}
+function arrowHead(x,y,ang,col,s){s=s||8;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-s*Math.cos(ang-.45),y-s*Math.sin(ang-.45));ctx.lineTo(x-s*Math.cos(ang+.45),y-s*Math.sin(ang+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function curveArrow(x1,y1,x2,y2,bend,col,lw){const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1;const cx=mx-dy*bend,cy=my+dx*bend;ctx.beginPath();ctx.moveTo(x1,y1);ctx.quadraticCurveTo(cx,cy,x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.stroke();arrowHead(x2,y2,Math.atan2(y2-cy,x2-cx),col,7+(lw||2))}
+function tri(u){u=((u%2)+2)%2;return u<1?u:2-u}
+/* deterministic bouncing position inside a box (thermal motion) */
+function bounceXY(i,T,x,y,w,h,v,seed){seed=seed||0;const a=rnd(i*3.1+seed+.3)*TAU;const sp=v*(.6+.8*rnd(i*7.7+seed+1));
+  return [x+tri(rnd(i*1.3+seed+2)*2+T*sp*Math.cos(a)/Math.max(1,w))*w,y+tri(rnd(i*1.9+seed+3)*2+T*sp*Math.sin(a)/Math.max(1,h))*h]}
+function spinA(i,T,seed){return rnd(i*5.3+(seed||0))*TAU+T*(rnd(i*2.2+(seed||0))-.5)*2.4}
+/* level tags for the three levels of chemistry */
+function levelTag(x,y,kind,align){const m={see:["WHAT YOU SEE",C.act5],part:["PARTICLES",C.act2],sym:["SYMBOLS",C.accent]}[kind];
+  if(align==="right"){ctx.font=`600 11px ${MONO}`;x-=ctx.measureText(m[0]).width+12}chipL(x,y,m[0],m[1],null,11)}
+
+/* ================= chemistry data ================= */
+const AM={H:1.008,He:4.003,Li:6.94,C:12.01,N:14.01,O:16.00,F:19.00,Na:22.99,Mg:24.31,Al:26.98,Si:28.09,P:30.97,S:32.07,Cl:35.45,K:39.10,Ca:40.08,Cr:52.00,Mn:54.94,Fe:55.85,Cu:63.55,Zn:65.38,Br:79.90,Ag:107.87,I:126.90,Pb:207.2};
+const ENAME={H:"hydrogen",C:"carbon",N:"nitrogen",O:"oxygen",F:"fluorine",Na:"sodium",Mg:"magnesium",Al:"aluminum",Si:"silicon",P:"phosphorus",S:"sulfur",Cl:"chlorine",K:"potassium",Ca:"calcium",Cr:"chromium",Mn:"manganese",Fe:"iron",Cu:"copper",Zn:"zinc",Br:"bromine",Ag:"silver",I:"iodine",Pb:"lead",Li:"lithium",He:"helium"};
+const NA=6.022e23;
+function parseF(f){const out={};String(f).replace(/\s/g,"").split(/[·*]/).forEach(part=>{if(!part)return;let mult=1;const m=part.match(/^(\d+)(.*)$/);if(m&&/[A-Z(]/.test(m[2][0]||"")){mult=+m[1];part=m[2]}
+    const stack=[{}];let i=0;
+    while(i<part.length){const ch=part[i];
+      if(ch==="("||ch==="["){stack.push({});i++}
+      else if(ch===")"||ch==="]"){i++;let n="";while(i<part.length&&/\d/.test(part[i]))n+=part[i++];const g=stack.pop();const k=n?+n:1;const top=stack[stack.length-1];Object.keys(g).forEach(e=>top[e]=(top[e]||0)+g[e]*k)}
+      else if(/[A-Z]/.test(ch)){let e=ch;i++;while(i<part.length&&/[a-z]/.test(part[i]))e+=part[i++];let n="";while(i<part.length&&/\d/.test(part[i]))n+=part[i++];const top=stack[stack.length-1];top[e]=(top[e]||0)+(n?+n:1)}
+      else return null}
+    const g=stack[0];Object.keys(g).forEach(e=>out[e]=(out[e]||0)+g[e]*mult)});return out}
+function fmassRaw(f){const c=typeof f==="string"?parseF(f):f;let s=0;Object.keys(c).forEach(e=>s+=c[e]*(AM[e]||0));return s}
+function mm(f){return Math.round(fmassRaw(f)*100)/100}
+const SUBD="₀₁₂₃₄₅₆₇₈₉",SUPD="⁰¹²³⁴⁵⁶⁷⁸⁹";
+function fU(f){return String(f).replace(/([A-Za-z\)\]])(\d+)/g,(m,a,d)=>a+d.split("").map(x=>SUBD[+x]).join(""))}
+function fH(f){return String(f).replace(/([A-Za-z\)\]])(\d+)/g,"$1<sub>$2</sub>")}
+function supN(n){return String(n).split("").map(c=>c==="-"?"⁻":SUPD[+c]).join("")}
+/* significant-figure formatting */
+function sfCount(s){s=String(s).trim().replace(/,/g,"").replace(/\s+/g,"");const m=s.match(/^[-+]?(\d*\.?\d+)/);if(!m)return 0;let d=m[1];
+  if(d.indexOf(".")>=0){d=d.replace(".","").replace(/^0+/,"");return Math.max(1,d.length)}d=d.replace(/^0+/,"");const t=d.replace(/0+$/,"");return Math.max(1,t.length)}
+function sfStr(v,sf){if(!isFinite(v))return "—";if(v===0)return (0).toFixed(Math.max(0,sf-1));const a=Math.abs(v);const e=Math.floor(Math.log10(a));
+  if(e>=6||e<-3||(e>=sf&&e>=4)){let m=v/Math.pow(10,e);let ms=m.toFixed(sf-1);if(Math.abs(+ms)>=10){m/=10;ms=m.toFixed(sf-1);return ms+" × 10"+supN(e+1)}return ms+" × 10"+supN(e)}
+  if(e>=sf){/* e.g. 1234 to 2 sf */let m=v/Math.pow(10,e);return m.toFixed(sf-1)+" × 10"+supN(e)}
+  const dp=Math.max(0,sf-1-e);let s=v.toFixed(dp);const chk=Math.floor(Math.log10(Math.abs(+s)||1));if(chk>e&&dp>0)s=v.toFixed(dp-1);
+  if(s.indexOf(".")<0&&sfCount(s)<sf){return sci(v,sf)}return s}
+function sci(v,sf){const a=Math.abs(v);if(a===0)return "0";const e=Math.floor(Math.log10(a));let m=v/Math.pow(10,e);let ms=m.toFixed(sf-1);if(Math.abs(+ms)>=10){ms=(m/10).toFixed(sf-1);return ms+" × 10"+supN(e+1)}return ms+" × 10"+supN(e)}
+function sciH(v,sf){return sci(v,sf).replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/,(m,s)=>"10<sup>"+s.split("").map(c=>c==="⁻"?"−":SUPD.indexOf(c)).join("")+"</sup>")}
+function fmtNum(v,dp){if(dp==null)dp=2;const r=Math.round(v*Math.pow(10,dp))/Math.pow(10,dp);let s=String(r);if(Math.abs(r)>=1000){const p=s.split(".");p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,",");s=p.join(".")}return s}
+/* ================= atoms and molecules ================= */
+const ER={H:.62,C:.92,N:.88,O:.86,F:.8,Na:1.12,Mg:1.05,Al:1.05,Si:1.05,P:1.0,S:1.0,Cl:1.0,K:1.25,Ca:1.15,Fe:1.0,Cu:1.0,Zn:1.0,Ag:1.1,I:1.15,Pb:1.2,Cr:1,Mn:1,Br:1.05,Li:1};
+function elCol(el){return C["el-"+el]||C["el-X"]}
+/* one atom drawn as a shaded sphere with its symbol. o.charge "+","2+","−"; o.hl highlight colour; o.a alpha; o.nolab */
+function atom(x,y,el,r,o){o=o||{};const R=r*(ER[el]||1);const col=o.col||elCol(el);ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);
+  if(o.hl){glow(x,y,R*2.1,o.hl,.55)}
+  const g=ctx.createRadialGradient(x-R*.38,y-R*.42,R*.1,x,y,R);g.addColorStop(0,mix(col,"#ffffff",.5));g.addColorStop(.55,col);g.addColorStop(1,mix(col,"#000000",.28));
+  ctx.beginPath();ctx.arc(x,y,R,0,TAU);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=el==="H"?hexA(isDark()?"#000000":"#10161A",.6):hexA("#10161A",.45);ctx.lineWidth=el==="H"?1.4:1.1;ctx.stroke();
+  if(!o.nolab&&R>=5.5){const fs=Math.max(8.5,Math.min(R*1.02,18));ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col);ctx.fillText(el,x,y+.5)}
+  if(o.charge){const bx=x+R*.78,by=y-R*.78;const t=o.charge;ctx.font=`700 10.5px ${MONO}`;const w=Math.max(14,ctx.measureText(t).width+6);rr(bx-w/2,by-7.5,w,15,7.5);ctx.fillStyle=t.indexOf("+")>=0?C.act6:C.act2;ctx.fill();ctx.strokeStyle=C.panel;ctx.lineWidth=1.2;ctx.stroke();ctx.fillStyle=inkOn(t.indexOf("+")>=0?C.act6:C.act2);ctx.textAlign="center";ctx.fillText(t,bx,by+.5)}
+  ctx.restore();return R}
+/* fixed 2D layouts for common molecules (units of base radius r) */
+const GEO={
+  H2:[["H",-.55,0],["H",.55,0]],O2:[["O",-.72,0],["O",.72,0]],N2:[["N",-.72,0],["N",.72,0]],Cl2:[["Cl",-.85,0],["Cl",.85,0]],
+  H2O:[["H",-.9,.62],["H",.9,.62],["O",0,0]],CO2:[["O",-1.5,0],["O",1.5,0],["C",0,0]],CO:[["C",-.72,0],["O",.72,0]],
+  NH3:[["H",-.98,.5],["H",.98,.5],["H",0,-1.05],["N",0,0]],CH4:[["H",-.86,-.86],["H",.86,-.86],["H",-.86,.86],["H",.86,.86],["C",0,0]],
+  HCl:[["H",-1.0,0],["Cl",.32,0]],H2O2:[["H",-1.7,.72],["H",1.7,-.72],["O",-.72,0],["O",.72,0]],NO2:[["O",-1.12,.6],["O",1.12,.6],["N",0,0]],
+  NaCl:[["Na",-.95,0,"+"],["Cl",.98,0,"−"]],MgO:[["Mg",-.92,0,"2+"],["O",.92,0,"2−"]],
+  C3H8:[["H",-2.3,-.8],["H",-2.3,.8],["H",-2.75,0],["H",0,-1.45],["H",0,1.45],["H",2.3,-.8],["H",2.3,.8],["H",2.75,0],["C",-1.45,0],["C",0,0],["C",1.45,0]],
+  C2H6:[["H",-1.75,-.85],["H",-1.75,.85],["H",-2.15,0],["H",1.75,-.85],["H",1.75,.85],["H",2.15,0],["C",-.72,0],["C",.72,0]],
+  N3:[["N",-1.3,0],["N",1.3,0],["N",0,0]],NaN3:[["Na",-1.75,0,"+"],["N",-.1,0],["N",2.5,0],["N",1.2,0,"−"]],Na:[["Na",0,0]],Fe:[["Fe",0,0]],Mg:[["Mg",0,0]],Al:[["Al",0,0]],Cu:[["Cu",0,0]],Zn:[["Zn",0,0]],C:[["C",0,0]],
+  C6H6:[["H",2.45,0.00],["H",1.23,2.12],["H",-1.22,2.12],["H",-2.45,0.00],["H",-1.23,-2.12],["H",1.23,-2.12],["C",1.45,0.00],["C",0.73,1.26],["C",-0.72,1.26],["C",-1.45,0.00],["C",-0.73,-1.26],["C",0.73,-1.26]],
+  SO4:[["O",-.95,-.95],["O",.95,-.95],["O",-.95,.95],["O",.95,.95],["S",0,0]],OH:[["H",.9,-.3],["O",0,0]]
+};
+const _geoCache={};
+function geoOf(f){if(GEO[f])return GEO[f];if(_geoCache[f])return _geoCache[f];const c=parseF(f)||{};const heavy=[],hs=[];Object.keys(c).forEach(e=>{for(let i=0;i<c[e];i++)(e==="H"?hs:heavy).push(e)});
+  heavy.sort((a,b)=>(c[b]||0)-(c[a]||0));const out=[];const pos=hexSpiral(heavy.length);heavy.forEach((e,i)=>out.push([e,pos[i][0]*1.5,pos[i][1]*1.5]));
+  let rad=0;out.forEach(p=>rad=Math.max(rad,Math.hypot(p[1],p[2])));rad+=1.05;hs.forEach((e,i)=>{const a=i/hs.length*TAU+.3;out.unshift(["H",Math.cos(a)*rad,Math.sin(a)*rad])});_geoCache[f]=out;return out}
+function hexSpiral(n){const pts=[[0,0]];let ring=1;while(pts.length<n){for(let k=0;k<6*ring&&pts.length<n;k++){const a=k/(6*ring)*TAU;pts.push([Math.cos(a)*ring,Math.sin(a)*ring])}ring++}return pts}
+function molRadius(f,r){let m=0;geoOf(f).forEach(p=>m=Math.max(m,Math.hypot(p[1],p[2])*r+r*(ER[p[0]]||1)));return m}
+/* draw a molecule (space-filling style). o.rot, o.a, o.hl, o.lbl (text under), o.atomHl {index:col} */
+function mol(x,y,f,r,o){o=o||{};const g=geoOf(f);const rot=o.rot||0;const cs=Math.cos(rot),sn=Math.sin(rot);ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);
+  if(o.hl){glow(x,y,molRadius(f,r)*1.5,o.hl,.5)}
+  g.forEach((p,i)=>{const X=x+(p[1]*cs-p[2]*sn)*r,Y=y+(p[1]*sn+p[2]*cs)*r;atom(X,Y,p[0],r,{charge:o.ions===false?null:p[3],hl:o.atomHl&&o.atomHl[p[0]],nolab:o.nolab})});
+  if(o.lbl)label(x,y+molRadius(f,r)+11,o.lbl,{size:11.5,weight:700,mono:true});ctx.restore()}
+/* ion lattice (NaCl type) */
+function lattice(x,y,cols,rows,cell,A,B,o){o=o||{};for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const isA=(i+j)%2===0;const jx=o.T!=null?Math.sin(o.T*9+i*1.7+j*2.3)*1.2:0;atom(x+i*cell+jx,y+j*cell,isA?A:B,o.r||cell*.42,{charge:o.charges?(isA?o.charges[0]:o.charges[1]):null,nolab:o.nolab})}}
+
+/* ================= glassware and lab objects ================= */
+function beaker(x,y,w,h,level,col,o){o=o||{};ctx.save();rr(x,y,w,h,8);ctx.clip();ctx.fillStyle=hexA(C.glass,.45);ctx.fillRect(x,y,w,h);const lh=h*clamp(level,0,1);
+  if(lh>0){ctx.fillStyle=col||hexA(C.liquid,.85);ctx.fillRect(x,y+h-lh,w,lh);ctx.fillStyle=hexA("#ffffff",.25);ctx.fillRect(x,y+h-lh,w,2)}ctx.restore();
+  ctx.beginPath();ctx.moveTo(x-6,y-2);ctx.lineTo(x,y+4);ctx.lineTo(x,y+h-8);ctx.arcTo(x,y+h,x+8,y+h,8);ctx.lineTo(x+w-8,y+h);ctx.arcTo(x+w,y+h,x+w,y+h-8,8);ctx.lineTo(x+w,y);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+  if(!o.noMarks)for(let i=1;i<=4;i++){const yy=y+h-h*i/5;line(x+w-12,yy,x+w-2,yy,hexA(C["glass-edge"],.8),1.2)}
+  line(x+5,y+10,x+5,y+h-14,hexA("#ffffff",.5),2)}
+function flaskPath(x,y,s){ctx.beginPath();ctx.moveTo(x-9*s,y-60*s);ctx.lineTo(x-9*s,y-30*s);ctx.lineTo(x-38*s,y+22*s);ctx.quadraticCurveTo(x-42*s,y+30*s,x-32*s,y+30*s);ctx.lineTo(x+32*s,y+30*s);ctx.quadraticCurveTo(x+42*s,y+30*s,x+38*s,y+22*s);ctx.lineTo(x+9*s,y-30*s);ctx.lineTo(x+9*s,y-60*s)}
+/* Erlenmeyer flask: (x,y) = centre of the cone; base at y+30s */
+function flask(x,y,s,level,col,o){o=o||{};ctx.save();flaskPath(x,y,s);ctx.closePath();ctx.fillStyle=hexA(C.glass,.45);ctx.fill();ctx.clip();const top=y+30*s-90*s*clamp(level,0,1);if(level>0){ctx.fillStyle=col||hexA(C.liquid,.85);ctx.fillRect(x-50*s,top,100*s,y+30*s-top)}ctx.restore();
+  flaskPath(x,y,s);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();if(o.stopper){rr(x-11*s,y-70*s,22*s,14*s,3);fillStroke(C.wood,hexA(C.ink,.4),1)}}
+function volFlask(x,y,s,level,col){ctx.save();ctx.beginPath();ctx.moveTo(x-6*s,y-90*s);ctx.lineTo(x-6*s,y-28*s);ctx.arc(x,y,30*s,-Math.PI/2-.2,Math.PI*1.5+.2,false);ctx.lineTo(x+6*s,y-90*s);ctx.closePath();ctx.fillStyle=hexA(C.glass,.45);ctx.fill();ctx.clip();
+  const lv=clamp(level,0,1);const top=y+30*s-lv*112*s;ctx.fillStyle=col||hexA(C.liquid,.85);ctx.fillRect(x-40*s,top,80*s,y+40*s-top);ctx.restore();
+  ctx.beginPath();ctx.moveTo(x-6*s,y-92*s);ctx.lineTo(x-6*s,y-28*s);ctx.arc(x,y,30*s,-Math.PI/2-.2,Math.PI*1.5+.2,false);ctx.lineTo(x+6*s,y-92*s);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+  line(x-9*s,y-70*s,x+9*s,y-70*s,C.ink,1.6)}
+/* digital balance: (x,y) top-left of the pan area; reading string */
+function balance(x,y,w,reading,o){o=o||{};rr(x,y+18,w,40,6);fillStroke(o.body||mix(C.metal,C.panel,.35),hexA(C.ink,.45),1.4);rr(x+12,y,w-24,8,3);fillStroke(C.metal,hexA(C.ink,.45),1.2);line(x+w/2,y+8,x+w/2,y+18,C.metal,5);
+  rr(x+w/2-62,y+26,124,24,4);ctx.fillStyle="#0F1A14";ctx.fill();txt(x+w/2+56,y+38.5,reading,{size:14,mono:true,weight:700,align:"right",color:o.lcd||"#7FE0A8"})}
+function watchGlass(x,y,w){ctx.beginPath();ctx.moveTo(x-w/2,y-6);ctx.quadraticCurveTo(x,y+12,x+w/2,y-6);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke()}
+function heap(x,y,w,h,col,seed){ctx.beginPath();ctx.moveTo(x-w/2,y);for(let i=0;i<=20;i++){const t=i/20;const X=x-w/2+w*t;const Y=y-h*Math.sin(Math.PI*t)*(0.9+.12*Math.sin(i*1.7+(seed||0)));ctx.lineTo(X,Y)}ctx.closePath();fillStroke(col,hexA(C.ink,.35),1.1)}
+function burner(x,y,s,T,on){rr(x-10*s,y-46*s,20*s,46*s,3);fillStroke(C.metal,hexA(C.ink,.45),1.2);rr(x-24*s,y-6*s,48*s,8*s,3);fillStroke(C.metal,hexA(C.ink,.45),1.2);
+  if(on!==false){const fl=1+.08*Math.sin(T*23)+.05*Math.sin(T*37);ctx.save();ctx.beginPath();ctx.moveTo(x-9*s,y-46*s);ctx.quadraticCurveTo(x-14*s,y-80*s*fl,x,y-118*s*fl);ctx.quadraticCurveTo(x+14*s,y-80*s*fl,x+9*s,y-46*s);ctx.closePath();ctx.fillStyle=hexA(C.flame,.75);ctx.fill();
+    ctx.beginPath();ctx.moveTo(x-5*s,y-46*s);ctx.quadraticCurveTo(x-7*s,y-64*s,x,y-82*s*fl);ctx.quadraticCurveTo(x+7*s,y-64*s,x+5*s,y-46*s);ctx.closePath();ctx.fillStyle=hexA(C.act2,.8);ctx.fill();ctx.restore()}}
+function bubbles(x,y,w,h,T,n,col,seed){for(let i=0;i<n;i++){const p=P(T*(.35+.3*rnd(i+(seed||0)))+rnd(i*3+(seed||0)),1);const bx=x+rnd(i*7+(seed||0))*w+Math.sin(T*3+i)*3;circ(bx,y+h-p*h,2+2.5*rnd(i*5),null,col||hexA(C.ink,.45),1.2)}}
+function sparkle(x,y,r,T,col){for(let k=0;k<8;k++){const a=k/8*TAU+T*2;const l=r*(.6+.4*Math.sin(T*9+k));line(x+Math.cos(a)*r*.3,y+Math.sin(a)*r*.3,x+Math.cos(a)*l,y+Math.sin(a)*l,col||C.gold,2)}}
+/* ================= graphs ================= */
+function axes(x,y,w,h,xl,yl){line(x,y,x,y+h,C["ink-soft"],1.6);line(x,y+h,x+w,y+h,C["ink-soft"],1.6);if(yl)txt(x-4,y-12,yl,{size:11.5,mono:true,weight:600,color:C["ink-soft"]});if(xl)txt(x+w,y+h+18,xl,{size:11.5,mono:true,weight:600,color:C["ink-soft"],align:"right"})}
+function pie(x,y,r,parts,p){let a=-Math.PI/2;const tot=TAU*clamp(p==null?1:p,0,1);parts.forEach(pt=>{const da=pt[0]*TAU;const use=Math.min(da,Math.max(0,tot-(a+Math.PI/2)));if(use>0){ctx.beginPath();ctx.moveTo(x,y);ctx.arc(x,y,r,a,a+use);ctx.closePath();fillStroke(pt[1],C.panel,2)}a+=da});circ(x,y,r,null,hexA(C.ink,.35),1.2)}
+/* ================= equations ================= */
+/* terms: array of {c:coef or "", f:formula, s:state} or "+" / "→". returns boxes */
+function drawEq(x,y,terms,o){o=o||{};const fs=o.size||20;const boxes=[];let X=x;
+  const meas=t=>{if(typeof t==="string")return tw(" "+t+" ",fs,600,false);let w=0;if(t.c&&t.c!==1)w+=tw(String(t.c),fs,700,true)+3;w+=tw(fU(t.f),fs,600,false);if(t.s)w+=tw("("+t.s+")",fs*.62,500,false)+2;return w};
+  let total=0;terms.forEach(t=>total+=meas(t));if(o.align==="center")X=x-total/2;
+  terms.forEach((t,i)=>{if(typeof t==="string"){const w=meas(t);txt(X+w/2,y,t,{size:fs,weight:600,align:"center",color:C["ink-soft"]});X+=w;return}
+    const w=meas(t);const hl=o.hl===i||(o.hlSet&&o.hlSet.has(i));if(hl){rr(X-4,y-fs*.85,w+8,fs*1.7,5);ctx.fillStyle=hexA(o.hlCol||C.accent,.18);ctx.fill();ctx.strokeStyle=o.hlCol||C.accent;ctx.lineWidth=2;ctx.stroke()}
+    let xx=X;if(t.c&&t.c!==1){const cc=o.coefCol||C.accent;xx+=txt(xx,y,String(t.c),{size:fs,weight:700,mono:true,color:cc})+3}
+    xx+=txt(xx,y,fU(t.f),{size:fs,weight:600,color:t.col||C.ink});if(t.s){txt(xx+1,y+fs*.25,"("+t.s+")",{size:fs*.62,weight:500,color:C["ink-soft"]})}
+    boxes.push({i,x:X,w,cx:X+w/2,y});X+=w});return {boxes,end:X,start:X-total}}
+
+/* ================= fraction chain (dimensional analysis) =================
+   items: [{n:[val,units[]],d:[val,units[]]|null}], val may be a preformatted string. res:[val,units[]]. p = 0..1 progress. */
+function frac(nv,nu,dv,du){return {n:[nv,Array.isArray(nu)?nu:[nu]],d:dv==null?null:[dv,Array.isArray(du)?du:[du]]}}
+function fv(v){return typeof v==="string"?v:fmtNum(v,4)}
+function unitStr(u){return u.join(" · ")}
+function ukey(u){return String(u).replace(/molecules/g,"molecule").replace(/atoms/g,"atom").replace(/units/g,"unit").trim()}
+function fracChain(x,y,items,res,p,o){o=o||{};const fs=o.size||15;ctx.font=`600 ${fs}px ${MONO}`;
+  const ns=[],ds=[];items.forEach((it,i)=>{it.n[1].forEach((u,k)=>ns.push({i,k,u,used:false}));if(it.d)it.d[1].forEach((u,k)=>ds.push({i,k,u,used:false}))});
+  const pairs=[];ds.forEach(d=>{const m=ns.find(n=>!n.used&&ukey(n.u)===ukey(d.u)&&n.i!==d.i);if(m){m.used=true;d.used=true;pairs.push([m,d])}});
+  const nIt=items.length;const appear=o.appear!==false;
+  const pos={};let X=x;const gap=o.gap||22;const sg=pairs.length?1/pairs.length:1;
+  items.forEach((it,i)=>{const ia=appear?clamp(p*(nIt+2)-i,0,1):1;const nt=fv(it.n[0])+" "+unitStr(it.n[1]);const dt=it.d?fv(it.d[0])+" "+unitStr(it.d[1]):"";ctx.font=`600 ${fs}px ${MONO}`;const w=Math.max(ctx.measureText(nt).width,ctx.measureText(dt).width)+8;
+    const cx=X+w/2;
+    ctx.save();ctx.globalAlpha*=ia;
+    const drawPart=(val,units,yy,isN)=>{ctx.font=`600 ${fs}px ${MONO}`;const full=fv(val)+" "+unitStr(units);let px=cx-ctx.measureText(full).width/2;
+      const vs=fv(val)+" ";ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(vs,px,yy);px+=ctx.measureText(vs).width;
+      units.forEach((u,k)=>{const uw=ctx.measureText(u).width;pos[(isN?"n":"d")+i+"_"+k]=[px,yy,uw];ctx.fillStyle=o.ucol||C["accent-ink"];ctx.fillText(u,px,yy);px+=uw;if(k<units.length-1){ctx.fillStyle=C.ink;ctx.fillText(" · ",px,yy);px+=ctx.measureText(" · ").width}})};
+    if(o.hlItem===i){rr(X-3,y-(it.d?30:16),w+6,it.d?60:32,5);ctx.fillStyle=hexA(o.hlCol||C.gold,.22);ctx.fill()}
+    if(it.d){drawPart(it.n[0],it.n[1],y-14,true);line(X,y,X+w,y,C.ink,1.6);drawPart(it.d[0],it.d[1],y+15,false)}else drawPart(it.n[0],it.n[1],y,true);
+    ctx.restore();
+    X+=w;if(i<items.length-1){withA(appear?clamp(p*(nIt+2)-i-1,0,1):1,()=>txt(X+gap/2,y,"×",{size:fs+2,weight:700,align:"center",color:C["ink-soft"]}));X+=gap;if(o.breakAfter===i){X=x+(o.indent||0);y+=o.rowH||70;txt(X-gap/2,y,"×",{size:fs+2,weight:700,align:"center",color:C["ink-soft"]})}}});
+  const pc=appear?clamp((p*(nIt+2)-nIt)/1.6,0,1):p;
+  pairs.forEach((pr,j)=>{const f=clamp((pc-j*sg)/sg,0,1);if(f<=0)return;[pr[0],pr[1]].forEach((q,qi)=>{const key=(qi===0?"n":"d")+q.i+"_"+q.k;const ps=pos[key];if(!ps)return;
+    line(ps[0]-2,ps[1]+6,ps[0]-2+(ps[2]+4)*f,ps[1]-6,C.bad,2.4)})});
+  const rf=appear?clamp((p*(nIt+2)-nIt-1.5)/.5,0,1):clamp((p-.92)/.08,0,1);
+  if(res){txt(X+gap/2,y,"=",{size:fs+3,weight:700,align:"center",color:C["ink-soft"]});X+=gap+6;
+    if(rf>0)withA(rf,()=>{const t=fv(res[0])+" "+unitStr(res[1]);ctx.font=`700 ${fs+2}px ${MONO}`;const w=ctx.measureText(t).width;rr(X-4,y-14,w+12,28,6);ctx.fillStyle=C["good-wash"];ctx.fill();ctx.strokeStyle=C.good;ctx.lineWidth=1.6;ctx.stroke();txt(X+2,y,t,{size:fs+2,weight:700,mono:true})});
+    ctx.font=`700 ${fs+2}px ${MONO}`;X+=ctx.measureText(fv(res[0])+" "+unitStr(res[1])).width+12}
+  return X}
+function fracChainWidth(items,res,o){o=o||{};const fs=o.size||15;ctx.font=`600 ${fs}px ${MONO}`;const gap=o.gap||22;let X=0;
+  items.forEach((it,i)=>{const nt=fv(it.n[0])+" "+unitStr(it.n[1]);const dt=it.d?fv(it.d[0])+" "+unitStr(it.d[1]):"";X+=Math.max(ctx.measureText(nt).width,ctx.measureText(dt).width)+8;if(i<items.length-1)X+=gap});
+  if(res){X+=gap+6;ctx.font=`700 ${fs+2}px ${MONO}`;X+=ctx.measureText(fv(res[0])+" "+unitStr(res[1])).width+12}return X}
+/* ================= mole map ================= */
+function mapNode(x,y,w,h,ttl,sub,col,on,a){withA(a==null?1:a,()=>{rr(x-w/2,y-h/2,w,h,10);ctx.fillStyle=on?hexA(col,.22):hexA(C.panel,.95);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=on?3:1.6;ctx.stroke();
+  txt(x,y-(sub?8:0),ttl,{size:14,weight:700,align:"center"});if(sub)txt(x,y+11,sub,{size:11.5,mono:true,align:"center",color:C["ink-soft"]})})}
+function mapRoad(x1,y1,x2,y2,lab1,lab2,on,col,o){o=o||{};const c=on?col:hexA(C["ink-soft"],.55);const dy=o.dy==null?7:o.dy;const vert=Math.abs(y2-y1)>Math.abs(x2-x1);
+  if(vert){arrow(x1-dy,y1,x2-dy,y2,c,on?3:1.8);arrow(x2+dy,y2,x1+dy,y1,c,on?3:1.8)}else{arrow(x1,y1-dy,x2,y2-dy,c,on?3:1.8);arrow(x2,y2+dy,x1,y1+dy,c,on?3:1.8)}
+  const mx=(x1+x2)/2,my=(y1+y2)/2;
+  if(vert){if(lab1)label(mx-dy-6,my,lab1,{size:11.5,weight:700,mono:true,align:"right",border:on?col:null,color:on?C.ink:C["ink-soft"]});if(lab2)label(mx+dy+6,my,lab2,{size:11.5,weight:700,mono:true,align:"left",border:on?col:null,color:on?C.ink:C["ink-soft"]})}
+  else{if(lab1)label(mx,my-dy-14,lab1,{size:11.5,weight:700,mono:true,border:on?col:null,color:on?C.ink:C["ink-soft"]});if(lab2)label(mx,my+dy+14,lab2,{size:11.5,weight:700,mono:true,border:on?col:null,color:on?C.ink:C["ink-soft"]})}}
+
+/* ================= reactions: atoms rearrange ================= */
+function speciesAtoms(f,x,y,r,rot){const g=geoOf(f);const cs=Math.cos(rot||0),sn=Math.sin(rot||0);return g.map(p=>({el:p[0],x:x+(p[1]*cs-p[2]*sn)*r,y:y+(p[1]*sn+p[2]*cs)*r,ch:p[3]}))}
+function groupAtoms(list,r){let out=[];list.forEach(s=>{out=out.concat(speciesAtoms(s.f,s.x,s.y,r,s.rot||0))});return out}
+function matchAtoms(A,B){const used=B.map(()=>false);return A.map(a=>{let best=-1,bd=1e9;B.forEach((b,j)=>{if(used[j]||b.el!==a.el)return;const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<bd){bd=d;best=j}});if(best>=0)used[best]=true;return best})}
+/* draw atoms moving from arrangement A to B. f 0..1. o.cx,o.cy flash centre; o.burst pushes atoms apart mid-way */
+function morphAtoms(A,B,f,r,o){o=o||{};const map=matchAtoms(A,B);const e=ease(clamp(f,0,1));let cx=o.cx,cy=o.cy;
+  if(cx==null){cx=0;cy=0;A.forEach(a=>{cx+=a.x;cy+=a.y});cx/=A.length||1;cy/=A.length||1}
+  const mid=Math.sin(e*Math.PI);if(mid>.05&&o.flash!==false){glow(cx,cy,r*6*mid,C.gold,.55*mid)}
+  const pts=A.map((a,i)=>{const b=B[map[i]]||a;let X=lerp(a.x,b.x,e),Y=lerp(a.y,b.y,e);const k=mid*(o.burst==null?r*.9:o.burst);const dx=X-cx,dy=Y-cy;const d=Math.hypot(dx,dy)||1;X+=dx/d*k;Y+=dy/d*k;return {el:a.el,x:X,y:Y,ch:e>.5&&B[map[i]]?B[map[i]].ch:a.ch}});
+  pts.sort((p,q)=>(q.el==="H")-(p.el==="H"));pts.forEach(p=>atom(p.x,p.y,p.el,r,{charge:o.ions?p.ch:null}));
+  if(mid>.3&&o.flash!==false)sparkle(cx,cy,r*3.5,o.T||0,hexA(C.gold,.8*mid))}
+function bread(x,y,s,a){withA(a==null?1:a,()=>{ctx.beginPath();ctx.moveTo(x-16*s,y+12*s);ctx.lineTo(x-16*s,y-4*s);ctx.quadraticCurveTo(x-20*s,y-16*s,x-8*s,y-15*s);ctx.quadraticCurveTo(x,y-20*s,x+8*s,y-15*s);ctx.quadraticCurveTo(x+20*s,y-16*s,x+16*s,y-4*s);ctx.lineTo(x+16*s,y+12*s);ctx.closePath();fillStroke(mix(C.wood,"#ffffff",.25),hexA(C.ink,.45),1.3);
+  ctx.beginPath();ctx.moveTo(x-12*s,y+9*s);ctx.lineTo(x-12*s,y-3*s);ctx.quadraticCurveTo(x-14*s,y-11*s,x-6*s,y-11*s);ctx.quadraticCurveTo(x,y-15*s,x+6*s,y-11*s);ctx.quadraticCurveTo(x+14*s,y-11*s,x+12*s,y-3*s);ctx.lineTo(x+12*s,y+9*s);ctx.closePath();fillStroke(mix(C.wood,"#ffffff",.7),null)})}
+function cheese(x,y,s,a){withA(a==null?1:a,()=>{rr(x-14*s,y-12*s,28*s,24*s,3);fillStroke(C.gold,hexA(C.ink,.45),1.3);circ(x-5*s,y-3*s,3*s,mix(C.gold,"#000000",.2));circ(x+6*s,y+5*s,2.4*s,mix(C.gold,"#000000",.2));circ(x+5*s,y-6*s,1.8*s,mix(C.gold,"#000000",.2))})}
+function wheel(x,y,r,a,T){withA(a==null?1:a,()=>{circ(x,y,r,null,C.ink,3);circ(x,y,r*.18,C.ink);for(let k=0;k<6;k++){const an=k/6*Math.PI+(T||0);line(x+Math.cos(an)*r,y+Math.sin(an)*r,x-Math.cos(an)*r,y-Math.sin(an)*r,hexA(C.ink,.5),1)}})}
+function bikeFrame(x,y,s,a){withA(a==null?1:a,()=>{poly([[x-22*s,y+10*s],[x-4*s,y-12*s],[x+20*s,y-12*s],[x+4*s,y+10*s],[x-22*s,y+10*s]],C.act2,3.2);poly([[x-4*s,y-12*s],[x-7*s,y-18*s]],C.act2,3);poly([[x+20*s,y-12*s],[x+24*s,y-20*s]],C.act2,3);line(x-11*s,y-18*s,x-3*s,y-18*s,C.ink,3)})}
+
+function resultBox(x,y,t,a,col){withA(a,()=>{ctx.font=`700 17px ${MONO}`;const w=ctx.measureText(t).width;rr(x-w/2-10,y-16,w+20,32,7);ctx.fillStyle=C["good-wash"];ctx.fill();ctx.strokeStyle=col||C.good;ctx.lineWidth=2;ctx.stroke();txt(x,y+1,t,{size:17,weight:700,mono:true,align:"center"})})}
+
+/* ---------------- lab helpers ---------------- */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function useStage(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const randIn=(a,b)=>a+Math.random()*(b-a);
+const store={get:k=>{try{return localStorage.getItem("stoich-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("stoich-lab-"+k,v)}catch(e){}}};
+function segBtns(el,items,cur,onPick){el.innerHTML="";items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=it[1];b.setAttribute("aria-pressed",String(it[0]===cur()));b.onclick=()=>{onPick(it[0]);el.querySelectorAll("button").forEach((x,i)=>x.setAttribute("aria-pressed",String(items[i][0]===cur())))};el.appendChild(b)})}
+function chalUI(el,list,done){el.innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c}${done.has(i)?'<span class="gk-sr"> (done)</span>':""}</span></li>`).join("")}
+function eqU(R,Pd){const side=a=>a.map(x=>(x[0]>1?x[0]:"")+fU(x[1])).join(" + ");return side(R)+" → "+side(Pd)}
+function eqH(R,Pd){const side=a=>a.map(x=>(x[0]>1?x[0]:"")+fH(x[1])).join(" + ");return side(R)+" → "+side(Pd)}
+function gcd(a,b){return b?gcd(b,a%b):a}
+/* number entry: accepts 1.51e23, 1.51x10^23, 1.51 × 10^23, 1.51*10**23, commas */
+function parseNum(s){if(s==null)return NaN;s=String(s).trim().replace(/,/g,"").replace(/\s+/g,"").replace(/[−–]/g,"-");if(!s)return NaN;
+  s=s.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]+$/,m=>"^"+m.split("").map(c=>c==="⁻"?"-":SUPD.indexOf(c)).join(""));
+  let m=s.match(/^([-+]?\d*\.?\d+)(?:[eE]([-+]?\d+)|[x×*·]10(?:\^|\*\*)([-+]?\d+))?$/);if(!m)return NaN;const v=parseFloat(m[1]);const e=m[2]!=null?+m[2]:m[3]!=null?+m[3]:0;return v*Math.pow(10,e)}
+/* data sets */
+const ION=new Set(["NaCl","CaCO3","Ca(OH)2","Mg(NO3)2","Al2(SO4)3","NaHCO3","Fe2O3","(NH4)3PO4","KCl","CuSO4·5H2O","MgO","CaO","AlCl3","ZnCl2","KClO3","NaN3","Na2SO4","CaCl2","K2CO3"]);
+const CMPD=[["H2O","water"],["CO2","carbon dioxide"],["NH3","ammonia"],["CH4","methane"],["NaCl","sodium chloride"],["CaCO3","calcium carbonate"],["Ca(OH)2","calcium hydroxide"],["Mg(NO3)2","magnesium nitrate"],["Al2(SO4)3","aluminum sulfate"],["C6H12O6","glucose"],["C2H5OH","ethanol"],["H2SO4","sulfuric acid"],["NaHCO3","sodium bicarbonate"],["Fe2O3","iron(III) oxide"],["(NH4)3PO4","ammonium phosphate"],["KCl","potassium chloride"],["C12H22O11","sucrose"],["CuSO4·5H2O","copper(II) sulfate pentahydrate"],["C3H8","propane"],["Na2SO4","sodium sulfate"],["CaCl2","calcium chloride"],["K2CO3","potassium carbonate"]];
+const RXS=[
+ {R:[[1,"N2"],[3,"H2"]],Pd:[[2,"NH3"]],n:"making ammonia"},
+ {R:[[2,"H2"],[1,"O2"]],Pd:[[2,"H2O"]],n:"making water"},
+ {R:[[1,"CH4"],[2,"O2"]],Pd:[[1,"CO2"],[2,"H2O"]],n:"burning methane"},
+ {R:[[1,"C3H8"],[5,"O2"]],Pd:[[3,"CO2"],[4,"H2O"]],n:"burning propane"},
+ {R:[[2,"Na"],[1,"Cl2"]],Pd:[[2,"NaCl"]],n:"making table salt"},
+ {R:[[4,"Fe"],[3,"O2"]],Pd:[[2,"Fe2O3"]],n:"rusting iron"},
+ {R:[[2,"Al"],[3,"Cl2"]],Pd:[[2,"AlCl3"]],n:"making aluminum chloride"},
+ {R:[[2,"Mg"],[1,"O2"]],Pd:[[2,"MgO"]],n:"burning magnesium"},
+ {R:[[1,"Zn"],[2,"HCl"]],Pd:[[1,"ZnCl2"],[1,"H2"]],n:"zinc in acid"},
+ {R:[[1,"C6H12O6"],[6,"O2"]],Pd:[[6,"CO2"],[6,"H2O"]],n:"burning glucose"},
+ {R:[[2,"KClO3"]],Pd:[[2,"KCl"],[3,"O2"]],n:"heating potassium chlorate"},
+ {R:[[1,"CaCO3"]],Pd:[[1,"CaO"],[1,"CO2"]],n:"heating limestone"},
+ {R:[[2,"NaN3"]],Pd:[[2,"Na"],[3,"N2"]],n:"an airbag reaction"}];
+const NAMES={N2:"nitrogen",H2:"hydrogen",O2:"oxygen",Cl2:"chlorine",NH3:"ammonia",H2O:"water",CH4:"methane",CO2:"carbon dioxide",C3H8:"propane",Na:"sodium",NaCl:"sodium chloride",Fe:"iron",Fe2O3:"iron(III) oxide",Al:"aluminum",AlCl3:"aluminum chloride",Mg:"magnesium",MgO:"magnesium oxide",Zn:"zinc",HCl:"hydrogen chloride",ZnCl2:"zinc chloride",C6H12O6:"glucose",KClO3:"potassium chlorate",KCl:"potassium chloride",CaCO3:"calcium carbonate",CaO:"calcium oxide",NaN3:"sodium azide"};
+function particleWord(f){return /^[A-Z][a-z]?$/.test(f)?"atoms":ION.has(f)?"formula units":"molecules"}
+
+/* ================= PART 1: reaction simulator ================= */
+const SIMRX=[
+ {name:"Hydrogen + oxygen → water",R:[[2,"H2"],[1,"O2"]],Pd:[[2,"H2O"]],mac:"spark",def:[6,5],r:9},
+ {name:"Nitrogen + hydrogen → ammonia",R:[[1,"N2"],[3,"H2"]],Pd:[[2,"NH3"]],mac:"tank",def:[4,9],r:9},
+ {name:"Methane combustion",R:[[1,"CH4"],[2,"O2"]],Pd:[[1,"CO2"],[2,"H2O"]],mac:"flame",def:[4,6],r:8},
+ {name:"Sodium + chlorine → table salt",R:[[2,"Na"],[1,"Cl2"]],Pd:[[2,"NaCl"]],mac:"flask",def:[6,4],r:8.5},
+ {name:"Propane combustion",R:[[1,"C3H8"],[5,"O2"]],Pd:[[3,"CO2"],[4,"H2O"]],mac:"flame",def:[2,15],r:6.5}];
+const SBOX={x:30,y:46,w:464,h:280};
+const SIM={rx:0,mode:"part",n:[6,5],loss:10,mols:[],phase:"idle",ev:[],evDone:0,evTotal:0,nextT:0,evGap:.5,done:new Set(),flash:0,lastKey:""};
+const SIMCHAL=["Run a reaction with nothing left over (an exact ratio).","Make a reactant limiting even though you started with MORE particles of it than of the other reactant.","Grams mode: make exactly 36.0 g of water from hydrogen and oxygen.","Propane: set it up so that O₂ runs out first."];
+function maxN(i){const nu=SIMRX[SIM.rx].R[i][0];return Math.floor(20/nu)*nu}
+function spColor(k){return [C.act2,C.act5,C.act4,C.act6][k]}
+function simSpecies(){const rx=SIMRX[SIM.rx];return rx.R.map((x,i)=>({f:x[1],nu:x[0],k:i,side:"R"})).concat(rx.Pd.map((x,i)=>({f:x[1],nu:x[0],k:2+i,side:"P"})))}
+function simCalc(){const rx=SIMRX[SIM.rx];const sets=rx.R.map((x,i)=>SIM.n[i]/x[0]);const xi=Math.min(...sets);const lim=sets[0]===sets[1]?-1:sets.indexOf(xi);
+  const after=rx.R.map((x,i)=>SIM.n[i]-xi*x[0]).concat(rx.Pd.map(x=>xi*x[0]));const before=SIM.n.slice().concat(rx.Pd.map(()=>0));return {xi,lim,before,after}}
+function unitAmt(f){return SIM.mode==="part"?fmassRaw(f):fmassRaw(f)*.1}
+function amtStr(f,count,short){if(SIM.mode==="part")return `${count} ${short?"":particleWord(f)+" · "}${fmtNum(count*mm(f),2)} u`;const mol=count*.1;return `${mol.toFixed(1)} mol · ${sfStr(mol*mm(f),3)} g`}
+function newMol(f,x,y,kind,k){const a=Math.random()*TAU,sp=randIn(55,95);return {f,x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,rot:Math.random()*TAU,vr:randIn(-1.5,1.5),st:"free",kind,k}}
+function simBuild(){const rx=SIMRX[SIM.rx];SIM.mols=[];SIM.ev=[];SIM.evDone=0;SIM.evTotal=0;SIM.phase="idle";SIM.flash=0;SIM.queued=0;
+  rx.R.forEach((x,i)=>{for(let j=0;j<SIM.n[i];j++){const R=molRadius(x[1],rx.r);SIM.mols.push(newMol(x[1],randIn(SBOX.x+R,SBOX.x+SBOX.w-R),randIn(SBOX.y+R,SBOX.y+SBOX.h-R),"R",i))}});
+  simUI();SIM.lastKey=""}
+function simRun(){if(SIM.phase!=="idle"){simBuild()}const c=simCalc();SIM.evTotal=Math.round(c.xi);if(SIM.evTotal<1){simStatus("warn","Add some of each reactant first: nothing can react without both.");return}
+  SIM.phase="run";SIM.evGap=clamp(4.5/SIM.evTotal,.22,.7);SIM.nextT=.3;SIM.queued=SIM.evTotal;simUI();simStatus("info","Reacting… watch whole sets of molecules combine.")}
+function startEvent(){const rx=SIMRX[SIM.rx];const free=SIM.mols.filter(m=>m.st==="free"&&m.kind==="R");const first=free.filter(m=>m.k===0);if(!first.length)return false;
+  const seed=pick(first);const chosen=[];rx.R.forEach((x,i)=>{const pool=free.filter(m=>m.k===i&&chosen.indexOf(m)<0).sort((a,b)=>Math.hypot(a.x-seed.x,a.y-seed.y)-Math.hypot(b.x-seed.x,b.y-seed.y));for(let j=0;j<x[0];j++)if(pool[j])chosen.push(pool[j])});
+  let mx=0,my=0;chosen.forEach(m=>{mx+=m.x;my+=m.y});mx/=chosen.length;my/=chosen.length;const pad=46;mx=clamp(mx,SBOX.x+pad,SBOX.x+SBOX.w-pad);my=clamp(my,SBOX.y+pad,SBOX.y+SBOX.h-pad);
+  const n=chosen.length;chosen.forEach((m,j)=>{const a=j/n*TAU;m.st="go";m.tx=mx+Math.cos(a)*rx.r*2.3;m.ty=my+Math.sin(a)*rx.r*2.3});
+  SIM.ev.push({mols:chosen,mx,my,t:0,A:null,B:null});return true}
+function simStep(dt){const rx=SIMRX[SIM.rx];const r=rx.r;
+  SIM.mols.forEach(m=>{if(m.st==="free"){m.x+=m.vx*dt;m.y+=m.vy*dt;m.rot+=m.vr*dt;const R=molRadius(m.f,r);
+      if(m.x<SBOX.x+R){m.x=SBOX.x+R;m.vx=Math.abs(m.vx)}if(m.x>SBOX.x+SBOX.w-R){m.x=SBOX.x+SBOX.w-R;m.vx=-Math.abs(m.vx)}if(m.y<SBOX.y+R){m.y=SBOX.y+R;m.vy=Math.abs(m.vy)}if(m.y>SBOX.y+SBOX.h-R){m.y=SBOX.y+SBOX.h-R;m.vy=-Math.abs(m.vy)}}
+    else if(m.st==="go"){const k=1-Math.exp(-dt*7);m.x+=(m.tx-m.x)*k;m.y+=(m.ty-m.y)*k;m.rot+=m.vr*dt*.3}});
+  if(SIM.phase==="run"){SIM.nextT-=dt;if(SIM.queued>0&&SIM.nextT<=0){if(startEvent())SIM.queued--;SIM.nextT=SIM.evGap}}
+  SIM.ev.forEach(e=>{e.t+=dt;if(e.t>=.55&&!e.A){e.A=[];e.mols.forEach(m=>{e.A=e.A.concat(speciesAtoms(m.f,m.x,m.y,r,m.rot));m.st="morph"});
+      const prods=[];rx.Pd.forEach((x,k)=>{for(let j=0;j<x[0];j++)prods.push([x[1],k])});const np=prods.length;e.prods=prods.map((p,j)=>{const a=j/np*TAU+.3;return [p[0],p[1],e.mx+Math.cos(a)*r*(np>2?2.6:2.2),e.my+Math.sin(a)*r*(np>2?2.6:2.2)]});
+      e.B=[];e.prods.forEach(p=>{e.B=e.B.concat(speciesAtoms(p[0],p[2],p[3],r,0))});SIM.flash=1}
+    if(e.t>=1.15&&!e.spawned){e.spawned=true;e.mols.forEach(m=>m.st="gone");e.prods.forEach(p=>{const m=newMol(p[0],p[2],p[3],"P",2+p[1]);m.rot=0;SIM.mols.push(m)});SIM.evDone++}});
+  SIM.ev=SIM.ev.filter(e=>!e.spawned);SIM.mols=SIM.mols.filter(m=>m.st!=="gone");SIM.flash=Math.max(0,SIM.flash-dt*1.5);
+  if(SIM.phase==="run"&&SIM.queued===0&&SIM.ev.length===0){SIM.phase="done";simFinish()}}
+function liveCounts(){const sp=simSpecies();return sp.map(s=>SIM.mols.filter(m=>m.f===s.f&&m.kind===s.side&&m.k===s.k).length)}
+function simFinish(){const c=simCalc();const rx=SIMRX[SIM.rx];const sp=simSpecies();
+  if(c.lim<0)simStatus("good",`Exact ratio: every reactant was used up. Nothing is left over, so there is no excess reactant.`);
+  else{const L=rx.R[c.lim][1],E=rx.R[1-c.lim][1];simStatus("good",`${fU(L)} ran out first, so it is the limiting reactant. ${fU(E)} is in excess: ${amtStr(E,c.after[1-c.lim])} left over.`)}
+  // challenges
+  if(c.xi>0&&c.lim<0)SIM.done.add(0);
+  if(c.lim>=0&&SIM.n[c.lim]>SIM.n[1-c.lim])SIM.done.add(1);
+  if(SIM.rx===0&&SIM.mode==="grams"&&Math.abs(c.after[2]*.1*mm("H2O")-36.04)<.05)SIM.done.add(2);
+  if(SIM.rx===4&&c.lim===1)SIM.done.add(3);
+  chalUI($("#simChal"),SIMCHAL,SIM.done);simTable();SIM.lastKey=""}
+function simStatus(cls,t){const s=$("#simStatus");s.className="status "+(cls==="info"?"":cls);s.textContent=t}
+function simTable(){const c=simCalc();const sp=simSpecies();const rx=SIMRX[SIM.rx];const fin=SIM.phase==="done";
+  let h=sp.map((s,i)=>`<tr><th scope="row">${fH(s.f)}${s.side==="R"?"":" (product)"}</th><td>${amtStr(s.f,c.before[i],true)}</td><td>${fin?amtStr(s.f,c.after[i],true):"?"}</td></tr>`).join("");
+  const P0=rx.Pd[0][1];const thMass=c.xi*rx.Pd[0][0]*unitAmt(P0);const u=SIM.mode==="part"?" u":" g";const act=thMass*(1-SIM.loss/100);
+  const fm=v=>SIM.mode==="part"?fmtNum(v,2):sfStr(v,3);
+  h+=`<tr><th scope="row">Limiting reactant</th><td colspan="2" class="l">${c.xi<=0?"(need both reactants)":c.lim<0?"none: exact ratio":fH(rx.R[c.lim][1])}</td></tr>`;
+  h+=`<tr><th scope="row">Theoretical yield of ${fH(P0)}</th><td colspan="2">${fm(thMass)}${u}</td></tr>`;
+  h+=`<tr><th scope="row">Actual yield (after ${SIM.loss}% loss)</th><td colspan="2">${fm(act)}${u}</td></tr>`;
+  h+=`<tr><th scope="row">Percent yield</th><td colspan="2">${thMass>0?(act/thMass*100).toFixed(1)+"%":"—"}</td></tr>`;
+  $("#simRead tbody").innerHTML=h}
+function simUI(){const rx=SIMRX[SIM.rx];
+  segBtns($("#simRx"),SIMRX.map((r,i)=>[i,`${r.name}<small>${eqU(r.R,r.Pd)}</small>`]),()=>SIM.rx,v=>{SIM.rx=v;SIM.n=SIMRX[v].def.slice();simBuild()});
+  segBtns($("#simMode"),[["part","Particles"],["grams","Grams (each drawn = 0.1 mol)"]],()=>SIM.mode,v=>{SIM.mode=v;simBuild()});
+  const box=$("#simAmts");box.innerHTML="";rx.R.forEach((x,i)=>{const id="simAmt"+i;const d=document.createElement("div");d.className="amt";
+    d.innerHTML=`<button class="tbtn pm" type="button" aria-label="Less ${NAMES[x[1]]||x[1]}">−</button><div class="lab"><label for="${id}">${fH(x[1])} <span class="small">(steps of ${x[0]} so whole sets can react)</span></label><input type="range" id="${id}" min="0" max="${maxN(i)}" step="${x[0]}" value="${SIM.n[i]}"><output for="${id}" id="${id}o">${amtStr(x[1],SIM.n[i])}</output></div><button class="tbtn pm" type="button" aria-label="More ${NAMES[x[1]]||x[1]}">+</button>`;
+    const inp=d.querySelector("input"),btns=d.querySelectorAll("button");const set=v=>{SIM.n[i]=clamp(Math.round(v/x[0])*x[0],0,maxN(i));inp.value=SIM.n[i];simBuild()};
+    inp.oninput=()=>set(+inp.value);btns[0].onclick=()=>set(SIM.n[i]-x[0]);btns[1].onclick=()=>set(SIM.n[i]+x[0]);box.appendChild(d)});
+  $("#simLossOut").textContent=SIM.loss+"%";$("#simRun").textContent=SIM.phase==="done"?"Run again":"React";
+  const els=new Set();rx.R.concat(rx.Pd).forEach(x=>Object.keys(parseF(x[1])).forEach(e=>els.add(e)));
+  $("#simLegend").innerHTML=[...els].map(e=>`<span><i style="background:var(--el-${e})"></i>${ENAME[e]} (${e})</span>`).join("")+`<span><i style="background:var(--warn)"></i>Ring: left over (excess)</span><span><i class="s" style="background:var(--act2)"></i>Bars: before (dashed) and now (solid)</span>`;
+  simTable();if(SIM.phase==="idle")simStatus("info",`Set the amounts, then press React. ${eqU(rx.R,rx.Pd)}`);
+  $("#simCap").textContent=`${eqU(rx.R,rx.Pd)} · ${SIM.mode==="part"?"each drawn molecule is one particle":"each drawn molecule is 0.1 mol"}`;chalUI($("#simChal"),SIMCHAL,SIM.done)}
+$("#simRun").onclick=simRun;$("#simReset").onclick=()=>simBuild();
+$("#simLoss").oninput=e=>{SIM.loss=+e.target.value;$("#simLossOut").textContent=SIM.loss+"%";simTable()};
+/* drawing */
+function drawSim(now){useStage(S1);const rx=SIMRX[SIM.rx];const r=rx.r;const T=now/1000;const c=simCalc();const sp=simSpecies();const cnt=liveCounts();const fin=SIM.phase==="done";
+  panelBox(12,12,500,326);title(26,30,"Reaction vessel, zoomed in");levelTag(400,30,"part");rr(SBOX.x-4,SBOX.y-4,SBOX.w+8,SBOX.h+8,10);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=2;ctx.stroke();
+  SIM.mols.forEach(m=>{if(m.st==="morph")return;const left=fin&&m.kind==="R";if(left){glow(m.x,m.y,molRadius(m.f,r)*1.8,C.warn,.45);circ(m.x,m.y,molRadius(m.f,r)+5,null,C.warn,2.4)}mol(m.x,m.y,m.f,r,{rot:m.rot,nolab:r<8})});
+  SIM.ev.forEach(e=>{if(e.A&&e.B)morphAtoms(e.A,e.B,clamp((e.t-.55)/.6,0,1),r,{cx:e.mx,cy:e.my,T})});
+  if(fin&&c.lim>=0){label(262,SBOX.y+16,`${fU(rx.R[c.lim][1])} ran out: limiting reactant`,{size:12.5,weight:700,border:C.act7})}
+  if(fin&&c.lim<0)label(262,SBOX.y+16,"exact ratio: nothing left over",{size:12.5,weight:700,border:C.good});
+  if(SIM.phase==="idle")label(262,SBOX.y+SBOX.h-14,"press React",{size:12,weight:700,border:C.accent});
+  // macroscopic
+  panelBox(522,12,266,200);title(536,30,"Sealed flask on a balance");levelTag(536,52,"see");
+  const fx=655,fy=104;const run=SIM.phase==="run";
+  ctx.save();flaskPath(fx,fy,1.02);ctx.closePath();ctx.clip();
+  if(rx.R.some(x=>x[1]==="Cl2")){const f=cnt[1]/Math.max(1,c.before[1]);ctx.fillStyle=hexA(C["el-Cl"],.12+.3*f);ctx.fillRect(fx-50,fy-70,100,110)}
+  if(rx.mac==="flask"){for(let i=0;i<cnt[2];i++)circ(fx-26+(i%10)*6,fy+26-Math.floor(i/10)*5,3,C.crystal,hexA(C.ink,.35),.8);for(let i=0;i<cnt[0];i++)rr(fx-30+(i%8)*8,fy+18-Math.floor(i/8)*7,6,5,1),fillStroke(C["el-Na"],null)}
+  if(sp.some(s=>s.f==="H2O")&&rx.mac!=="flask"){const w=cnt[sp.findIndex(s=>s.f==="H2O")];for(let i=0;i<w;i++){const px=fx-30+rnd(i)*60,py=fy-20+rnd(i+9)*44;circ(px,py,2.2,hexA(C.liquid,.95),hexA(C.act2,.6),1)}}
+  if(run&&(rx.mac==="flame"))burner(fx,fy+28,.42,T,true);
+  ctx.restore();flask(fx,fy,1.02,0,null,{stopper:true});
+  if(run&&rx.mac==="spark"){sparkle(fx,fy-4,16,T*3,C.gold);line(fx-14,fy-58,fx-6,fy-6,C.metal,2);line(fx+14,fy-58,fx+6,fy-6,C.metal,2)}
+  if(SIM.flash>0)glow(fx,fy,40,C.gold,.6*SIM.flash);
+  const tot=sp.reduce((s,q,i)=>s+cnt[i]*unitAmt(q.f),0);
+  balance(590,142,130,(SIM.mode==="part"?tot.toFixed(2)+" u":tot.toFixed(2)+" g"),{});
+  // mass bars
+  panelBox(522,220,266,118);title(536,238,"Mass: before vs now");const maxM=Math.max(1e-9,sp.reduce((s,q,i)=>s+c.before[i]*unitAmt(q.f),0));
+  [["before",c.before],["now",cnt]].forEach((row,ri)=>{const y=262+ri*36;txt(536,y+9,row[0],{size:12,mono:true,weight:600});let x=588;sp.forEach((q,i)=>{const w=row[1][i]*unitAmt(q.f)/maxM*180;if(w>0){rr(x,y,w,18,2);fillStroke(hexA(spColor(i),.75),hexA(C.ink,.35),.8)}x+=w})});
+  txt(778,330,"same total length",{size:11,align:"right",color:C["ink-soft"]});
+  // count bars
+  panelBox(12,348,776,140);title(26,366,SIM.mode==="part"?"Particles: before (dashed) vs now (solid)":"Moles: before (dashed) vs now (solid)");levelTag(690,366,"sym");
+  const mx=Math.max(4,...c.before,...c.after);const base=468,u=72/mx;const gx=60,gw=(760-gx)/sp.length;
+  sp.forEach((q,i)=>{const x=gx+i*gw+gw/2-34;rr(x,base-c.before[i]*u,30,c.before[i]*u,3);ctx.strokeStyle=C["ink-soft"];ctx.lineWidth=1.4;ctx.setLineDash([4,3]);ctx.stroke();ctx.setLineDash([]);
+    rr(x+34,base-cnt[i]*u,30,cnt[i]*u,3);fillStroke(hexA(spColor(i),.85),hexA(C.ink,.4),1);
+    const v=n=>SIM.mode==="part"?String(n):(n*.1).toFixed(1);txt(x+15,base-c.before[i]*u-9,v(c.before[i]),{size:11.5,mono:true,align:"center",color:C["ink-soft"]});txt(x+49,base-cnt[i]*u-9,v(cnt[i]),{size:12,mono:true,weight:700,align:"center"});
+    txt(x+80,base-12,fU(q.f),{size:13,weight:700});if(fin&&i===c.lim)label(x+80,base-36,"limiting",{size:11,weight:700,border:C.act7,align:"left"});
+    if(i===rx.R.length-1)txt(gx+(i+1)*gw-10,base-30,"→",{size:20,weight:700,align:"center",color:C["ink-soft"]})})}
+function simA11y(){const rx=SIMRX[SIM.rx];const c=simCalc();const sp=simSpecies();const cnt=liveCounts();const fin=SIM.phase==="done";
+  const nowS=sp.map((s,i)=>`${cnt[i]} ${s.f}`).join(", ");
+  const lab=`Reaction simulator, ${eqU(rx.R,rx.Pd)}. ${SIM.phase==="idle"?"Ready":SIM.phase==="run"?"Reacting":"Finished"}: ${nowS}.${fin?(c.lim<0?" Exact ratio, nothing left over.":" "+rx.R[c.lim][1]+" is the limiting reactant."):""}`;
+  const d=`The large box on the left shows ${SIM.mode==="part"?"individual molecules":"molecules, each standing for 0.1 mol,"} bouncing around: ${nowS}. ${SIM.phase==="run"?"Small groups of reactant molecules drift together, flash, and their atoms rearrange into product molecules.":fin?"The reaction has stopped; any reactant molecules left over have orange rings.":"Press React to start."} On the right, a sealed flask sits on a balance whose reading stays the same throughout. A mass bar compares the before and now mixtures, and the bars along the bottom compare amounts before and now for each substance.`;
+  return [lab,d]}
+
+/* ================= PART 2: balancing game ================= */
+const EQS=[
+ {t:1,R:["H2","O2"],P:["H2O"],a:[2,1,2]},
+ {t:1,R:["N2","H2"],P:["NH3"],a:[1,3,2]},
+ {t:1,R:["Na","Cl2"],P:["NaCl"],a:[2,1,2]},
+ {t:1,R:["Mg","O2"],P:["MgO"],a:[2,1,2]},
+ {t:1,R:["H2","Cl2"],P:["HCl"],a:[1,1,2]},
+ {t:2,R:["Fe","O2"],P:["Fe2O3"],a:[4,3,2]},
+ {t:2,R:["Al","O2"],P:["Al2O3"],a:[4,3,2]},
+ {t:2,R:["KClO3"],P:["KCl","O2"],a:[2,2,3]},
+ {t:2,R:["Al","HCl"],P:["AlCl3","H2"],a:[2,6,2,3]},
+ {t:3,R:["CH4","O2"],P:["CO2","H2O"],a:[1,2,1,2]},
+ {t:3,R:["C3H8","O2"],P:["CO2","H2O"],a:[1,5,3,4]},
+ {t:3,R:["C2H6","O2"],P:["CO2","H2O"],a:[2,7,4,6]},
+ {t:3,R:["C2H5OH","O2"],P:["CO2","H2O"],a:[1,3,2,3]},
+ {t:3,R:["C6H12O6","O2"],P:["CO2","H2O"],a:[1,6,6,6]},
+ {t:4,R:["H2SO4","NaOH"],P:["Na2SO4","H2O"],a:[1,2,1,2]},
+ {t:4,R:["Pb(NO3)2","KI"],P:["PbI2","KNO3"],a:[1,2,1,2]},
+ {t:4,R:["AgNO3","CaCl2"],P:["AgCl","Ca(NO3)2"],a:[2,1,2,1]},
+ {t:4,R:["Al","CuSO4"],P:["Al2(SO4)3","Cu"],a:[2,3,1,3]},
+ {t:4,R:["Ca3(PO4)2","H2SO4"],P:["CaSO4","H3PO4"],a:[1,3,3,2]}];
+const TIERS={1:"Level 1 · Warm-up",2:"Level 2 · Odd and even",3:"Level 3 · Combustion",4:"Level 4 · Polyatomic ions"};
+const BG={i:0,co:[],hint:0,hintSp:-1,tries:0,shown:false,solved:false,stars:{},balT:0};
+try{BG.stars=JSON.parse(store.get("stars")||"{}")||{}}catch(e){BG.stars={}}
+function eqSpecies(q){return q.R.map(f=>({f,side:"L"})).concat(q.P.map(f=>({f,side:"R"})))}
+function balCounts(q,co){const sp=eqSpecies(q);const els=[];sp.forEach(s=>Object.keys(parseF(s.f)).forEach(e=>{if(els.indexOf(e)<0)els.push(e)}));
+  return els.map(e=>{let L=0,R=0;sp.forEach((s,i)=>{const n=(parseF(s.f)[e]||0)*co[i];if(s.side==="L")L+=n;else R+=n});return {e,L,R}})}
+function isBalanced(q,co){return balCounts(q,co).every(x=>x.L===x.R)}
+function balLoad(i){BG.i=i;const q=EQS[i];BG.co=q.a.map(()=>1);BG.hint=0;BG.hintSp=-1;BG.tries=0;BG.shown=false;BG.solved=false;balMsg("","");balUI();a11yKey=""}
+function balMsg(cls,t){const m=$("#balMsg");m.className=t?"msg show "+cls:"msg";m.innerHTML=t}
+function balUI(){const q=EQS[BG.i];const sp=eqSpecies(q);
+  $("#balN").textContent=`${TIERS[q.t]} · equation ${BG.i+1} of ${EQS.length}`;
+  const lv=$("#balLvls");lv.innerHTML="";EQS.forEach((e,k)=>{const b=document.createElement("button");b.type="button";b.className="round";const st=BG.stars[k]||0;
+    b.innerHTML=`${k+1}${st?`<span class="ok" aria-hidden="true">${"★".repeat(st)}</span><span class="gk-sr"> (${st} stars)</span>`:""}`;b.setAttribute("aria-pressed",String(k===BG.i));b.setAttribute("aria-label",`Equation ${k+1}, ${TIERS[e.t]}${st?", "+st+" stars":""}`);b.onclick=()=>balLoad(k);lv.appendChild(b)});
+  const row=$("#balEq");row.innerHTML="";sp.forEach((s,i)=>{if(i>0){const o=document.createElement("span");o.className="op";o.setAttribute("aria-hidden","true");o.textContent=sp[i-1].side==="L"&&s.side==="R"?"→":"+";row.appendChild(o)}
+    const d=document.createElement("span");d.className="sp"+(BG.hintSp===i?" hinted":"");const name=s.f;
+    d.innerHTML=`<button type="button" aria-label="Decrease coefficient of ${name}">−</button><span class="cf" aria-live="off">${BG.co[i]}</span><button type="button" aria-label="Increase coefficient of ${name}">+</button><span class="fm">${fH(s.f)}</span>`;
+    const bs=d.querySelectorAll("button");bs[0].onclick=()=>{BG.co[i]=Math.max(1,BG.co[i]-1);balChanged()};bs[1].onclick=()=>{BG.co[i]=Math.min(12,BG.co[i]+1);balChanged()};row.appendChild(d)});
+  balTally();$("#balStarsTot").textContent=Object.values(BG.stars).reduce((a,b)=>a+b,0);$("#balDone").textContent=Object.keys(BG.stars).length+" of "+EQS.length;
+  {const L=q.R.map((f,i)=>(BG.co[i]>1?BG.co[i]:"")+fU(f)).join(" + "),R=q.P.map((f,i)=>(BG.co[q.R.length+i]>1?BG.co[q.R.length+i]:"")+fU(f)).join(" + ");$("#balCap").textContent=L+" → "+R}}
+function balTally(){const q=EQS[BG.i];const cts=balCounts(q,BG.co);const mx=Math.max(4,...cts.map(x=>Math.max(x.L,x.R)));
+  $("#balTally").innerHTML=`<div class="trow" aria-hidden="true"><span></span><span class="small" style="text-align:right">left side</span><span></span><span class="small">right side</span></div>`+cts.map(x=>{const ok=x.L===x.R;
+    return `<div class="trow${ok?" ok":""}"><span class="el">${x.e}</span><span class="tbar l"><i style="width:${x.L/mx*100}%"></i></span><span class="mid">${x.L} ${ok?"✓":"≠"} ${x.R}<span class="gk-sr"> ${ok?"balanced":"not balanced"}</span></span><span class="tbar"><i style="width:${x.R/mx*100}%"></i></span></div>`}).join("")}
+function balChanged(){BG.hintSp=-1;balUI();a11yKey="";const q=EQS[BG.i];if(isBalanced(q,BG.co))BG.balT=performance.now()}
+function balCheck(){const q=EQS[BG.i];const cts=balCounts(q,BG.co);const bad=cts.filter(x=>x.L!==x.R);
+  if(bad.length){BG.tries++;balMsg("warn",`Not quite. Still unbalanced: ${bad.map(x=>`${x.e} (${x.L} on the left, ${x.R} on the right)`).join("; ")}. Change one coefficient at a time and recount.`);return}
+  const g=BG.co.reduce((a,b)=>gcd(a,b));if(g>1){BG.tries++;balMsg("warn",`Balanced, but not the smallest whole numbers. Every coefficient can be divided by ${g}.`);return}
+  BG.solved=true;const st=BG.shown?1:(BG.hint>0||BG.tries>=2)?2:3;BG.stars[BG.i]=Math.max(BG.stars[BG.i]||0,st);store.set("stars",JSON.stringify(BG.stars));
+  balMsg("good",`✓ Balanced! <span class="stars" aria-hidden="true">${"★".repeat(st)}${"☆".repeat(3-st)}</span><span class="gk-sr">${st} of 3 stars</span> Every element has the same number of atoms on both sides, with the smallest whole numbers.`);balUI();BG.balT=performance.now();a11yKey=""}
+function balHint(){const q=EQS[BG.i];BG.hint++;const sp=eqSpecies(q);
+  if(BG.hint===1){let tip;if(q.t===3)tip="Combustion: balance C first, then H, and O last. If O needs a half, double every coefficient.";else if(q.t===4)tip="A group like SO₄, NO₃ or PO₄ that appears unchanged on both sides can be counted as one unit.";
+    else{const cts=balCounts(q,BG.co);const apps=cts.map(x=>({e:x.e,n:sp.filter(s=>parseF(s.f)[x.e]).length}));apps.sort((a,b)=>a.n-b.n);tip=`Start with ${ENAME[apps[0].e]||apps[0].e} (${apps[0].e}): it appears in only ${apps[0].n} formulas. Make its two sides match, then recount.`}
+    balMsg("info","Hint 1: "+tip);return}
+  const k=q.a.findIndex((a,i)=>a!==BG.co[i]);if(k<0){balMsg("info","Your coefficients already match. Press Check.");return}
+  BG.hintSp=k;balUI();balMsg("info",`Hint ${Math.min(BG.hint,3)}: try a coefficient of <b>${q.a[k]}</b> in front of ${fH(sp[k].f)}, then recount every element.`)}
+$("#balCheck").onclick=balCheck;$("#balHint").onclick=balHint;
+$("#balShow").onclick=()=>{const q=EQS[BG.i];BG.co=q.a.slice();BG.shown=true;balUI();balMsg("info",`Answer shown: ${eqH(q.R.map((f,i)=>[q.a[i],f]),q.P.map((f,i)=>[q.a[q.R.length+i],f]))}. Check the tallies, then press Check to finish (1 star), or try the next one.`);BG.balT=performance.now();a11yKey=""};
+$("#balReset").onclick=()=>balLoad(BG.i);$("#balNext").onclick=()=>balLoad((BG.i+1)%EQS.length);
+function drawBal(now){useStage(S2);const q=EQS[BG.i];const sp=eqSpecies(q);const T=now/1000;const ok=isBalanced(q,BG.co);const n=sp.length;const cw=780/n;
+  panelBox(10,10,780,330);title(24,28,"Particles: each formula drawn coefficient times");levelTag(690,28,"part");
+  if(ok){const a=clamp((now-BG.balT)/600,0,1);rr(10,10,780,330,8);ctx.strokeStyle=hexA(C.good,.4+.6*a);ctx.lineWidth=3+2*Math.sin(T*4);ctx.stroke()}
+  sp.forEach((s,i)=>{const cx=10+cw*i+cw/2;const nat=Object.values(parseF(s.f)).reduce((a,b)=>a+b,0);const r=clamp(16-nat*.55,6,15);const R=molRadius(s.f,r);const cols=Math.max(1,Math.min(3,Math.floor((cw-10)/(2*R+10))));const k=Math.min(8,BG.co[i]);
+    for(let j=0;j<k;j++){const x=cx+((j%cols)-(cols-1)/2)*(2*R+10),y=62+R+Math.floor(j/cols)*(2*R+12);if(y+R>336)break;mol(x+Math.sin(T*2+j+i)*1.2,y,s.f,r,{rot:0,nolab:r<7})}
+    if(BG.co[i]>8)txt(cx,316,"+"+(BG.co[i]-8)+" more",{size:12,mono:true,weight:700,align:"center"});
+    if(i<n-1){const op=sp[i].side==="L"&&sp[i+1].side==="R"?"→":"+";txt(10+cw*(i+1),110,op,{size:22,weight:700,align:"center",color:C["ink-soft"]})}});
+  panelBox(10,350,780,90);levelTag(24,368,"sym");
+  const terms=[];sp.forEach((s,i)=>{if(i>0)terms.push(sp[i-1].side==="L"&&s.side==="R"?"→":"+");terms.push({c:BG.co[i],f:s.f})});drawEq(400,404,terms,{size:n>3?22:26,align:"center"});
+  label(400,428+0,ok?"balanced: same atoms on both sides":"not balanced yet",{size:12,weight:700,border:ok?C.good:C.warn,color:ok?C.good:C["warn-ink"]})}
+function balA11y(){const q=EQS[BG.i];const cts=balCounts(q,BG.co);const ok=cts.every(x=>x.L===x.R);const cap=$("#balCap").textContent;
+  return [`Balancing picture: ${cap}. ${ok?"Balanced.":"Not balanced."}`,`The picture draws each formula as many times as its coefficient: ${eqSpecies(q).map((s,i)=>BG.co[i]+" of "+s.f).join(", ")}. Atom tally: ${cts.map(x=>`${x.e} ${x.L} on the left and ${x.R} on the right`).join("; ")}. ${ok?"A green border shows the equation is balanced.":""}`]}
+
+/* ================= PART 3: problem trainer ================= */
+const CTYPES=[["mix","Mixed: all types"],["molar","Molar mass"],["gmol","Grams ⇄ moles"],["part","Moles → particles or atoms"],["gpart","Grams → particles or atoms"],["pct","Percent composition"],["emp","Empirical formula from data"],["molf","Molecular formula"],["mm","Mass to mass (stoichiometry)"],["lr","Limiting reactant and theoretical yield"],["py","Percent yield"]];
+const meas=(lo,hi,sf)=>{const v=randIn(lo,hi);return +v.toPrecision(sf)};
+const mmS=f=>mm(f).toFixed(2);
+const pickSF=()=>pick([3,3,3,3,4,2]);
+const sfName=n=>n===1?"1 significant figure":n+" significant figures";
+function cname(f){const c=CMPD.find(x=>x[0]===f);return c?c[1]:(NAMES[f]||f)}
+function rxEqU(rx){return eqU(rx.R,rx.Pd)}
+function rxEqH(rx){return eqH(rx.R,rx.Pd)}
+function rxAll(rx){return rx.R.map(x=>({nu:x[0],f:x[1],side:"R"})).concat(rx.Pd.map(x=>({nu:x[0],f:x[1],side:"P"})))}
+const GEN={
+ molar(){const [f,name]=pick(CMPD);const ans=mm(f);const c=parseF(f);const els=Object.keys(c);
+   const slips=[];const noPar=f.replace(/\)(\d+)/g,")");if(noPar!==f)slips.push([mm(noPar),"That counts the group in parentheses only once. The subscript outside the parentheses multiplies every atom inside."]);
+   if(f.indexOf("·")>=0){const base=f.split("·")[0];slips.push([mm(base),"That leaves out the water in the hydrate. The ·5H₂O adds five whole water molecules."]);const h1=f.replace(/·\d+/,"·");slips.push([mm(h1),"That adds only one water. The 5 in front of H₂O multiplies the whole water molecule."])}
+   const once=els.reduce((s,e)=>s+AM[e],0);if(Math.abs(once-ans)>.01)slips.push([Math.round(once*100)/100,"That counts each element only once. Multiply each atomic mass by how many of that atom are in the formula."]);
+   const rows=els.map(e=>`${e} ${c[e]}`).join(", ");
+   return {kind:"molar",title:"Molar mass",html:`What is the molar mass of ${name}, <b>${fH(f)}</b>?`,round:"Give your answer to two decimal places.",unit:"g/mol",ans,dp:2,tolAbs:.015,f,
+     hints:["Count each kind of atom. A number outside parentheses multiplies everything inside; a hydrate's ·5H₂O adds 5 whole water molecules.",`The atom counts are: ${rows}.`,`Multiply each count by its atomic mass and add: ${els.map(e=>`${c[e]}(${AM[e].toFixed(e==="H"?3:2)})`).join(" + ")}.`],
+     slips,sol:{kind:"tally",f},route:null}},
+ gmol(){const [f,name]=pick(CMPD);const M=mm(f);const sf=pickSF();const toMol=Math.random()<.55;const Fu=fU(f);
+   if(toMol){const m=meas(M*.05,M*3,sf);const ans=m/M;
+     return {kind:"gmol",title:"Grams to moles",html:`How many moles are in <b>${sfStr(m,sf)} g</b> of ${name}, ${fH(f)}?`,round:`Give ${sfName(sf)}.`,unit:"mol",ans,sf,f,
+       hints:[`First find the molar mass of ${fH(f)}.`,`Molar mass = ${mmS(f)} g/mol.`,`Divide: ${sfStr(m,sf)} g ÷ ${mmS(f)} g/mol = ?`],
+       slips:[[m*M,"You multiplied by the molar mass. To go from grams to moles, divide (grams on the bottom of the factor)."],[M/m,"The factor is upside down: put the grams of your sample on top."],[1/M,"That is the moles in just 1 g. Multiply by the mass you have."]],
+       sol:{kind:"chain",items:[frac(sfStr(m,sf),"g "+Fu),frac("1","mol "+Fu,mmS(f),"g "+Fu)],res:[sfStr(ans,sf),["mol "+Fu]]},route:[["Grams","Moles"],["÷ "+mmS(f)+" g/mol"]]}}
+   const n=meas(.02,4,sf);const ans=n*M;
+   return {kind:"gmol",title:"Moles to grams",html:`What is the mass of <b>${sfStr(n,sf)} mol</b> of ${name}, ${fH(f)}?`,round:`Give ${sfName(sf)}.`,unit:"g",ans,sf,f,
+     hints:[`Find the molar mass of ${fH(f)}.`,`Molar mass = ${mmS(f)} g/mol.`,`Multiply: ${sfStr(n,sf)} mol × ${mmS(f)} g/mol = ?`],
+     slips:[[n/M,"You divided by the molar mass. Moles to grams means multiplying."],[M/n,"Upside down: moles times grams per mole gives grams."],[n*NA,"That multiplies by Avogadro's number, which gives particles, not grams."]],
+     sol:{kind:"chain",items:[frac(sfStr(n,sf),"mol "+Fu),frac(mmS(f),"g "+Fu,"1","mol "+Fu)],res:[sfStr(ans,sf),["g "+Fu]]},route:[["Moles","Grams"],["× "+mmS(f)+" g/mol"]]}},
+ part(){const [f,name]=pick(CMPD.filter(x=>x[0].indexOf("·")<0));const c=parseF(f);const sf=pickSF();const n=meas(.01,5,sf);const pw=particleWord(f);const Fu=fU(f);
+   const multi=Object.keys(c).filter(e=>c[e]>1);const atoms=multi.length&&Math.random()<.6;const e=atoms?pick(multi):null;const k=atoms?c[e]:1;const ans=n*NA*k;
+   const items=[frac(sfStr(n,sf),"mol "+Fu),frac("6.022 × 10²³",pw+" "+Fu,"1","mol "+Fu)];if(atoms)items.push(frac(String(k),e+" atoms","1",pw.replace(/s$/,"")+" "+Fu));
+   const slips=[[n/NA,"You divided by Avogadro's number. Moles to particles means multiplying."],[n*k,"You need Avogadro's number to turn moles into a count."]];if(atoms){slips.unshift([n*NA,`That is the number of ${pw}. Each one holds ${k} ${e} atoms, so multiply by ${k}.`]);slips.push([n*NA/k,`Each ${pw.replace(/s$/,"")} has ${k} ${e} atoms, so there are MORE atoms than ${pw}: multiply by ${k}.`])}
+   return {kind:"part",title:atoms?"Moles to atoms":"Moles to particles",html:`How many ${atoms?`<b>${ENAME[e]} atoms</b>`:`<b>${pw}</b>`} are in <b>${sfStr(n,sf)} mol</b> of ${name}, ${fH(f)}?`,round:`Give ${sfName(sf)}. Type powers of ten like 1.51e23.`,unit:atoms?e+" atoms":pw,ans,sf,f,
+     hints:["Moles to particles: multiply by Avogadro's number, 6.022 × 10²³ per mole.",atoms?`Each ${pw.replace(/s$/,"")} of ${fH(f)} contains ${k} ${e} atoms (the subscript).`:`You want ${pw}, so one factor is enough.`,`Set up: ${sfStr(n,sf)} × 6.022 × 10²³${atoms?" × "+k:""} = ?`],
+     slips,sol:{kind:"chain",items,res:[sci(ans,sf),[atoms?e+" atoms":pw+" "+Fu]]},route:atoms?[["Moles","Particles","Atoms"],["× Nₐ","× "+k]]:[["Moles","Particles"],["× Nₐ"]]}},
+ gpart(){const [f,name]=pick(CMPD.filter(x=>x[0].indexOf("·")<0));const c=parseF(f);const M=mm(f);const sf=pickSF();const m=meas(M*.02,M*2,sf);const pw=particleWord(f);const Fu=fU(f);
+   const multi=Object.keys(c).filter(e=>c[e]>1);const atoms=multi.length&&Math.random()<.45;const e=atoms?pick(multi):null;const k=atoms?c[e]:1;const ans=m/M*NA*k;
+   const items=[frac(sfStr(m,sf),"g "+Fu),frac("1","mol "+Fu,mmS(f),"g "+Fu),frac("6.022 × 10²³",pw+" "+Fu,"1","mol "+Fu)];if(atoms)items.push(frac(String(k),e+" atoms","1",pw.replace(/s$/,"")+" "+Fu));
+   const slips=[[m*NA*k,"You skipped the mole: grams are a mass, not a count. Divide by the molar mass first."],[m/M,"That is the number of moles. Multiply by Avogadro's number to count particles."],[m*M*NA*k,"You multiplied by the molar mass. Grams to moles means dividing."]];if(atoms)slips.unshift([m/M*NA,`That counts ${pw}. Each has ${k} ${e} atoms: multiply by ${k}.`]);
+   return {kind:"gpart",title:atoms?"Grams to atoms":"Grams to particles",html:`How many ${atoms?`<b>${ENAME[e]} atoms</b>`:`<b>${pw}</b>`} are in <b>${sfStr(m,sf)} g</b> of ${name}, ${fH(f)}?`,round:`Give ${sfName(sf)}. Type powers of ten like 1.51e23.`,unit:atoms?e+" atoms":pw,ans,sf,f,
+     hints:["Two steps: grams → moles (÷ molar mass), then moles → particles (× 6.022 × 10²³).",`Molar mass of ${fH(f)} = ${mmS(f)} g/mol, so you have ${sfStr(m/M,sf+1)} mol.`,`Set up: ${sfStr(m,sf)} ÷ ${mmS(f)} × 6.022 × 10²³${atoms?" × "+k:""} = ?`],
+     slips,sol:{kind:"chain",items,res:[sci(ans,sf),[atoms?e+" atoms":pw+" "+Fu]],brk:null},route:atoms?[["Grams","Moles","Particles","Atoms"],["÷ "+mmS(f),"× Nₐ","× "+k]]:[["Grams","Moles","Particles"],["÷ "+mmS(f),"× Nₐ"]]}},
+ pct(){const [f,name]=pick(CMPD.filter(x=>Object.keys(parseF(x[0])).length>1));const c=parseF(f);const els=Object.keys(c);const e=pick(els);const M=mm(f);const ans=c[e]*AM[e]/M*100;
+   const nat=els.reduce((s,x)=>s+c[x],0);const slips=[[c[e]/nat*100,"That counts atoms. Percent composition is by mass: use atomic masses."],[AM[e]/M*100,`That uses only one ${e} atom. ${fH(f)} has ${c[e]}, so multiply ${AM[e].toFixed(2)} by ${c[e]}.`]].filter(s=>Math.abs(s[0]-ans)>.05);
+   return {kind:"pct",title:"Percent composition",html:`What is the percent by mass of <b>${ENAME[e]}</b> in ${name}, <b>${fH(f)}</b>?`,round:"Give your answer to two decimal places (in %).",unit:"%",ans,dp:2,tolAbs:.03,f,e,
+     hints:["% element = (atoms of that element × its atomic mass) ÷ molar mass × 100%.",`Molar mass of ${fH(f)} = ${mmS(f)} g/mol. There ${c[e]>1?"are":"is"} ${c[e]} ${e} atom${c[e]>1?"s":""}.`,`Set up: ${c[e]} × ${AM[e].toFixed(e==="H"?3:2)} ÷ ${mmS(f)} × 100% = ?`],
+     slips,sol:{kind:"pct",f,e},route:null}},
+ emp(){for(let tries=0;tries<60;tries++){const v=pick(["pct","pct","mass","comb"]);let ef,data,lines,given;
+     if(v==="comb"){const mf=pick(["CH4","C3H8","C2H4","C4H10","C6H6","C2H6"]);const c=parseF(mf);const k=randIn(.005,.03);const mC=+(k*c.C*44.01).toPrecision(3),mH=+(k*c.H/2*18.02).toPrecision(3);
+       ef=empOf(mf);data={C:mC/44.01,H:2*mH/18.02};given={C:[mC,"g CO₂","÷ 44.01 g/mol"],H:[mH,"g H₂O","÷ 18.02 × 2"]};
+       lines=`A hydrocarbon (only C and H) is burned completely. It makes <b>${sfStr(mC,3)} g CO₂</b> and <b>${sfStr(mH,3)} g H₂O</b>. What is its empirical formula?`}
+     else{ef=pick(["CH2O","CH4","NO2","Fe2O3","P2O5","C3H4O3","CH2","C2H6O","Na2SO4","C3H8","N2O5","K2CO3","CaCl2","C2H5","C5H7N","SO3","MgCl2"]);const c=parseF(ef);const M=fmassRaw(ef);const sf=3;
+       const pcts={};Object.keys(c).forEach(e=>pcts[e]=+(c[e]*AM[e]/M*100).toPrecision(sf));
+       if(v==="pct"){data={};given={};Object.keys(c).forEach(e=>{data[e]=pcts[e]/AM[e];given[e]=[pcts[e],"% → g",`÷ ${AM[e].toFixed(e==="H"?3:2)}`]});
+         lines=`A compound contains ${Object.keys(c).map(e=>`<b>${sfStr(pcts[e],sf)}% ${ENAME[e]}</b>`).join(", ")} by mass. What is its empirical formula?`}
+       else{const smp=meas(1.5,6,3);data={};given={};const ms={};Object.keys(c).forEach(e=>{ms[e]=+(pcts[e]/100*smp).toPrecision(3);data[e]=ms[e]/AM[e];given[e]=[ms[e],"g",`÷ ${AM[e].toFixed(e==="H"?3:2)}`]});
+         lines=`A ${sfStr(smp,3)} g sample contains ${Object.keys(c).map(e=>`<b>${sfStr(ms[e],3)} g ${ENAME[e]}</b>`).join(", ")}. What is its empirical formula?`}}
+     const chk=ratioFrom(data);if(!chk||!sameCounts(chk.counts,parseF(ef)))continue;
+     return {kind:"emp",title:"Empirical formula",html:lines,round:"Type the formula, for example CH2O.",unit:"formula",ansF:ef,f:ef,
+       hints:[v==="comb"?"All the C ends up in CO₂ (1 C each) and all the H in H₂O (2 H each). Find moles of C and moles of H.":"Treat percents as grams (assume 100 g). Then change each mass to moles with its atomic mass.",`Moles: ${Object.keys(data).map(e=>`${e} ${sfStr(data[e],3)}`).join(", ")}. Divide each by the smallest.`,`Ratios: ${Object.keys(chk.raw).map(e=>`${e} ${chk.raw[e].toFixed(2)}`).join(", ")}${chk.mult>1?`. Multiply all by ${chk.mult} to make them whole.`:". Round to whole numbers."}`],
+       slips:[],sol:{kind:"emp",given,data,chk,ef,v},route:[["Grams","Moles","Ratio"],["÷ g/mol","÷ smallest"]]}}},
+ molf(){const pr=pick([["CH2O","C6H12O6"],["CH","C6H6"],["CH2","C4H8"],["NO2","N2O4"],["HO","H2O2"],["C2H5","C4H10"],["P2O5","P4O10"],["CH2O","C2H4O2"],["C3H4O3","C6H8O6"],["CH2","C3H6"],["C2H3","C4H6"],["CH","C2H2"],["CH2O","C3H6O3"]]);const M=mm(pr[1]);const Me=mm(pr[0]);const n=Math.round(M/Me);
+   return {kind:"molf",title:"Molecular formula",html:`A compound has the empirical formula <b>${fH(pr[0])}</b>. Its molar mass is measured as <b>${M.toFixed(2)} g/mol</b>. What is its molecular formula?`,round:"Type the formula, for example C6H12O6.",unit:"formula",ansF:pr[1],f:pr[1],emp:pr[0],
+     hints:["Find the empirical formula mass first.",`Empirical formula mass of ${fH(pr[0])} = ${Me.toFixed(2)} g/mol.`,`n = ${M.toFixed(2)} ÷ ${Me.toFixed(2)} = ${(M/Me).toFixed(2)}. Multiply every subscript by n.`],slips:[],sol:{kind:"molf",emp:pr[0],mol:pr[1],M,Me,n},route:[["Empirical","n","Molecular"],["M ÷ emp. mass","× n"]]}},
+ mm(){const rx=pick(RXS);const sp=rxAll(rx);const G=pick(sp.filter(s=>s.side==="R"));const Q=pick(sp.filter(s=>s.f!==G.f));const MG=mm(G.f),MQ=mm(Q.f);const sf=pickSF();const m=meas(MG*.1*G.nu,MG*2*G.nu,sf);const ans=m/MG*Q.nu/G.nu*MQ;const Gu=fU(G.f),Qu=fU(Q.f);
+   const slips=[];if(Q.nu!==G.nu){slips.push([m/MG*MQ,"You left out the mole ratio. Use the coefficients: "+Q.nu+" mol "+Qu+" per "+G.nu+" mol "+Gu+"."]);slips.push([m/MG*G.nu/Q.nu*MQ,"The mole ratio is upside down. Put the substance you want on top."])}
+   slips.push([m*Q.nu/G.nu,"Coefficients are mole ratios, not gram ratios. Convert grams to moles first."]);slips.push([m/MG*Q.nu/G.nu,"That is the moles of "+Qu+". Multiply by its molar mass to get grams."]);
+   return {kind:"mm",title:"Mass to mass",html:`${rxEqH(rx)}<br>What mass of <b>${fH(Q.f)}</b> ${Q.side==="P"?"can be made from":"reacts with"} <b>${sfStr(m,sf)} g</b> of ${fH(G.f)}${rx.R.length>1&&Q.side==="P"?" (other reactant in excess)":""}?`,round:`Give ${sfName(sf)}.`,unit:"g "+Qu,ans,sf,rx,
+     hints:[`Path: g ${Gu} → mol ${Gu} → mol ${Qu} → g ${Qu}.`,`Molar masses: ${Gu} ${mmS(G.f)} g/mol, ${Qu} ${mmS(Q.f)} g/mol. Mole ratio from the equation: ${Q.nu} mol ${Qu} / ${G.nu} mol ${Gu}.`,`Set up: ${sfStr(m,sf)} ÷ ${mmS(G.f)} × ${Q.nu}/${G.nu} × ${mmS(Q.f)} = ?`],
+     slips,sol:{kind:"chain",items:[frac(sfStr(m,sf),"g "+Gu),frac("1","mol "+Gu,mmS(G.f),"g "+Gu),frac(String(Q.nu),"mol "+Qu,String(G.nu),"mol "+Gu),frac(mmS(Q.f),"g "+Qu,"1","mol "+Qu)],res:[sfStr(ans,sf),["g "+Qu]]},
+     route:[["g "+Gu,"mol "+Gu,"mol "+Qu,"g "+Qu],["÷ "+mmS(G.f),"× "+Q.nu+"/"+G.nu,"× "+mmS(Q.f)]]}},
+ lr(){const rx=pick(RXS.filter(r=>r.R.length===2));const [A,B]=rx.R.map(x=>({nu:x[0],f:x[1]}));const Q={nu:rx.Pd[0][0],f:rx.Pd[0][1]};const sf=3;
+   const nA=randIn(.2,1.6)*A.nu;const fct=pick([randIn(.45,.8),randIn(1.25,2.2)]);const nB=nA*B.nu/A.nu*fct;const mA=+(nA*mm(A.f)).toPrecision(sf),mB=+(nB*mm(B.f)).toPrecision(sf);
+   const xA=mA/mm(A.f)/A.nu,xB=mB/mm(B.f)/B.nu;const L=xA<xB?A:B,E=xA<xB?B:A;const yA=xA*Q.nu*mm(Q.f),yB=xB*Q.nu*mm(Q.f);const ans=Math.min(yA,yB);const Qu=fU(Q.f);
+   const slips=[[Math.max(yA,yB),`That is what ${fU(E.f)} could make, but ${fU(L.f)} runs out first. The SMALLER amount of product is the theoretical yield.`]];
+   const mLight=mA<mB?A:B;if(mLight!==L)slips.push([ (mLight===A?yA:yB),"Picking the smaller mass does not work: compare in moles."]);
+   slips.push([(xA<xB?mA/mm(A.f):mB/mm(B.f))*mm(Q.f),"You left out the mole ratio between the limiting reactant and the product."]);slips.push([yA+yB,"Do not add the two amounts: only the limiting reactant sets the yield."]);
+   const chain=(R,m)=>[frac(sfStr(m,sf),"g "+fU(R.f)),frac("1","mol "+fU(R.f),mmS(R.f),"g "+fU(R.f)),frac(String(Q.nu),"mol "+Qu,String(R.nu),"mol "+fU(R.f)),frac(mmS(Q.f),"g "+Qu,"1","mol "+Qu)];
+   return {kind:"lr",title:"Limiting reactant",html:`${rxEqH(rx)}<br>You mix <b>${sfStr(mA,sf)} g ${fH(A.f)}</b> with <b>${sfStr(mB,sf)} g ${fH(B.f)}</b>. What is the theoretical yield of <b>${fH(Q.f)}</b> in grams?`,round:`Give ${sfName(sf)}.`,unit:"g "+Qu,ans,sf,rx,lim:L.f,
+     hints:["Find how much product EACH reactant could make (or compare moles ÷ coefficient). The smaller one is limiting.",`Moles: ${fU(A.f)} ${sfStr(mA/mm(A.f),4)} mol, ${fU(B.f)} ${sfStr(mB/mm(B.f),4)} mol. Divide by coefficients: ${sfStr(xA,3)} and ${sfStr(xB,3)}.`,`${fU(L.f)} is limiting. Use it: moles × ${Q.nu}/${L.nu} × ${mmS(Q.f)} g/mol.`],
+     slips,sol:{kind:"lr",rows:[[A,chain(A,mA),yA],[B,chain(B,mB),yB]],Q,ans,sf,L},route:[["g each","mol each","mol "+Qu,"smaller wins"],["÷ g/mol","× ratio","× g/mol"]]}},
+ py(){const rx=pick(RXS);const A={nu:rx.R[0][0],f:rx.R[0][1]};const Q={nu:rx.Pd[0][0],f:rx.Pd[0][1]};const sf=3;const mA=meas(mm(A.f)*.1*A.nu,mm(A.f)*1.5*A.nu,sf);
+   const theo=mA/mm(A.f)*Q.nu/A.nu*mm(Q.f);const act=+(theo*randIn(.55,.96)).toPrecision(sf);const ans=act/theo*100;const Qu=fU(Q.f);
+   const slips=[[theo/act*100,"Upside down: actual yield goes on top, theoretical on the bottom."],[act/mA*100,"Compare the product with the THEORETICAL yield of product, not with the mass of reactant."]];if(Q.nu!==A.nu)slips.push([act/(mA/mm(A.f)*mm(Q.f))*100,"The theoretical yield needs the mole ratio from the equation."]);
+   return {kind:"py",title:"Percent yield",html:`${rxEqH(rx)}<br>A reaction starts with <b>${sfStr(mA,sf)} g ${fH(A.f)}</b>${rx.R.length>1?" (other reactants in excess)":""} and you collect <b>${sfStr(act,sf)} g ${fH(Q.f)}</b>. What is the percent yield?`,round:`Give ${sfName(sf)} (in %).`,unit:"%",ans,sf,rx,
+     hints:["First find the theoretical yield of "+Qu+" from the starting mass (grams → moles → mole ratio → grams).",`Theoretical yield = ${sfStr(theo,4)} g ${Qu}.`,`Percent yield = ${sfStr(act,sf)} ÷ ${sfStr(theo,4)} × 100% = ?`],
+     slips,sol:{kind:"py",items:[frac(sfStr(mA,sf),"g "+fU(A.f)),frac("1","mol "+fU(A.f),mmS(A.f),"g "+fU(A.f)),frac(String(Q.nu),"mol "+Qu,String(A.nu),"mol "+fU(A.f)),frac(mmS(Q.f),"g "+Qu,"1","mol "+Qu)],theo,act,ans,sf,Qu},route:[["g "+fU(A.f),"mol "+fU(A.f),"mol "+Qu,"g "+Qu,"% yield"],["÷ g/mol","× ratio","× g/mol","actual ÷ theo."]]}}};
+function empOf(f){const c=parseF(f);const g=Object.values(c).reduce((a,b)=>gcd(a,b));const o={};Object.keys(c).forEach(e=>o[e]=c[e]/g);return Object.keys(o).map(e=>e+(o[e]>1?o[e]:"")).join("")}
+function sameCounts(a,b){const ka=Object.keys(a),kb=Object.keys(b);return ka.length===kb.length&&ka.every(k=>a[k]===b[k])}
+function ratioFrom(data){const ks=Object.keys(data);const mn=Math.min(...ks.map(k=>data[k]));const raw={};ks.forEach(k=>raw[k]=data[k]/mn);
+  for(let m=1;m<=6;m++){if(ks.every(k=>Math.abs(raw[k]*m-Math.round(raw[k]*m))<.1)){const counts={};ks.forEach(k=>counts[k]=Math.round(raw[k]*m));const g=Object.values(counts).reduce((a,b)=>gcd(a,b));if(g>1)ks.forEach(k=>counts[k]/=g);return {raw,mult:m/(g>1?g:1),counts}}}return null}
+function normFormula(s){return String(s||"").replace(/\s+/g,"").replace(/[₀-₉]/g,c=>String("₀₁₂₃₄₅₆₇₈₉".indexOf(c)))}
+/* judge an answer string against a problem: {ok, sfOff, msg} */
+function judge(p,str){const s=String(str||"").trim();if(!s)return {ok:false,empty:true,msg:"Type an answer in the box first."};
+  if(p.ansF){const nf=normFormula(s);if(!/^[A-Z(]/.test(nf))return {ok:false,msg:"Type a formula that starts with an element symbol, such as CH2O."};const c=parseF(nf);if(!c||!Object.keys(c).length||Object.keys(c).some(e=>!AM[e]))return {ok:false,msg:"Check the formula: use element symbols with a capital first letter, like C6H12O6."};
+    const want=parseF(p.ansF);if(sameCounts(c,want))return {ok:true,msg:""};
+    const ks=Object.keys(want);if(Object.keys(c).length===ks.length&&ks.every(k=>c[k])){const r=c[ks[0]]/want[ks[0]];if(ks.every(k=>Math.abs(c[k]/want[k]-r)<1e-9)){
+      if(p.kind==="emp"&&r>1)return {ok:false,msg:`Right ratio, but not the simplest. Divide every subscript by ${r}.`};if(r<1&&p.kind==="emp")return {ok:false,msg:"Formulas need whole numbers: multiply until every subscript is whole."};
+      if(p.kind==="molf")return {ok:false,msg:`Right ratio, wrong size. Check n = molar mass ÷ empirical formula mass.`}}}
+    if(p.kind==="molf"&&sameCounts(c,parseF(p.emp)))return {ok:false,msg:"That is the empirical formula. The molar mass tells you how many empirical units are in one molecule."};
+    return {ok:false,msg:"Not the right ratio of atoms. "+p.hints[0]}}
+  const v=parseNum(s);if(!isFinite(v))return {ok:false,msg:"Type a number, such as 0.250 or 1.51e23 (for 1.51 × 10²³)."};
+  const tol=p.tolAbs!=null?p.tolAbs:Math.max(Math.abs(p.ans)*.006,p.sf?.505*Math.pow(10,Math.floor(Math.log10(Math.abs(p.ans)))-p.sf+1):0);if(Math.abs(v-p.ans)<=tol){if(p.sf){const n=sfCount(s);if(n!==p.sf)return {ok:true,sfOff:true,n,msg:`Your value is right. Significant figures: you gave ${n}; the data have ${p.sf}, so report ${sfStr(p.ans,p.sf)}.`}}
+    if(p.dp!=null){const d=(s.split(/[eE×x]/)[0].split(".")[1]||"").length;if(d!==p.dp)return {ok:true,sfOff:true,msg:`Your value is right. Report it to ${p.dp} decimal places: ${p.ans.toFixed(p.dp)}.`}}return {ok:true,msg:""}}
+  const sl=p.slips.find(q=>isFinite(q[0])&&Math.abs(v-q[0])<=Math.max(tol,Math.abs(q[0])*.012));if(sl)return {ok:false,slip:true,msg:"Not quite. "+sl[1]};
+  if(Math.abs(v-p.ans)<=Math.abs(p.ans)*.05)return {ok:false,close:true,msg:"Very close. Recheck your rounding, and keep extra digits until the last step. "+(p.round||"")};
+  if(p.ans!==0&&Math.abs(Math.log10(Math.abs(v/p.ans))-Math.round(Math.log10(Math.abs(v/p.ans))))<.003&&Math.round(Math.log10(Math.abs(v/p.ans)))!==0)return {ok:false,msg:"The digits look right but the power of ten is off. Check the exponent (for example 1.51e23)."};
+  return {ok:false,msg:"Not quite. "+p.hints[0]}}
+function ansStr(p){return p.ansF?p.ansF:p.dp!=null?p.ans.toFixed(p.dp):sfStr(p.ans,p.sf).replace(/ × 10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/,(m,e)=>"e"+e.split("").map(c=>c==="⁻"?"-":SUPD.indexOf(c)).join(""))}
+const TR={type:"mix",p:null,hint:0,first:true,sol:false,solT:0,solved:false,streak:0,best:+(store.get("best")||0),count:0};
+function calcNew(){const keys=Object.keys(GEN);const k=TR.type==="mix"?pick(keys):TR.type;let q=null;for(let i=0;i<30&&!q;i++)q=GEN[k]();TR.p=q;TR.hint=0;TR.first=true;TR.sol=false;TR.solved=false;
+  $("#calcProb").innerHTML=`<span class="pt">${q.title} · practice problem</span>${q.html}<span class="rd">${q.round}</span>`;$("#calcUnit").innerHTML=q.ansF?"":fH(q.unit);$("#calcAns").value="";$("#calcAns").classList.toggle("fml",!!q.ansF);
+  $("#calcFmt").textContent=q.ansF?"Type numbers after symbols; they become subscripts (C6H12O6).":"Type numbers like 0.250, or 1.51e23 for 1.51 × 10²³.";
+  $("#calcMsg").className="msg";$("#calcHintBox").hidden=true;$("#calcCap").textContent=q.title+": the worked solution appears after a correct answer or when you ask for it.";a11yKey=""}
+function calcMsg(cls,t){const m=$("#calcMsg");m.className="msg show "+cls;m.innerHTML=t}
+function calcCheck(){const p=TR.p;const r=judge(p,$("#calcAns").value);if(r.empty){calcMsg("info",r.msg);return}
+  if(r.ok){const first=TR.first&&!TR.sol;if(!TR.solved){TR.count++;if(first){TR.streak++;if(TR.streak>TR.best){TR.best=TR.streak;store.set("best",TR.best)}}}TR.solved=true;
+    calcMsg("good",`✓ Correct${p.ansF?": "+fH(p.ansF):": "+(p.dp!=null?p.ans.toFixed(p.dp):sfStr(p.ans,p.sf))+" "+fH(p.unit)}.${r.sfOff?" "+r.msg:""}${p.kind==="lr"?` ${fH(p.lim)} is the limiting reactant.`:""} Watch the worked solution.`);showSol(false)}
+  else{TR.first=false;TR.streak=0;calcMsg("warn",r.msg)}updCalcMeter();a11yKey=""}
+function showSol(byBtn){if(byBtn&&!TR.solved){TR.streak=0;TR.first=false}TR.sol=true;TR.solT=performance.now();updCalcMeter();a11yKey=""}
+function updCalcMeter(){$("#calcStreak").textContent=TR.streak;$("#calcBest").textContent=TR.best;$("#calcSolved").textContent=TR.count}
+$("#calcCheck").onclick=calcCheck;$("#calcAns").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();calcCheck()}});
+$("#calcHint").onclick=()=>{const p=TR.p;const b=$("#calcHintBox");if(TR.hint<p.hints.length)TR.hint++;b.hidden=false;
+  b.innerHTML=p.hints.slice(0,TR.hint).map((h,i)=>`<div><b>Hint ${i+1}:</b> ${h}</div>`).join("")+(TR.hint>=p.hints.length?`<div class="small">That is the whole ladder. Try it, or press Show worked solution.</div>`:"")};
+$("#calcSol").onclick=()=>{showSol(true);const p=TR.p;calcMsg("info",`Worked solution: ${p.ansF?fH(p.ansF):(p.dp!=null?p.ans.toFixed(p.dp):sfStr(p.ans,p.sf))+" "+fH(p.unit)}. Watch the steps on the picture, then try a new problem.`)};
+$("#calcNew").onclick=()=>{calcNew();$("#calcAns").focus()};
+(function(){const sel=$("#calcType");sel.innerHTML=CTYPES.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join("");sel.onchange=()=>{TR.type=sel.value;calcNew()}})();
+/* ---------- drawing the trainer ---------- */
+function routeStrip(route,stage,p){panelBox(10,10,780,96);title(24,28,route?"Route on the mole map":p.kind==="pct"?"Percent by mass = part ÷ whole × 100%":"Molar mass = add up (count × atomic mass)");if(!route){txt(400,70,fU(p.f),{size:26,weight:700,align:"center"});const nat=Object.values(parseF(p.f)).reduce((a,b)=>a+b,0);mol(700,62,p.f.split("·")[0],clamp(14-nat*.4,5,12),{nolab:true});return}const nodes=route[0],labs=route[1];const n=nodes.length;const x0=90,x1=710;const sp=(x1-x0)/Math.max(1,n-1);
+  const cols=[C.act2,C.accent,C.act6,C.act2,C.good];
+  for(let i=0;i<n-1;i++){const a=x0+i*sp+52,b=x0+(i+1)*sp-52;const on=stage>i;const c=on?C.accent:hexA(C["ink-soft"],.55);arrow(a,72,b,72,c,on?3:1.8);label((a+b)/2,50,labs[i],{size:11,weight:700,mono:true,border:on?C.accent:null,color:on?C.ink:C["ink-soft"]})}
+  nodes.forEach((t,i)=>{const x=x0+i*sp;const w=Math.min(110,Math.max(70,tw(t,13,700)+20));mapNode(x,72,w,34,t,null,cols[i%cols.length],Math.min(stage,n-1)===i)})}
+function drawCalc(now){useStage(S3);const p=TR.p;const T=now/1000;const pr=TR.sol?clamp((now-TR.solT)/5200,0,1):0;const route=p.route;const nst=route?route[0].length:1;
+  routeStrip(route,TR.sol?Math.floor(pr*nst*1.05):0,p);
+  panelBox(10,116,780,254);levelTag(24,134,"sym");
+  if(!TR.sol){levelTag(110,134,"part");drawProblemPic(p,T);}
+  else{const s=p.sol;
+    if(s.kind==="chain"||s.kind==="py"){const items=s.items;const res=s.kind==="py"?[sfStr(s.theo,4),["g "+s.Qu]]:s.res;const w=fracChainWidth(items,res,{size:14});
+      if(w<740&&s.brk==null)fracChain(400-w/2,s.kind==="py"?200:230,items,res,pr*1.15,{size:14});else fracChain(40,s.kind==="py"?175:195,items,res,pr*1.15,{size:14,breakAfter:s.brk!=null?s.brk:1,rowH:68,indent:30});
+      if(s.kind==="py")withA(smooth(seg(pr,.8,1)),()=>{txt(400,300,`% yield = ${sfStr(s.act,s.sf)} g ÷ ${sfStr(s.theo,4)} g × 100%`,{size:15,mono:true,weight:700,align:"center"});resultBox(400,336,sfStr(s.ans,s.sf)+" %",1)})}
+    else if(s.kind==="tally")drawTallySol(s.f,pr);
+    else if(s.kind==="pct")drawPctSol(s.f,s.e,pr);
+    else if(s.kind==="emp")drawEmpSol(s,pr);
+    else if(s.kind==="molf")drawMolfSol(s,pr,T);
+    else if(s.kind==="lr")drawLRSol(s,pr)}
+  panelBox(10,380,780,110);
+  if(TR.sol){withA(smooth(seg(pr,.85,1)),()=>{txt(24,404,"Answer: "+(p.ansF?fU(p.ansF):(p.dp!=null?p.ans.toFixed(p.dp):sfStr(p.ans,p.sf))+" "+p.unit),{size:16,weight:700,mono:true});
+      txt(24,428,p.kind==="molf"?"The molecular formula is a whole number n times the empirical formula.":p.ansF?"Formulas use the smallest whole numbers that fit the data.":p.sf?`Rounded to ${sfName(p.sf)}, the fewest in the measured data. Molar masses and Nₐ have more.`:"Two decimal places, like the atomic masses.",{size:12.5,color:C["ink-soft"]})});
+    const sl=p.slips&&p.slips[0];if(!sl&&(p.kind==="emp"||p.kind==="molf"))withA(smooth(seg(pr,.9,1)),()=>wrapText(p.kind==="emp"?"Common mistake: comparing grams or percents directly. Atoms are counted in moles, so convert every mass to moles first, and never round a ratio like 1.50 to 2.":"Common mistake: stopping at the empirical formula, or using the molar mass as a subscript. n = molar mass ÷ empirical formula mass.",24,454,750,17,{size:12.5,color:C["warn-ink"],weight:600}));
+    if(sl)withA(smooth(seg(pr,.9,1)),()=>{const v=sl[0];const vs=Math.abs(v)>=1e5||Math.abs(v)<1e-3?sci(v,p.sf||3):p.dp!=null?v.toFixed(p.dp):sfStr(v,p.sf||3);wrapText(`Common mistake: getting ${vs}. ${sl[1]}`,24,454,750,17,{size:12.5,color:C["warn-ink"],weight:600})})}
+  else{txt(24,408,"Your turn",{size:15,weight:700});wrapText("Work it on paper, type your answer, and press Check. A correct answer, or Show worked solution, plays the solution here with units cancelling step by step.",24,432,740,18,{size:13,color:C["ink-soft"]})}}
+function drawProblemPic(p,T){
+  if(p.rx){const terms=[];p.rx.R.forEach((x,i)=>{if(i)terms.push("+");terms.push({c:x[0],f:x[1]})});terms.push("→");p.rx.Pd.forEach((x,i)=>{if(i)terms.push("+");terms.push({c:x[0],f:x[1]})});drawEq(400,170,terms,{size:24,align:"center"});
+    const all=p.rx.R.concat(p.rx.Pd);const n=all.length;all.forEach((x,i)=>{const cx=90+i*(620/Math.max(1,n-1));const nat=Object.values(parseF(x[1])).reduce((a,b)=>a+b,0);const r=clamp(16-nat*.6,6,14);for(let k=0;k<Math.min(x[0],4);k++)mol(cx+(k%2)*(molRadius(x[1],r)*2+6)-molRadius(x[1],r),240+Math.floor(k/2)*(molRadius(x[1],r)*2+8)+Math.sin(T*2+k)*2,x[1],r,{nolab:r<7})});
+    txt(400,350,"balanced equation: the coefficients are mole ratios",{size:12.5,align:"center",color:C["ink-soft"]});return}
+  const f=p.kind==="emp"?p.ansF:p.f;if(p.kind==="emp"){txt(400,166,"Mystery compound",{size:18,weight:700,align:"center"});for(let i=0;i<5;i++){const q=bounceXY(i,T,250,204,300,104,20,61);circ(q[0],q[1],16,hexA(C["ink-soft"],.25),C["ink-soft"],1.5);txt(q[0],q[1]+1,"?",{size:15,weight:700,align:"center"})}txt(400,350,"turn the data into moles to reveal the atom ratio",{size:12.5,align:"center",color:C["ink-soft"]});return}
+  const nat=Object.values(parseF(f)).reduce((a,b)=>a+b,0);const r=clamp(26-nat*.9,8,24);mol(250,245,f.split("·")[0],r,{rot:Math.sin(T*.6)*.3});txt(250,350,fU(f),{size:18,weight:700,align:"center"});
+  beaker(470,190,90,110,.35,null);balance(445,300,140,p.kind==="molar"?"? g":"…");txt(600,240,p.kind==="part"?"count the particles":"one formula, many particles",{size:13,color:C["ink-soft"]})}
+function drawTallySol(f,pr){const c=parseF(f);const els=Object.keys(c);const n=els.length;const rh=Math.min(44,190/n);
+  els.forEach((e,i)=>withA(smooth(seg(pr,i*.12,i*.12+.15)),()=>{const y=160+i*rh;atom(80,y,e,12);txt(110,y,ENAME[e],{size:13,color:C["ink-soft"]});txt(290,y,`${c[e]} × ${AM[e].toFixed(e==="H"?3:2)}`,{size:15,mono:true,weight:600});txt(500,y,"= "+(c[e]*AM[e]).toFixed(e==="H"?3:2),{size:15,mono:true,weight:700});
+    for(let k=0;k<Math.min(c[e],12);k++)atom(616+(k%12)*13,y,e,5.5,{nolab:true})}));
+  withA(smooth(seg(pr,.7,.85)),()=>{line(290,160+n*rh-10,700,160+n*rh-10,C.ink,1.4);resultBox(495,160+n*rh+14,"M = "+mm(f).toFixed(2)+" g/mol",1)})}
+function drawPctSol(f,e,pr){const c=parseF(f);const els=Object.keys(c);const M=mm(f);let acc=0;const parts=els.map(x=>[c[x]*AM[x]/M,elCol(x)]);pie(170,245,100,parts,smooth(seg(pr,0,.5)));
+  els.forEach((x,i)=>{const y=160+i*Math.min(40,180/els.length);withA(smooth(seg(pr,.2+i*.08,.35+i*.08)),()=>{rr(300,y-10,20,20,4);fillStroke(elCol(x),hexA(C.ink,.4),1);txt(330,y,`${x}: ${c[x]} × ${AM[x].toFixed(x==="H"?3:2)} = ${(c[x]*AM[x]).toFixed(2)} g`,{size:14,mono:true,weight:x===e?700:500,color:x===e?C.ink:C["ink-soft"]})})});
+  withA(smooth(seg(pr,.6,.85)),()=>{txt(300,330,`% ${e} = ${(c[e]*AM[e]).toFixed(2)} ÷ ${M.toFixed(2)} × 100% = ${(c[e]*AM[e]/M*100).toFixed(2)}%`,{size:14.5,mono:true,weight:700})})}
+function drawEmpSol(s,pr){const ks=Object.keys(s.data);const cols=[["",50],["data",150],["÷",120],["mol",100],["÷ smallest",100],[s.chk.mult>1?"× "+s.chk.mult:"",80],["whole",70]];
+  let X=40;cols.forEach((c,ci)=>{const a=smooth(seg(pr,ci*.11,ci*.11+.12));withA(ci<2?1:a,()=>{txt(X+c[1]/2,152,c[0],{size:11.5,mono:true,weight:700,align:"center",color:C["ink-soft"]});
+    ks.forEach((e,ri)=>{const y=184+ri*44;let v="";if(ci===0){atom(X+20,y,e,11);return}
+      if(ci===1)v=sfStr(s.given[e][0],3)+" "+s.given[e][1].replace("% → g","%");if(ci===2)v=s.given[e][2];if(ci===3)v=sfStr(s.data[e],3);if(ci===4)v=s.chk.raw[e].toFixed(2);if(ci===5)v=s.chk.mult>1?(s.chk.raw[e]*s.chk.mult).toFixed(2):"";if(ci===6)v=String(s.chk.counts[e]);
+      txt(X+c[1]/2,y,v,{size:13.5,mono:true,weight:ci===6?700:500,align:"center"})})});X+=c[1]});
+  withA(smooth(seg(pr,.8,.95)),()=>resultBox(400,184+ks.length*44+10,"empirical formula: "+fU(s.ef),1))}
+function drawMolfSol(s,pr,T){const base=340,sc=150/Math.max(s.M,1);rr(80,base-s.M*sc,80,s.M*sc,4);fillStroke(hexA(C.act3,.25),C.act3,2);txt(120,base+14,s.M.toFixed(2),{size:12,mono:true,weight:700,align:"center"});txt(120,base-s.M*sc-12,"measured M",{size:11.5,align:"center",color:C["ink-soft"]});
+  const nb=Math.min(s.n,Math.floor(smooth(seg(pr,0,.6))*s.n+.001));for(let i=0;i<nb;i++){const h=s.Me*sc;rr(200,base-h*(i+1),110,h-1,3);fillStroke(hexA(C.accent,.25),C.accent,1.4);if(h>14)txt(255,base-h*(i+.5),fU(s.emp),{size:12,weight:600,align:"center"})}
+  withA(smooth(seg(pr,.5,.7)),()=>{txt(360,170,`n = ${s.M.toFixed(2)} ÷ ${s.Me.toFixed(2)} = ${(s.M/s.Me).toFixed(2)} ≈ ${s.n}`,{size:15,mono:true,weight:700})});
+  withA(smooth(seg(pr,.7,.9)),()=>{txt(360,210,`(${fU(s.emp)}) × ${s.n} = ${fU(s.mol)}`,{size:17,weight:700});mol(560,290,s.mol,9,{rot:T*.3})})}
+function drawLRSol(s,pr){s.rows.forEach((r,i)=>{const y=186+i*90;const items=r[1];const res=[sfStr(r[2],4),["g "+fU(s.Q.f)]];const w=fracChainWidth(items,res,{size:12.5});const sc=Math.min(1,740/w);
+    ctx.save();ctx.translate(30,y);ctx.scale(sc,sc);fracChain(0,0,items,res,clamp(pr*1.6-i*.5,0,1),{size:12.5});ctx.restore();
+    const isL=r[0].f===s.L.f;withA(smooth(seg(pr,.8,.95)),()=>{if(isL){rr(24,y-33,750,68,8);ctx.strokeStyle=C.act7;ctx.lineWidth=2.4;ctx.stroke();label(700,y-36,"limiting: smaller amount",{size:11.5,weight:700,border:C.act7})}})});
+  withA(smooth(seg(pr,.85,1)),()=>resultBox(400,350,`theoretical yield = ${sfStr(s.ans,s.sf)} g ${fU(s.Q.f)}`,1))}
+function calcA11y(){const p=TR.p;const v=$("#calcAns").value.trim();
+  const lab=`Problem trainer, ${p.title}. ${TR.sol?"Worked solution showing; answer "+(p.ansF||((p.dp!=null?p.ans.toFixed(p.dp):sfStr(p.ans,p.sf))+" "+p.unit))+".":"Solution hidden."}`;
+  const d=TR.sol?`The top strip shows the route on the mole map${p.route?": "+p.route[0].join(", then "):""}, lighting up step by step. The middle shows the worked solution${p.sol.kind==="chain"||p.sol.kind==="py"||p.sol.kind==="lr"?" as a chain of fractions; matching units on top and bottom are struck through in red, leaving the unit wanted, and the answer appears in a green box":p.sol.kind==="emp"?" as a table: data, moles, divide by the smallest, then whole numbers":p.sol.kind==="pct"?" as a pie chart of mass by element and the percent calculation":p.sol.kind==="molf"?" as blocks of the empirical formula stacked up to the measured molar mass":" as a tally of each element's count times its atomic mass"}. The bottom gives the answer with its significant figures and a common mistake to avoid.`
+    :`The picture shows the substance or the balanced equation for the problem, with the route on the mole map at the top. ${v?"You have typed "+v+".":"No answer typed yet."}`;
+  return [lab,d]}
+
+/* ================= PART 4: chemistry in real life ================= */
+const LIFE=[
+ {id:"kcl",chip:"Potassium in an IV bag",title:"Potassium chloride: moles, millimoles and mEq",
+  story:`<p>Hospitals often describe electrolytes such as potassium in <b>milliequivalents (mEq)</b>. An equivalent counts <b>moles of charge</b>: mEq = mmol × the ion's charge. For K<sup>+</sup> (charge 1), 1 mmol = 1 mEq. For Ca<sup>2+</sup> (charge 2), 1 mmol = 2 mEq.</p><p>A practice bag label reads <b>KCl 20 mEq</b>. (Practice numbers for the chemistry, not dosing guidance.)</p>`,
+  cap:"K⁺ and Cl⁻ ions drift in an IV bag; 20 mEq of K⁺ is 20 mmol.",
+  desc:"An IV bag hangs from a pole with a drip chamber below it. Inside the bag, purple potassium ions with plus badges and green chloride ions with minus badges drift slowly. A tag on the bag reads KCl 20 mEq. Beside it, a panel shows 20 mEq equals 20 mmol for K plus, and a row of charge badges compares one plus charge for K plus with two plus charges for Ca two plus.",
+  qs:[{q:"How many grams of KCl (74.55 g/mol) are in 20 mmol of KCl?",o:[["1.49 g",1,"Yes. 20 mmol = 0.020 mol; 0.020 mol × 74.55 g/mol = 1.49 g."],["0.782 g",0,"That uses only potassium's molar mass (39.10). The bag holds KCl, so use 74.55 g/mol."],["1,491 g",0,"That treats 20 mmol as 20 mol. Milli means one thousandth: 20 mmol = 0.020 mol."],["3.73 g",0,"Check the arithmetic: 0.020 × 74.55 = 1.49."]]},
+   {q:"A calcium order is written as 10 mmol of Ca²⁺. How many mEq is that?",o:[["20 mEq",1,"Right. Each Ca²⁺ carries 2 charges, so mEq = 10 mmol × 2 = 20 mEq."],["10 mEq",0,"That would be true for a +1 ion like K⁺. Calcium is +2."],["5 mEq",0,"Divide only if going from mEq to mmol. From mmol to mEq, multiply by the charge."],["40 mEq",0,"The charge is 2, not 4: 10 × 2 = 20 mEq."]]},
+   {q:"About how many K⁺ ions are in 20 mmol of KCl?",o:[["1.20 × 10²² ions",1,"Yes. 0.020 mol × 6.022 × 10²³ ions/mol = 1.20 × 10²² K⁺ ions."],["1.20 × 10²⁵ ions",0,"That uses 20 mol instead of 0.020 mol. Change mmol to mol first."],["20 ions",0,"20 is the number of millimoles. Multiply moles by Avogadro's number to count ions."],["2.41 × 10²² ions",0,"That counts K⁺ and Cl⁻ together. The question asks only about K⁺."]]}]},
+ {id:"soda",chip:"Baking soda and vinegar",title:"The kitchen volcano: a limiting reactant",
+  story:`<p>Baking soda (sodium bicarbonate) reacts with the acetic acid in vinegar to make carbon dioxide gas, which makes the foam:</p><p class="eqline">NaHCO<sub>3</sub> + CH<sub>3</sub>COOH → NaCH<sub>3</sub>COO + H<sub>2</sub>O + CO<sub>2</sub></p><p>All the coefficients are 1. Baking soda is 84.01 g/mol, acetic acid 60.05 g/mol, CO<sub>2</sub> 44.01 g/mol.</p>`,
+  cap:"Foam erupts as CO₂ bubbles form; the limiting reactant decides how much gas.",
+  desc:"A flask holds clear vinegar. White baking soda powder drops in, and foam with grey-and-red carbon dioxide molecules rises and spills over the top. On the right, a particle panel shows sodium bicarbonate units meeting acetic acid molecules and releasing carbon dioxide molecules that float upward. When one reactant runs out, the bubbling stops.",
+  qs:[{q:"8.40 g of baking soda reacts with plenty of vinegar. What mass of CO₂ forms?",o:[["4.40 g",1,"Yes. 8.40 ÷ 84.01 = 0.100 mol NaHCO₃ → 0.100 mol CO₂ (1 : 1) × 44.01 = 4.40 g."],["8.40 g",0,"Mass is not carried over directly. Go through moles: 0.100 mol NaHCO₃ makes 0.100 mol CO₂."],["0.100 g",0,"0.100 is the number of moles. Multiply by 44.01 g/mol for grams."],["6.15 g",0,"That uses acetic acid's molar mass somewhere. The product is CO₂, 44.01 g/mol."]]},
+   {q:"You use 8.40 g baking soda (0.100 mol) and 100 mL vinegar holding 5.0 g acetic acid. Which is limiting?",o:[["Acetic acid: 5.0 ÷ 60.05 = 0.083 mol, less than 0.100 mol",1,"Right. With a 1 : 1 ratio, the reactant with fewer moles runs out first. Some baking soda will be left in the flask."],["Baking soda, because 8.40 g is more than 5.0 g",0,"Compare moles, not grams. Acetic acid is only 0.083 mol."],["Neither; both are used up exactly",0,"That would need equal moles. 0.083 mol is less than 0.100 mol."],["Water, because it is a product",0,"Products are never limiting. The limiting reactant is one of the starting materials."]]}]},
+ {id:"airbag",chip:"Airbag sodium azide",title:"The airbag: a gas made in milliseconds",
+  story:`<p>Classic airbags were inflated by the rapid decomposition of <b>sodium azide</b>, NaN<sub>3</sub> (65.02 g/mol):</p><p class="eqline">2NaN<sub>3</sub>(s) → 2Na(s) + 3N<sub>2</sub>(g)</p><p>A crash sensor triggers the reaction, and nitrogen gas fills the bag in a few hundredths of a second. Other chemicals in the unit make the sodium harmless, and many newer airbags use different propellants.</p>`,
+  cap:"Sodium azide breaks apart into sodium and nitrogen gas, which fills the bag.",
+  desc:"A steering wheel sits at the left, and an airbag balloons out from its centre, swelling and then holding steady. Inside a zoomed panel on the right, a purple sodium ion paired with a straight chain of three blue nitrogen atoms breaks apart: the sodium drops away and the nitrogen atoms pair up into N2 molecules that rush outward. A counter shows 2 NaN3 making 3 N2.",
+  qs:[{q:"How many moles of N₂ come from 65.0 g of NaN₃?",o:[["1.50 mol",1,"Yes. 65.0 ÷ 65.02 = 1.00 mol NaN₃ × (3 mol N₂ / 2 mol NaN₃) = 1.50 mol N₂."],["1.00 mol",0,"That forgets the mole ratio. Every 2 NaN₃ make 3 N₂."],["0.667 mol",0,"The ratio is upside down. Put N₂ (what you want) on top: 3/2."],["3.00 mol",0,"That uses the coefficient 3 alone. The ratio is 3 N₂ for every 2 NaN₃."]]},
+   {q:"What mass of NaN₃ is needed to make 2.00 mol of N₂?",o:[["86.7 g",1,"Yes. 2.00 mol N₂ × (2 mol NaN₃ / 3 mol N₂) = 1.333 mol × 65.02 g/mol = 86.7 g."],["195 g",0,"That uses the ratio upside down (3/2). You need fewer moles of NaN₃ than of N₂."],["130 g",0,"That assumes 1 : 1. Use the coefficients: 2 NaN₃ per 3 N₂."],["56.0 g",0,"56.0 g is the mass of 2.00 mol of N₂ itself. The question asks for NaN₃."]]}]},
+ {id:"fuel",chip:"CO₂ from burning fuel",title:"Burning gasoline: why the CO₂ outweighs the fuel",
+  story:`<p>Gasoline is mostly hydrocarbons such as <b>octane</b>, C<sub>8</sub>H<sub>18</sub> (114.22 g/mol). Burning it:</p><p class="eqline">2C<sub>8</sub>H<sub>18</sub> + 25O<sub>2</sub> → 16CO<sub>2</sub> + 18H<sub>2</sub>O</p><p>Each octane molecule gives 8 CO<sub>2</sub>. The oxygen atoms in the CO<sub>2</sub> come from the <b>air</b>, not from the fuel.</p>`,
+  cap:"Octane plus oxygen from the air becomes CO₂ and water in the engine.",
+  desc:"A car on the left drives in place while grey-and-red carbon dioxide molecules and red-and-white water molecules puff out of its exhaust pipe and drift away. On the right, two bars compare 1.00 kg of octane fuel with the carbon dioxide it makes. The carbon dioxide bar grows much taller than the fuel bar, and its upper part is labelled oxygen from the air. Its mass shows a question mark until you answer the first question.",
+  qs:[{q:"What mass of CO₂ forms when 1.00 kg (1,000 g) of octane burns completely?",o:[["3.08 kg",1,"Yes. 1000 ÷ 114.22 = 8.755 mol C₈H₁₈ × (16/2) = 70.04 mol CO₂ × 44.01 g/mol = 3,082 g ≈ 3.08 kg."],["1.00 kg",0,"Mass is conserved overall, but the CO₂ also contains oxygen from the air, so it is heavier than the fuel alone."],["0.385 kg",0,"That uses the ratio upside down (2/16). Each octane makes 8 CO₂."],["0.841 kg",0,"That only counts the carbon atoms. CO₂ also contains two oxygen atoms per carbon."]]},
+   {q:"Why is the mass of CO₂ more than the mass of fuel burned?",o:[["Oxygen atoms from the air join the carbon atoms",1,"Right. Mass is conserved for the whole reaction: fuel plus oxygen from the air equals CO₂ plus water."],["Burning creates new atoms",0,"Atoms are never created in a chemical reaction. They are rearranged."],["CO₂ is heavier because it is a gas",0,"Being a gas does not add mass. The extra mass is oxygen from the air."],["The fuel absorbs water from the air",0,"The water is a product, not something absorbed. The extra mass comes from O₂."]]}]},
+ {id:"cell",chip:"Glucose in your cells",title:"Cellular respiration: stoichiometry in your body",
+  story:`<p>Your cells release energy from glucose in many small steps, but the overall result is the same as burning it:</p><p class="eqline">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub> → 6CO<sub>2</sub> + 6H<sub>2</sub>O</p><p>The O<sub>2</sub> comes from your lungs, and the CO<sub>2</sub> is carried by the blood back to the lungs to be breathed out. Glucose is 180.16 g/mol.</p>`,
+  cap:"Inside a mitochondrion, glucose and oxygen become carbon dioxide and water.",
+  desc:"A large oval mitochondrion with folded inner membranes fills the left side. Glucose molecules and red oxygen molecules drift in from the left, and carbon dioxide and water molecules drift out to the right, with small yellow energy sparks where they meet. On the right, labels show 1 glucose and 6 O2 going in and 6 CO2 and 6 H2O coming out.",
+  qs:[{q:"How many moles of O₂ are needed to use up 0.500 mol of glucose?",o:[["3.00 mol",1,"Yes. 0.500 mol × (6 mol O₂ / 1 mol glucose) = 3.00 mol O₂."],["0.500 mol",0,"That assumes 1 : 1. Each glucose needs 6 O₂."],["0.0833 mol",0,"That divides by 6. You need more O₂ than glucose: multiply by 6."],["6.00 mol",0,"6 is the ratio per 1 mol of glucose. You have 0.500 mol."]]},
+   {q:"What mass of CO₂ is made from 90.1 g of glucose?",o:[["132 g",1,"Yes. 90.1 ÷ 180.16 = 0.500 mol glucose × 6 = 3.00 mol CO₂ × 44.01 = 132 g."],["90.1 g",0,"Mass does not transfer one to one. Use moles and the 1 : 6 ratio."],["22.0 g",0,"That forgets the ratio: each glucose makes 6 CO₂."],["3.00 g",0,"3.00 is the moles of CO₂. Multiply by 44.01 g/mol."]]}]}];
+const LS={i:0,ans:{},solved:new Set()};
+function lifeUI(){const s=LIFE[LS.i];const ch=$("#lifeChips");ch.innerHTML="";LIFE.forEach((x,k)=>{const b=document.createElement("button");b.type="button";b.className="casechip";b.setAttribute("aria-pressed",String(k===LS.i));b.innerHTML=x.chip+(LS.solved.has(k)?'<span class="ok" aria-hidden="true">✓</span><span class="gk-sr"> (all answered)</span>':"");b.onclick=()=>{LS.i=k;lifeUI();a11yKey=""};ch.appendChild(b)});
+  const card=$("#lifeCard");card.innerHTML=`<div class="sc-n">Scenario ${LS.i+1} of ${LIFE.length}</div><h3 class="sc-title">${s.title}</h3><div class="story">${s.story}</div>`;
+  s.qs.forEach((q,qi)=>{const d=document.createElement("div");d.className="lifeq";d.innerHTML=`<p class="qlab">${qi+1}. ${q.q}</p><div class="qopts"></div><div class="lifefb" role="status" hidden></div>`;const box=d.querySelector(".qopts"),fb=d.querySelector(".lifefb");
+    const order=q.o.map((o,i)=>[o,rnd(LS.i*11+qi*5+i)]).sort((a,b)=>a[1]-b[1]).map(x=>x[0]);
+    order.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];const key=LS.i+"-"+qi;if(LS.ans[key]===o[0])b.classList.add(o[1]?"right":"wrong");
+      b.onclick=()=>{box.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));LS.ans[key]=o[0];b.classList.add(o[1]?"right":"wrong");fb.hidden=false;fb.className="lifefb "+(o[1]?"ok":"no");fb.textContent=(o[1]?"✓ ":"Not quite. ")+o[2];
+        if(o[1]){q.done=true;if(s.qs.every(x=>x.done)){LS.solved.add(LS.i);const c=$("#lifeChips").children[LS.i];if(c&&!c.querySelector(".ok"))c.insertAdjacentHTML("beforeend",'<span class="ok" aria-hidden="true">✓</span><span class="gk-sr"> (all answered)</span>')}}};box.appendChild(b)});card.appendChild(d)});
+  $("#lifeCap").textContent=s.cap}
+function ivBag(x,y,w,h,col){ctx.beginPath();ctx.moveTo(x+w*.15,y);ctx.lineTo(x+w*.85,y);ctx.quadraticCurveTo(x+w,y,x+w,y+h*.2);ctx.lineTo(x+w,y+h*.85);ctx.quadraticCurveTo(x+w,y+h,x+w*.6,y+h);ctx.lineTo(x+w*.4,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h*.85);ctx.lineTo(x,y+h*.2);ctx.quadraticCurveTo(x,y,x+w*.15,y);ctx.closePath();fillStroke(col||hexA(C.liquid,.7),C["glass-edge"],2)}
+function drawLife(now){useStage(S4);const T=now/1000;const s=LIFE[LS.i];
+  if(s.id==="kcl"){panelBox(10,10,420,440);title(24,30,"IV bag");levelTag(24,52,"see");line(220,20,220,80,C.metal,4);line(160,24,280,24,C.metal,4);ivBag(140,70,160,230,null);
+    ctx.save();rr(146,80,148,214,12);ctx.clip();for(let i=0;i<14;i++){const p=bounceXY(i,T,160,90,120,190,14,71);atom(p[0],p[1],i%2?"Cl":"K",9,{charge:i%2?"−":"+"})}ctx.restore();
+    label(220,120,"KCl 20 mEq",{size:14,weight:700,border:C.accent});rr(206,300,28,40,6);fillStroke(hexA(C.glass,.7),C["glass-edge"],1.5);const dp=P(T,1.2);circ(220,306+dp*28,3,hexA(C.act2,.8));line(220,340,220,440,C["glass-edge"],2.5);
+    panelBox(440,10,350,440);title(454,30,"Counting charge");levelTag(454,52,"sym");
+    atom(500,110,"K",20,{charge:"+"});txt(530,110,"K⁺: charge 1",{size:15,weight:700});txt(530,134,"1 mmol = 1 mEq",{size:14,mono:true,color:C["accent-ink"],weight:600});
+    atom(500,200,"Ca",20,{charge:"2+"});txt(530,200,"Ca²⁺: charge 2",{size:15,weight:700});txt(530,224,"1 mmol = 2 mEq",{size:14,mono:true,color:C["accent-ink"],weight:600});
+    txt(460,290,"mEq = mmol × charge",{size:16,mono:true,weight:700});txt(460,326,"20 mEq K⁺ = 20 mmol K⁺",{size:14,mono:true});txt(460,356,"1 mmol = 0.001 mol",{size:14,mono:true});txt(460,380,"grams = mol × g/mol",{size:14,mono:true,weight:700});
+    txt(460,426,"Practice numbers, not dosing guidance.",{size:12,color:C["ink-soft"]})}
+  else if(s.id==="soda"){panelBox(10,10,420,440);title(24,30,"Kitchen volcano");levelTag(24,52,"see");const f=P(T,8);flask(220,330,2.1,.35,hexA(C.liquid,.8));
+    const foam=smooth(seg(f,.15,.5))*(1-smooth(seg(f,.85,1)));for(let i=0;i<40*foam;i++){const q=P(T*.6+i/40,1);const x=220+Math.sin(i*2.1)*(10+q*60)+(q>.6?(i%2?1:-1)*(q-.6)*100:0);const y=210-q*140+(q>.6?(q-.6)*260:0);circ(x,y,5+3*rnd(i),hexA("#ffffff",.85),hexA(C.ink,.3),1)}
+    if(f<.2){const q=f/.2;for(let i=0;i<10;i++)circ(220+Math.sin(i*3)*8,lerp(60,250,q)+i*4,2.5,C.crystal,hexA(C.ink,.4),.8)}
+    panelBox(440,10,350,440);title(454,30,"Particles");levelTag(454,52,"part");const tt=P(T,4)*4;const A=groupAtoms([{f:"NaHCO3",x:540,y:240},{f:"C2H4O2",x:680,y:240}],8),B=groupAtoms([{f:"NaC2H3O2",x:560,y:330},{f:"H2O",x:660,y:340},{f:"CO2",x:614,y:180}],8);
+    if(tt<1.2)A.forEach(a=>atom(a.x,a.y,a.el,8,{nolab:true}));else if(tt<2)morphAtoms(A,B,seg(tt,1.2,2),8,{cx:610,cy:250,T});else{B.forEach((a,i)=>{const up=a.y<220?(tt-2)*-50:0;atom(a.x,a.y+up,a.el,8,{nolab:true})})}
+    txt(615,400,"NaHCO₃ + CH₃COOH → … + CO₂",{size:13,mono:true,align:"center",weight:600});txt(615,424,"each event releases one CO₂",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(s.id==="airbag"){panelBox(10,10,420,440);title(24,30,"Airbag");levelTag(24,52,"see");const f=smooth(seg(P(T,5),.1,.35));
+    circ(150,250,80,null,C["ink-soft"],14);circ(150,250,24,C.metal,hexA(C.ink,.4),1.5);line(150,250,150,450,C["ink-soft"],10);
+    ell(170+60*f,240,24+90*f,24+84*f,0,hexA("#ffffff",.8),C["ink-soft"],2);if(f>.05&&f<.6)sparkle(150,250,40,T*4,C.gold);
+    panelBox(440,10,350,440);title(454,30,"Particles");levelTag(454,52,"part");const tt=P(T,4)*4;
+    const A=groupAtoms([{f:"NaN3",x:560,y:180},{f:"NaN3",x:560,y:300}],12),B=groupAtoms([{f:"Na",x:520,y:380},{f:"Na",x:600,y:380},{f:"N2",x:700,y:150,rot:.3},{f:"N2",x:700,y:240},{f:"N2",x:700,y:320,rot:-.3}],12);
+    if(tt<1)A.forEach(a=>atom(a.x,a.y,a.el,12));else if(tt<1.8)morphAtoms(A,B,seg(tt,1,1.8),12,{cx:610,cy:250,T});else B.forEach(a=>atom(a.x+(a.el==="N"?(tt-1.8)*20:0),a.y,a.el,12));
+    txt(615,424,"2 NaN₃ → 2 Na + 3 N₂",{size:15,mono:true,weight:700,align:"center"})}
+  else if(s.id==="fuel"){panelBox(10,10,420,440);title(24,30,"Engine exhaust");levelTag(24,52,"see");
+    rr(60,250,240,70,20);fillStroke(C.act2,hexA(C.ink,.5),1.5);rr(110,205,130,55,16);fillStroke(mix(C.act2,"#ffffff",.3),hexA(C.ink,.5),1.5);wheel(110,325,24,1,T*6);wheel(250,325,24,1,T*6);line(300,300,330,300,C.metal,6);
+    for(let i=0;i<10;i++){const q=P(T*.5+i/10,1);const x=330+q*80,y=300-q*120+Math.sin(i*2+T)*8;withA(1-q,()=>mol(x,y,i%2?"CO2":"H2O",7,{rot:i+T,nolab:true}))}
+    panelBox(440,10,350,440);title(454,30,"Mass in, mass out");levelTag(454,52,"sym");const g=smooth(seg(P(T,6),.1,.6));
+    rr(480,360-100,80,100,4);fillStroke(hexA(C.act5,.6),C.act5,1.5);txt(520,380,"octane",{size:12.5,weight:700,align:"center"});txt(520,398,"1.00 kg",{size:12.5,mono:true,align:"center"});
+    const h=308*g;rr(620,360-h,80,h,4);fillStroke(hexA(C["el-C"],.5),C["el-C"],1.5);const hO=h*.727;
+    rr(620,360-h,80,hO,4);fillStroke(hexA(C["el-O"],.35),null);txt(660,380,"CO₂",{size:12.5,weight:700,align:"center"});txt(660,398,LIFE[3].qs[0].done?(3.08*g).toFixed(2)+" kg":"? kg",{size:12.5,mono:true,align:"center"});
+    withA(g,()=>label(660,360-h+hO/2,"O from air",{size:11.5,weight:700}));txt(615,436,"2C₈H₁₈ + 25O₂ → 16CO₂ + 18H₂O",{size:12.5,mono:true,align:"center",weight:600})}
+  else{panelBox(10,10,520,440);title(24,30,"Mitochondrion");levelTag(24,52,"part");ell(270,240,220,140,0,hexA(C.act6,.15),C.act6,3);
+    ctx.beginPath();for(let i=0;i<=40;i++){const x=80+i*9.5;const y=240+Math.sin(i*.9)*70*Math.sin(i/40*Math.PI);i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.strokeStyle=hexA(C.act6,.7);ctx.lineWidth=3;ctx.stroke();
+    for(let i=0;i<6;i++){const q=P(T*.25+i/6,1);const x=lerp(40,270,q),y=150+i*30;mol(x,y,i===0?"C6H12O6":"O2",i===0?5:7,{nolab:true,a:1-seg(q,.9,1)})}
+    for(let i=0;i<6;i++){const q=P(T*.25+i/6+.5,1);const x=lerp(280,510,q),y=150+i*30;mol(x,y,i%2?"H2O":"CO2",7,{nolab:true,a:seg(q,0,.1)})}sparkle(270,240,24,T*3,C.gold);
+    panelBox(540,10,250,440);title(554,30,"In and out");levelTag(554,52,"sym");[["in","1 C₆H₁₂O₆"],["in","6 O₂"],["out","6 CO₂"],["out","6 H₂O"]].forEach((r,i)=>{txt(560,110+i*56,r[0],{size:12,mono:true,color:C["ink-soft"]});txt(600,110+i*56,r[1],{size:17,weight:700})});
+    txt(560,360,"from your lungs: O₂",{size:12.5,color:C["ink-soft"]});txt(560,384,"back to your lungs: CO₂",{size:12.5,color:C["ink-soft"]})}}
+function lifeA11y(){const s=LIFE[LS.i];return ["Scenario picture: "+s.cap,s.desc]}
+
+/* ---------------- stages ---------------- */
+const S1=makeStage("cvSim",800,500),S2=makeStage("cvBal",800,450),S3=makeStage("cvCalc",800,500),S4=makeStage("cvLife",800,460);
+/* ---------------- accessibility: live labels and picture descriptions ---------------- */
+const A11Y={sim:{cv:"#cvSim",f:simA11y},bal:{cv:"#cvBal",f:balA11y},calc:{cv:"#cvCalc",f:calcA11y},life:{cv:"#cvLife",f:lifeA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){if((++a11yT)%20)return;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  $(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=$(a.cv).closest(".canvas-holder");if(host&&host.nextElementSibling!==box)host.after(box);$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="sim";
+const TABS=["sim","bal","calc","life"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey="";a11yT=19}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S3,S4].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now();
+function loop(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{simStep(dt);
+    if(curTab==="sim")drawSim(now);else if(curTab==="bal")drawBal(now);else if(curTab==="calc")drawCalc(now);else if(curTab==="life")drawLife(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(loop)}
+/* test hooks */
+window.__lab={tab:k=>showTab(k),
+  sim:o=>{if(o.rx!=null){SIM.rx=o.rx;SIM.n=SIMRX[o.rx].def.slice()}if(o.mode)SIM.mode=o.mode;if(o.n)SIM.n=o.n.slice();simBuild()},simRun:()=>simRun(),simState:()=>({phase:SIM.phase,counts:liveCounts(),calc:simCalc(),done:[...SIM.done]}),simFast:s=>{for(let i=0;i<s*60;i++)simStep(1/60)},
+  balN:()=>EQS.length,balGo:i=>balLoad(i),balSet:co=>{BG.co=co.slice();balUI()},balCheck:()=>balCheck(),balShow:()=>$("#balShow").click(),balHint:()=>balHint(),balEqs:()=>EQS,balOk:(i,co)=>isBalanced(EQS[i],co),
+  types:()=>Object.keys(GEN),gen:t=>{let q=null;for(let i=0;i<30&&!q;i++)q=GEN[t]();return q},judge:(p,s)=>judge(p,s),ansStr:p=>ansStr(p),
+  calcSet:t=>{TR.type=t;$("#calcType").value=t;calcNew()},calcProb:()=>TR.p,calcSol:()=>$("#calcSol").click(),
+  lifeGo:i=>{LS.i=i;lifeUI();a11yKey=""},lifeN:()=>LIFE.length};
+readColors();simBuild();balLoad(0);calcNew();updCalcMeter();lifeUI();fitAll();requestAnimationFrame(loop);
+
+})();
+</script>
+</body>
+</html>

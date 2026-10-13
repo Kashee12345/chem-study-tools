@@ -1,0 +1,1281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chemical Bonding Lab</title>
+<meta name="description" content="Practice lab for chemical bonding: a bonding simulator with an energy curve, a names and formulas trainer with worked solutions, a Lewis structure builder game, and real-life bonding scenarios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#9A4410;--accent-ink:#7A340A;--accent-wash:#F7E6D9;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#2F7FC1;--act3:#C4644F;--act4:#2E8A7A;--act5:#A04E8C;--act6:#5E7F1A;--act7:#C27A12;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#7E6410;
+  --ecf:#F1F0EC;--grid:#D8DAD6;
+  --elH:#FFFFFF;--elH-edge:#5A6670;--elC:#3D4248;--elN:#2F5BC8;--elO:#D0342C;--elF:#6FAE2F;--elCl:#2E9E4A;--elBr:#8E2A1C;--elI:#6B2C8F;
+  --elNa:#8A4FD0;--elK:#6A35A8;--elLi:#B26AD6;--elMg:#3E8E3E;--elCa:#57816A;--elAl:#98A2AC;--elS:#D8B416;--elP:#E07B1A;--elB:#E59A8E;--elFe:#B85A1E;--elXe:#3FA0B8;--elSi:#C8A878;
+  --elec:#0F6E86;--rich:#C8402F;--poor:#2F6FC1;--heat:#D9822B;--absorb:#2F7FC1;--sea:#7FC4DA;
+  --water:#D6E9F4;--glass:#DCE8EE;--glass-edge:#7F99A6;--liq:#CFE3EF;--paper:#FFFDF7;--scr:#10161A;--metal:#B9C2CA;--metal-edge:#6E7A84;--flame:#E8A13A;--blood:#B5303A;
+  --on-poor:#ffffff;--on-rich:#ffffff;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;--serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2416;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#5AA9E6;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#A3C95A;--act7:#F2A93B;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#26303A;
+  --elH:#E8EEF1;--elH-edge:#A3B2BA;--elC:#8E989F;--elN:#7A9CF0;--elO:#F0766C;--elF:#A6D86A;--elCl:#62CC7E;--elBr:#D0705C;--elI:#B07AD6;
+  --elNa:#B48AF0;--elK:#A07EE6;--elLi:#CFA2EC;--elMg:#7CC77C;--elCa:#8FC2A5;--elAl:#C2CAD2;--elS:#F2D44E;--elP:#F29A4A;--elB:#F0B5AA;--elFe:#E08A4A;--elXe:#6FC6DA;--elSi:#D8C094;
+  --elec:#7FD3EA;--rich:#F07A6A;--poor:#78AEEE;--heat:#F2A950;--absorb:#6FB1EC;--sea:#2F6E84;
+  --water:#1F3A4A;--glass:#1E2C34;--glass-edge:#7F99A6;--liq:#1D3442;--paper:#1E262B;--scr:#0A0F12;--metal:#5A6670;--metal-edge:#A3B2BA;--flame:#F2B04B;--blood:#E0707A;
+  --on-poor:#0B1A20;--on-rich:#0B1A20;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2416;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#5AA9E6;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#A3C95A;--act7:#F2A93B;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#26303A;
+  --elH:#E8EEF1;--elH-edge:#A3B2BA;--elC:#8E989F;--elN:#7A9CF0;--elO:#F0766C;--elF:#A6D86A;--elCl:#62CC7E;--elBr:#D0705C;--elI:#B07AD6;
+  --elNa:#B48AF0;--elK:#A07EE6;--elLi:#CFA2EC;--elMg:#7CC77C;--elCa:#8FC2A5;--elAl:#C2CAD2;--elS:#F2D44E;--elP:#F29A4A;--elB:#F0B5AA;--elFe:#E08A4A;--elXe:#6FC6DA;--elSi:#D8C094;
+  --elec:#7FD3EA;--rich:#F07A6A;--poor:#78AEEE;--heat:#F2A950;--absorb:#6FB1EC;--sea:#2F6E84;
+  --water:#1F3A4A;--glass:#1E2C34;--glass-edge:#7F99A6;--liq:#1D3442;--paper:#1E262B;--scr:#0A0F12;--metal:#5A6670;--metal-edge:#A3B2BA;--flame:#F2B04B;--blood:#E0707A;
+  --on-poor:#0B1A20;--on-rich:#0B1A20;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+.diskgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.diskgrid .tbtn{text-align:left;font-size:13.5px;line-height:1.25;padding:7px 8px}
+.diskgrid .tbtn b{font-family:var(--mono);display:inline-block;min-width:34px}
+.readouts.chart td{text-align:center;padding-left:4px}
+.readouts.chart th,.readouts.chart td{font-size:13px}
+.readouts thead th{color:var(--ink-soft)}
+.scen .tbtn{font-family:var(--mono);font-size:13.5px}
+.seg3 .tbtn.right,.scen .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.seg3 .tbtn.wrong,.scen .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.ok-ic{color:var(--good);font-weight:700}
+.no-ic{color:var(--warn-ink);font-weight:700}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.methods .tbtn{text-align:left;line-height:1.25;font-size:14px}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.seg3 .tbtn,.seg4 .tbtn{font-size:13.5px;line-height:1.2;padding:8px 6px}
+.seg4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.verdict{font-weight:700}
+.drugbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.drugbtns .tbtn{font-size:13.5px;line-height:1.25;padding:7px 8px;text-align:left}
+.drugbtns .tbtn small{display:block;font-family:var(--mono);font-size:12px;color:var(--ink-soft);font-weight:500}
+.drugbtns .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.alerts{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:var(--r);border:1px solid var(--rule);border-left-width:5px;background:var(--panel-2);font-size:14.5px}
+.alert b{white-space:nowrap}
+.alert .ic{flex:0 0 auto;font-family:var(--mono);font-weight:700;font-size:12px;padding:1px 6px;border-radius:4px;border:1.5px solid currentColor}
+.alert.bad{border-color:var(--bad);background:var(--bad-wash)}.alert.bad .ic{color:var(--bad)}
+.alert.warn{border-color:var(--warn);background:var(--warn-wash)}.alert.warn .ic{color:var(--warn-ink)}
+.alert.good{border-color:var(--good);background:var(--good-wash)}.alert.good .ic{color:var(--good)}
+.alert.info{border-color:var(--accent);background:var(--accent-wash)}.alert.info .ic{color:var(--accent-ink)}
+.readouts td.hi{color:var(--bad);font-weight:700}.readouts td.lo{color:var(--accent-ink);font-weight:700}.readouts td.ok{color:var(--good);font-weight:600}
+.bins{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))}.binhead span{min-width:0;overflow-wrap:break-word}
+.practice-banner{background:var(--gold-wash);border-left:4px solid var(--gold);border-radius:4px;padding:8px 12px;margin:0 0 12px;font-size:14.5px;color:var(--ink)}
+.practice-tag{display:inline-block;background:var(--gold-wash);border:1.5px solid var(--gold);color:var(--ink);border-radius:6px;padding:4px 8px;font-size:13px;font-weight:600;line-height:1.3}
+.lab-sel{display:block;font-weight:600;font-size:14.5px;margin:12px 0 4px}
+#calcType{width:100%;padding:7px 8px;font-size:15px}
+.probcard{margin:12px 0 8px;padding:12px 14px;border:1px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);background:var(--panel-2);font-size:15.5px;line-height:1.5}
+.probcard .pt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:4px}
+.probcard .rd{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+.ansrow{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ans-l{font-weight:600;font-size:14.5px}
+.ansbox{display:flex;align-items:center;gap:8px}
+.ansbox input{font:600 18px var(--mono);width:150px;padding:7px 9px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);color:var(--ink)}
+.ansbox input:focus{outline:3px solid var(--accent);outline-offset:1px}
+.unit{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--ink-soft)}
+.streak{margin-top:10px}
+.seg2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg4b{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.seg2 .tbtn,.seg4b .tbtn{font-size:13.5px;line-height:1.25;padding:8px 6px}
+.marfields{display:grid;grid-template-columns:1fr;gap:6px}
+.mf{display:grid;grid-template-columns:118px 1fr;gap:10px;align-items:baseline;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:8px 10px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.mf:hover{border-color:var(--accent)}
+.mf .k{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+.mf.right{border-color:var(--good);background:var(--good-wash)}
+.mf.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.mf.hinted{box-shadow:0 0 0 3px var(--gold)}
+.antis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.antis .tbtn{text-align:left;font-size:14px;line-height:1.25;padding:8px 9px}
+.antis .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.antis .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.antis .tbtn.hinted{box-shadow:0 0 0 3px var(--gold)}
+@media (max-width:420px){.mf{grid-template-columns:1fr;gap:2px}.antis{grid-template-columns:1fr}}
+.case.wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+@media (max-width:900px){.case.wide{grid-template-columns:1fr}}
+.elgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.elbtn{font-family:var(--mono);font-weight:700;font-size:14px;padding:6px 0;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);cursor:pointer;position:relative;line-height:1.1}
+.elbtn small{display:block;font-size:10.5px;font-weight:500;color:var(--ink-soft)}
+.elbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink)}
+.elbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.elbtn:hover{border-color:var(--accent)}
+.elbtn i{position:absolute;left:4px;top:4px;width:7px;height:7px;border-radius:50%}
+.svg-holder{width:100%;border-radius:4px;border:1px solid var(--rule-soft);background:var(--ecf);overflow:hidden}
+.svg-holder svg{display:block;width:100%;height:auto;touch-action:none}
+.small-svg{margin-top:8px}
+.lwtools{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.piece{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 10px;cursor:grab;font-size:14px;touch-action:none;user-select:none}
+.piece svg{width:30px;height:20px;flex:0 0 auto}
+.piece[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.piece.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.lwmeter{margin-top:8px;font-size:14px}
+.lwres-h{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 4px}
+.lw-slot{cursor:pointer}
+.lw-slot:focus-visible,.lw-atom:focus-visible{outline:none}
+.lw-slot:focus-visible .lw-hit,.lw-atom:focus-visible .lw-ring{stroke:var(--accent);stroke-width:3;stroke-dasharray:none;opacity:1}
+.lw-atom{cursor:pointer}
+.lw-over .lw-hit,.lw-over .lw-ring{stroke:var(--accent);stroke-width:3;opacity:1}
+.qlist{display:flex;flex-direction:column;gap:4px}
+.ansbox input[type=text]{font:600 17px var(--mono);width:100%;max-width:300px;padding:7px 9px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);color:var(--ink)}
+.ansbox input[type=text]:focus{outline:3px solid var(--accent);outline-offset:1px}
+.probcard sub,.probcard sup,.msg sub,.msg sup,.hintbox sub,.hintbox sup{font-size:.75em}
+.simrow-k{font-family:var(--sans)!important;text-align:left!important}
+#simRead th{width:44%;white-space:normal}
+#simRead td{white-space:normal;font-family:var(--sans);font-size:14px;text-align:left;padding-left:8px}
+.grid{grid-template-columns:minmax(0,1fr) 360px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+<script src="chem-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">General Chemistry &middot; Module 5 &middot; Ionic and covalent bonding</div>
+    <h1>Chemical Bonding Lab</h1>
+    <p class="sub">Bond any two elements and watch electrons move, drill names and formulas with worked solutions, build Lewis structures electron by electron, and see bonding at work in the body. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-sim" data-tab="sim" id="tabbtn-sim" type="button">Part 1 &middot; Bonding Simulator</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-train" data-tab="train" id="tabbtn-train" type="button" tabindex="-1">Part 2 &middot; Names, Formulas and &Delta;H</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-lewis" data-tab="lewis" id="tabbtn-lewis" type="button" tabindex="-1">Part 3 &middot; Lewis Builder</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-life" data-tab="life" id="tabbtn-life" type="button" tabindex="-1">Part 4 &middot; Bonding in Real Life</button>
+  </div>
+
+  <!-- PART 1 -->
+  <section id="tab-sim" role="tabpanel" aria-labelledby="tabbtn-sim">
+    <h2 class="gk-sr">Part 1: Bonding Simulator</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvSim" role="img" aria-label="Bonding simulator."></canvas></div>
+        <div class="stagebar"><span class="caption" id="simCap"></span></div>
+        <div class="legend">
+          <span><i style="background:var(--elec)"></i>Valence electron</span>
+          <span><i class="s" style="background:var(--poor)"></i>Electron-poor (&delta;+) or cation</span>
+          <span><i class="s" style="background:var(--rich)"></i>Electron-rich (&delta;&minus;) or anion</span>
+          <span><i class="ln" style="border-top-color:var(--bad)"></i>Energy curve</span>
+        </div>
+        <p class="sim-note">Drag along the energy curve (or use the distance slider) to pull the two nuclei apart or push them together. Atom sizes and speeds are not to scale.</p>
+      </div>
+      <aside class="card side" aria-label="Simulator controls">
+        <h3 id="elA-h">Element A</h3>
+        <div class="elgrid" id="elA" role="group" aria-labelledby="elA-h"></div>
+        <h3 id="elB-h">Element B</h3>
+        <div class="elgrid" id="elB" role="group" aria-labelledby="elB-h"></div>
+        <div class="ctl"><label for="simR">Distance between nuclei <output id="simRO" for="simR"></output></label><input type="range" id="simR" min="30" max="600" step="1" value="200"></div>
+        <div class="bar">
+          <button class="btn" type="button" id="simReplay">Replay bonding</button>
+          <button class="tbtn" type="button" id="simBest">Jump to bond length</button>
+        </div>
+        <table class="readouts" id="simRead"><caption class="gk-sr">Bond readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <h3>Try these</h3>
+        <ul class="chal" id="simChal"></ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2 -->
+  <section id="tab-train" role="tabpanel" aria-labelledby="tabbtn-train" hidden>
+    <h2 class="gk-sr">Part 2: Names, Formulas and Delta H trainer</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvTrain" role="img" aria-label="Problem trainer picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="trainCap"></span></div>
+        <p class="sim-note">The worked solution animates after a correct answer or when you ask for it: charges cross, prefixes snap on, and units cancel.</p>
+      </div>
+      <aside class="card side" aria-label="Trainer controls">
+        <label class="lab-sel" for="trainType">Problem type</label>
+        <select id="trainType"></select>
+        <div class="probcard" id="trainProb" aria-live="polite"></div>
+        <div class="ansrow">
+          <label for="trainAns" class="ans-l" id="trainAnsL">Your answer</label>
+          <div class="ansbox"><input type="text" id="trainAns" autocomplete="off" spellcheck="false" autocapitalize="off"><span id="trainUnit" class="unit"></span></div>
+          <p class="small" id="trainTip"></p>
+        </div>
+        <div class="bar">
+          <button class="btn" id="trainCheck" type="button">Check</button>
+          <button class="tbtn" id="trainHint" type="button">Hint</button>
+          <button class="tbtn" id="trainSol" type="button">Show worked solution</button>
+          <button class="tbtn" id="trainNew" type="button">New problem</button>
+        </div>
+        <div class="msg" id="trainMsg" role="status"></div>
+        <div class="hintbox" id="trainHintBox" role="status" hidden></div>
+        <div class="meter streak"><span>Streak <b id="trainStreak">0</b></span><span>Best <b id="trainBest">0</b></span><span>Solved <b id="trainSolved">0</b></span></div>
+        <p class="small">The streak counts answers right on the first check without opening the solution.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3 -->
+  <section id="tab-lewis" role="tabpanel" aria-labelledby="tabbtn-lewis" hidden>
+    <h2 class="gk-sr">Part 3: Lewis Builder</h2>
+    <div class="rounds" id="lwRounds" role="group" aria-label="Molecules"></div>
+    <div class="case wide">
+      <div class="card stage">
+        <div class="lwtools" id="lwTools" role="group" aria-label="Pieces: pick one, then tap a bond slot or an atom, or drag it there"></div>
+        <div class="svg-holder" id="lwHolder"></div>
+        <div class="meter lwmeter" id="lwMeter" aria-live="polite"></div>
+        <p class="sim-note">Drag a piece onto the drawing, or pick a piece and then tap (or press Enter on) a bond slot or an atom. Tap a bond with Remove picked to take one pair off. The numbers under each atom are its electron count and its formal charge.</p>
+      </div>
+      <div class="card">
+        <div class="sorthead">
+          <div><div class="lvl-n" id="lwN"></div><h2 class="sec" id="lwTitle"></h2></div>
+          <div class="sortbar">
+            <label class="mode"><input type="checkbox" id="lwRelaxed" checked> Relaxed mode (no timer)</label>
+            <span class="timer" id="lwTimer" hidden>0:00</span>
+            <span class="stars" id="lwStars" role="img" aria-label="Stars appear when the structure is correct"></span>
+          </div>
+        </div>
+        <p class="goal"><b class="h">Your job</b><span id="lwGoal"></span></p>
+        <div class="bar">
+          <button class="btn" id="lwCheck" type="button">Check structure</button>
+          <button class="tbtn" id="lwFill" type="button">Fill outer atoms</button>
+          <button class="tbtn" id="lwHint" type="button">Hint</button>
+          <button class="tbtn" id="lwShow" type="button">Show answer</button>
+          <button class="tbtn" id="lwReset" type="button">Start over</button>
+          <button class="tbtn" id="lwNext" type="button">Next molecule &rarr;</button>
+        </div>
+        <div class="msg" id="lwMsg" role="status"></div>
+        <div class="hintbox" id="lwHintBox" role="status" hidden></div>
+        <div id="lwRes" hidden>
+          <h3 class="lwres-h">Resonance</h3>
+          <p class="small" id="lwResTxt"></p>
+          <button class="tbtn" id="lwResBtn" type="button">Show all resonance structures and the hybrid</button>
+          <div class="svg-holder small-svg" id="lwResSvg" hidden></div>
+        </div>
+        <p class="small" id="lwBest"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 4 -->
+  <section id="tab-life" role="tabpanel" aria-labelledby="tabbtn-life" hidden>
+    <h2 class="gk-sr">Part 4: Bonding in Real Life</h2>
+    <div class="casechips" id="lifeChips" role="group" aria-label="Choose a scenario"></div>
+    <div class="case wide">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvLife" role="img" aria-label="Scenario picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="lifeCap"></span></div>
+      </div>
+      <div class="card">
+        <div class="sc-n" id="lifeN"></div>
+        <h2 class="sc-title" id="lifeTitle"></h2>
+        <p class="story" id="lifeStory"></p>
+        <div id="lifeQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="lifePrev" type="button">&larr; Previous</button>
+          <button class="btn" id="lifeNext" type="button">Next scenario &rarr;</button>
+        </div>
+        <p class="calm">Wrong picks are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; General Chemistry Study Tools &middot; Particle drawings are simplified and not to scale. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Bonding-Walkthrough.html">Chemical Bonding Walkthrough</a>. Bond energies and lengths are average table values; lattice energies are approximate. Health scenarios are for learning chemistry, not medical advice.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "act7", "gold", "gold-wash", "gold-ink", "ecf", "grid", "elH", "elH-edge", "elC", "elN", "elO", "elF", "elCl", "elBr", "elI", "elNa", "elK", "elLi", "elMg", "elCa", "elAl", "elS", "elP", "elB", "elFe", "elXe", "elSi", "elec", "rich", "poor", "heat", "absorb", "sea", "water", "glass", "glass-edge", "liq", "paper", "scr", "metal", "metal-edge", "flame", "blood", "on-poor", "on-rich"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.split(/( |–|→)/).map(w=>/[₀-₉⁺⁻]/.test(w)||/^([A-Z][a-z]?\d*)+[:,]?$/.test(w)||/^\(?(pm|kJ|kJ\/mol|mol)\)?[:,]?$/.test(w)?w:w.toUpperCase()).join("").replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= chemistry drawing library (shared by both pages) ================= */
+function lumOf(c){const A=hx(c).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*A[0]+.7152*A[1]+.0722*A[2]}
+function inkOn(c){return lumOf(c)>.3?"#10161A":"#fff"}
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+function fillPoly(pts,f,s,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();fillStroke(f,s,lw)}
+function checkMark(x,y,s,col,lw){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,lw||3)}
+function crossMark(x,y,s,col,lw){line(x-s,y-s,x+s,y+s,col||C.bad,lw||3);line(x-s,y+s,x+s,y-s,col||C.bad,lw||3)}
+function fmtNum(v,dp){if(dp==null)dp=2;const r=Math.round(v*Math.pow(10,dp))/Math.pow(10,dp);let s=String(r);if(Math.abs(r)>=1000){const p=s.split(".");p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,",");s=p.join(".")}if(r>0&&r<1&&s[0]===".")s="0"+s;return s.replace(/^-/,"−")}
+/* element data: valence electrons, Pauling electronegativity, drawing radius (px, not to scale), colour token */
+const EL={
+ H:{n:"hydrogen",ve:1,en:2.20,r:12,c:"elH",m:0},He:{n:"helium",ve:2,en:0,r:11,c:"elXe",m:0},
+ Li:{n:"lithium",ve:1,en:.98,r:19,c:"elLi",m:1},Be:{n:"beryllium",ve:2,en:1.57,r:16,c:"elMg",m:1},B:{n:"boron",ve:3,en:2.04,r:15,c:"elB",m:0},
+ C:{n:"carbon",ve:4,en:2.55,r:15,c:"elC",m:0},N:{n:"nitrogen",ve:5,en:3.04,r:15,c:"elN",m:0},O:{n:"oxygen",ve:6,en:3.44,r:15,c:"elO",m:0},
+ F:{n:"fluorine",ve:7,en:3.98,r:14,c:"elF",m:0},Ne:{n:"neon",ve:8,en:0,r:13,c:"elXe",m:0},
+ Na:{n:"sodium",ve:1,en:.93,r:21,c:"elNa",m:1},Mg:{n:"magnesium",ve:2,en:1.31,r:19,c:"elMg",m:1},Al:{n:"aluminum",ve:3,en:1.61,r:18,c:"elAl",m:1},
+ Si:{n:"silicon",ve:4,en:1.90,r:18,c:"elSi",m:0},P:{n:"phosphorus",ve:5,en:2.19,r:18,c:"elP",m:0},S:{n:"sulfur",ve:6,en:2.58,r:18,c:"elS",m:0},
+ Cl:{n:"chlorine",ve:7,en:3.16,r:17,c:"elCl",m:0},Ar:{n:"argon",ve:8,en:0,r:16,c:"elXe",m:0},
+ K:{n:"potassium",ve:1,en:.82,r:23,c:"elK",m:1},Ca:{n:"calcium",ve:2,en:1.00,r:21,c:"elCa",m:1},Fe:{n:"iron",ve:2,en:1.83,r:18,c:"elFe",m:1},
+ Cu:{n:"copper",ve:1,en:1.90,r:18,c:"elFe",m:1},Zn:{n:"zinc",ve:2,en:1.65,r:18,c:"elAl",m:1},Br:{n:"bromine",ve:7,en:2.96,r:19,c:"elBr",m:0},
+ Kr:{n:"krypton",ve:8,en:3.0,r:18,c:"elXe",m:0},I:{n:"iodine",ve:7,en:2.66,r:21,c:"elI",m:0},Xe:{n:"xenon",ve:8,en:2.6,r:20,c:"elXe",m:0},Ba:{n:"barium",ve:2,en:.89,r:24,c:"elCa",m:1}};
+function elCol(s){const e=EL[s];return e?C[e.c]:C["ink-soft"]}
+/* superscript/subscript formula text: "Al_2(SO_4)_3", "SO_4^{2-}", "Na^+" */
+function chemParse(str){const out=[];let i=0;while(i<str.length){const ch=str[i];
+  if(ch==="_"){let j=i+1,s="";if(str[j]==="{"){j++;while(j<str.length&&str[j]!=="}")s+=str[j++];j++}else{while(j<str.length&&/[0-9xyn]/.test(str[j]))s+=str[j++]}out.push({t:s,k:"sub"});i=j;continue}
+  if(ch==="^"){let j=i+1,s="";if(str[j]==="{"){j++;while(j<str.length&&str[j]!=="}")s+=str[j++];j++}else{while(j<str.length&&/[0-9]/.test(str[j]))s+=str[j++];if(/[+\-−]/.test(str[j]||""))s+=str[j++]}out.push({t:s.replace(/-/g,"−"),k:"sup"});i=j;continue}
+  let s="";while(i<str.length&&str[i]!=="_"&&str[i]!=="^")s+=str[i++];out.push({t:s,k:"n"})}return out}
+function chemW(str,o){o=o||{};const sz=o.size||16,wt=o.weight||600,fam=o.mono?MONO:FONT;let w=0;chemParse(str).forEach(p=>{ctx.font=`${p.k==="n"?wt:wt} ${p.k==="n"?sz:sz*.68}px ${fam}`;w+=ctx.measureText(p.t).width});return w}
+function chemText(x,y,str,o){o=o||{};const sz=o.size||16,wt=o.weight||600,fam=o.mono?MONO:FONT;const w=chemW(str,o);let X=x;if((o.align||"left")==="center")X=x-w/2;else if(o.align==="right")X=x-w;
+  if(o.a!=null&&o.a<=0)return w;ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);
+  if(o.bg){rr(X-6,y-sz*.82,w+12,sz*1.64,5);ctx.fillStyle=o.bg;ctx.fill();if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.6;ctx.stroke()}}
+  ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  chemParse(str).forEach(p=>{const s=p.k==="n"?sz:sz*.68;ctx.font=`${wt} ${s}px ${fam}`;const dy=p.k==="sub"?sz*.3:p.k==="sup"?-sz*.36:0;ctx.fillText(p.t,X,y+dy+.5);X+=ctx.measureText(p.t).width});
+  ctx.restore();return w}
+/* a row of formula pieces; returns centre x of each piece. parts: [{t, hl, col}] */
+function eqRow(x,y,parts,o){o=o||{};const gap=o.gap||10;const ws=parts.map(p=>chemW(p.t,o));const tot=ws.reduce((a,b)=>a+b,0)+gap*(parts.length-1);let X=(o.align||"center")==="center"?x-tot/2:x;const cs=[];
+  parts.forEach((p,i)=>{const c=X+ws[i]/2;cs.push(c);if(p.a!=null&&p.a<=0){X+=ws[i]+gap;return}
+    if(p.hl){withA(p.a==null?1:p.a,()=>{rr(X-5,y-(o.size||16)*.85,ws[i]+10,(o.size||16)*1.7,5);ctx.fillStyle=hexA(p.hl,.22);ctx.fill();ctx.strokeStyle=p.hl;ctx.lineWidth=1.6;ctx.stroke()})}
+    chemText(c,y,p.t,Object.assign({},o,{align:"center",color:p.col||o.color,a:p.a}));X+=ws[i]+gap});return cs}
+/* shaded atom sphere with symbol. o: r, a, charge ("+","2−"), dlt ("+"/"−" partial), ring (colour), noLabel, s (scale), col */
+function atom(x,y,sym,o){o=o||{};const e=EL[sym]||{r:15,c:"elC"};const r=o.r||(e.r*(o.s||1));const col=o.col||C[e.c]||C.elC;
+  if(o.a!=null&&o.a<=0)return r;ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);
+  if(o.ring)glow(x,y,r*1.9,o.ring,.55);
+  circ(x+r*.12,y+r*.16,r,hexA("#000000",isDark()?.35:.13));
+  const g=ctx.createRadialGradient(x-r*.38,y-r*.42,r*.08,x,y,r);g.addColorStop(0,mix(col,"#ffffff",.55));g.addColorStop(.55,col);g.addColorStop(1,mix(col,"#000000",.28));
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=sym==="H"?C["elH-edge"]:hexA(mix(col,"#000000",.5),.9);ctx.lineWidth=sym==="H"?1.6:1.2;ctx.stroke();
+  if(!o.noLabel){const fs=o.fs||Math.max(11,Math.min(18,r*.9));ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col);ctx.fillText(o.label||sym,x,y+1)}
+  if(o.charge){const t=o.charge;ctx.font=`700 12px ${MONO}`;const w=Math.max(18,ctx.measureText(t).width+8);const bx=x+r*.78,by=y-r*.78;const pos=/\+/.test(t);
+    rr(bx-w/2,by-9,w,18,9);ctx.fillStyle=pos?C.poor:C.rich;ctx.fill();ctx.strokeStyle=C.panel;ctx.lineWidth=1.5;ctx.stroke();ctx.fillStyle=inkOn(pos?C.poor:C.rich);ctx.textAlign="center";ctx.fillText(t,bx,by+.5)}
+  if(o.dlt){const pos=o.dlt==="+";txt(x+(o.dx||0),y-r-11+(o.dy||0),"δ"+(pos?"+":"−"),{size:14,weight:700,align:"center",color:pos?C.poor:C.rich})}
+  ctx.restore();return r}
+/* ion: atom resized with a charge badge */
+function ionP(x,y,sym,charge,o){return atom(x,y,sym,Object.assign({charge},o||{}))}
+/* electron (small teal dot) */
+function eDot(x,y,o){o=o||{};const r=o.r||4.2;ctx.save();if(o.a!=null)ctx.globalAlpha*=clamp(o.a,0,1);if(o.glow!==false)glow(x,y,r*3,o.col||C.elec,.35);circ(x,y,r,o.col||C.elec,isDark()?null:"#ffffff",1);ctx.restore();if(o.lab)txt(x+7,y-8,"e⁻",{size:11.5,weight:700,color:o.col||C.elec})}
+/* soft electron cloud between two points; shift 0..1 moves density toward b (0.5 = even) */
+function bondCloud(x1,y1,x2,y2,w,shift,col,a){const mx=lerp(x1,x2,shift==null?.5:shift),my=lerp(y1,y2,shift==null?.5:shift);const L=Math.hypot(x2-x1,y2-y1);const ang=Math.atan2(y2-y1,x2-x1);
+  ctx.save();ctx.translate(mx,my);ctx.rotate(ang);ctx.scale(1,(w||22)/Math.max(1,L*.55));const g=ctx.createRadialGradient(0,0,0,0,0,L*.55);const A=hx(col||C.elec);
+  g.addColorStop(0,`rgba(${A},${a==null?.45:a})`);g.addColorStop(.6,`rgba(${A},${(a==null?.45:a)*.4})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,L*.55,0,TAU);ctx.fill();ctx.restore()}
+/* electron-density map around a polar bond: red (rich) near b, blue (poor) near a */
+function polarMap(x1,y1,r1,x2,y2,r2,shift,a){const A=hx(C.poor),B=hx(C.rich);ctx.save();
+  const g1=ctx.createRadialGradient(x1,y1,0,x1,y1,r1*2.1);g1.addColorStop(0,`rgba(${A},${.42*shift*(a||1)})`);g1.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g1;ctx.beginPath();ctx.arc(x1,y1,r1*2.1,0,TAU);ctx.fill();
+  const g2=ctx.createRadialGradient(x2,y2,0,x2,y2,r2*2.3);g2.addColorStop(0,`rgba(${B},${.45*shift*(a||1)})`);g2.addColorStop(1,`rgba(${B},0)`);ctx.fillStyle=g2;ctx.beginPath();ctx.arc(x2,y2,r2*2.3,0,TAU);ctx.fill();ctx.restore()}
+/* bond lines between two atom centres: order 1..3, or 1.5 / 1.33 (dashed partial) */
+function bondLine(x1,y1,x2,y2,order,o){o=o||{};const r1=o.r1||0,r2=o.r2||0;const L=Math.hypot(x2-x1,y2-y1);if(L<1)return;const ux=(x2-x1)/L,uy=(y2-y1)/L,nx=-uy,ny=ux;
+  const ax=x1+ux*r1,ay=y1+uy*r1,bx=x2-ux*r2,by=y2-uy*r2;const col=o.col||C.ink;const lw=o.lw||3;const sp=o.sp||6;
+  const full=Math.floor(order+1e-6),part=order-full>.05;const n=full+(part?1:0);
+  for(let k=0;k<n;k++){const off=(k-(n-1)/2)*sp;const dash=(part&&k===n-1)?[5,4]:null;line(ax+nx*off,ay+ny*off,bx+nx*off,by+ny*off,col,lw,dash)}}
+/* Lewis molecule on canvas. mol={atoms:[{s,x,y,lp,single,fc,hl}],bonds:[[i,j,order]]}. o:{scale,dots,sym size,lpCol} */
+function lpAngles(m,i){const at=m.atoms[i];const used=[];m.bonds.forEach(b=>{if(b[0]===i||b[1]===i){const j=b[0]===i?b[1]:b[0];used.push(Math.atan2(m.atoms[j].y-at.y,m.atoms[j].x-at.x))}});
+  const n=(at.lp||0)+(at.single?1:0);if(at.lpAng)return at.lpAng.slice(0,n);const res=[];const cand=[];for(let k=0;k<16;k++)cand.push(k/16*TAU-Math.PI);
+  for(let q=0;q<n;q++){let best=null,bd=-1;cand.forEach(c=>{let d=Math.PI;used.concat(res).forEach(u=>{let dd=Math.abs(((c-u)%TAU+TAU)%TAU);dd=Math.min(dd,TAU-dd);d=Math.min(d,dd)});
+    const pref=Math.abs(Math.sin(2*c))*.02;if(d-pref>bd+1e-6){bd=d-pref;best=c}});res.push(best)}return res}
+function lewisDraw(m,o){o=o||{};const fs=o.size||22;const dr=o.dr||fs*.62;const ec=o.dotCol||C.elec;
+  m.bonds.forEach(b=>{const A=m.atoms[b[0]],B=m.atoms[b[1]];const a=b[3]==null?1:b[3];if(a<=0)return;withA(a,()=>bondLine(A.x,A.y,B.x,B.y,b[2],{r1:fs*.55,r2:fs*.55,lw:o.lw||2.6,sp:o.sp||5.5,col:b[4]||o.bondCol||C.ink}))});
+  m.atoms.forEach((at,i)=>{const a=at.a==null?1:at.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;
+    if(at.hl){glow(at.x,at.y,fs*1.5,at.hl,.5)}
+    if(o.ball){atom(at.x,at.y,at.s,{r:fs*.62,fs:fs*.62})}else{ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=at.col||C.ink;ctx.fillText(at.s,at.x,at.y+1)}
+    const angs=lpAngles(m,i);const nlp=at.lp||0;
+    angs.forEach((ang,k)=>{const cx=at.x+Math.cos(ang)*dr*(o.ball?1.35:1),cy=at.y+Math.sin(ang)*dr*(o.ball?1.35:1);const px=-Math.sin(ang)*4,py=Math.cos(ang)*4;const la=at.lpA==null?1:(Array.isArray(at.lpA)?(at.lpA[k]==null?1:at.lpA[k]):at.lpA);
+      withA(la,()=>{if(k<nlp){circ(cx+px,cy+py,2.7,ec);circ(cx-px,cy-py,2.7,ec)}else{circ(cx,cy,3.1,o.singleCol||C.rich)}})});
+    if(at.fc&&o.fc!==false){const t=at.fc>0?(at.fc===1?"+":at.fc+"+"):(at.fc===-1?"−":(-at.fc)+"−");const fx=at.x+(at.fcx==null?fs*.72:at.fcx),fy=at.y+(at.fcy==null?-fs*.72:at.fcy);
+      circ(fx,fy,8.5,at.fc>0?C.poor:C.rich);ctx.font=`700 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(at.fc>0?C.poor:C.rich);ctx.fillText(t,fx,fy+.5)}
+    ctx.restore()});}
+/* Lewis dot symbol of an element: dots per side [top,right,bottom,left] */
+function lewisSym(x,y,sym,n,o){o=o||{};const fs=o.size||24;const sides=[0,0,0,0];for(let k=0;k<n;k++){if(k<4)sides[[0,1,2,3][k]]++;else sides[[0,1,2,3][k-4]]++}
+  ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=o.col||C.ink;ctx.fillText(sym,x,y+1);const w=Math.max(fs*.75,ctx.measureText(sym).width);
+  const off=[[0,-fs*.72],[w/2+7,0],[0,fs*.72],[-w/2-7,0]];const lim=o.upto==null?99:o.upto;let c=0;
+  sides.forEach((k,si)=>{for(let q=0;q<k;q++){c++;if(c>lim)return;const sp=k===2?(q?4:-4):0;const ox=off[si][0]+(si%2===0?sp:0),oy=off[si][1]+(si%2===1?sp:0);circ(x+ox,y+oy,2.9,o.dotCol||C.elec)}})}
+/* Bohr-style shell atom: nucleus + rings, electrons orbit. shells [2,8,1]. o:{t, hide:[shell,idx], rCore, dr, symbol col} returns outer radius */
+function shellAtom(x,y,sym,shells,o){o=o||{};const t=o.t||0;const r0=o.r0||16,dr=o.dr||17;const col=elCol(sym);
+  shells.forEach((n,si)=>{const R=r0+dr*(si+1);circ(x,y,R,null,hexA(C["ink-soft"],.35),1.2)});
+  atom(x,y,sym,{r:r0,col,charge:o.charge});
+  shells.forEach((n,si)=>{const R=r0+dr*(si+1);const last=si===shells.length-1;for(let k=0;k<n;k++){const a=k/n*TAU+t*(1.2/(si+1))+si;if(o.skip&&o.skip(si,k))continue;
+    eDot(x+Math.cos(a)*R,y+Math.sin(a)*R,{r:last?4.3:3.2,col:last?C.elec:hexA(C["ink-soft"],.85),glow:last})}});
+  return r0+dr*shells.length}
+/* beaker with liquid; returns liquid rect */
+function beaker(x,y,w,h,level,liq,o){o=o||{};ctx.save();const lh=h*clamp(level,0,1);
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h-8);ctx.quadraticCurveTo(x,y+h,x+8,y+h);ctx.lineTo(x+w-8,y+h);ctx.quadraticCurveTo(x+w,y+h,x+w,y+h-8);ctx.lineTo(x+w,y);ctx.closePath();ctx.fillStyle=hexA(C.glass,.45);ctx.fill();
+  if(lh>0){ctx.save();ctx.clip();ctx.fillStyle=liq||hexA(C.water,.95);ctx.fillRect(x,y+h-lh,w,lh);ctx.fillStyle=hexA("#ffffff",.25);ctx.fillRect(x,y+h-lh,w,3);ctx.restore()}
+  ctx.beginPath();ctx.moveTo(x-6,y-4);ctx.lineTo(x,y);ctx.lineTo(x,y+h-8);ctx.quadraticCurveTo(x,y+h,x+8,y+h);ctx.lineTo(x+w-8,y+h);ctx.quadraticCurveTo(x+w,y+h,x+w,y+h-8);ctx.lineTo(x+w,y);
+  ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+  if(!o.noTicks)for(let k=1;k<4;k++)line(x+w-14,y+h-k*h/4,x+w-4,y+h-k*h/4,hexA(C["glass-edge"],.8),1.2);
+  line(x+6,y+10,x+6,y+h-14,hexA("#ffffff",isDark()?.15:.6),3);ctx.restore();return {x,y:y+h-lh,w,h:lh}}
+/* light bulb for a conductivity tester */
+function bulb(x,y,on,T){if(on)glow(x,y,46,C.flame,.55+.1*Math.sin((T||0)*9));circ(x,y,15,on?mix(C.flame,"#ffffff",.4):hexA(C.glass,.9),C["glass-edge"],1.6);
+  rr(x-8,y+13,16,12,2);fillStroke(C.metal,C["metal-edge"],1.2);poly([[x-5,y+12],[x-3,y-2],[x,y+3],[x+3,y-2],[x+5,y+12]],on?C.heat:C["ink-soft"],1.4)}
+/* wavy energy arrow (photon / heat) from (x,y) along angle */
+function energyWave(x,y,ang,len,col,p,lab){ctx.save();ctx.translate(x,y);ctx.rotate(ang);ctx.beginPath();const L=len*clamp(p==null?1:p,0,1);for(let s=0;s<=L;s+=2){const yy=Math.sin(s*.35)*5;s?ctx.lineTo(s,yy):ctx.moveTo(s,yy)}
+  ctx.strokeStyle=col;ctx.lineWidth=2.2;ctx.stroke();if(L>10){ctx.beginPath();ctx.moveTo(L+8,0);ctx.lineTo(L-2,-6);ctx.lineTo(L-2,6);ctx.closePath();ctx.fillStyle=col;ctx.fill()}ctx.restore();
+  if(lab&&L>10)label(x+Math.cos(ang)*(L+28),y+Math.sin(ang)*(L+16),lab,{size:12,weight:700,color:col,border:col})}
+/* graph frame. returns {X,Y} */
+function graphFrame(x,y,w,h,x0,x1,y0,y1,o){o=o||{};if(!o.noBox)panelBox(x-(o.padL||46),y-30,w+(o.padL||46)+14,h+(o.padB||58),{fill:hexA(C.panel,.95)});
+  const X=v=>x+(v-x0)/(x1-x0)*w,Y=v=>y+h-(v-y0)/(y1-y0)*h;ctx.strokeStyle=C.grid;ctx.lineWidth=1;
+  for(let i=1;i<=4;i++){const yy=y+h*i/5;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}
+  line(x,y,x,y+h,C["ink-soft"],1.6);line(x,y+h,x+w,y+h,C["ink-soft"],1.6);
+  if(o.zero!=null){line(x,Y(o.zero),x+w,Y(o.zero),C["ink-soft"],1.2,[4,4])}
+  if(o.yl)txt(x-8,y-14,o.yl,{size:11.5,mono:true,weight:600,color:C["ink-soft"]});if(o.xl)txt(x+w,y+h+(o.xly||30),o.xl,{size:11.5,mono:true,weight:600,color:C["ink-soft"],align:"right"});return {X,Y}}
+/* Morse-style potential energy (kJ/mol) vs distance (pm) */
+function morse(r,De,re,a){const e=1-Math.exp(-(a||.0194)*(r-re));return De*e*e-De}
+/* 3D projection for lattices: rotate about vertical axis by ang, tilt about x */
+function proj3(px,py,pz,ang,tilt,cx,cy,sc){const ca=Math.cos(ang),sa=Math.sin(ang);let x=px*ca+pz*sa,z=-px*sa+pz*ca,y=py;const ct=Math.cos(tilt),st=Math.sin(tilt);const y2=y*ct-z*st,z2=y*st+z*ct;const f=1+z2*.0009;return [cx+x*sc*f,cy+y2*sc*f,z2,f]}
+/* crystal piece seen from outside (macroscopic salt grain) */
+function saltCube(x,y,s,col){const c=col||"#F4F4F2";fillPoly([[x,y],[x+s,y-s*.35],[x+s*2,y],[x+s,y+s*.35]],mix(c,C.ink,.04),hexA(C.ink,.35),1.2);fillPoly([[x,y],[x+s,y+s*.35],[x+s,y+s*1.35],[x,y+s]],mix(c,C.ink,.12),hexA(C.ink,.35),1.2);fillPoly([[x+s,y+s*.35],[x+s*2,y],[x+s*2,y+s],[x+s,y+s*1.35]],mix(c,C.ink,.2),hexA(C.ink,.35),1.2)}
+/* water molecule (bent), angle ang: oxygen at x,y, H pointing along ang */
+function waterMol(x,y,ang,s,o){o=o||{};s=s||1;const hA=ang-.91,hB=ang+.91;const d=17*s;
+  [hA,hB].forEach(a=>atom(x+Math.cos(a)*d,y+Math.sin(a)*d,"H",{r:7.5*s,noLabel:s<.9,fs:9}));atom(x,y,"O",{r:11*s,noLabel:s<.9,fs:11});
+  if(o.dlt){txt(x-Math.cos(ang)*18*s,y-Math.sin(ang)*18*s,"δ−",{size:11.5,weight:700,align:"center",color:C.rich})}}
+/* panel-titled inset label "MACROSCOPIC / PARTICLE / SYMBOLIC" */
+function levelTag(x,y,t,col){ctx.save();ctx.font=`700 11px ${MONO}`;const w=ctx.measureText(t).width+14;rr(x,y-9,w,18,9);ctx.fillStyle=hexA(col||C.accent,.16);ctx.fill();ctx.strokeStyle=col||C.accent;ctx.lineWidth=1.2;ctx.stroke();ctx.fillStyle=C.ink;ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillText(t,x+7,y+.5);ctx.restore();return w}
+/* charge/arrow helpers */
+function dblArrow(x1,y,x2,col){arrow(x1,y,x2,y,col||C.ink,2);arrow(x2,y,x1,y,col||C.ink,2)}
+function curlyArrow(x1,y1,x2,y2,bend,col,p){const mx=(x1+x2)/2-(y2-y1)*bend,my=(y1+y2)/2+(x2-x1)*bend;ctx.beginPath();const N=24,M=Math.max(1,Math.round(N*clamp(p==null?1:p,0,1)));let ex=x1,ey=y1,px=x1,py=y1;
+  for(let i=0;i<=M;i++){const t=i/N;const X=(1-t)*(1-t)*x1+2*(1-t)*t*mx+t*t*x2,Y=(1-t)*(1-t)*y1+2*(1-t)*t*my+t*t*y2;if(i){ctx.lineTo(X,Y)}else ctx.moveTo(X,Y);px=ex;py=ey;ex=X;ey=Y}
+  ctx.strokeStyle=col||C.accent;ctx.lineWidth=2.2;ctx.stroke();const a=Math.atan2(ey-py,ex-px);ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex-9*Math.cos(a-.45),ey-9*Math.sin(a-.45));ctx.lineTo(ex-9*Math.cos(a+.45),ey-9*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col||C.accent;ctx.fill()}
+/* thermometer-free "energy bar" in kJ */
+function energyBar(x,y,h,val,max,col,lab,o){o=o||{};const hh=h*clamp(Math.abs(val)/max,0,1);rr(x,y+h-hh,o.w||34,hh,4);ctx.fillStyle=hexA(col,.75);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.4;ctx.stroke();
+  if(lab)txt(x+(o.w||34)/2,y+h+14,lab,{size:11.5,weight:600,align:"center",color:C["ink-soft"]});if(o.val!==false&&hh>2)txt(x+(o.w||34)/2,y+h-hh-10,fmtNum(val,0)+(o.unit||""),{size:12,weight:700,mono:true,align:"center",color:C.ink})}
+/* fraction chain for unit cancellation (from the shared calculation trainer pattern). items: [{n:[val,units[]],d:[val,units[]]|null}] */
+function unitStr(u){return u.join(" · ")}
+function frac(nv,nu,dv,du){return {n:[nv,Array.isArray(nu)?nu:[nu]],d:dv==null?null:[dv,Array.isArray(du)?du:[du]]}}
+function fracChain(x,y,items,res,p,o){o=o||{};const fs=o.size||15;ctx.font=`600 ${fs}px ${MONO}`;const nd=o.nd||4;
+  const ns=[],ds=[];items.forEach((it,i)=>{it.n[1].forEach((u,k)=>ns.push({i,k,u,used:false}));if(it.d)it.d[1].forEach((u,k)=>ds.push({i,k,u,used:false}))});
+  const pairs=[];ds.forEach(d=>{const m=ns.find(n=>!n.used&&n.u===d.u&&n.i!==d.i);if(m){m.used=true;d.used=true;pairs.push([m,d])}});
+  const pos={};let X=x;const gap=o.gap||22;const sg=pairs.length?.8/pairs.length:1;
+  const show=i=>clamp((p*(items.length+2)-i)*1.2,0,1);
+  items.forEach((it,i)=>{const vs=v=>typeof v==="string"?v:fmtNum(v,nd);const nt=vs(it.n[0])+" "+unitStr(it.n[1]);const dt=it.d?vs(it.d[0])+" "+unitStr(it.d[1]):"";ctx.font=`600 ${fs}px ${MONO}`;const w=Math.max(ctx.measureText(nt).width,ctx.measureText(dt).width)+8;
+    const cx=X+w/2;const a=o.build?show(i):1;
+    const drawPart=(val,units,yy,isN)=>{ctx.font=`600 ${fs}px ${MONO}`;const full=vs(val)+" "+unitStr(units);let px=cx-ctx.measureText(full).width/2;
+      const v=vs(val)+" ";ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillStyle=C.ink;ctx.fillText(v,px,yy);px+=ctx.measureText(v).width;
+      units.forEach((u,k)=>{const uw=ctx.measureText(u).width;pos[(isN?"n":"d")+i+"_"+k]=[px,yy,uw];ctx.fillStyle=o.ucol||C["accent-ink"];ctx.fillText(u,px,yy);px+=uw;if(k<units.length-1){ctx.fillStyle=C.ink;ctx.fillText(" · ",px,yy);px+=ctx.measureText(" · ").width}})};
+    withA(a,()=>{if(it.d){drawPart(it.n[0],it.n[1],y-14,true);line(X,y,X+w,y,C.ink,1.6);drawPart(it.d[0],it.d[1],y+15,false)}else drawPart(it.n[0],it.n[1],y,true);
+      if(i<items.length-1)txt(X+w+gap/2,y,o.ops?o.ops[i]:"×",{size:fs+2,weight:700,align:"center",color:C["ink-soft"]})});
+    X+=w;if(i<items.length-1)X+=gap});
+  const p0=o.build?(items.length)/(items.length+2):0;
+  pairs.forEach((pr,j)=>{const f=clamp(((p-p0)/(1-p0)-j*sg)/sg,0,1);if(f<=0)return;[pr[0],pr[1]].forEach((q,qi)=>{const key=(qi===0?"n":"d")+q.i+"_"+q.k;const ps=pos[key];if(!ps)return;
+    line(ps[0]-2,ps[1]+6,ps[0]-2+(ps[2]+4)*f,ps[1]-6,C.bad,2.4)})});
+  const rf=clamp((p-.9)/.1,0,1);
+  if(res){if(!o.build||p>=p0)txt(X+gap/2,y,"=",{size:fs+3,weight:700,align:"center",color:C["ink-soft"]});X+=gap+6;const rt=(typeof res[0]==="string"?res[0]:fmtNum(res[0],o.rd==null?2:o.rd))+" "+unitStr(res[1]);
+    if(rf>0)withA(rf,()=>{ctx.font=`700 ${fs+2}px ${MONO}`;const w=ctx.measureText(rt).width;rr(X-4,y-14,w+12,28,6);ctx.fillStyle=C["good-wash"];ctx.fill();ctx.strokeStyle=C.good;ctx.lineWidth=1.6;ctx.stroke();txt(X+2,y,rt,{size:fs+2,weight:700,mono:true})});
+    ctx.font=`700 ${fs+2}px ${MONO}`;X+=ctx.measureText(rt).width+12}
+  return X}
+/* tiny periodic-table tile */
+function ptTile(x,y,w,h,sym,o){o=o||{};rr(x,y,w,h,4);ctx.fillStyle=o.fill||hexA(elCol(sym),.22);ctx.fill();ctx.strokeStyle=o.stroke||elCol(sym);ctx.lineWidth=o.lw||1.3;ctx.stroke();txt(x+w/2,y+h/2+(o.sub?-5:0),sym,{size:o.size||14,weight:700,align:"center",color:C.ink});if(o.sub)txt(x+w/2,y+h-9,o.sub,{size:10.5,mono:true,align:"center",color:C["ink-soft"]})}
+/* jitter for thermal motion */
+function jig(i,T,amp){return [Math.sin(T*3.1+i*1.7)*amp+Math.sin(T*5.3+i*.9)*amp*.4,Math.cos(T*2.7+i*2.3)*amp+Math.sin(T*4.1+i*1.1)*amp*.4]}
+
+/* ---------------- lab helpers ---------------- */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("bond-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("bond-lab-"+k,v)}catch(e){}}};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+/* formula markup "Al_2(SO_4)_3" -> HTML with sub/sup */
+function fHTML(f){return f.replace(/_\{([^}]*)\}/g,"<sub>$1</sub>").replace(/_(\d+)/g,"<sub>$1</sub>").replace(/\^\{([^}]*)\}/g,(m,a)=>"<sup>"+a.replace(/-/g,"−")+"</sup>").replace(/\^(\d*[+\-−])/g,(m,a)=>"<sup>"+a.replace(/-/g,"−")+"</sup>")}
+/* formula markup -> plain text with unicode subscripts (for screen-reader labels and messages) */
+const SUBS="₀₁₂₃₄₅₆₇₈₉",SUPS={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","+":"⁺","-":"⁻","−":"⁻"};
+function fTxt(f){return f.replace(/_\{([^}]*)\}/g,(m,a)=>a.replace(/\d/g,d=>SUBS[+d])).replace(/_(\d+)/g,(m,a)=>a.replace(/\d/g,d=>SUBS[+d])).replace(/\^\{([^}]*)\}/g,(m,a)=>a.split("").map(c=>SUPS[c]||c).join("")).replace(/\^(\d*[+\-−])/g,(m,a)=>a.split("").map(c=>SUPS[c]||c).join(""))}
+function sigRound(v,sf){if(v===0)return 0;const d=Math.ceil(Math.log10(Math.abs(v)));const p=Math.pow(10,sf-d);return Math.round(v*p)/p}
+function sfStr(v,sf){if(v===0)return "0";const d=Math.ceil(Math.log10(Math.abs(v)));const dec=Math.max(0,sf-d);let s=Math.abs(sigRound(v,sf)).toFixed(dec);if(dec===0&&sf>String(Math.round(Math.abs(v))).replace(/0+$/,"").length&&/0$/.test(s))s+=".";return (v<0?"−":"")+s}
+/* ---------------- stages ---------------- */
+const S1=makeStage("cvSim",800,520),S2=makeStage("cvTrain",800,470),S4=makeStage("cvLife",600,440);
+let a11yKey="",a11yT=0;
+
+/* ================= PART 1: bonding simulator ================= */
+const SIM_EL=["H","Li","Na","K","Mg","Ca","Al","C","N","O","F","P","S","Cl","Br","I"];
+const ANION={F:[-1,"fluoride"],Cl:[-1,"chloride"],Br:[-1,"bromide"],I:[-1,"iodide"],O:[-2,"oxide"],S:[-2,"sulfide"],N:[-3,"nitride"],P:[-3,"phosphide"]};
+const CATION={Li:1,Na:1,K:1,Mg:2,Ca:2,Al:3};
+/* ionic radii (pm, 6-coordinate, approximate) */
+const IRAD={Li:76,Na:102,K:138,Mg:72,Ca:100,Al:54,F:133,Cl:181,Br:196,I:220,O:140,S:184,N:146,P:212};
+/* approximate lattice energies (kJ/mol) from standard tables */
+const LATT={LiF:1036,LiCl:853,LiBr:807,LiI:757,NaF:923,NaCl:787,NaBr:747,NaI:704,KF:821,KCl:715,KBr:682,KI:649,MgO:3791,CaO:3414,MgCl_2:2526,CaCl_2:2258,MgF_2:2957,CaF_2:2630,Li_2O:2799,Na_2O:2481,K_2O:2238,Al_2O_3:15916};
+/* covalent molecules: Lewis layout (px offsets), bond order, length (pm), bond energy (kJ/mol), state at 25 °C */
+const D_=Math.PI/180;
+function M(f,name,atoms,bonds,len,E,state,o){return Object.assign({f,name,atoms,bonds,len,E,state},o||{})}
+const ring=(c,sym,n,R,a0,lp)=>{const at=[{s:c,x:0,y:0,lp:0}];const bd=[];for(let i=0;i<n;i++){const a=(a0||0)+i*TAU/n;at.push({s:sym,x:Math.cos(a)*R,y:Math.sin(a)*R,lp:lp==null?3:lp});bd.push([0,i+1,1])}return [at,bd]};
+const COV={
+ "H|H":M("H_2","hydrogen",[{s:"H",x:-37,y:0},{s:"H",x:37,y:0}],[[0,1,1]],74,436,"gas"),
+ "F|H":M("HF","hydrogen fluoride",[{s:"H",x:-40,y:0},{s:"F",x:40,y:0,lp:3}],[[0,1,1]],92,567,"gas",{note:"boils at 20 °C"}),
+ "Cl|H":M("HCl","hydrogen chloride",[{s:"H",x:-44,y:0},{s:"Cl",x:44,y:0,lp:3}],[[0,1,1]],127,431,"gas"),
+ "Br|H":M("HBr","hydrogen bromide",[{s:"H",x:-46,y:0},{s:"Br",x:46,y:0,lp:3}],[[0,1,1]],141,366,"gas"),
+ "H|I":M("HI","hydrogen iodide",[{s:"H",x:-48,y:0},{s:"I",x:48,y:0,lp:3}],[[0,1,1]],161,299,"gas"),
+ "H|O":M("H_2O","water",[{s:"O",x:0,y:-14,lp:2,lpAng:[-125*D_,-55*D_]},{s:"H",x:-50,y:32},{s:"H",x:50,y:32}],[[0,1,1],[0,2,1]],96,463,"liquid"),
+ "H|S":M("H_2S","hydrogen sulfide",[{s:"S",x:0,y:-14,lp:2,lpAng:[-125*D_,-55*D_]},{s:"H",x:-54,y:34},{s:"H",x:54,y:34}],[[0,1,1],[0,2,1]],134,367,"gas"),
+ "H|N":M("NH_3","ammonia",[{s:"N",x:0,y:-18,lp:1,lpAng:[-90*D_]},{s:"H",x:-58,y:22},{s:"H",x:0,y:48},{s:"H",x:58,y:22}],[[0,1,1],[0,2,1],[0,3,1]],101,391,"gas"),
+ "H|P":M("PH_3","phosphine",[{s:"P",x:0,y:-18,lp:1,lpAng:[-90*D_]},{s:"H",x:-62,y:24},{s:"H",x:0,y:52},{s:"H",x:62,y:24}],[[0,1,1],[0,2,1],[0,3,1]],142,322,"gas"),
+ "C|H":M("CH_4","methane",...ring("C","H",4,56,0,0),109,413,"gas"),
+ "C|O":M("CO_2","carbon dioxide",[{s:"O",x:-64,y:0,lp:2,lpAng:[-150*D_,150*D_]},{s:"C",x:0,y:0},{s:"O",x:64,y:0,lp:2,lpAng:[-30*D_,30*D_]}],[[0,1,2],[1,2,2]],116,799,"gas",{central:1}),
+ "C|F":M("CF_4","carbon tetrafluoride",...ring("C","F",4,62,0),135,485,"gas"),
+ "C|Cl":M("CCl_4","carbon tetrachloride",...ring("C","Cl",4,66,0),177,328,"liquid"),
+ "Br|C":M("CBr_4","carbon tetrabromide",...ring("C","Br",4,68,0),194,276,"solid"),
+ "C|I":M("CI_4","carbon tetraiodide",...ring("C","I",4,70,0),214,240,"solid"),
+ "F|N":M("NF_3","nitrogen trifluoride",[{s:"N",x:0,y:-14,lp:1,lpAng:[-90*D_]},{s:"F",x:-62,y:26,lp:3},{s:"F",x:0,y:56,lp:3},{s:"F",x:62,y:26,lp:3}],[[0,1,1],[0,2,1],[0,3,1]],136,272,"gas"),
+ "Cl|N":M("NCl_3","nitrogen trichloride",[{s:"N",x:0,y:-14,lp:1,lpAng:[-90*D_]},{s:"Cl",x:-66,y:26,lp:3},{s:"Cl",x:0,y:60,lp:3},{s:"Cl",x:66,y:26,lp:3}],[[0,1,1],[0,2,1],[0,3,1]],175,200,"liquid"),
+ "N|O":M("NO","nitrogen monoxide",[{s:"N",x:-40,y:0,lp:1,single:true,lpAng:[180*D_,-90*D_]},{s:"O",x:40,y:0,lp:2,lpAng:[-40*D_,40*D_]}],[[0,1,2]],115,607,"gas",{note:"odd electron (radical)"}),
+ "F|O":M("OF_2","oxygen difluoride",[{s:"O",x:0,y:-14,lp:2,lpAng:[-125*D_,-55*D_]},{s:"F",x:-58,y:30,lp:3},{s:"F",x:58,y:30,lp:3}],[[0,1,1],[0,2,1]],142,190,"gas"),
+ "Cl|O":M("Cl_2O","dichlorine monoxide",[{s:"O",x:0,y:-14,lp:2,lpAng:[-125*D_,-55*D_]},{s:"Cl",x:-62,y:30,lp:3},{s:"Cl",x:62,y:30,lp:3}],[[0,1,1],[0,2,1]],170,203,"gas"),
+ "O|S":M("SO_2","sulfur dioxide",[{s:"S",x:0,y:-14,lp:1,lpAng:[-90*D_],fc:1},{s:"O",x:-60,y:30,lp:2},{s:"O",x:60,y:30,lp:3,fc:-1}],[[0,1,2],[0,2,1]],143,523,"gas",{note:"resonance: the two S–O bonds are identical"}),
+ "O|O":M("O_2","oxygen",[{s:"O",x:-38,y:0,lp:2,lpAng:[-150*D_,150*D_]},{s:"O",x:38,y:0,lp:2,lpAng:[-30*D_,30*D_]}],[[0,1,2]],121,495,"gas"),
+ "F|F":M("F_2","fluorine",[{s:"F",x:-42,y:0,lp:3},{s:"F",x:42,y:0,lp:3}],[[0,1,1]],142,155,"gas",{color:"pale yellow"}),
+ "Cl|Cl":M("Cl_2","chlorine",[{s:"Cl",x:-50,y:0,lp:3},{s:"Cl",x:50,y:0,lp:3}],[[0,1,1]],199,242,"gas",{color:"yellow-green"}),
+ "Br|Br":M("Br_2","bromine",[{s:"Br",x:-54,y:0,lp:3},{s:"Br",x:54,y:0,lp:3}],[[0,1,1]],228,193,"liquid",{color:"red-brown"}),
+ "I|I":M("I_2","iodine",[{s:"I",x:-58,y:0,lp:3},{s:"I",x:58,y:0,lp:3}],[[0,1,1]],266,151,"solid",{color:"dark violet"}),
+ "N|N":M("N_2","nitrogen",[{s:"N",x:-36,y:0,lp:1,lpAng:[180*D_]},{s:"N",x:36,y:0,lp:1,lpAng:[0]}],[[0,1,3]],110,941,"gas"),
+ "Cl|F":M("ClF","chlorine monofluoride",[{s:"Cl",x:-46,y:0,lp:3},{s:"F",x:46,y:0,lp:3}],[[0,1,1]],163,253,"gas"),
+ "F|S":M("SF_6","sulfur hexafluoride",...ring("S","F",6,66,0),156,327,"gas",{note:"expanded octet: 12 e⁻ on S"}),
+ "Cl|S":M("SCl_2","sulfur dichloride",[{s:"S",x:0,y:-14,lp:2,lpAng:[-125*D_,-55*D_]},{s:"Cl",x:-64,y:32,lp:3},{s:"Cl",x:64,y:32,lp:3}],[[0,1,1],[0,2,1]],201,271,"liquid"),
+ "Cl|P":M("PCl_3","phosphorus trichloride",[{s:"P",x:0,y:-16,lp:1,lpAng:[-90*D_]},{s:"Cl",x:-68,y:26,lp:3},{s:"Cl",x:0,y:62,lp:3},{s:"Cl",x:68,y:26,lp:3}],[[0,1,1],[0,2,1],[0,3,1]],204,331,"liquid"),
+ "F|P":M("PF_3","phosphorus trifluoride",[{s:"P",x:0,y:-16,lp:1,lpAng:[-90*D_]},{s:"F",x:-62,y:26,lp:3},{s:"F",x:0,y:58,lp:3},{s:"F",x:62,y:26,lp:3}],[[0,1,1],[0,2,1],[0,3,1]],156,490,"gas")};
+function gcd(a,b){return b?gcd(b,a%b):a}
+function simPair(a,b){const A=EL[a],B=EL[b];const dEN=Math.abs(A.en-B.en);const key=[a,b].sort().join("|");
+  if(A.m&&B.m)return {type:"metal",dEN,a,b,name:a===b?EL[a].n+" metal":"an alloy of "+EL[a].n+" and "+EL[b].n,f:a===b?a:a+" + "+b};
+  if(A.m||B.m){const m=A.m?a:b,n=A.m?b:a;if(!ANION[n])return {type:"skip",dEN,a,b,why:n==="H"?"Metals with hydrogen make metal hydrides (with the H⁻ ion). They are real but unusual, so this simulator skips them.":"Metals with carbon make carbides, an unusual group this simulator skips."};
+    const q=CATION[m],z=-ANION[n][0];const g=gcd(q,z);const cm=z/g,cn=q/g;const f=m+(cm>1?"_"+cm:"")+n+(cn>1?"_"+cn:"");
+    return {type:"ionic",dEN,a,b,m,n,q,z,cm,cn,f,name:EL[m].n+" "+ANION[n][1],LE:LATT[f],r0:IRAD[m]+IRAD[n]}}
+  const mol=COV[key];if(!mol)return {type:"none",dEN,a,b};
+  return Object.assign({type:dEN<.4?"nonpolar":"polar",dEN,a,b},mol)}
+const SIM={a:"Na",b:"Cl",t0:0,r:283,pair:null,drag:false,done:new Set(),lastKey:""};
+const SIMCHAL=[["Make an ionic compound with a 1 to 2 ratio",p=>p.type==="ionic"&&(p.cm*p.cn===2)],["Make a polar covalent bond with ΔEN above 1",p=>p.type==="polar"&&p.dEN>1],["Make a nonpolar molecule from two different elements (ΔEN below 0.4)",p=>p.type==="nonpolar"&&p.a!==p.b],["Find the molecule with a triple bond",p=>p.f==="N_2"],["Make the compound with the largest lattice energy in the table",p=>p.f==="Al_2O_3"],["Squeeze any bond closer than its bond length and watch the energy rise",p=>p.squeezed]];
+function simElUI(){["A","B"].forEach(k=>{const el=$("#el"+k);el.innerHTML="";SIM_EL.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="elbtn";b.innerHTML=`<i style="background:var(--${EL[s].c})" aria-hidden="true"></i>${s}<small> EN ${EL[s].en.toFixed(2)}</small><span class="gk-sr"> (${EL[s].n})</span>`;
+  b.setAttribute("aria-pressed",String(SIM[k.toLowerCase()]===s));b.onclick=()=>{SIM[k.toLowerCase()]=s;simSet()};el.appendChild(b)})})}
+function simRange(p){if(p.type==="ionic")return [Math.round(p.r0*.62),Math.round(p.r0*2.6)];if(p.len)return [Math.max(30,Math.round(p.len*.55)),Math.round(p.len*3.2)];return [50,400]}
+function simE(p,r){if(p.type==="ionic"){const A=138900*p.q*p.z;const B=A*Math.pow(p.r0,8)/9;return -A/r+B/Math.pow(r,9)}if(p.len)return morse(r,p.E,p.len,1.44/p.len);return 0}
+function simSet(keepR){const p=simPair(SIM.a,SIM.b);SIM.pair=p;SIM.t0=performance.now();simElUI();const rg=simRange(p);const sl=$("#simR");sl.min=rg[0];sl.max=rg[1];
+  if(!keepR){SIM.r=p.type==="ionic"?p.r0:p.len?p.len:Math.round((rg[0]+rg[1])/2);}sl.value=SIM.r;simReadouts();a11yKey=""}
+function simReadouts(){const p=SIM.pair;const rows=[];const cls={ionic:"Ionic",polar:"Polar covalent",nonpolar:"Nonpolar covalent",metal:"Metallic",none:"No simple molecule here",skip:"Skipped pair"}[p.type];
+  rows.push(["Bond type",cls]);rows.push(["ΔEN",p.dEN.toFixed(2)+" ("+EL[p.a].en.toFixed(2)+" vs "+EL[p.b].en.toFixed(2)+")"]);
+  if(p.f&&p.type!=="metal")rows.push(["Formula",fHTML(p.f)]);if(p.name)rows.push(["Name",p.name]);
+  if(p.type==="ionic"){rows.push(["Ions",`${p.m}<sup>${p.q>1?p.q:""}+</sup> and ${p.n}<sup>${p.z>1?p.z:""}−</sup>`]);rows.push(["Ion spacing (crystal)","≈ "+p.r0+" pm"]);rows.push(["Lattice energy",p.LE?"≈ "+p.LE.toLocaleString("en-US")+" kJ/mol":"not in this table"]);rows.push(["Properties","high melting, brittle, conducts when molten or dissolved"])}
+  else if(p.len){rows.push(["Bond length",p.len+" pm"]);rows.push(["Bond energy",p.E+" kJ/mol"]);rows.push(["Bond order",String(p.bonds[0][2])]);rows.push(["State at 25 °C",p.state+(p.color?", "+p.color:"")]);if(p.note)rows.push(["Note",p.note])}
+  else if(p.type==="metal")rows.push(["Properties","shiny, bends, conducts electricity"]);
+  const sl=$("#simR");$("#simRO").textContent=SIM.r+" pm";sl.disabled=!(p.type==="ionic"||p.len);$("#simBest").disabled=sl.disabled;
+  $("#simRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join("");
+  SIMCHAL.forEach((c,i)=>{if(c[1](Object.assign({},p,{squeezed:(p.len||p.r0)&&SIM.r<(p.len||p.r0)*.8})))SIM.done.add(i)});chalUI($("#simChal"),SIMCHAL.map(c=>c[0]),SIM.done);
+  $("#simCap").textContent=p.type==="ionic"?`${EL[p.m].n} gives electrons to ${EL[p.n].n}: ${fTxt(p.f)}, ${p.name}.`:p.len?`${fTxt(p.f)}, ${p.name}: ${cls.toLowerCase()} bond, ΔEN ${p.dEN.toFixed(2)}.`:p.type==="metal"?"Metal atoms pool their valence electrons: metallic bonding.":"Pick another pair."}
+function chalUI(el,list,done){el.innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c}${done.has(i)?'<span class="gk-sr"> (done)</span>':""}</span></li>`).join("")}
+$("#simR").addEventListener("input",e=>{SIM.r=+e.target.value;simReadouts();a11yKey=""});
+$("#simReplay").onclick=()=>{SIM.t0=performance.now()};$("#simBest").onclick=()=>{const p=SIM.pair;SIM.r=p.type==="ionic"?p.r0:p.len;$("#simR").value=SIM.r;simReadouts();a11yKey=""};
+/* graph geometry */
+const SG_={x:530,y:64,w:240,h:186};
+function simGraphMap(p){const rg=simRange(p);const E0=simE(p,p.type==="ionic"?p.r0:p.len);const lo=Math.min(-100,E0*1.25),hi=Math.max(200,-E0*.8);return {rg,lo,hi,X:r=>SG_.x+(r-rg[0])/(rg[1]-rg[0])*SG_.w,R:x=>rg[0]+(x-SG_.x)/SG_.w*(rg[1]-rg[0]),Y:e=>SG_.y+SG_.h-(clamp(e,lo,hi)-lo)/(hi-lo)*SG_.h}}
+function simPointer(e,type){const st=S1;const r=st.cv.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*st.W,y=(e.clientY-r.top)/r.height*st.H;const p=SIM.pair;if(!(p.type==="ionic"||p.len))return;
+  if(type==="down"){if(x>SG_.x-20&&x<SG_.x+SG_.w+20&&y>SG_.y-20&&y<SG_.y+SG_.h+30){SIM.drag=true;st.cv.setPointerCapture(e.pointerId)}else return}
+  if(!SIM.drag)return;if(type==="up"){SIM.drag=false;return}const G=simGraphMap(p);SIM.r=Math.round(clamp(G.R(x),G.rg[0],G.rg[1]));$("#simR").value=SIM.r;simReadouts();a11yKey="";e.preventDefault()}
+S1.cv.addEventListener("pointerdown",e=>simPointer(e,"down"));S1.cv.addEventListener("pointermove",e=>simPointer(e,"move"));S1.cv.addEventListener("pointerup",e=>simPointer(e,"up"));S1.cv.addEventListener("pointercancel",e=>simPointer(e,"up"));
+function drawSim(now){use(S1);const p=SIM.pair;const t=(now-SIM.t0)/1000;const T=now/1000;
+  panelBox(10,10,470,300);title(24,30,"Particle view");levelTag(140,30,"PARTICLE",C.act2);
+  ctx.save();rr(12,40,466,268,6);ctx.clip();
+  if(p.type==="ionic")simIonic(p,t,T);else if(p.len)simCov(p,t,T);else if(p.type==="metal")simMetal(p,T);else{wrapText(p.type==="skip"?p.why:"These two nonmetals do not form a simple everyday binary molecule in our set. Try H, O, N, C, F, Cl, Br, I, S or P in pairs, or a metal with a nonmetal.",40,150,400,20,{size:14,weight:600})}
+  ctx.restore();
+  // macro
+  panelBox(10,320,225,190);title(24,340,"Macroscopic");levelTag(130,340,"MACRO",C.act7);simMacro(p,T);
+  // symbolic
+  panelBox(245,320,235,190);title(259,340,"Symbolic");levelTag(340,340,"SYMBOLIC",C.act5);
+  if(p.type==="ionic"){chemText(362,388,p.f,{size:30,align:"center"});txt(362,420,p.name,{size:13,weight:600,align:"center"});
+    txt(362,450,`${p.cm} × (+${p.q}) + ${p.cn} × (−${p.z}) = 0`,{size:13,mono:true,weight:700,align:"center",color:C.good});txt(362,478,"criss-cross the charges",{size:12,align:"center",color:C["ink-soft"]})}
+  else if(p.len){const sc=p.atoms.length>4?.6:.75;const m={atoms:p.atoms.map(a=>Object.assign({},a,{x:362+a.x*sc,y:428+a.y*sc})),bonds:p.bonds.map(b=>b.slice())};lewisDraw(m,{size:p.atoms.length>4?14:17,dr:p.atoms.length>4?10:13,sp:4,lw:2});chemText(362,366,p.f,{size:18,align:"center"})}
+  else if(p.type==="metal"){chemText(362,400,p.a===p.b?p.a:p.a+" / "+p.b,{size:28,align:"center"});txt(362,436,"metallic bonding",{size:13,weight:600,align:"center"})}
+  else txt(362,420,"—",{size:20,align:"center"});
+  // graph
+  panelBox(490,10,300,300);title(504,30,"Energy vs distance");if(p.type==="ionic"||p.len){const G=simGraphMap(p);
+    ctx.strokeStyle=C.grid;ctx.lineWidth=1;for(let i=1;i<=4;i++){const yy=SG_.y+SG_.h*i/5;line(SG_.x,yy,SG_.x+SG_.w,yy,C.grid,1)}line(SG_.x,SG_.y,SG_.x,SG_.y+SG_.h,C["ink-soft"],1.5);line(SG_.x,SG_.y+SG_.h,SG_.x+SG_.w,SG_.y+SG_.h,C["ink-soft"],1.5);line(SG_.x,G.Y(0),SG_.x+SG_.w,G.Y(0),C["ink-soft"],1.1,[4,4]);txt(SG_.x-6,G.Y(0),"0",{size:11,mono:true,align:"right",color:C["ink-soft"]});
+    ctx.beginPath();for(let i=0;i<=120;i++){const r=G.rg[0]+(G.rg[1]-G.rg[0])*i/120;const X=G.X(r),Y=G.Y(simE(p,r));i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.strokeStyle=C.bad;ctx.lineWidth=2.6;ctx.stroke();
+    const r0=p.type==="ionic"?p.r0:p.len;const E0=simE(p,r0);line(G.X(r0),G.Y(E0),G.X(r0),SG_.y+SG_.h,C.accent,1.2,[4,3]);txt(G.X(r0),SG_.y+SG_.h+12,r0+" pm",{size:11,mono:true,weight:700,align:"center",color:C["accent-ink"]});
+    txt(SG_.x,SG_.y+SG_.h+12,String(G.rg[0]),{size:11,mono:true,align:"center",color:C["ink-soft"]});txt(SG_.x+SG_.w,SG_.y+SG_.h+12,String(G.rg[1]),{size:11,mono:true,align:"center",color:C["ink-soft"]});txt(SG_.x+SG_.w,SG_.y+SG_.h+28,"distance (pm)",{size:11,mono:true,align:"right",color:C["ink-soft"]});
+    txt(SG_.x-6,SG_.y-14,"E (kJ/mol)",{size:11,mono:true,weight:600,color:C["ink-soft"]});
+    const Er=simE(p,SIM.r);const px=G.X(SIM.r),py=G.Y(Er);line(px,py,px,SG_.y+SG_.h,hexA(C.bad,.5),1.2);circ(px,py,8,C.bad,C.panel,2.2);if(!SIM.drag)pulseRing(px,py,16,C.bad,P(T,1.4));
+    label(clamp(px,560,740),clamp(py-22,SG_.y+10,SG_.y+SG_.h-10),Math.round(Er)+" kJ/mol",{size:12,weight:700,mono:true,border:C.bad});
+    if(p.type==="ionic")txt(640,284,"one ion pair; the crystal releases more",{size:11.5,align:"center",color:C["ink-soft"]});else txt(640,284,"well depth = bond energy "+p.E+" kJ/mol",{size:11.5,align:"center",color:C["ink-soft"]});}
+  else wrapText(p.type==="metal"?"In a metal the bonding is shared by the whole crystal, so there is no single pair curve. Pick a metal and a nonmetal, or two nonmetals.":"Pick a pair that bonds to see its energy curve.",510,120,260,19,{size:13,weight:600});
+  // pair strip
+  panelBox(490,320,300,190);title(504,340,"The pair at this distance");if(p.type==="ionic"||p.len){const r0=p.type==="ionic"?p.r0:p.len;const G=simGraphMap(p);const sc=200/G.rg[1];const d=SIM.r*sc;const cx=640,cy=400;
+    const sa=p.type==="ionic"?p.m:(p.atoms[0].s),sb=p.type==="ionic"?p.n:(p.atoms.find(a=>a.s!==sa)||p.atoms[1]).s;const ra=clamp(IRAD[sa]?IRAD[sa]*sc*.85:EL[sa].r*1.1,8,28),rb=clamp(IRAD[sb]?IRAD[sb]*sc*.85:EL[sb].r*1.1,8,30);
+    const close=SIM.r<r0*.86,far=SIM.r>r0*1.8;if(!far&&p.type!=="ionic")bondCloud(cx-d/2,cy,cx+d/2,cy,30,p.dEN<.4?.5:.5+Math.min(.3,p.dEN/5)*(EL[sb].en>EL[sa].en?1:-1),C.elec,.4);
+    atom(cx-d/2,cy,sa,{r:ra,charge:p.type==="ionic"?"+":null});atom(cx+d/2,cy,sb,{r:rb,charge:p.type==="ionic"?"−":null});
+    if(close){arrow(cx-d/2-ra-2,cy,cx-d/2-ra-26,cy,C.rich,2.4);arrow(cx+d/2+rb+2,cy,cx+d/2+rb+26,cy,C.rich,2.4)}
+    txt(640,438,close?"too close: nuclei repel":far?"far apart: weak attraction":Math.abs(SIM.r-r0)<r0*.06?"at the bond length: lowest energy":"attraction pulls them together",{size:12.5,weight:700,align:"center",color:close?C.rich:C.ink});
+    txt(640,458,SIM.r+" pm apart",{size:12,mono:true,align:"center",color:C["ink-soft"]})}
+  // EN continuum
+  const bx=506,bw=268,by=492;rr(bx,by-6,bw,10,4);ctx.fillStyle=C.sunk;ctx.fill();const X=v=>bx+bw*clamp(v,0,3.3)/3.3;rr(X(.4),by-6,1.5,10,0);ctx.fillStyle=C["ink-soft"];ctx.fill();rr(X(1.8),by-6,1.5,10,0);ctx.fill();
+  ctx.beginPath();ctx.moveTo(X(p.dEN),by-7);ctx.lineTo(X(p.dEN)-6,by-17);ctx.lineTo(X(p.dEN)+6,by-17);ctx.closePath();ctx.fillStyle=C.accent;ctx.fill();txt(bx+bw,by-14,"ΔEN "+p.dEN.toFixed(2),{size:11,mono:true,weight:700,align:"right",color:C["accent-ink"]})}
+function simIonic(p,t,T){const mets=[],nons=[];for(let i=0;i<p.cm;i++)mets.push(i);for(let j=0;j<p.cn;j++)nons.push(j);
+  const my=k=>175+(k-(p.cm-1)/2)*72,ny=k=>175+(k-(p.cn-1)/2)*72;const transfers=[];let j=0,got=0;mets.forEach(i=>{for(let e=0;e<p.q;e++){transfers.push([i,j]);got++;if(got>=p.z){j++;got=0}}});
+  const n=transfers.length;const tStart=1,tEach=Math.min(.7,2.4/n);const tDone=tStart+n*tEach+.3;const gather=smooth(clamp((t-tDone)/1.2,0,1));
+  const all=[];mets.forEach(i=>all.push({k:"m",i}));nons.forEach(i=>all.push({k:"n",i}));
+  // final cluster positions: alternate in a row (or two rows)
+  const N=all.length;const order=[];let mi=0,ni=0;for(let q=0;q<N;q++){if((q%2===0&&mi<p.cm)||ni>=p.cn)order.push({k:"m",i:mi++});else order.push({k:"n",i:ni++})}
+  const fin={};order.forEach((o,q)=>{const per=N>3?Math.ceil(N/2):N;const row=Math.floor(q/per),col=q%per;const rowN=row===0?Math.min(per,N):N-per;fin[o.k+o.i]=[245+(col-(rowN-1)/2)*58+(row?29:0),(N>3?150:175)+row*58]});
+  const pos=(k,i)=>{const st=k==="m"?[120,my(i)]:[370,ny(i)];const f=fin[k+i];return [lerp(st[0],f[0],gather),lerp(st[1],f[1],gather)]};
+  const mr=EL[p.m].r+6,nr=EL[p.n].r+6;
+  mets.forEach(i=>{const lost=transfers.filter((tr,q)=>tr[0]===i&&t>tStart+(q+1)*tEach).length;const P_=pos("m",i);const jj=jig(i,T,1.5);const ch=lost>0?(lost>1?lost:"")+"+":null;
+    atom(P_[0]+jj[0],P_[1]+jj[1],p.m,{r:lost===p.q?mr*.8:mr,charge:ch});
+    for(let e=lost;e<p.q;e++){const isMoving=transfers.findIndex((tr,q)=>tr[0]===i&&t>tStart+q*tEach&&t<=tStart+(q+1)*tEach)>=0;const a=T*2+e*TAU/p.q;if(!isMoving||e>lost)eDot(P_[0]+Math.cos(a)*(mr+10),P_[1]+Math.sin(a)*(mr+10),{r:4})}});
+  nons.forEach(j=>{const got=transfers.filter((tr,q)=>tr[1]===j&&t>tStart+(q+1)*tEach).length;const P_=pos("n",j);const jj=jig(j+5,T,1.5);const ch=got>0?(got>1?got:"")+"−":null;
+    atom(P_[0]+jj[0],P_[1]+jj[1],p.n,{r:got===p.z?nr*1.12:nr,charge:ch});if(got>=p.z&&gather<1){circ(P_[0],P_[1],nr*1.12+8,null,hexA(C.gold,.8*(1-gather)),2)}});
+  transfers.forEach((tr,q)=>{const f=(t-tStart-q*tEach)/tEach;if(f>0&&f<1){const a=pos("m",tr[0]),b=pos("n",tr[1]);eDot(lerp(a[0]+mr,b[0]-nr,smooth(f)),lerp(a[1],b[1],smooth(f))-Math.sin(f*Math.PI)*40,{r:5,lab:true})}});
+  if(gather>.5)label(245,282,`${p.cm>1?p.cm+" ":""}${p.m}${p.q>1?fTxt("^"+p.q+"+"):"⁺"} + ${p.cn>1?p.cn+" ":""}${p.n}${p.z>1?fTxt("^"+p.z+"-"):"⁻"} attract: one formula unit of ${fTxt(p.f)}`,{size:12.5,weight:700,border:C.accent,a:gather});
+  else txt(245,282,t<tStart?"atoms meet":t<tDone?`electrons move from ${EL[p.m].n} to ${EL[p.n].n}`:"",{size:12.5,weight:700,align:"center"})}
+function simCov(p,t,T){const cx=245,cy=165;const g=smooth(clamp((t-.3)/1.4,0,1));const sh=smooth(clamp((t-1.6)/1.2,0,1));const sc=p.atoms.length<=3?1.7:p.atoms.length<=5?1.4:1.25;
+  const pts=p.atoms.map((a,i)=>{const fx=cx+a.x*sc,fy=cy+a.y*sc;const sx=cx+a.x*sc*2.1+(i===0&&p.atoms.length>2?0:0),sy=cy+a.y*sc*2.1;const jj=jig(i,T,g<1?2:1);return [lerp(sx,fx,g)+jj[0],lerp(sy,fy,g)+jj[1]]});
+  p.bonds.forEach(b=>{const A=p.atoms[b[0]],B=p.atoms[b[1]];const pa=pts[b[0]],pb=pts[b[1]];const d=Math.abs(EL[A.s].en-EL[B.s].en);const tow=EL[B.s].en>EL[A.s].en?1:-1;const s=.5+(d<.4?0:Math.min(.28,d/5))*tow*sh;
+    if(d>=.4)polarMap(tow>0?pa[0]:pb[0],tow>0?pa[1]:pb[1],EL[tow>0?A.s:B.s].r,tow>0?pb[0]:pa[0],tow>0?pb[1]:pa[1],EL[tow>0?B.s:A.s].r,sh*Math.min(1,d/1.2),1);
+    bondCloud(pa[0],pa[1],pb[0],pb[1],26+b[2]*6,s,C.elec,.35*g);
+    if(g>.9){for(let k=0;k<b[2];k++){const ux=pb[0]-pa[0],uy=pb[1]-pa[1],L=Math.hypot(ux,uy);const nx=-uy/L,ny=ux/L;const off=(k-(b[2]-1)/2)*9;const mx=lerp(pa[0],pb[0],s)+nx*off,my=lerp(pa[1],pb[1],s)+ny*off;eDot(mx-ux/L*4,my-uy/L*4,{r:3.2,glow:false});eDot(mx+ux/L*4,my+uy/L*4,{r:3.2,glow:false})}}});
+  const dl={};if(sh>.5)p.bonds.forEach(b=>{const A=p.atoms[b[0]].s,B=p.atoms[b[1]].s;const d=EL[A].en-EL[B].en;if(Math.abs(d)>=.4){dl[b[0]]=(dl[b[0]]||0)+(d>0?-1:1);dl[b[1]]=(dl[b[1]]||0)+(d>0?1:-1)}});
+  p.atoms.forEach((a,i)=>{const r=EL[a.s].r+5;atom(pts[i][0],pts[i][1],a.s,{r,dlt:dl[i]?(dl[i]>0?"+":"−"):null,dy:-2});
+    if(g>.95){const angs=lpAngles({atoms:p.atoms,bonds:p.bonds},i);const nl=a.lp||0;angs.forEach((ang,k)=>{const ex=pts[i][0]+Math.cos(ang)*(r+8),ey=pts[i][1]+Math.sin(ang)*(r+8);if(k<nl){eDot(ex-Math.sin(ang)*4,ey+Math.cos(ang)*4,{r:3,glow:false});eDot(ex+Math.sin(ang)*4,ey-Math.cos(ang)*4,{r:3,glow:false})}else eDot(ex,ey,{r:3.6,col:C.rich})})}});
+  txt(245,284,t<1.7?"atoms come together and share pairs":p.type==="nonpolar"?"equal sharing: nonpolar covalent":"shared pairs pulled toward the more electronegative atom (δ−)",{size:12.5,weight:700,align:"center"})}
+function simMetal(p,T){const cols=7,rows=4,x0=70,y0=90,sx=56,sy=50;for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const s=(p.a!==p.b&&(i*3+j)%3===0)?p.b:p.a;const cx=x0+i*sx+(j%2)*12,cy=y0+j*sy;atom(cx,cy,s,{r:16,charge:(CATION[s]>1?CATION[s]:"")+"+",fs:10})}
+  for(let k=0;k<60;k++){const ex=40+((rnd(k)*380+T*(18+rnd(k+9)*16)*(rnd(k+3)<.5?-1:1))%380+380)%380,ey=60+((rnd(k+5)*210+Math.sin(T*1.3+k)*10)%210+210)%210;eDot(ex,ey,{r:3,glow:false})}
+  txt(245,284,"metal cations in a sea of shared valence electrons",{size:12.5,weight:700,align:"center"})}
+function simMacro(p,T){const x=10,y=320;
+  if(p.type==="ionic"){ctx.save();ell(x+70,y+150,48,10,0,hexA(C.glass,.9),C["glass-edge"],1.4);saltCube(x+48,y+118,14,"#F7F7F5");saltCube(x+72,y+128,10,"#F7F7F5");ctx.restore();txt(x+66,y+176,"solid crystals",{size:11,weight:600,align:"center"});
+    beaker(x+140,y+100,60,62,.7,null,{noTicks:true});line(x+155,y+80,x+155,y+150,C["ink-soft"],3);line(x+185,y+80,x+185,y+150,C["ink-soft"],3);poly([[x+155,y+80],[x+155,y+66],[x+162,y+66]],C["ink-soft"],1.8);poly([[x+185,y+80],[x+185,y+66],[x+178,y+66]],C["ink-soft"],1.8);bulb(x+170,y+64,true,T);
+    for(let k=0;k<5;k++){circ(x+150+((k*13+T*12)%40),y+120+k*7,2.6,k%2?C.poor:C.rich)}txt(x+170,y+176,"in water: conducts",{size:11,weight:600,align:"center"})}
+  else if(p.len){const st=p.state;const col=p.color==="yellow-green"?C.elCl:p.color==="red-brown"?C.elBr:p.color==="dark violet"?C.elI:p.color==="pale yellow"?mix(C.elF,"#ffffff",.4):null;
+    if(st==="gas"){ctx.beginPath();ctx.moveTo(x+90,y+60);ctx.lineTo(x+90,y+90);ctx.lineTo(x+52,y+160);ctx.lineTo(x+168,y+160);ctx.lineTo(x+130,y+90);ctx.lineTo(x+130,y+60);ctx.closePath();ctx.fillStyle=col?hexA(col,.25):hexA(C.glass,.5);ctx.fill();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+      for(let k=0;k<9;k++){const px=x+80+((rnd(k)*60+T*(30+rnd(k+2)*30))%60),py=y+100+((rnd(k+4)*50+T*(20+rnd(k+6)*20))%50);circ(px,py,3,col||C["ink-soft"])}txt(x+110,y+178,"gas at 25 °C"+(p.note&&/boils/.test(p.note)?" ("+p.note+")":""),{size:11.5,weight:600,align:"center"})}
+    else if(st==="liquid"){beaker(x+70,y+80,80,80,.55,col?hexA(col,.7):hexA(C.water,.95));txt(x+110,y+178,"liquid at 25 °C",{size:11.5,weight:600,align:"center"})}
+    else{for(let k=0;k<5;k++){ctx.save();ctx.translate(x+70+k*22,y+140-(k%2)*12);ctx.rotate(.3*k);rr(-9,-6,18,12,2);ctx.fillStyle=col||"#F2F2EE";ctx.fill();ctx.strokeStyle=hexA(C.ink,.4);ctx.stroke();ctx.restore()}txt(x+110,y+178,"solid at 25 °C",{size:11.5,weight:600,align:"center"})}}
+  else if(p.type==="metal"){rr(x+40,y+90,140,46,6);const g=ctx.createLinearGradient(x+40,y+90,x+180,y+136);g.addColorStop(0,C.metal);g.addColorStop(.5+.15*Math.sin(T),"#ffffff");g.addColorStop(1,C.metal);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=C["metal-edge"];ctx.stroke();txt(x+110,y+168,"shiny solid that bends",{size:11.5,weight:600,align:"center"})}
+  else txt(x+110,y+120,"—",{size:18,align:"center"})}
+function simA11y(){const p=SIM.pair;const cls={ionic:"ionic",polar:"polar covalent",nonpolar:"nonpolar covalent",metal:"metallic",none:"no simple molecule",skip:"skipped"}[p.type];
+  const lab=`Bonding simulator: ${EL[p.a].n} and ${EL[p.b].n}, ${cls}${p.f&&p.type!=="metal"?", "+fTxt(p.f):""}. Distance ${SIM.r} pm.`;
+  let d="";if(p.type==="ionic")d=`The particle view shows ${p.cm} ${EL[p.m].n} atom${p.cm>1?"s":""} on the left handing ${p.cm*p.q} teal electron${p.cm*p.q>1?"s":""} to ${p.cn} ${EL[p.n].n} atom${p.cn>1?"s":""} on the right; the metal ions get blue plus badges, the nonmetal ions red minus badges, and they gather into one formula unit, ${fTxt(p.f)}. `;
+  else if(p.len)d=`The particle view shows the ${p.name} molecule, ${fTxt(p.f)}, forming: the atoms move together and teal shared pairs appear on each bond${p.type==="polar"?", with blue δ+ and red δ− glows showing the electrons pulled toward the more electronegative atom":", spread evenly between the atoms"}. `;
+  else if(p.type==="metal")d="The particle view shows a grid of metal cations with teal electrons drifting freely among them. ";else d="No bond is drawn for this pair. ";
+  if(p.type==="ionic"||p.len){const E=Math.round(simE(p,SIM.r));d+=`On the right, a red energy curve dips to a minimum at ${p.type==="ionic"?p.r0:p.len} pm; the red dot sits at ${SIM.r} pm, where the energy is ${E} kJ/mol. Below it, the two nuclei are drawn ${SIM.r} pm apart.`}
+  return [lab,d]}
+
+/* ================= PART 2: names, formulas and ΔH trainer ================= */
+/* cations: [formula markup, charge, name, polyatomic?, symbol for drawing] */
+const CATS=[["Li",1,"lithium"],["Na",1,"sodium"],["K",1,"potassium"],["Mg",2,"magnesium"],["Ca",2,"calcium"],["Ba",2,"barium"],["Al",3,"aluminum"],["Zn",2,"zinc"],["Ag",1,"silver"],["NH_4",1,"ammonium",1],
+  ["Fe",2,"iron(II)",0,1],["Fe",3,"iron(III)",0,1],["Cu",1,"copper(I)",0,1],["Cu",2,"copper(II)",0,1],["Co",2,"cobalt(II)",0,1],["Cr",3,"chromium(III)",0,1],["Mn",2,"manganese(II)",0,1],["Pb",2,"lead(II)",0,1],["Sn",2,"tin(II)",0,1],["Sn",4,"tin(IV)",0,1],["Ni",2,"nickel(II)",0,1]];
+const ANS=[["F",1,"fluoride"],["Cl",1,"chloride"],["Br",1,"bromide"],["I",1,"iodide"],["O",2,"oxide"],["S",2,"sulfide"],["N",3,"nitride"],["OH",1,"hydroxide",1],["NO_3",1,"nitrate",1],["NO_2",1,"nitrite",1],["SO_4",2,"sulfate",1],["SO_3",2,"sulfite",1],
+  ["CO_3",2,"carbonate",1],["HCO_3",1,"hydrogen carbonate",1],["PO_4",3,"phosphate",1],["C_2H_3O_2",1,"acetate",1],["CN",1,"cyanide",1],["ClO_3",1,"chlorate",1],["MnO_4",1,"permanganate",1]];
+const ALIAS=[["bicarbonate","hydrogen carbonate"],["aluminium","aluminum"],["sulphate","sulfate"],["sulphite","sulfite"],["sulphide","sulfide"],["ethanoate","acetate"]];
+const MOLS=[["CO","carbon monoxide"],["CO_2","carbon dioxide"],["NO","nitrogen monoxide",["nitric oxide"]],["NO_2","nitrogen dioxide"],["N_2O","dinitrogen monoxide",["dinitrogen oxide"]],["N_2O_3","dinitrogen trioxide"],["N_2O_4","dinitrogen tetroxide",["dinitrogen tetraoxide"]],["N_2O_5","dinitrogen pentoxide",["dinitrogen pentaoxide"]],
+  ["SO_2","sulfur dioxide"],["SO_3","sulfur trioxide"],["PCl_3","phosphorus trichloride"],["PCl_5","phosphorus pentachloride"],["SF_6","sulfur hexafluoride"],["SF_4","sulfur tetrafluoride"],["CCl_4","carbon tetrachloride"],["CS_2","carbon disulfide"],
+  ["P_4O_{10}","tetraphosphorus decoxide",["tetraphosphorus decaoxide"]],["P_2O_5","diphosphorus pentoxide",["diphosphorus pentaoxide"]],["BF_3","boron trifluoride"],["BCl_3","boron trichloride"],["SiO_2","silicon dioxide"],["SiCl_4","silicon tetrachloride"],
+  ["XeF_2","xenon difluoride"],["XeF_4","xenon tetrafluoride"],["XeF_6","xenon hexafluoride"],["IF_7","iodine heptafluoride"],["ClF_3","chlorine trifluoride"],["BrF_5","bromine pentafluoride"],["Cl_2O_7","dichlorine heptoxide",["dichlorine heptaoxide"]],
+  ["OF_2","oxygen difluoride"],["S_2Cl_2","disulfur dichloride"],["NCl_3","nitrogen trichloride"],["PBr_3","phosphorus tribromide"],["ICl_3","iodine trichloride"],["SeO_2","selenium dioxide"],["Cl_2O","dichlorine monoxide",["dichlorine oxide"]],["P_4S_3","tetraphosphorus trisulfide"],["CBr_4","carbon tetrabromide"],["N_2F_4","dinitrogen tetrafluoride"]];
+const ELN={B:"boron",C:"carbon",N:"nitrogen",O:"oxygen",F:"fluorine",Si:"silicon",P:"phosphorus",S:"sulfur",Cl:"chlorine",Se:"selenium",Br:"bromine",I:"iodine",Xe:"xenon"};
+const IDE={O:"oxide",F:"fluoride",Cl:"chloride",S:"sulfide",Br:"bromide",N:"nitride"};
+/* bond energies (kJ/mol, average values) */
+const BE={"H–H":436,"Cl–Cl":242,"F–F":155,"Br–Br":193,"I–I":151,"H–Cl":431,"H–F":567,"H–Br":366,"H–I":299,"N≡N":941,"N–H":391,"O=O":495,"O–H":463,"C–H":413,"C=O":799,"C–Cl":328,"C=C":614,"C–C":348,"N=O":607};
+/* reactions: [equation markup, broken [[bond,n]], formed [[bond,n]], species list for scaling [[formula, coeff]]] */
+const RXN=[["H_2 + Cl_2 → 2 HCl",[["H–H",1],["Cl–Cl",1]],[["H–Cl",2]],[["H_2",1],["Cl_2",1],["HCl",2]]],
+ ["H_2 + F_2 → 2 HF",[["H–H",1],["F–F",1]],[["H–F",2]],[["H_2",1],["F_2",1],["HF",2]]],
+ ["H_2 + Br_2 → 2 HBr",[["H–H",1],["Br–Br",1]],[["H–Br",2]],[["H_2",1],["Br_2",1],["HBr",2]]],
+ ["H_2 + I_2 → 2 HI",[["H–H",1],["I–I",1]],[["H–I",2]],[["H_2",1],["I_2",1],["HI",2]]],
+ ["N_2 + 3 H_2 → 2 NH_3",[["N≡N",1],["H–H",3]],[["N–H",6]],[["N_2",1],["H_2",3],["NH_3",2]]],
+ ["2 H_2 + O_2 → 2 H_2O",[["H–H",2],["O=O",1]],[["O–H",4]],[["H_2",2],["O_2",1],["H_2O",2]]],
+ ["CH_4 + 2 O_2 → CO_2 + 2 H_2O",[["C–H",4],["O=O",2]],[["C=O",2],["O–H",4]],[["CH_4",1],["O_2",2],["CO_2",1],["H_2O",2]]],
+ ["CH_4 + Cl_2 → CH_3Cl + HCl",[["C–H",1],["Cl–Cl",1]],[["C–Cl",1],["H–Cl",1]],[["CH_4",1],["Cl_2",1],["HCl",1]]],
+ ["C_2H_4 + H_2 → C_2H_6",[["C=C",1],["H–H",1]],[["C–C",1],["C–H",2]],[["C_2H_4",1],["H_2",1],["C_2H_6",1]]],
+ ["N_2 + O_2 → 2 NO",[["N≡N",1],["O=O",1]],[["N=O",2]],[["N_2",1],["O_2",1],["NO",2]]]];
+const TTYPES=[["mix","All types, mixed"],["ionf","Ionic: name → formula"],["ionn","Ionic: formula → name"],["molf","Molecular: name → formula"],["moln","Molecular: formula → name"],["dh","ΔH from bond energies"]];
+function ionFormula(c,a){const g=gcd(c[1],a[1]);const nc=a[1]/g,na=c[1]/g;const part=(f,n,poly)=>n===1?f:(poly?"("+f+")_"+n:f+"_"+n);return {f:part(c[0],nc,c[3])+part(a[0],na,a[3]),nc,na}}
+function parseF(f){/* -> [[sym,count]] flattening parentheses */const s=f.replace(/_\{(\d+)\}/g,"_$1");const out={};const ord=[];
+  const re=/\(([^)]+)\)_(\d+)|([A-Z][a-z]?)(?:_(\d+))?/g;let m;while((m=re.exec(s))){if(m[1]){parseF(m[1]).forEach(q=>{if(!(q[0] in out)){out[q[0]]=0;ord.push(q[0])}out[q[0]]+=q[1]*(+m[2])})}else{if(!(m[3] in out)){out[m[3]]=0;ord.push(m[3])}out[m[3]]+=(+m[4]||1)}}return ord.map(k=>[k,out[k]])}
+function molParts(f){const s=f.replace(/_\{(\d+)\}/g,"_$1");const re=/([A-Z][a-z]?)(?:_(\d+))?/g;const r=[];let m;while((m=re.exec(s)))r.push([m[1],+m[2]||1]);return r}
+const GENT={
+ ionf(){let c,a;for(let k=0;k<50;k++){c=pick(CATS);a=pick(ANS);if(c[0]==="NH_4"&&(a[0]==="O"||a[0]==="N"||a[0]==="S"))continue;if(c[0]==="Sn"&&c[1]===4&&a[0]==="N")continue;break}
+   const F=ionFormula(c,a);const name=c[2]+" "+a[2];
+   return {kind:"ionf",title:"Ionic: name → formula",html:`Write the formula of <b>${name}</b>.`,ans:F.f,name,c,a,F,unit:"",tip:"Type subscripts as plain numbers and use parentheses where needed, for example Ca(NO3)2.",
+    hints:[`Identify the ions: ${c[2].replace(/\(.*\)/,"")} is ${fHTML(c[0])}<sup>${c[1]>1?c[1]:""}+</sup> and ${a[2]} is ${fHTML(a[0])}<sup>${a[1]>1?a[1]:""}−</sup>.`,`Balance the charges: you need ${F.nc} × (+${c[1]}) = ${F.na} × (−${a[1]}) = ${F.nc*c[1]}.`,F.na>1&&a[3]||F.nc>1&&c[3]?"Put the polyatomic ion in parentheses with the subscript outside.":"Write the cation first, then the anion, with the counts as subscripts (leave out 1s)."]}},
+ ionn(){const q=GENT.ionf();return Object.assign(q,{kind:"ionn",title:"Ionic: formula → name",html:`Name the compound <b>${fHTML(q.ans)}</b>.`,ans:q.name,ansF:q.ans,tip:"Write the name in lowercase. Use a Roman numeral in parentheses only for metals with more than one charge, e.g. iron(III) chloride.",
+   hints:[q.c[4]?`${q.c[0]} is a metal with more than one possible charge, so the name needs a Roman numeral.`:`${fHTML(q.c[0])} has only one common charge, so no Roman numeral.`,q.c[4]?`The anion ${fHTML(q.a[0])} is −${q.a[1]}; there ${q.F.na>1?"are "+q.F.na:"is 1"}, total −${q.F.na*q.a[1]}. Shared by ${q.F.nc} ${q.c[0]} ion${q.F.nc>1?"s":""}: +${q.c[1]} each.`:`Name the cation (${q.c[2]}), then the anion.`,`The anion ${fHTML(q.a[0])} is called ${q.a[2]}.`]})},
+ molf(){const m=pick(MOLS);const pts=molParts(m[0]);return {kind:"molf",title:"Molecular: name → formula",html:`Write the formula of <b>${m[1]}</b>.`,ans:m[0],name:m[1],m,pts,unit:"",tip:"Type subscripts as plain numbers, for example N2O4.",
+   hints:["Both elements are nonmetals, so the prefixes give the number of each atom.",`Prefixes: ${m[1].split(" ").map(w=>{const p=PREF.findIndex(x=>w.startsWith(x.replace(/a$/,"")));return p>=0?w+" → "+(p+1):w+" → 1 (no prefix)"}).join(", ")}.`,`First element symbol, then the second, each followed by its count (leave out 1).`]}},
+ moln(){const m=pick(MOLS);const pts=molParts(m[0]);return {kind:"moln",title:"Molecular: formula → name",html:`Name the compound <b>${fHTML(m[0])}</b>.`,ans:m[1],alts:m[2]||[],ansF:m[0],m,pts,unit:"",tip:"Lowercase. No mono- on the first element; monooxide is written monoxide.",
+   hints:["Two nonmetals: use Greek prefixes for the number of each atom.",`Counts: ${pts.map(p=>p[1]+" "+p[0]).join(", ")} → ${pts.map((p,i)=>i===0&&p[1]===1?"(no prefix)":PREF[p[1]-1]+"-").join(", ")}.`,`The second element ends in -ide: ${IDE[pts[1][0]]||"…ide"}. Drop the a or o of the prefix before oxide.`]}},
+ dh(){const R=pick(RXN);const br=R[1].reduce((s,b)=>s+b[1]*BE[b[0]],0),fo=R[2].reduce((s,b)=>s+b[1]*BE[b[0]],0);const dh=br-fo;
+   if(Math.random()<.45){return {kind:"dh",title:"ΔH from bond energies",html:`Use average bond energies to estimate ΔH for<br><b>${fHTML(R[0])}</b><br><span class="small">${R[1].concat(R[2]).filter((b,i,a)=>a.findIndex(x=>x[0]===b[0])===i).map(b=>b[0]+" "+BE[b[0]]).join(" · ")} kJ/mol</span>`,ans:dh,exact:dh,unit:"kJ",R,br,fo,dh,sf:null,
+     hints:["ΔH ≈ (sum of bonds broken) − (sum of bonds formed).",`Bonds broken: ${R[1].map(b=>b[1]+" × "+b[0]+" ("+BE[b[0]]+")").join(" + ")} = ${br} kJ.`,`Bonds formed: ${R[2].map(b=>b[1]+" × "+b[0]+" ("+BE[b[0]]+")").join(" + ")} = ${fo} kJ. Now subtract.`],
+     slips:[[-dh,"Sign flipped: use broken − formed."],[br,"That is only the bonds broken. Subtract the bonds formed."],[-fo,"Include the energy to break the reactant bonds too."]]}}
+   const sp=pick(R[3]);const amt=pick([.250,.500,1.50,2.00,2.50,3.00,4.00,0.750]);const ex=dh/sp[1]*amt;const sf=3;const ans=sigRound(ex,sf);
+   return {kind:"dh",title:"ΔH from bond energies, scaled",html:`For <b>${fHTML(R[0])}</b>, ΔH ≈ <b>${dh>0?"+":"−"}${Math.abs(dh)} kJ</b> (from bond energies). Estimate ΔH when <b>${amt.toFixed(amt<1?3:2)} mol of ${fHTML(sp[0])}</b> ${R[0].indexOf(sp[0])>R[0].indexOf("→")?"is formed":"reacts"}.`,ans,exact:ex,unit:"kJ",R,br,fo,dh,sp,amt,sf,
+    hints:[`The ΔH is for the equation as written, which has ${sp[1]} mol of ${fTxt(sp[0])}.`,`Conversion factor: ${dh} kJ per ${sp[1]} mol ${fTxt(sp[0])}.`,`${amt} mol × (${dh} kJ / ${sp[1]} mol) = ? Round to 3 significant figures.`],
+    slips:[[sigRound(dh*amt,3),`You used ${dh} kJ per 1 mol, but the equation has ${sp[1]} mol of ${fTxt(sp[0])}.`],[-ans,"Sign flipped: keep the sign of ΔH."],[sigRound(dh/amt,3),"Multiply by the moles; do not divide."]].filter(s=>Math.abs(s[0]-ans)>1e-9)}}};
+const TRN={type:"mix",p:null,hint:0,first:true,sol:false,solT:0,solved:false,streak:0,best:0,count:0};
+function normName(s){s=s.toLowerCase().replace(/\s+/g," ").replace(/\s*\(\s*/g,"(").replace(/\s*\)\s*/g,") ").trim();ALIAS.forEach(a=>{s=s.split(a[0]).join(a[1])});return s.replace(/\) $/,")").trim()}
+function normF(s){return s.replace(/\s+/g,"").replace(/[₀-₉]/g,c=>String(SUBS.indexOf(c)))}
+function plainF(f){return f.replace(/_\{(\d+)\}/g,"$1").replace(/_(\d+)/g,"$1")}
+function trainNew(){const keys=Object.keys(GENT);const k=TRN.type==="mix"?pick(keys):TRN.type;TRN.p=GENT[k]();TRN.hint=0;TRN.first=true;TRN.sol=false;TRN.solved=false;const p=TRN.p;
+  $("#trainProb").innerHTML=`<span class="pt">${p.title} · practice problem</span>${p.html}`;$("#trainUnit").textContent=p.unit;$("#trainAns").value="";$("#trainTip").textContent=p.kind==="dh"?(p.sf?"Type a number with its sign, rounded to 3 significant figures.":"Type a whole number of kJ with its sign, e.g. -184."):p.tip;
+  $("#trainAns").setAttribute("inputmode",p.kind==="dh"?"decimal":"text");$("#trainMsg").className="msg";$("#trainHintBox").hidden=true;$("#trainCap").textContent=trainCapFor();a11yKey=""}
+function trainCapFor(){const k=TRN.p.kind;return k==="dh"?"Bonds broken (energy in) and bonds formed (energy out) with the answer marked.":k==="ionf"||k==="ionn"?"The ions in one formula unit, with a charge-balance bar.":"The atoms counted by the prefixes."}
+function tMsg(cls,t){const m=$("#trainMsg");m.className="msg show "+cls;m.innerHTML=t}
+function trainCheck(){const p=TRN.p;const raw=$("#trainAns").value.trim();if(!raw){tMsg("info","Type an answer first.");return}let ok=false,why="";
+  if(p.kind==="ionf"||p.kind==="molf"){const a=normF(raw),want=plainF(p.ans);ok=a===want;
+    if(!ok){if(a.toLowerCase()===want.toLowerCase())why="Check the capital letters: each element symbol starts with a capital, and a second letter is lowercase (Co is cobalt, CO is carbon monoxide).";
+      else if(p.kind==="ionf"){const nb=parseF(a.replace(/(\d+)/g,"_$1"));const unred=p.F&&a===plainF(ionFormula([p.c[0],p.c[1]*2,p.c[2],p.c[3]],[p.a[0],p.a[1]*2,p.a[2],p.a[3]]).f);
+        if(/\d\d/.test(a)&&!/\(/.test(a)&&(p.c[3]||p.a[3]))why="It looks like the parentheses are missing. Put the polyatomic ion in parentheses and the count outside.";
+        else if(a===plainF(p.c[0])+plainF(p.a[0]))why="That ignores the charges. Balance them: the total positive charge must equal the total negative charge.";
+        else if(a===plainF(ionFormula([p.c[0],p.a[1],0,p.c[3]],[p.a[0],p.c[1],0,p.a[3]]).f)&&p.c[1]!==p.a[1])why="The counts are swapped. The cation's charge becomes the anion's subscript, and the anion's charge the cation's.";
+        else why="Check the charge balance: "+p.F.nc+" × (+"+p.c[1]+") must equal "+p.F.na+" × (−"+p.a[1]+").";
+        if(/^(\w+?)(\d)(\w+?)(\d)$/.test(a)){const m=a.match(/^([A-Z][a-z]?)(\d)([A-Z][a-z]?)(\d)$/);if(m&&gcd(+m[2],+m[4])>1)why="Reduce the subscripts to the lowest whole-number ratio.";}}
+      else why="Each prefix gives a subscript: di = 2, tri = 3, tetra = 4, penta = 5, hexa = 6, hepta = 7, deca = 10. No prefix on the first element means 1."}}
+  else if(p.kind==="ionn"||p.kind==="moln"){const a=normName(raw);const wants=[p.ans].concat(p.alts||[]).map(normName);ok=wants.indexOf(a)>=0;
+    if(!ok){if(p.kind==="ionn"){if(p.c[4]&&a.replace(/\(.*?\)/,"").replace(/\s+/g," ")===normName(p.ans).replace(/\(.*?\)/,"").replace(/\s+/g," "))why="Check the Roman numeral: work out the metal's charge from the anions, not from the subscript.";
+        else if(p.c[4]&&a.indexOf("(")<0)why="This metal can have more than one charge, so the name needs a Roman numeral in parentheses.";
+        else if(!p.c[4]&&a.indexOf("(")>=0)why="This metal has only one common charge; leave out the Roman numeral.";
+        else if(/^(di|tri|tetra|mono)/.test(a)||/ (di|tri|tetra)/.test(a))why="Ionic compounds never use prefixes. Name the cation, then the anion.";else why="Name the cation first, then the anion ("+p.a[2]+").";}
+      else{if(/^mono/.test(a))why="Leave out mono- on the first element.";else if(a.replace(/ide$/,"")===normName(p.ans).replace(/ide$/,""))why="Check the ending: the second element ends in -ide.";else why="Check each prefix against the subscripts: "+p.pts.map(q=>q[1]+" "+q[0]).join(", ")+".";}}}
+  else{const v=parseFloat(raw.replace("−","-").replace(/\s/g,""));if(!isFinite(v)){tMsg("info","Type a number, with a minus sign if the reaction releases heat.");return}
+    if(p.sf){const tol=Math.pow(10,Math.ceil(Math.log10(Math.abs(p.ans)))-p.sf)*.5+1e-9;ok=Math.abs(v-p.ans)<=tol;if(!ok&&Math.abs(v-p.exact)<=Math.abs(p.exact)*.01+.5){why=`So close: only the rounding is off. Report 3 significant figures: ${sfStr(p.ans,3)} kJ.`;ok=false}}
+    else{ok=Math.abs(v-p.ans)<=.5;}
+    if(!ok&&!why){const sl=(p.slips||[]).find(s=>Math.abs(v-s[0])<=Math.max(.6,Math.abs(s[0])*.01));why=sl?sl[1]:p.hints[0]}}
+  if(ok){if(!TRN.solved){TRN.count++;if(TRN.first&&!TRN.sol){TRN.streak++;if(TRN.streak>TRN.best){TRN.best=TRN.streak;store.set("tbest",TRN.best)}}}TRN.solved=true;
+    tMsg("good",`✓ Correct: ${p.kind==="dh"?(p.sf?sfStr(p.ans,3):(p.ans>0?"+":"")+fmtNum(p.ans,0))+" kJ"+(p.ans<0?" (exothermic: heat released)":" (endothermic: heat absorbed)"):p.kind==="ionf"||p.kind==="molf"?fHTML(p.ans):esc(p.ans)}. Watch the worked solution.`);showTSol(false)}
+  else{TRN.first=false;TRN.streak=0;tMsg("warn","Not quite. "+why)}
+  updTMeter();a11yKey=""}
+function showTSol(byBtn){if(byBtn&&!TRN.solved){TRN.streak=0;TRN.first=false}TRN.sol=true;TRN.solT=performance.now();updTMeter();a11yKey=""}
+function updTMeter(){$("#trainStreak").textContent=TRN.streak;$("#trainBest").textContent=TRN.best;$("#trainSolved").textContent=TRN.count}
+$("#trainCheck").onclick=trainCheck;$("#trainAns").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();trainCheck()}});
+$("#trainHint").onclick=()=>{const p=TRN.p;const b=$("#trainHintBox");if(TRN.hint<p.hints.length)TRN.hint++;b.hidden=false;b.innerHTML=p.hints.slice(0,TRN.hint).map((h,i)=>`<div><b>Hint ${i+1}:</b> ${h}</div>`).join("")+(TRN.hint>=p.hints.length?`<div class="small">That is the whole ladder. Try it, or press Show worked solution.</div>`:"")};
+$("#trainSol").onclick=()=>{const p=TRN.p;showTSol(true);tMsg("info",`Worked solution: ${p.kind==="dh"?(p.sf?sfStr(p.ans,3):fmtNum(p.ans,0))+" kJ":p.kind==="ionf"||p.kind==="molf"?fHTML(p.ans):esc(p.ans)}. Follow the steps in the picture, then try a new problem.`)};
+$("#trainNew").onclick=()=>{trainNew();$("#trainAns").focus()};
+(function(){const sel=$("#trainType");sel.innerHTML=TTYPES.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join("");sel.onchange=()=>{TRN.type=sel.value;trainNew()}})();
+TRN.best=+(store.get("tbest")||0);
+/* drawing */
+function symCol(s){const k=s.replace(/_.*/,"");return EL[k]?elCol(k):C.elFe}
+function drawTrain(now){use(S2);const p=TRN.p;const T=now/1000;const sp=TRN.sol?clamp((now-TRN.solT)/4200,0,1):0;
+  panelBox(10,10,780,250);title(24,30,p.kind==="dh"?"Energy picture":"Particle view");levelTag(p.kind==="dh"?170:140,30,p.kind==="dh"?"SYMBOLIC":"PARTICLE",p.kind==="dh"?C.act5:C.act3);
+  panelBox(10,270,780,190);title(24,290,"Worked solution");levelTag(170,290,"SYMBOLIC",C.act5);
+  if(p.kind==="ionf"||p.kind==="ionn")drawIonTrain(p,T,sp);else if(p.kind==="molf"||p.kind==="moln")drawMolTrain(p,T,sp);else drawDhTrain(p,T,sp);
+  if(!TRN.sol)wrapText("The worked solution builds here after a correct answer, or when you press Show worked solution.",30,370,740,20,{size:14,color:C["ink-soft"]});
+  if(TRN.solved){circ(760,40,14,C.good);checkMark(760,40,7,"#fff")}}
+function ionBall(x,y,f,ch,r,T,i){const poly=/[A-Z].*[A-Z]|_/.test(f.replace(/^([A-Z][a-z]?)$/,""))&&f.length>2;const jj=jig(i,T,1.2);x+=jj[0];y+=jj[1];
+  if(poly){glow(x,y,r*1.5,ch>0?C.poor:C.rich,.25);circ(x,y,r,hexA(symCol(f),.85),hexA(C.ink,.5),1.4);const s=fTxt(f);ctx.font=`700 ${r>20?12:10.5}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(symCol(f));ctx.fillText(s,x,y+1);
+    const t=(Math.abs(ch)>1?Math.abs(ch):"")+(ch>0?"+":"−");rr(x+r*.6,y-r-6,22,17,8);ctx.fillStyle=ch>0?C.poor:C.rich;ctx.fill();txt(x+r*.6+11,y-r+2.5,t,{size:11,weight:700,mono:true,align:"center",color:inkOn(ch>0?C.poor:C.rich)})}
+  else atom(x,y,f,{r,col:EL[f]?null:symCol(f),charge:(Math.abs(ch)>1?Math.abs(ch):"")+(ch>0?"+":"−")})}
+function drawIonTrain(p,T,sp){const nc=p.F.nc,na=p.F.na;const tot=nc+na;const gap=Math.min(78,560/tot);let x=400-(tot-1)*gap/2;
+  for(let i=0;i<nc;i++){ionBall(x,120,p.c[0],p.c[1],p.c[0].length>2?26:20,T,i);x+=gap}for(let j=0;j<na;j++){ionBall(x,150,p.a[0],-p.a[1],p.a[0].length>2?28:24,T,j+5);x+=gap}
+  // charge bar
+  const pos=nc*p.c[1],neg=na*p.a[1];const bw=24;const bx=110;rr(bx,212,pos*bw,16,3);ctx.fillStyle=hexA(C.poor,.7);ctx.fill();rr(bx,232,neg*bw,16,3);ctx.fillStyle=hexA(C.rich,.7);ctx.fill();
+  txt(bx-8,220,"+"+pos,{size:12,mono:true,weight:700,align:"right"});txt(bx-8,240,"−"+neg,{size:12,mono:true,weight:700,align:"right"});txt(bx+pos*bw+10,230,"charges balance: total 0",{size:12.5,weight:700,color:C.good});
+  if(!TRN.sol)return;
+  const s1=seg(sp,0,.3),s2=seg(sp,.3,.6),s3=seg(sp,.6,.85),s4=seg(sp,.85,1);
+  // tiles with charges crossing
+  const cx1=120,cx2=250,ty=340;const tile=(x,f,ch,a)=>{withA(a,()=>{rr(x-50,ty-26,100,52,8);ctx.fillStyle=hexA(symCol(f),.16);ctx.fill();ctx.strokeStyle=symCol(f);ctx.lineWidth=1.5;ctx.stroke();chemText(x-6,ty+2,f,{size:20,align:"center"});
+    txt(x+36,ty-14,(Math.abs(ch)>1?Math.abs(ch):"")+(ch>0?"+":"−"),{size:12.5,weight:700,mono:true,align:"center",color:ch>0?C.poor:C.rich})})};
+  tile(cx1,p.c[0],p.c[1],s1);tile(cx2,p.a[0],-p.a[1],s1);
+  if(s2>0){curlyArrow(cx1+36,ty-16,cx2-30,ty+40,.25,hexA(C.accent,.7),s2);curlyArrow(cx2+36,ty-16,cx1-10,ty+40,-.25,hexA(C.accent,.7),s2);txt(185,ty+52,`${p.c[1]} and ${p.a[1]} cross: ${p.a[1]} ${fTxt(p.c[0])}, ${p.c[1]} ${fTxt(p.a[0])}`,{size:12,weight:600,align:"center",color:C["ink-soft"]})}
+  if(p.c[1]!==p.a[1]&&gcd(p.c[1],p.a[1])>1&&s3>0)withA(s3,()=>txt(185,ty+72,`reduce ÷${gcd(p.c[1],p.a[1])} to the lowest ratio`,{size:12,weight:700,align:"center",color:C.bad}));
+  if(p.c[1]===p.a[1]&&s3>0)withA(s3,()=>txt(185,ty+72,"equal charges: 1 to 1",{size:12,weight:700,align:"center",color:C["ink-soft"]}));
+  withA(s3,()=>{arrow(320,ty,360,ty,C["ink-soft"],2);chemText(380,ty,p.F.f,{size:30,bg:hexA(C.accent,.1),border:C.accent})});
+  withA(s4,()=>{txt(380,ty+50,`${p.F.nc} × (+${p.c[1]}) + ${p.F.na} × (−${p.a[1]}) = 0`,{size:15,mono:true,weight:700,color:C.good});
+    const nameStr=p.name;txt(380,ty+82,"name: "+nameStr,{size:15,weight:700});if(p.c[4])txt(380,ty+104,`Roman numeral (${["","I","II","III","IV"][p.c[1]]}) = the metal's charge, +${p.c[1]}`,{size:12.5,color:C["ink-soft"]})})}
+function drawMolTrain(p,T,sp){const pts=p.pts;let X=120;pts.forEach((q,i)=>{const n=q[1];const cols=Math.min(n,5);for(let k=0;k<n;k++){const cx=X+(k%cols)*40,cy=110+Math.floor(k/cols)*40;const jj=jig(k+i*9,T,1);atom(cx+jj[0],cy+jj[1],q[0],{r:16,col:EL[q[0]]?null:C.elXe})}
+    txt(X+(cols-1)*20,200,`${n} × ${q[0]}`,{size:14,mono:true,weight:700,align:"center"});X+=cols*40+90});
+  if(!TRN.sol)return;const s1=seg(sp,0,.35),s2=seg(sp,.35,.7),s3=seg(sp,.7,1);
+  const ty=340;let x=60;pts.forEach((q,i)=>{withA(s1,()=>{chemText(x,ty,q[0]+(q[1]>1?"_"+q[1]:""),{size:26});});
+    const pf=i===0&&q[1]===1?"(no prefix)":PREF[q[1]-1]+"-";withA(s2,()=>{arrow(x+20,ty+20,x+20,ty+44,C["ink-soft"],1.6);label(x+20,ty+60,q[1]+" → "+pf,{size:13,weight:700,border:C.accent})});x+=170});
+  withA(s3,()=>{arrow(400,ty,440,ty,C["ink-soft"],2);txt(460,ty,p.kind==="moln"?p.ans:p.name,{size:20,weight:700});txt(460,ty+30,"second element ends in -ide;",{size:12,color:C["ink-soft"]});txt(460,ty+46,"a/o of the prefix dropped before oxide",{size:12,color:C["ink-soft"]});chemText(460,ty+80,p.kind==="moln"?p.ansF:p.ans,{size:22,bg:hexA(C.accent,.1),border:C.accent})})}
+function drawDhTrain(p,T,sp){const br=p.br,fo=p.fo;const sc=150/Math.max(br,fo);
+  const b1=smooth(seg(P(T,6),0,.4)),b2=smooth(seg(P(T,6),.3,.7));rr(120,230-br*sc*b1,70,br*sc*b1,4);ctx.fillStyle=hexA(C.absorb,.75);ctx.fill();rr(240,230-fo*sc*b2,70,fo*sc*b2,4);ctx.fillStyle=hexA(C.heat,.75);ctx.fill();
+  txt(155,246,"broken: "+br,{size:12.5,mono:true,weight:700,align:"center",color:C.absorb});txt(275,246,"formed: "+fo,{size:12.5,mono:true,weight:700,align:"center",color:C.heat});
+  chemText(560,80,p.R[0],{size:20,align:"center"});txt(560,120,"break bonds: energy IN (+)",{size:13,weight:700,align:"center",color:C.absorb});txt(560,144,"form bonds: energy OUT (−)",{size:13,weight:700,align:"center",color:C.heat});
+  for(let k=0;k<4;k++){const ph=P(T*.8+k/4,1);energyWave(lerp(380,420,ph),180+k*14,0,20,hexA(C.absorb,1-ph),1);energyWave(lerp(700,740,ph),180+k*14,0,20,hexA(C.heat,1-ph),1)}
+  if(!TRN.sol)return;const s1=seg(sp,0,.4),s2=seg(sp,.35,.75),s3=seg(sp,.75,1);
+  const itemsB=[],opsB=[];p.R[1].forEach((b,i)=>{itemsB.push(frac(b[1],"mol "+b[0]));itemsB.push(frac(BE[b[0]],"kJ",1,"mol "+b[0]));opsB.push("×");if(i<p.R[1].length-1)opsB.push("+")});
+  const itemsF=[],opsF=[];p.R[2].forEach((b,i)=>{itemsF.push(frac(b[1],"mol "+b[0]));itemsF.push(frac(BE[b[0]],"kJ",1,"mol "+b[0]));opsF.push("×");if(i<p.R[2].length-1)opsF.push("+")});
+  txt(24,322,"in",{size:12,weight:700,color:C.absorb});fracChain(50,322,itemsB,[br,["kJ"]],s1,{size:12,build:true,ops:opsB,rd:0,gap:12});
+  txt(24,378,"out",{size:12,weight:700,color:C.heat});if(s2>0)fracChain(50,378,itemsF,[fo,["kJ"]],s2,{size:12,build:true,ops:opsF,rd:0,gap:12});
+  withA(s3,()=>{if(!p.sf){txt(50,428,`ΔH ≈ ${br} kJ − ${fo} kJ = `,{size:15,mono:true,weight:700});chemText(360,428,(p.dh>0?"+":"−")+Math.abs(p.dh)+" kJ",{size:17,bg:C["good-wash"],border:C.good})}
+    else{txt(50,428,`ΔH ≈ ${br} − ${fo} = ${p.dh} kJ per equation;`,{size:13,mono:true,weight:700});fracChain(420,428,[frac(p.amt,"mol "+fTxt(p.sp[0])),frac(p.dh,"kJ",p.sp[1],"mol "+fTxt(p.sp[0]))],[sfStr(p.ans,3),["kJ"]],clamp((s3-.1)/.9,0,1),{size:12,gap:10})}})}
+function trainA11y(){const p=TRN.p;const v=$("#trainAns").value.trim();const lab=`Practice problem, ${p.title}. Your answer ${v||"not entered"}.${TRN.solved?" Correct.":""}`;
+  let d="";if(p.kind==="ionf"||p.kind==="ionn")d=`The top shows one formula unit: ${p.F.nc} ${fTxt(p.c[0])} ion${p.F.nc>1?"s":""} with blue plus badges and ${p.F.na} ${fTxt(p.a[0])} ion${p.F.na>1?"s":""} with red minus badges, and two bars, blue for total positive charge and red for total negative charge, of equal length.`;
+  else if(p.kind==="molf"||p.kind==="moln")d=`The top shows the atoms in one molecule: ${p.pts.map(q=>q[1]+" "+q[0]).join(" and ")}.`;
+  else d=`The top shows a blue bar for the energy to break bonds, ${p.br} kJ, and an orange bar for the energy released forming bonds, ${p.fo} kJ.`;
+  d+=TRN.sol?" The bottom shows the worked solution step by step"+(p.kind==="dh"?", with mol units struck through in red as they cancel, ending at "+(p.sf?sfStr(p.ans,3):fmtNum(p.ans,0))+" kJ.":", ending at the answer "+(p.kind==="ionf"||p.kind==="molf"?fTxt(p.ans):p.ans)+"."):" The worked solution is hidden until you answer correctly or ask for it.";return [lab,d]}
+
+/* ================= PART 3: Lewis structure builder ================= */
+const PREF=["mono","di","tri","tetra","penta","hexa","hepta","octa","nona","deca"];
+const SF6A=[-90,-30,30,90,150,210].map(a=>[260+Math.cos(a*D_)*108,170+Math.sin(a*D_)*100]);
+const LWP=[
+ {f:"H_2O",n:"water",atoms:[["O",260,130],["H",165,215],["H",355,215]],slots:[[0,1],[0,2]],sol:{b:[1,1],lp:[2,0,0]},h3:"After two O–H bonds, put the 4 electrons that are left on oxygen as 2 lone pairs."},
+ {f:"NH_3",n:"ammonia",atoms:[["N",260,120],["H",160,205],["H",260,255],["H",360,205]],slots:[[0,1],[0,2],[0,3]],sol:{b:[1,1,1],lp:[1,0,0,0]},h3:"Three N–H bonds use 6 electrons; the last 2 are a lone pair on N."},
+ {f:"CH_4",n:"methane",atoms:[["C",260,170],["H",260,62],["H",372,170],["H",260,278],["H",148,170]],slots:[[0,1],[0,2],[0,3],[0,4]],sol:{b:[1,1,1,1],lp:[0,0,0,0,0]},h3:"Four C–H single bonds use all 8 electrons. No lone pairs."},
+ {f:"CO_2",n:"carbon dioxide",atoms:[["O",140,170],["C",260,170],["O",380,170]],slots:[[1,0],[1,2]],sol:{b:[2,2],lp:[2,0,2]},h3:"Carbon needs 8: make a double bond to each oxygen, and leave 2 lone pairs on each O."},
+ {f:"HCN",n:"hydrogen cyanide",atoms:[["H",140,170],["C",260,170],["N",380,170]],slots:[[1,0],[1,2]],sol:{b:[1,3],lp:[0,0,1]},h3:"H can only make one bond, so the extra pairs go between C and N: a triple bond, with one lone pair on N."},
+ {f:"N_2",n:"nitrogen",atoms:[["N",205,170],["N",315,170]],slots:[[0,1]],sol:{b:[3],lp:[1,1]},h3:"10 electrons: a triple bond (6) and one lone pair on each N (4)."},
+ {f:"CH_2O",n:"formaldehyde",atoms:[["C",260,190],["O",260,80],["H",165,262],["H",355,262]],slots:[[0,1],[0,2],[0,3]],sol:{b:[2,1,1],lp:[0,2,0,0]},h3:"Carbon is short with single bonds only: make the C–O bond a double bond, leaving 2 lone pairs on O."},
+ {f:"NH_4^+",n:"ammonium ion",charge:1,atoms:[["N",260,170],["H",260,62],["H",372,170],["H",260,278],["H",148,170]],slots:[[0,1],[0,2],[0,3],[0,4]],sol:{b:[1,1,1,1],lp:[0,0,0,0,0]},h3:"5 + 4 − 1 = 8 electrons: four N–H bonds and no lone pairs. Nitrogen ends up with formal charge +1."},
+ {f:"O_3",n:"ozone",atoms:[["O",150,215],["O",260,135],["O",370,215]],slots:[[1,0],[1,2]],sol:{b:[2,1],lp:[2,1,3]},res:[{b:[1,2],lp:[3,1,2]}],hyb:"1.5",h3:"One O=O double bond and one O–O single bond. The centre O keeps 1 lone pair; the single-bonded end O gets 3."},
+ {f:"NO_3^-",n:"nitrate ion",charge:-1,atoms:[["N",260,175],["O",260,68],["O",357,232],["O",163,232]],slots:[[0,1],[0,2],[0,3]],sol:{b:[2,1,1],lp:[0,2,3,3]},res:[{b:[1,2,1],lp:[0,3,2,3]},{b:[1,1,2],lp:[0,3,3,2]}],hyb:"4/3",h3:"N needs one double bond to any one O. The double-bonded O keeps 2 lone pairs; the others keep 3 each."},
+ {f:"CO_3^{2-}",n:"carbonate ion",charge:-2,atoms:[["C",260,175],["O",260,68],["O",357,232],["O",163,232]],slots:[[0,1],[0,2],[0,3]],sol:{b:[2,1,1],lp:[0,2,3,3]},res:[{b:[1,2,1],lp:[0,3,2,3]},{b:[1,1,2],lp:[0,3,3,2]}],hyb:"4/3",h3:"24 electrons: one C=O and two C–O. The single-bonded oxygens carry the 2− charge."},
+ {f:"BF_3",n:"boron trifluoride",atoms:[["B",260,175],["F",260,68],["F",357,232],["F",163,232]],slots:[[0,1],[0,2],[0,3]],tgt:{0:6},sol:{b:[1,1,1],lp:[0,3,3,3]},h3:"Three B–F single bonds and 3 lone pairs on each F. Boron is fine with only 6 electrons."},
+ {f:"SF_6",n:"sulfur hexafluoride",atoms:[["S",260,170]].concat(SF6A.map(p=>["F",p[0],p[1]])),slots:[[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],tgt:{0:12},sol:{b:[1,1,1,1,1,1],lp:[0,3,3,3,3,3,3]},h3:"Six S–F single bonds; each F gets 3 lone pairs. Sulfur (period 3) holds 12."},
+ {f:"NO",n:"nitrogen monoxide",odd:true,atoms:[["N",205,170],["O",315,170]],slots:[[0,1]],tgt:{0:7},sol:{b:[2],lp:[1,2],s:[1,0]},h3:"11 electrons: N=O double bond, 2 lone pairs on O, and on N one lone pair plus the single unpaired electron."}];
+LWP.forEach(p=>{p.atoms=p.atoms.map(a=>({s:a[0],x:a[1],y:a[2]}));p.charge=p.charge||0;p.total=p.atoms.reduce((s,a)=>s+EL[a.s].ve,0)-p.charge;p.tgt=p.tgt||{};
+  p.target=p.atoms.map((a,i)=>p.tgt[i]!=null?p.tgt[i]:a.s==="H"?2:8);p.sol.s=p.sol.s||p.atoms.map(()=>0);p.best=lwFCs(p,p.sol).slice().sort((a,b)=>a-b).join(",")});
+function lwBondSum(p,st,i){let s=0;p.slots.forEach((sl,k)=>{if(sl[0]===i||sl[1]===i)s+=st.b[k]});return s}
+function lwCount(p,st,i){return 2*lwBondSum(p,st,i)+2*st.lp[i]+(st.s[i]||0)}
+function lwFCs(p,st){return p.atoms.map((a,i)=>EL[a.s].ve-2*st.lp[i]-(st.s[i]||0)-lwBondSum(p,st,i))}
+function lwUsed(p,st){return 2*st.b.reduce((a,b)=>a+b,0)+2*st.lp.reduce((a,b)=>a+b,0)+st.s.reduce((a,b)=>a+b,0)}
+const LW={i:0,st:null,tool:"bond",hints:0,wrong:0,shown:false,solved:false,t0:0,timer:null,done:{},resOpen:false};
+function lwLoad(i){LW.i=i;const p=LWP[i];LW.st={b:p.slots.map(()=>0),lp:p.atoms.map(()=>0),s:p.atoms.map(()=>0)};LW.hints=0;LW.wrong=0;LW.shown=false;LW.solved=false;LW.t0=Date.now();LW.resOpen=false;if(LW.tool==="single"&&!p.odd)LW.tool="bond";
+  $("#lwN").textContent=`Molecule ${i+1} of ${LWP.length}`;$("#lwTitle").innerHTML=`${fHTML(p.f)}, ${p.n}`;
+  $("#lwGoal").innerHTML=`Draw the best Lewis structure for ${fHTML(p.f)}. It has <b>${p.total}</b> valence electrons${p.charge?` (the ${p.charge>0?"+":"−"}${Math.abs(p.charge)>1?Math.abs(p.charge):""} charge is already counted)`:""}. Every atom needs ${p.atoms.some((a,k)=>p.target[k]!==8&&a.s!=="H")?"its target count shown under it":"an octet (H needs 2)"}, and formal charges should be as close to zero as possible.`;
+  $("#lwMsg").className="msg";$("#lwHintBox").hidden=true;$("#lwRes").hidden=true;$("#lwResSvg").hidden=true;const best=store.get("lw-"+i);$("#lwBest").textContent=best?`Best for this molecule: ${"★".repeat(+best)}`:"";$("#lwStars").textContent="";$("#lwStars").setAttribute("aria-label","Stars appear when the structure is correct");
+  lwRoundsUI();lwToolsUI();lwRender();lwTimerUI();a11yKey=""}
+function lwRoundsUI(){$("#lwRounds").innerHTML=LWP.map((p,i)=>`<button type="button" class="round" aria-pressed="${i===LW.i}" data-i="${i}">${fHTML(p.f)}${LW.done[i]?`<span class="ok" aria-label="${LW.done[i]} stars">${"★".repeat(LW.done[i])}</span>`:""}</button>`).join("");$("#lwRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>lwLoad(+b.dataset.i))}
+const LWTOOLS=[["bond","Bond (2 e⁻)",'<svg viewBox="0 0 30 20" aria-hidden="true"><line x1="3" y1="10" x2="27" y2="10" stroke="currentColor" stroke-width="3"/></svg>'],["lp","Lone pair (2 e⁻)",'<svg viewBox="0 0 30 20" aria-hidden="true"><circle cx="10" cy="10" r="3.5" fill="var(--elec)"/><circle cx="20" cy="10" r="3.5" fill="var(--elec)"/></svg>'],["single","Single electron",'<svg viewBox="0 0 30 20" aria-hidden="true"><circle cx="15" cy="10" r="4" fill="var(--rich)"/></svg>'],["erase","Remove",'<svg viewBox="0 0 30 20" aria-hidden="true"><path d="M9 4 L21 16 M21 4 L9 16" stroke="currentColor" stroke-width="3"/></svg>']];
+function lwToolsUI(){const el=$("#lwTools");el.innerHTML="";const p=LWP[LW.i];LWTOOLS.forEach(t=>{if(t[0]==="single"&&!p.odd)return;const b=document.createElement("button");b.type="button";b.className="piece";b.dataset.tool=t[0];b.innerHTML=t[2]+"<span>"+t[1]+"</span>";b.setAttribute("aria-pressed",String(LW.tool===t[0]));
+  b.addEventListener("click",()=>{if(b.dataset.dragged){delete b.dataset.dragged;return}LW.tool=t[0];lwToolsUI();const nb=el.querySelector(`[data-tool="${t[0]}"]`);if(nb)nb.focus()});b.addEventListener("pointerdown",e=>lwDragStart(e,b,t[0]));el.appendChild(b)})}
+function lwSlotLabel(p,k){const sl=p.slots[k];const o=LW.st.b[k];return `Bond slot between ${p.atoms[sl[0]].s} and ${p.atoms[sl[1]].s}${p.atoms.filter(a=>a.s===p.atoms[sl[1]].s).length>1?" number "+(sl[1]+1):""}: ${["empty","single bond","double bond","triple bond"][o]}`}
+function lwAtomLabel(p,i){const st=LW.st;const fc=lwFCs(p,st)[i];return `${p.atoms[i].s} atom${p.atoms.filter(a=>a.s===p.atoms[i].s).length>1?" number "+(i+1):""}: ${st.lp[i]} lone pair${st.lp[i]===1?"":"s"}${st.s[i]?", 1 unpaired electron":""}, ${lwCount(p,st,i)} of ${p.target[i]} electrons, formal charge ${fc>0?"+"+fc:fc}`}
+function lwAngles(p,i,n){const at=p.atoms[i];const used=[];p.slots.forEach(sl=>{if(sl[0]===i||sl[1]===i){const j=sl[0]===i?sl[1]:sl[0];used.push(Math.atan2(p.atoms[j].y-at.y,p.atoms[j].x-at.x))}});const res=[];const cand=[];for(let k=0;k<16;k++)cand.push(k/16*TAU-Math.PI);
+  for(let q=0;q<n;q++){let best=null,bd=-1;cand.forEach(c=>{let d=Math.PI;used.concat(res).forEach(u=>{let dd=Math.abs(((c-u)%TAU+TAU)%TAU);dd=Math.min(dd,TAU-dd);d=Math.min(d,dd)});const pref=Math.abs(Math.sin(2*c))*.02;if(d-pref>bd+1e-6){bd=d-pref;best=c}});res.push(best)}return res}
+function lwSVG(p,st,o){o=o||{};const fcs=lwFCs(p,st);let over="";let s=`<svg viewBox="0 0 520 ${o.h||340}" ${o.inter?'role="group" aria-label="Lewis structure drawing area for '+esc(fTxt(p.f))+'"':'role="img" aria-label="'+esc(o.label||"")+'"'}>`;
+  const sc=o.sc||1,ox=o.ox||0,oy=o.oy||0;const X=x=>ox+x*sc,Y=y=>oy+y*sc;
+  if(p.charge&&!o.mini){const xs=p.atoms.map(a=>a.x),ys=p.atoms.map(a=>a.y);const x0=Math.min(...xs)-62,x1=Math.max(...xs)+62,y0=Math.min(...ys)-58,y1=Math.max(...ys)+70;
+    s+=`<path d="M${x0+12} ${y0} H${x0} V${y1} H${x0+12} M${x1-12} ${y0} H${x1} V${y1} H${x1-12}" fill="none" stroke="var(--ink-soft)" stroke-width="2.2"/><text x="${x1+6}" y="${y0+14}" font-size="18" font-weight="700" fill="var(--ink)" font-family="IBM Plex Sans,sans-serif">${Math.abs(p.charge)>1?Math.abs(p.charge):""}${p.charge>0?"+":"−"}</text>`}
+  p.slots.forEach((sl,k)=>{const A=p.atoms[sl[0]],B=p.atoms[sl[1]];const L=Math.hypot(B.x-A.x,B.y-A.y);const ux=(B.x-A.x)/L,uy=(B.y-A.y)/L,nx=-uy,ny=ux;const r=24;const ax=A.x+ux*r,ay=A.y+uy*r,bx=B.x-ux*r,by=B.y-uy*r;const ord=st.b[k];
+    let inner="";if(o.inter)inner+=`<line class="lw-hit" x1="${X(ax)}" y1="${Y(ay)}" x2="${X(bx)}" y2="${Y(by)}" stroke="var(--rule)" stroke-width="${ord?2:2.4}" stroke-dasharray="6 5" opacity="${ord?0:1}"/><line x1="${X(ax)}" y1="${Y(ay)}" x2="${X(bx)}" y2="${Y(by)}" stroke="transparent" stroke-width="26"/><circle cx="${X((A.x+B.x)/2)}" cy="${Y((A.y+B.y)/2)}" r="15" fill="transparent"/>`;
+    const hy=o.hyb&&o.hybOrd?o.hybOrd:null;const n=hy?2:ord;for(let q=0;q<n;q++){const off=(q-(n-1)/2)*7*sc;const dash=hy&&q===1?' stroke-dasharray="5 4"':"";inner+=`<line x1="${X(ax)+nx*off}" y1="${Y(ay)+ny*off}" x2="${X(bx)+nx*off}" y2="${Y(by)+ny*off}" stroke="var(--ink)" stroke-width="${3*Math.max(.7,sc)}"${dash}/>`}
+    if(hy)inner+=`<text x="${X((A.x+B.x)/2)+nx*22}" y="${Y((A.y+B.y)/2)+ny*22+4}" font-size="13" text-anchor="middle" font-weight="700" fill="var(--accent-ink)" font-family="IBM Plex Mono,monospace">${hy}</text>`;
+    if(o.inter&&!ord)inner+=`<circle cx="${X((A.x+B.x)/2)}" cy="${Y((A.y+B.y)/2)}" r="10" fill="var(--panel)" stroke="var(--rule)"/><text x="${X((A.x+B.x)/2)}" y="${Y((A.y+B.y)/2)+5}" font-size="15" text-anchor="middle" fill="var(--ink-soft)" font-family="IBM Plex Sans,sans-serif">+</text>`;
+    s+=o.inter?`<g class="lw-slot" id="lw-s-${k}" data-k="${k}" role="button" tabindex="0" aria-label="${esc(lwSlotLabel(p,k))}">${inner}</g>`:inner});
+  p.atoms.forEach((a,i)=>{const n=st.lp[i]+(st.s[i]||0);const angs=lwAngles(p,i,n+2);let inner="";
+    if(o.inter)inner+=`<circle class="lw-ring" cx="${X(a.x)}" cy="${Y(a.y)}" r="34" fill="transparent" stroke="var(--rule)" stroke-width="1.2" stroke-dasharray="3 4" opacity=".7"/>`;
+    if(o.hyb&&o.hybCh&&o.hybCh[i])inner+=`<circle cx="${X(a.x)}" cy="${Y(a.y)}" r="${26*sc}" fill="var(--rich)" fill-opacity=".22"/>`;
+    inner+=`<text x="${X(a.x)}" y="${Y(a.y)+9*sc}" font-size="${26*sc}" font-weight="700" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Sans,sans-serif">${a.s}</text>`;
+    angs.slice(0,n).forEach((g,q)=>{const cx=X(a.x)+Math.cos(g)*19*sc,cy=Y(a.y)+Math.sin(g)*19*sc;const px=-Math.sin(g)*4.2*sc,py=Math.cos(g)*4.2*sc;
+      if(q<st.lp[i])inner+=`<circle cx="${cx+px}" cy="${cy+py}" r="${3.3*sc}" fill="var(--elec)"/><circle cx="${cx-px}" cy="${cy-py}" r="${3.3*sc}" fill="var(--elec)"/>`;else inner+=`<circle cx="${cx}" cy="${cy}" r="${3.8*sc}" fill="var(--rich)"/>`});
+    if(o.hyb&&o.hybCh&&o.hybCh[i])inner+=`<text x="${X(a.x)+26*sc}" y="${Y(a.y)-18*sc}" font-size="13" font-weight="700" fill="var(--rich)" font-family="IBM Plex Mono,monospace">${o.hybCh[i]}</text>`;
+    const fc=fcs[i];const fcTxt=fc>0?(fc>1?fc:"")+"+":(fc<-1?-fc:"")+"−";
+    if(o.inter){const cnt=lwCount(p,st,i),ok=cnt===p.target[i];const ga=angs[n],bxp=X(a.x)+Math.cos(ga)*50,byp=Y(a.y)+Math.sin(ga)*46;
+      over+=`<g aria-hidden="true"><rect x="${bxp-30}" y="${byp-10}" width="60" height="20" rx="10" fill="${ok?"var(--good-wash)":"var(--warn-wash)"}" stroke="${ok?"var(--good)":"var(--warn)"}"/><text x="${bxp}" y="${byp+4.5}" font-size="12" text-anchor="middle" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono,monospace">${cnt}/${p.target[i]}${ok?" ✓":""}</text></g>`;
+      if(fc&&cnt>0){const fa=angs[n+1];const fx=X(a.x)+Math.cos(fa)*30,fy=Y(a.y)+Math.sin(fa)*30;over+=`<g aria-hidden="true"><circle cx="${fx}" cy="${fy}" r="10" fill="${fc>0?"var(--poor)":"var(--rich)"}"/><text x="${fx}" y="${fy+4}" font-size="12" text-anchor="middle" font-weight="700" fill="${fc>0?"var(--on-poor)":"var(--on-rich)"}" font-family="IBM Plex Mono,monospace">${fcTxt}</text></g>`}}
+    else if(!o.hyb&&fc){const fa=angs[n];const fx=X(a.x)+Math.cos(fa)*28*sc,fy=Y(a.y)+Math.sin(fa)*28*sc;inner+=`<circle cx="${fx}" cy="${fy}" r="9" fill="${fc>0?"var(--poor)":"var(--rich)"}"/><text x="${fx}" y="${fy+4}" font-size="11" text-anchor="middle" font-weight="700" fill="${fc>0?"var(--on-poor)":"var(--on-rich)"}" font-family="IBM Plex Mono,monospace">${fcTxt}</text>`}
+    s+=o.inter?`<g class="lw-atom" id="lw-a-${i}" data-i="${i}" role="button" tabindex="0" aria-label="${esc(lwAtomLabel(p,i))}">${inner}</g>`:inner});
+  return s+over+"</svg>"}
+function lwRender(focusId){const p=LWP[LW.i];const h=$("#lwHolder");h.innerHTML=lwSVG(p,LW.st,{inter:true});
+  h.querySelectorAll(".lw-slot").forEach(g=>{const k=+g.dataset.k;g.addEventListener("click",()=>lwApply("slot",k));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();lwApply("slot",k)}})});
+  h.querySelectorAll(".lw-atom").forEach(g=>{const i=+g.dataset.i;g.addEventListener("click",()=>lwApply("atom",i));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();lwApply("atom",i)}})});
+  const used=lwUsed(p,LW.st);$("#lwMeter").innerHTML=`<span>Electrons placed <b>${used}</b> of <b>${p.total}</b></span>${used>p.total?' <span class="no-ic">too many</span>':used===p.total?' <span class="ok-ic">all placed</span>':""}<span>Bonds <b>${LW.st.b.reduce((a,b)=>a+b,0)}</b></span><span>Lone pairs <b>${LW.st.lp.reduce((a,b)=>a+b,0)}</b></span>`;
+  if(focusId){const el=document.getElementById(focusId);if(el)el.focus()}a11yKey=""}
+function lwApply(kind,idx,tool){tool=tool||LW.tool;const p=LWP[LW.i];const st=LW.st;let msg=null;
+  if(kind==="slot"){if(tool==="bond"){if(st.b[idx]>=3)msg="A bond can be at most triple (3 pairs).";else if((p.atoms[p.slots[idx][0]].s==="H"||p.atoms[p.slots[idx][1]].s==="H")&&st.b[idx]>=1)msg="Hydrogen can make only one bond (2 electrons).";else st.b[idx]++}
+    else if(tool==="erase"){if(st.b[idx]>0)st.b[idx]--}else msg="Lone pairs and single electrons go on atoms. Tap an atom, or pick Bond to add a bond here."}
+  else{if(tool==="lp"){if(p.atoms[idx].s==="H")msg="Hydrogen never gets lone pairs: its one bond already gives it 2 electrons.";else if(st.lp[idx]>=4)msg="That atom already has 4 lone pairs.";else st.lp[idx]++}
+    else if(tool==="single"){if(st.s[idx]>=1)msg="One unpaired electron is enough here.";else st.s[idx]=1}
+    else if(tool==="erase"){if(st.s[idx])st.s[idx]=0;else if(st.lp[idx]>0)st.lp[idx]--}else msg="Bonds go on the dashed lines between atoms. Tap a line, or pick Lone pair to add one to this atom."}
+  if(msg){lwMsg("info",msg)}else if(LW.solved){}else $("#lwMsg").className="msg";
+  lwRender(kind==="slot"?"lw-s-"+idx:"lw-a-"+idx)}
+function lwMsg(cls,t){const m=$("#lwMsg");m.className="msg show "+cls;m.innerHTML=t}
+function lwCheck(){const p=LWP[LW.i];const st=LW.st;const used=lwUsed(p,st);let why=null;
+  if(st.b.some(b=>b===0))why="Every atom must be connected: put at least a single bond on each dashed line.";
+  else if(used!==p.total)why=`Your drawing uses <b>${used}</b> electrons, but ${fHTML(p.f)} has <b>${p.total}</b>. ${used<p.total?"Add the missing ones as lone pairs (or turn lone pairs into bonds if an atom is short).":"Remove some: you cannot add electrons."}`;
+  else{const bad=p.atoms.map((a,i)=>[a,i,lwCount(p,st,i)]).filter(q=>q[2]!==p.target[q[1]]);
+    if(bad.length){const q=bad[0];why=q[0].s==="B"&&q[2]===8?"Boron reaches 8 only with a B=F double bond, which would put a + formal charge on fluorine, the most electronegative element. Boron is happier with 6 here.":`${q[0].s} has ${q[2]} electrons around it but should have ${p.target[q[1]]}. ${q[2]<p.target[q[1]]?"Move a lone pair from a neighbour into the bond to make a multiple bond.":"It has too many: move a bond pair back out as a lone pair."}`}
+    else{const fc=lwFCs(p,st).slice().sort((a,b)=>a-b).join(",");if(fc!==p.best){why=`Every atom has the right count, but the formal charges (${lwFCs(p,st).map(f=>f>0?"+"+f:f).join(", ")}) are not the best possible. Look for a structure with formal charges closer to zero, with any negative charge on the most electronegative atom.`}}}
+  if(why){LW.wrong++;lwMsg("warn","Not quite. "+why);return}
+  LW.solved=true;const stars=LW.shown?1:(LW.wrong===0&&LW.hints===0?3:(LW.wrong<=2&&LW.hints<=1?2:1));LW.done[LW.i]=Math.max(LW.done[LW.i]||0,stars);const best=+(store.get("lw-"+LW.i)||0);if(stars>best)store.set("lw-"+LW.i,stars);
+  $("#lwStars").textContent="★".repeat(stars)+"☆".repeat(3-stars);$("#lwStars").setAttribute("aria-label",stars+" of 3 stars");
+  const tm=!$("#lwRelaxed").checked?` Time: ${fmt((Date.now()-LW.t0)/1000)}.`:"";const fcs=lwFCs(p,st);const fcNote=fcs.some(f=>f)?` Formal charges: ${p.atoms.map((a,i)=>fcs[i]?a.s+" "+(fcs[i]>0?"+":"−")+(Math.abs(fcs[i])>1?Math.abs(fcs[i]):"1"):null).filter(Boolean).join(", ")}; they add up to ${p.charge>0?"+":p.charge<0?"−":""}${Math.abs(p.charge)}.`:" All formal charges are zero.";
+  lwMsg("good",`✓ Correct Lewis structure for ${fHTML(p.f)}: ${stars} of 3 stars.${tm}${fcNote}${p.odd?" The unpaired electron makes NO a free radical.":""}`);lwRoundsUI();
+  if(p.res){$("#lwRes").hidden=false;$("#lwResTxt").innerHTML=`${fHTML(p.f)} has resonance: your drawing is one of ${p.res.length+1} equally good structures. Can you see where the double bond could go instead? Then compare with the hybrid.`}a11yKey=""}
+function lwShowRes(){const p=LWP[LW.i];const forms=[p.sol].concat(p.res);const n=forms.length;const sc=n===2?.5:.42;let s=`<svg viewBox="0 0 520 ${n===2?380:420}" role="img" aria-label="${esc(`The ${n} resonance structures of ${fTxt(p.f)} and the resonance hybrid, in which every bond is drawn as a solid line plus a dashed line, bond order ${p.hyb}, and the negative charge is shared equally by the outer oxygens.`)}">`;
+  forms.forEach((f,k)=>{const ox=k*(520/n)+(n===2?-10:-30),oy=0;s+=lwSVG(p,{b:f.b,lp:f.lp,s:p.atoms.map(()=>0)},{sc,ox,oy,mini:true}).replace(/<svg[^>]*>/,"").replace("</svg>","");if(k<n-1)s+=`<text x="${(k+1)*(520/n)-8}" y="${p.atoms.reduce((q,a)=>q+a.y,0)/p.atoms.length*sc+8}" font-size="22" text-anchor="middle" fill="var(--ink)">↔</text>`});
+  const ch={};const fcs=forms.map(f=>lwFCs(p,{b:f.b,lp:f.lp,s:p.atoms.map(()=>0)}));p.atoms.forEach((a,i)=>{const avg=fcs.reduce((s,f)=>s+f[i],0)/n;if(avg<-.01)ch[i]=n===2?"−½":(Math.round(avg*3)===-1?"−1/3":"−2/3")});
+  s+=`<text x="260" y="${n===2?212:228}" font-size="15" font-weight="700" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Sans,sans-serif">Resonance hybrid (the real ${n===2?"molecule":"ion"})</text>`;
+  s+=lwSVG(p,{b:p.sol.b,lp:p.atoms.map(()=>0),s:p.atoms.map(()=>0)},{sc:.62,ox:100,oy:n===2?190:210,mini:true,hyb:true,hybOrd:p.hyb,hybCh:ch}).replace(/<svg[^>]*>/,"").replace("</svg>","");
+  s+="</svg>";const h=$("#lwResSvg");h.innerHTML=s;h.hidden=false;LW.resOpen=true;a11yKey=""}
+$("#lwResBtn").onclick=lwShowRes;
+$("#lwCheck").onclick=lwCheck;
+$("#lwFill").onclick=()=>{const p=LWP[LW.i];const st=LW.st;p.atoms.forEach((a,i)=>{const deg=p.slots.filter(sl=>sl[0]===i||sl[1]===i).length;if(a.s==="H"||deg!==1)return;const need=p.target[i]-2*lwBondSum(p,st,i)-(st.s[i]||0);st.lp[i]=Math.max(0,Math.floor(need/2))});lwRender();lwMsg("info","Outer atoms filled to their octets. Now count: are electrons left for the central atom, or is it short?")};
+$("#lwHint").onclick=()=>{const p=LWP[LW.i];LW.hints++;const b=$("#lwHintBox");const sum=p.atoms.reduce((m,a)=>{m[a.s]=(m[a.s]||0)+1;return m},{});
+  const H=[`Count: ${Object.keys(sum).map(s=>sum[s]+" × "+s+" ("+EL[s].ve+")").join(" + ")}${p.charge?(p.charge>0?" − ":" + ")+Math.abs(p.charge)+" for the charge":""} = ${p.total} valence electrons.`,"Put a single bond on every dashed line first, then press Fill outer atoms, then place what is left on the central atom.",p.h3];
+  b.hidden=false;b.innerHTML=H.slice(0,Math.min(LW.hints,3)).map((h,i)=>`<div><b>Hint ${i+1}:</b> ${h}</div>`).join("")+(LW.hints>=3?'<div class="small">That is the whole ladder. Try it, or press Show answer.</div>':"")};
+$("#lwShow").onclick=()=>{const p=LWP[LW.i];LW.st={b:p.sol.b.slice(),lp:p.sol.lp.slice(),s:p.sol.s.slice()};LW.shown=true;lwRender();lwCheck();lwMsg("info","Here is the best structure. Read the counts and formal charges under each atom, then try the next molecule."+(p.res?" This one has resonance: see below.":""))};
+$("#lwReset").onclick=()=>lwLoad(LW.i);$("#lwNext").onclick=()=>lwLoad((LW.i+1)%LWP.length);
+function lwTimerUI(){const relaxed=$("#lwRelaxed").checked;$("#lwTimer").hidden=relaxed;clearInterval(LW.timer);if(!relaxed){LW.timer=setInterval(()=>{if(!LW.solved)$("#lwTimer").textContent=fmt((Date.now()-LW.t0)/1000)},500)}}
+$("#lwRelaxed").onchange=()=>{LW.t0=Date.now();lwTimerUI()};
+let lwDrag=null;
+function lwDragStart(e,b,tool){if(e.button>0)return;const r=b.getBoundingClientRect();lwDrag={tool,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};window.addEventListener("pointermove",lwDragMove);window.addEventListener("pointerup",lwDragEnd);window.addEventListener("pointercancel",lwDragEnd)}
+function lwDragMove(e){if(!lwDrag||e.pointerId!==lwDrag.id)return;if(!lwDrag.g){if(Math.hypot(e.clientX-lwDrag.sx,e.clientY-lwDrag.sy)<6)return;const g=lwDrag.b.cloneNode(true);g.classList.add("ghost");g.setAttribute("aria-hidden","true");g.tabIndex=-1;document.body.appendChild(g);lwDrag.g=g}
+  e.preventDefault();lwDrag.g.style.left=(e.clientX-lwDrag.dx)+"px";lwDrag.g.style.top=(e.clientY-lwDrag.dy)+"px";const el=document.elementFromPoint(e.clientX,e.clientY);const tg=el&&el.closest?el.closest(".lw-slot,.lw-atom"):null;document.querySelectorAll(".lw-over").forEach(x=>x!==tg&&x.classList.remove("lw-over"));if(tg)tg.classList.add("lw-over");lwDrag.over=tg}
+function lwDragEnd(e){if(!lwDrag)return;window.removeEventListener("pointermove",lwDragMove);window.removeEventListener("pointerup",lwDragEnd);window.removeEventListener("pointercancel",lwDragEnd);const d=lwDrag;lwDrag=null;document.querySelectorAll(".lw-over").forEach(x=>x.classList.remove("lw-over"));if(!d.g)return;d.g.remove();d.b.dataset.dragged="1";setTimeout(()=>{delete d.b.dataset.dragged},0);LW.tool=d.tool;
+  if(d.over){if(d.over.classList.contains("lw-slot"))lwApply("slot",+d.over.dataset.k,d.tool);else lwApply("atom",+d.over.dataset.i,d.tool)}lwToolsUI()}
+function lewisA11y(){const p=LWP[LW.i];const st=LW.st;const fcs=lwFCs(p,st);
+  return [null,`Lewis builder for ${fTxt(p.f)}, ${p.n}. ${lwUsed(p,st)} of ${p.total} electrons placed. `+p.slots.map((sl,k)=>`${p.atoms[sl[0]].s} to ${p.atoms[sl[1]].s}: ${["no bond yet","single bond","double bond","triple bond"][st.b[k]]}`).join("; ")+". "+p.atoms.map((a,i)=>`${a.s}${p.atoms.filter(x=>x.s===a.s).length>1?" "+(i+1):""} has ${st.lp[i]} lone pair${st.lp[i]===1?"":"s"}${st.s[i]?" and an unpaired electron":""}, ${lwCount(p,st,i)} of ${p.target[i]} electrons, formal charge ${fcs[i]}`).join("; ")+"."+(LW.resOpen?" The resonance panel shows all resonance structures and the hybrid.":"")]}
+
+/* ================= PART 4: bonding in real life ================= */
+const LIFE=[
+ {t:"Salt, water and electrolytes",story:"Sprinkle table salt into water and it vanishes. Water molecules are polar: their δ− oxygen ends crowd around Na⁺ ions and their δ+ hydrogen ends crowd around Cl⁻ ions, pulling the ions out of the crystal one by one. Each dissolved ion wears a shell of water molecules. Your blood plasma is full of such ions (Na⁺, K⁺, Cl⁻, HCO₃⁻, Ca²⁺), called electrolytes, and nerves and muscles depend on them. IV normal saline is 0.9% NaCl.",
+  cap:"NaCl dissolving: water's oxygen ends face Na⁺, hydrogen ends face Cl⁻.",
+  desc:"A large beaker of water fills the left side. At the bottom sits a small salt crystal of purple Na⁺ and green Cl⁻ ions. Ions break away from its corners and drift up into the water. Each free purple Na⁺ is ringed by water molecules with their red oxygen ends pointing in; each free green Cl⁻ is ringed by water molecules with their white hydrogen ends pointing in. Two electrodes in the water connect to a bulb that glows. On the right, an IV bag labelled 0.9% NaCl drips into a line.",
+  qs:[{q:"Why does salt water conduct electricity, while pure water barely does?",o:[["Dissolved NaCl gives mobile Na⁺ and Cl⁻ ions that carry charge",1,"Right. Moving ions carry the current. Pure water has almost no ions."],["Salt adds free electrons to the water",0,"No free electrons are released. The charge is carried by moving ions."],["NaCl molecules carry the current",0,"There are no NaCl molecules: solid salt is a lattice of ions, and dissolved salt is separate ions."],["Salt makes water molecules break into atoms",0,"Water molecules stay intact. They surround the ions instead."]]},
+   {q:"In the picture, which end of each water molecule points toward a Na⁺ ion?",o:[["The oxygen end, which is δ−",1,"Yes. Opposite charges attract: the partly negative oxygen faces the positive Na⁺."],["The hydrogen ends, which are δ+",0,"δ+ hydrogens point toward the negative Cl⁻ ions, not toward Na⁺."],["Either end, at random",0,"The orientation is not random: the δ− end is attracted to a cation."],["Neither: water does not interact with ions",0,"Water interacts strongly with ions; that is why salt dissolves."]]},
+   {q:"A sports drink lists potassium chloride and calcium chloride. What are their formulas?",o:[["KCl and CaCl₂",1,"Correct. K⁺ with Cl⁻ is 1 to 1; Ca²⁺ needs two Cl⁻."],["KCl₂ and CaCl",0,"Swapped: K⁺ needs one Cl⁻, and Ca²⁺ needs two."],["K₂Cl and Ca₂Cl",0,"The metal ions are positive; you need more chloride, not more metal, for Ca²⁺."],["KCl and CaCl",0,"Ca²⁺ + Cl⁻ leaves a +1 charge. Two chlorides balance Ca²⁺."]]}]},
+ {t:"Why water is polar, and why life depends on it",story:"In each O–H bond, oxygen (EN 3.44) pulls the shared pair away from hydrogen (EN 2.20). Oxygen becomes δ− and the hydrogens δ+. Because the molecule is bent (Module 6), these bond dipoles do not cancel, so the whole water molecule is polar. Neighbouring water molecules attract each other strongly (hydrogen bonds, Module 11), which gives water a high boiling point and lets it soak up heat. Water dissolves ions and polar molecules, so blood and the inside of cells are watery solutions. Oils are mostly nonpolar C–H bonds, so they do not mix with water; cell membranes use exactly this to keep the inside and outside of cells apart.",
+  cap:"Water: δ− oxygen, δ+ hydrogens, sticking to each other but not to oil.",
+  desc:"On the left, one large bent water molecule is drawn with a red electron-rich glow around the oxygen labelled δ− and blue electron-poor glows on the two hydrogens labelled δ+, with the label ΔEN 1.24 polar covalent. On the right, a group of small water molecules jiggles, each one linked to its neighbours by dotted lines from a hydrogen to another molecule's oxygen. A yellow oil droplet floats at the top, apart from the water molecules, which do not join it.",
+  qs:[{q:"Using EN values O = 3.44 and H = 2.20, what is ΔEN for an O–H bond, and what type of bond is it?",o:[["1.24, polar covalent",1,"Yes. 3.44 − 2.20 = 1.24, between 0.4 and 1.8."],["5.64, ionic",0,"5.64 adds the values. Subtract: 1.24."],["0.35, nonpolar covalent",0,"0.35 is the C–H difference. O–H is 1.24."],["1.24, ionic",0,"Right difference, but 1.24 is below the ionic cut-off (about 1.8). It is polar covalent."]]},
+   {q:"Why do oil and water separate?",o:[["Oil is mostly nonpolar C–H bonds, so water molecules stick to each other instead of to oil",1,"Right. Water's strong attractions to itself push nonpolar oil out."],["Oil is ionic and water is covalent",0,"Oils are covalent and nearly nonpolar. Ionic compounds usually dissolve in water."],["Oil molecules are too heavy to mix",0,"Mixing depends on attractions, not weight. Many heavy polar molecules dissolve."],["Water is nonpolar",0,"Water is very polar; that is the point."]]},
+   {q:"A chloride ion, Cl⁻, dissolves in water. Which end of each nearby water molecule points at it?",o:[["The δ+ hydrogen ends",1,"Yes. The positive ends of water face the negative ion."],["The δ− oxygen end",0,"Oxygen's partial negative charge would repel Cl⁻. It faces cations."],["The lone pairs on oxygen",0,"The lone pairs are on the δ− oxygen end, which faces cations."],["No particular end",0,"Water molecules line up with their δ+ ends toward an anion."]]}]},
+ {t:"Carbon monoxide and hemoglobin",story:"Carbon monoxide, CO, forms when fuel burns without enough oxygen (faulty heaters, car exhaust). It has 10 valence electrons: a C≡O triple bond and one lone pair on each atom. That puts a formal charge of −1 on carbon and +1 on oxygen, and it leaves carbon with an exposed lone pair. Carbon uses that lone pair to bind the Fe²⁺ in hemoglobin about 200 to 250 times more strongly than O₂ does, so the iron sites are blocked and less oxygen reaches the tissues. CO has no colour or smell, which is why homes need CO detectors. Standard pulse oximeters cannot tell CO-bound hemoglobin from oxygenated hemoglobin, so the reading can look normal. The usual treatment is high-flow 100% oxygen.",
+  cap:"CO's carbon lone pair binds the iron in heme and blocks O₂.",
+  desc:"At the top left, the Lewis structure of carbon monoxide shows C triple-bonded to O, one teal lone pair on each atom, a red minus formal charge on carbon and a blue plus on oxygen. In the centre, a heme group is drawn as a flat grey square with four blue nitrogens around an orange Fe²⁺ ion. Red O₂ molecules bounce near the iron, and a CO molecule with its grey carbon end first moves in, an arrow from carbon's lone pair points to the iron, and it locks on so O₂ can no longer bind. On the right, a red blood cell changes to a brighter cherry red, and a small CO detector shows an alarm light.",
+  qs:[{q:"How are CO's 10 valence electrons arranged in its Lewis structure?",o:[["A triple bond and one lone pair on each atom",1,"Yes. 6 in the triple bond plus 2 + 2 in lone pairs = 10, and both atoms have octets."],["A double bond and two lone pairs on each atom",0,"That uses 12 electrons. CO has only 10."],["A single bond and three lone pairs on each atom",0,"That uses 14 electrons, and neither atom would get an octet from 10."],["A triple bond and no lone pairs",0,"That uses only 6 of the 10 electrons."]]},
+   {q:"Which atom of CO bonds to the iron in hemoglobin, and with what?",o:[["Carbon, using its lone pair",1,"Right. Carbon's exposed lone pair (carbon has formal charge −1) is donated to the Fe²⁺."],["Oxygen, because it is more electronegative",0,"Oxygen holds its electrons tightly. The carbon lone pair is the one that bonds to iron."],["Both atoms, side-on",0,"CO binds end-on through carbon."],["Neither: CO only dissolves in the blood",0,"CO binds strongly to the iron in heme; that is the danger."]]},
+   {q:"Why does giving a patient 100% oxygen help in CO poisoning?",o:[["More O₂ competes for the iron sites and speeds the release of CO",1,"Yes. A high oxygen level pushes the binding back toward oxygenated hemoglobin and shortens CO's stay."],["Oxygen breaks the C≡O triple bond",0,"Breathing O₂ does not break CO's bond. It competes for the binding sites."],["Oxygen turns CO into an ionic compound",0,"No ionic compound forms. The benefit comes from competition at the iron."],["It changes the pulse oximeter reading",0,"The reading is not the goal; delivering oxygen to tissues is."]]}]},
+ {t:"Nitric oxide: a free radical that signals",story:"Nitrogen monoxide, NO (often called nitric oxide), has 5 + 6 = 11 valence electrons. An odd number cannot all be paired, so NO is a free radical with one unpaired electron. The lining of your blood vessels makes NO as a signal. It slips into the smooth muscle around the vessel, which relaxes, so the vessel widens and blood flows more easily. Because a radical reacts quickly, NO lasts only seconds, which keeps the signal local. Nitroglycerin, used for chest pain from angina, is converted to NO in the body, widening vessels and lowering the heart's workload.",
+  cap:"NO from nitroglycerin relaxes the muscle ring, widening the vessel.",
+  desc:"At the top left, the Lewis structure of NO shows N double-bonded to O, two lone pairs on oxygen, one lone pair on nitrogen and a single red unpaired electron on nitrogen, labelled 11 electrons, radical. In the middle, a blood vessel is drawn in cross-section: a red channel of flowing blood cells surrounded by a ring of tan smooth muscle. Small NO molecules, each with a red dot, drift from a tablet labelled nitroglycerin into the muscle ring; as they arrive, the ring relaxes and the channel widens, and the blood cells flow faster. Each NO molecule fades away after a moment, showing its short life.",
+  qs:[{q:"Why must NO have an unpaired electron?",o:[["It has 11 valence electrons, an odd number",1,"Right. With an odd count, at least one electron must be unpaired: a free radical."],["Nitrogen is in period 3",0,"Nitrogen is in period 2. The odd electron count is the reason."],["Oxygen takes all of nitrogen's electrons",0,"The electrons are shared in a double bond; the issue is the odd total."],["NO is ionic",0,"NO is a covalent molecule of two nonmetals."]]},
+   {q:"Why does NO act only for a few seconds?",o:[["As a free radical, it reacts quickly with other molecules",1,"Yes. Its unpaired electron makes it very reactive, so it is used up fast and the signal stays local."],["Its triple bond is too strong to last",0,"NO is drawn with a double bond, and a strong bond would make it last longer, not shorter."],["It is too large to move through cells",0,"NO is tiny and passes easily through membranes."],["The body cannot detect it",0,"Smooth muscle responds to it strongly."]]},
+   {q:"Nitroglycerin relieves angina chest pain mainly because the NO it releases…",o:[["relaxes smooth muscle so blood vessels widen",1,"Correct. Wider vessels lower the heart's workload and improve blood flow."],["makes the heart beat much harder",0,"The effect is on vessel smooth muscle, which relaxes."],["blocks the iron in hemoglobin",0,"That describes carbon monoxide, not nitroglycerin's therapeutic action."],["forms an ionic lattice in the blood",0,"NO is a small covalent radical; it does not form a lattice."]]}]}];
+const LF={i:0,ans:{},t0:0};
+function lifeChipsUI(){$("#lifeChips").innerHTML=LIFE.map((s,i)=>{const n=s.qs.filter((q,k)=>LF.ans[i+"-"+k]).length;return `<button type="button" class="casechip" aria-pressed="${i===LF.i}" data-i="${i}">${i+1}. ${s.t}${n===s.qs.length?'<span class="ok" aria-label="done"> ✓</span>':""}</button>`}).join("");$("#lifeChips").querySelectorAll("button").forEach(b=>b.onclick=()=>lifeGo(+b.dataset.i))}
+function lifeGo(i){LF.i=i;LF.t0=performance.now();const s=LIFE[i];$("#lifeN").textContent=`Scenario ${i+1} of ${LIFE.length}`;$("#lifeTitle").textContent=s.t;$("#lifeStory").textContent=s.story;$("#lifeCap").textContent=s.cap;
+  const box=$("#lifeQs");box.innerHTML="";s.qs.forEach((q,k)=>{const d=document.createElement("div");d.className="qblock";d.innerHTML=`<p class="qlab" id="lq-${k}">${k+1}. ${q.q}</p><div class="opts" role="group" aria-labelledby="lq-${k}"></div><div class="fb" role="status"></div>`;const op=d.querySelector(".opts"),fb=d.querySelector(".fb");
+    q.o.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];b.onclick=()=>{op.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];LF.ans[i+"-"+k]=1;lifeChipsUI()}else{b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};op.appendChild(b)});box.appendChild(d)});
+  lifeChipsUI();a11yKey=""}
+$("#lifePrev").onclick=()=>lifeGo((LF.i+LIFE.length-1)%LIFE.length);$("#lifeNext").onclick=()=>lifeGo((LF.i+1)%LIFE.length);
+function drawLife(now){use(S4);const T=now/1000;[lifeSalt,lifeWater,lifeCO,lifeNO][LF.i](T)}
+function hydrated(x,y,sym,T,n){const cat=sym==="Na";for(let k=0;k<n;k++){const a=k/n*TAU+T*.4;const wx=x+Math.cos(a)*34,wy=y+Math.sin(a)*34;waterMol(wx,wy,cat?a:a+Math.PI,.62)}atom(x,y,sym,{r:cat?12:17,charge:cat?"+":"−",fs:10})}
+function lifeSalt(T){panelBox(10,10,380,420);title(24,30,"Particle view: salt dissolving");levelTag(290,30,"PARTICLE",C.act2);beaker(36,80,330,320,.85,hexA(C.water,.9));
+  for(let k=0;k<26;k++){const wx=60+rnd(k)*280+Math.sin(T*1.5+k)*8,wy=140+rnd(k+3)*230+Math.cos(T*1.2+k)*8;if(wx>80&&wx<200&&wy>300)continue;waterMol(wx,wy,T*.8+k,.48)}
+  for(let i=0;i<4;i++)for(let j=0;j<3;j++){const cl=(i+j)%2===0;atom(96+i*26,360-j*26,cl?"Cl":"Na",{r:cl?12:8,noLabel:true})}
+  const ph=P(T,8);const ions=[["Na",200,190],["Cl",290,250],["Na",250,320],["Cl",160,230]];ions.forEach((q,k)=>{const f=smooth(seg(P(T+k*2,8),0,.3));const x=lerp(130,q[1],f),y=lerp(330,q[2],f)+Math.sin(T+k)*5;hydrated(x,y,q[0],T+k,f>.6?5:Math.round(5*f))});
+  line(320,90,320,300,C["ink-soft"],4);line(70,90,70,190,C["ink-soft"],4);poly([[70,90],[70,60],[180,60]],C["ink-soft"],2);poly([[320,90],[320,60],[220,60]],C["ink-soft"],2);bulb(200,56,true,T);
+  panelBox(400,10,190,420,{fill:hexA(C["panel-2"],.96)});levelTag(408,30,"MACRO",C.act7);
+  rr(445,60,100,140,14);fillStroke(hexA(C.water,.9),C["glass-edge"],2);txt(495,110,"0.9% NaCl",{size:13,weight:700,align:"center"});txt(495,130,"normal saline",{size:11.5,align:"center",color:C["ink-soft"]});
+  line(495,200,495,236,C["glass-edge"],3);rr(484,236,22,40,4);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.4);const dp=P(T*1.3,1);circ(495,244+dp*24,3,C.poor);line(495,276,495,410,C["glass-edge"],2.5);
+  txt(495,330,"≈154 mmol/L",{size:11.5,mono:true,weight:600,align:"center"});txt(495,348,"each of Na⁺ and Cl⁻",{size:11.5,align:"center"});
+  label(205,410,"O end → Na⁺   ·   H ends → Cl⁻",{size:12,weight:700,border:C.accent})}
+function lifeWater(T){panelBox(10,10,300,420);title(24,30,"One water molecule");levelTag(190,30,"PARTICLE",C.act4);
+  const cx=160,cy=200;const hA=[cx-62,cy+48],hB=[cx+62,cy+48];glow(cx,cy-6,80,C.rich,.32);glow(hA[0],hA[1],46,C.poor,.32);glow(hB[0],hB[1],46,C.poor,.32);
+  bondCloud(cx,cy,hA[0],hA[1],30,.4,C.elec,.4);bondCloud(cx,cy,hB[0],hB[1],30,.4,C.elec,.4);line(cx,cy,hA[0],hA[1],C.ink,3);line(cx,cy,hB[0],hB[1],C.ink,3);
+  atom(hA[0],hA[1],"H",{r:22,dlt:"+",dy:69});atom(hB[0],hB[1],"H",{r:22,dlt:"+",dy:69});atom(cx,cy,"O",{r:34,dlt:"−",dy:-16});
+  [[-112],[-68]].forEach(a=>{const g=a[0]*D_;eDot(cx+Math.cos(g)*46-Math.sin(g)*5,cy+Math.sin(g)*46+Math.cos(g)*5,{r:3.6});eDot(cx+Math.cos(g)*46+Math.sin(g)*5,cy+Math.sin(g)*46-Math.cos(g)*5,{r:3.6})});
+  label(160,340,"ΔEN = 3.44 − 2.20 = 1.24",{size:13,weight:700,mono:true,border:C.accent});txt(160,368,"polar covalent O–H bonds",{size:12.5,weight:600,align:"center"});txt(160,388,"bent shape: the molecule is polar",{size:12.5,align:"center",color:C["ink-soft"]});
+  panelBox(320,10,270,420);title(334,30,"Water together, oil apart");
+  const W=[];for(let k=0;k<9;k++){const x=360+(k%3)*80+Math.sin(T+k)*6,y=200+Math.floor(k/3)*70+Math.cos(T*1.1+k)*6;const a=-Math.PI/2+k*1.3+Math.sin(T*.5+k)*.3;W.push([x,y,a])}
+  W.forEach((w,k)=>{const n=W[(k+1)%9];if(Math.hypot(n[0]-w[0],n[1]-w[1])<120){const hx=w[0]+Math.cos(w[2]+.91)*13,hy=w[1]+Math.sin(w[2]+.91)*13;line(hx,hy,n[0],n[1],C["ink-soft"],1.4,[3,3])}});
+  W.forEach(w=>waterMol(w[0],w[1],w[2],.8));
+  const oy=96+Math.sin(T*.8)*4;ell(455,oy,70,34,0,hexA(C.gold,.55),C.gold,1.6);txt(455,oy,"oil (C–H, nonpolar)",{size:11.5,weight:700,align:"center"});txt(455,410,"dotted lines: attractions between molecules",{size:11.5,align:"center",color:C["ink-soft"]})}
+function lifeCO(T){panelBox(10,10,580,420);levelTag(24,30,"PARTICLE",C.act3);
+  lewisDraw({atoms:[{s:"C",x:70,y:84,lp:1,lpAng:[Math.PI],fc:-1,fcx:0,fcy:-24},{s:"O",x:140,y:84,lp:1,lpAng:[0],fc:1,fcx:0,fcy:-24}],bonds:[[0,1,3]]},{size:26});txt(105,124,"CO: 10 valence e⁻",{size:12,weight:700,align:"center"});
+  // heme
+  const hx=300,hy=270;fillPoly([[hx-110,hy],[hx,hy-46],[hx+110,hy],[hx,hy+46]],hexA(C.metal,.6),C["metal-edge"],1.6);[[hx-60,hy],[hx,hy-26],[hx+60,hy],[hx,hy+26]].forEach(q=>{line(q[0],q[1],hx,hy,C["ink-soft"],2);atom(q[0],q[1],"N",{r:9,noLabel:true})});
+  atom(hx,hy,"Fe",{r:15,charge:"2+",fs:11});txt(hx,hy+70,"heme in hemoglobin",{size:12,weight:600,align:"center"});
+  const p=P(T,10);const ap=smooth(seg(p,.25,.5));const cx=hx,cy=lerp(60,hy-40,ap);
+  for(let k=0;k<3;k++){const ph=P(T*.6+k/3,1);const ox=hx+lerp(-160,160,ph),oy=hy-80-Math.abs(Math.sin(ph*Math.PI*2))*60;if(p>.5&&Math.abs(ox-hx)<40)continue;atom(ox-9,oy,"O",{r:9,noLabel:true});atom(ox+9,oy,"O",{r:9,noLabel:true})}
+  if(p>.5)label(hx+140,hy-120,"O₂ cannot bind: site blocked",{size:12,weight:700,border:C.bad});
+  atom(cx,cy-22,"O",{r:12,fs:10});atom(cx,cy,"C",{r:12,fs:10});line(cx-3,cy-10,cx-3,cy-12,C.ink,1);
+  if(ap>.3&&ap<1)arrow(cx+14,cy+10,hx+8,hy-16,C.accent,2);if(ap>=1){line(cx,cy+12,hx,hy-15,C.ink,2.4);glow(cx,cy+16,20,C.gold,.6)}
+  txt(cx+20,cy-10,ap>=1?"C binds Fe through its lone pair":"CO arrives carbon-first",{size:12,weight:700});
+  // blood cell + detector
+  const red=mix(C.blood,"#FF5A6A",seg(p,.5,.7));ell(500,110,48,30,0,red,mix(red,"#000000",.3),1.6);ell(500,110,22,12,0,mix(red,"#000000",.15));txt(500,156,"cherry-red blood",{size:11.5,align:"center"});
+  rr(470,300,70,52,8);fillStroke(C.panel,C["ink-soft"],1.6);txt(505,316,"CO",{size:12,weight:700,align:"center"});circ(505,336,7,p>.5&&Math.sin(T*8)>0?C.bad:hexA(C.bad,.25));txt(505,370,"CO detector",{size:11.5,align:"center"});
+  txt(300,412,"CO binds about 200 to 250 times more strongly than O₂",{size:12.5,weight:700,align:"center"})}
+function lifeNO(T){panelBox(10,10,580,420);levelTag(24,30,"PARTICLE",C.act3);
+  lewisDraw({atoms:[{s:"N",x:70,y:84,lp:1,single:true,lpAng:[Math.PI,-Math.PI/2]},{s:"O",x:140,y:84,lp:2,lpAng:[-40*D_,40*D_]}],bonds:[[0,1,2]]},{size:26});txt(105,124,"NO: 11 e⁻, radical",{size:12,weight:700,align:"center"});
+  const p=P(T,12);const rel=smooth(seg(p,.3,.65));const cx=340,cy=250;const R=lerp(52,84,rel),W=34;
+  circ(cx,cy,R+W,mix(C.flame,C.panel,.45),C["ink-soft"],1.4);for(let k=0;k<16;k++){const a=k/16*TAU;const r1=R+4,r2=R+W-4;line(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1,cx+Math.cos(a)*r2,cy+Math.sin(a)*r2,hexA(C.ink,.25),1.2)}
+  circ(cx,cy,R,mix(C.blood,C.panel,.65),C.blood,1.6);for(let k=0;k<7;k++){const ph=P(T*(0.5+rel*.7)+k/7,1);const a=k*2.3;const r=R*.55*rnd(k);ell(cx+Math.cos(a)*r,cy-R+ph*2*R*.9+R*.05,9,6,0,C.blood)}
+  txt(cx,cy+R+W+18,rel>.5?"muscle relaxed: vessel wider":"smooth muscle ring",{size:12.5,weight:700,align:"center"});
+  rr(80,270,60,22,8);fillStroke(C.panel,C["ink-soft"],1.4);txt(110,281,"tablet",{size:11,weight:600,align:"center"});txt(110,252,"nitroglycerin",{size:11.5,weight:700,align:"center"});
+  for(let k=0;k<6;k++){const ph=P(T*.35+k/6,1);if(ph>.85)continue;const x=lerp(140,cx-R-W/2,ph),y=280+Math.sin(ph*6+k)*30-(k%3-1)*30*ph;withA(1-seg(ph,.6,.85),()=>{atom(x-6,y,"N",{r:7,noLabel:true});atom(x+6,y,"O",{r:7,noLabel:true});circ(x-6,y-10,2.6,C.rich)})}
+  txt(240,390,"each NO lasts only seconds",{size:12,align:"center",color:C["ink-soft"]});txt(300,412,"NO relaxes vessel smooth muscle, so the vessel widens",{size:12.5,weight:700,align:"center"})}
+function lifeA11y(){const s=LIFE[LF.i];return ["Scenario "+(LF.i+1)+": "+s.t+". "+s.cap,s.desc]}
+/* ---------------- accessibility: live labels and picture descriptions ---------------- */
+const A11Y={sim:{cv:"#cvSim",f:simA11y},train:{cv:"#cvTrain",f:trainA11y},lewis:{cv:null,f:lewisA11y},life:{cv:"#cvLife",f:lifeA11y}};
+function a11yTick(){if((++a11yT)%20)return;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#lwHolder");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="sim";
+const TABS=["sim","train","lewis","life"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey="";a11yT=19}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S4].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+function frame(now){
+  try{if(curTab==="sim")drawSim(now);else if(curTab==="train")drawTrain(now);else if(curTab==="life")drawLife(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+/* test hooks */
+window.__bond={tab:k=>showTab(k),sim:(a,b)=>{SIM.a=a;SIM.b=b;simSet()},simR:r=>{SIM.r=r;$("#simR").value=r;simReadouts()},simPair:()=>SIM.pair,simEls:()=>SIM_EL.slice(),
+  trainTypes:()=>TTYPES.map(t=>t[0]).filter(t=>t!=="mix"),trainSet:t=>{TRN.type=t;$("#trainType").value=t;trainNew()},trainProb:()=>{const p=TRN.p;return {kind:p.kind,ans:p.ans,ansPlain:typeof p.ans==="string"?plainF(p.ans):p.ans,sf:p.sf,html:p.html.replace(/<[^>]+>/g,"")}},trainSol:()=>$("#trainSol").click(),
+  lwN:()=>LWP.length,lwGo:i=>lwLoad(i),lwShow:()=>$("#lwShow").click(),lwApply:(k,i,t)=>lwApply(k,i,t),lwState:()=>({solved:LW.solved,st:LW.st}),
+  lifeN:()=>LIFE.length,lifeGo:i=>lifeGo(i)};
+readColors();simSet();trainNew();updTMeter();lwLoad(0);lifeGo(0);fitAll();requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>

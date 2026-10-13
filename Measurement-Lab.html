@@ -1,0 +1,1334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Measurement Lab</title>
+<meta name="description" content="Practice lab for measurement: a virtual bench with a balance, graduated cylinder, ruler and thermometer, an accuracy and precision target game, a dimensional analysis problem trainer with worked solutions, sorting games and real-life health scenarios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E7E3DF;--panel:#FAF8F6;--panel-2:#F1EDE9;--sunk:#DAD3CC;
+  --ink:#10161A;--ink-soft:#56514C;--ink-faint:#566570;--rule:#CCC4BC;--rule-soft:#E0D9D2;
+  --accent:#9A4410;--accent-ink:#7A350B;--accent-wash:#F7E8DC;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#2F7FC1;--act2:#C4644F;--act3:#5B3FC4;--act4:#2E8A7A;--act5:#A04E8C;--act6:#C27A12;--act7:#5E7F1A;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#7E6410;
+  --ecf:#F5F2EF;--grid:#DDD5CC;
+  --el-h:#FFFFFF;--el-h-edge:#6B7378;--el-c:#3C4147;--el-n:#3050F8;--el-o:#E0301E;--el-cl:#1FA01F;--el-na:#8F40D4;--el-s:#E6C300;--el-fe:#C0652D;--el-cu:#C87533;--el-al:#A9B1B8;--el-pb:#5C6068;--el-au:#E3B21F;--el-he:#4FC8C8;--el-si:#C9A27A;--el-ca:#3DA35D;
+  --water:#CBE4F2;--water-edge:#5E9CC4;--glass:#E6EEF2;--glass-edge:#7F99A6;--flame:#F2A93B;--flame-core:#3F7FE0;--heat:#D0452A;--cold:#2F7FC1;
+  --oil:#EBCB5C;--honey:#C98A1A;--soap:#4FB07A;--alcohol:#F2B8C6;--syrup:#B8642A;--wood:#C89A62;--wood-edge:#8A6234;--ice:#E2F2FA;--rust:#9C4A1E;--iron:#7D8790;--cork:#D9B98A;--sand:#D9B36A;--granite:#9A8F88;
+  --blood:#B3261E;--plasma:#EFCB6A;--urine:#E8C64A;--urine-dark:#C98A1A;--skin:#EAC9A8;--skin-edge:#B9937A;
+  --certain:#2F6F4F;--est:#B3600F;--zero:#7A8187;--metal:#B9C1C7;--metal-dark:#7F8A92;--pan:#D5DBDF;--paper:#FFFDF7;--scr:#13201A;--scr-ink:#7FE0A8;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;--serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2414;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#E08A74;--act3:#B9A6F5;--act4:#5CC4B0;--act5:#D186C0;--act6:#F2A93B;--act7:#A3C95A;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#2A343D;
+  --el-h:#F4F6F8;--el-h-edge:#9AA6AE;--el-c:#6E767E;--el-n:#6F8BFF;--el-o:#F2604E;--el-cl:#4FCF4F;--el-na:#B585EE;--el-s:#F0D23A;--el-fe:#E0814A;--el-cu:#E0955A;--el-al:#C3CBD2;--el-pb:#8E939C;--el-au:#F0C94A;--el-he:#6FDCDC;--el-si:#D9B48A;--el-ca:#5CC47A;
+  --water:#1E3A4C;--water-edge:#6FA9D0;--glass:#1E2C34;--glass-edge:#7F99A6;--flame:#F2B04B;--flame-core:#6F9FF0;--heat:#F07A5A;--cold:#5AA9E6;
+  --oil:#9A8530;--honey:#9A6A18;--soap:#2E7A52;--alcohol:#8A4E5C;--syrup:#7A4420;--wood:#9A7448;--wood-edge:#D2A878;--ice:#2A4250;--rust:#C2622E;--iron:#9AA4AC;--cork:#8A7350;--sand:#9A7E48;--granite:#7A706A;
+  --blood:#E0605A;--plasma:#8A7330;--urine:#A88E2E;--urine-dark:#C98A1A;--skin:#5A4434;--skin-edge:#B9937A;
+  --certain:#6BC293;--est:#F2A93B;--zero:#8D9EA7;--metal:#5E6A72;--metal-dark:#A9B4BB;--pan:#3A464E;--paper:#1E262B;--scr:#0A1410;--scr-ink:#7FE0A8;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2414;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#5AA9E6;--act2:#E08A74;--act3:#B9A6F5;--act4:#5CC4B0;--act5:#D186C0;--act6:#F2A93B;--act7:#A3C95A;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#2A343D;
+  --el-h:#F4F6F8;--el-h-edge:#9AA6AE;--el-c:#6E767E;--el-n:#6F8BFF;--el-o:#F2604E;--el-cl:#4FCF4F;--el-na:#B585EE;--el-s:#F0D23A;--el-fe:#E0814A;--el-cu:#E0955A;--el-al:#C3CBD2;--el-pb:#8E939C;--el-au:#F0C94A;--el-he:#6FDCDC;--el-si:#D9B48A;--el-ca:#5CC47A;
+  --water:#1E3A4C;--water-edge:#6FA9D0;--glass:#1E2C34;--glass-edge:#7F99A6;--flame:#F2B04B;--flame-core:#6F9FF0;--heat:#F07A5A;--cold:#5AA9E6;
+  --oil:#9A8530;--honey:#9A6A18;--soap:#2E7A52;--alcohol:#8A4E5C;--syrup:#7A4420;--wood:#9A7448;--wood-edge:#D2A878;--ice:#2A4250;--rust:#C2622E;--iron:#9AA4AC;--cork:#8A7350;--sand:#9A7E48;--granite:#7A706A;
+  --blood:#E0605A;--plasma:#8A7330;--urine:#A88E2E;--urine-dark:#C98A1A;--skin:#5A4434;--skin-edge:#B9937A;
+  --certain:#6BC293;--est:#F2A93B;--zero:#8D9EA7;--metal:#5E6A72;--metal-dark:#A9B4BB;--pan:#3A464E;--paper:#1E262B;--scr:#0A1410;--scr-ink:#7FE0A8;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+.diskgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.diskgrid .tbtn{text-align:left;font-size:13.5px;line-height:1.25;padding:7px 8px}
+.diskgrid .tbtn b{font-family:var(--mono);display:inline-block;min-width:34px}
+.readouts.chart td{text-align:center;padding-left:4px}
+.readouts.chart th,.readouts.chart td{font-size:13px}
+.readouts thead th{color:var(--ink-soft)}
+.scen .tbtn{font-family:var(--mono);font-size:13.5px}
+.seg3 .tbtn.right,.scen .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.seg3 .tbtn.wrong,.scen .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.ok-ic{color:var(--good);font-weight:700}
+.no-ic{color:var(--warn-ink);font-weight:700}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.methods .tbtn{text-align:left;line-height:1.25;font-size:14px}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.seg3 .tbtn,.seg4 .tbtn{font-size:13.5px;line-height:1.2;padding:8px 6px}
+.seg4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.verdict{font-weight:700}
+.drugbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.drugbtns .tbtn{font-size:13.5px;line-height:1.25;padding:7px 8px;text-align:left}
+.drugbtns .tbtn small{display:block;font-family:var(--mono);font-size:12px;color:var(--ink-soft);font-weight:500}
+.drugbtns .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.alerts{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:var(--r);border:1px solid var(--rule);border-left-width:5px;background:var(--panel-2);font-size:14.5px}
+.alert b{white-space:nowrap}
+.alert .ic{flex:0 0 auto;font-family:var(--mono);font-weight:700;font-size:12px;padding:1px 6px;border-radius:4px;border:1.5px solid currentColor}
+.alert.bad{border-color:var(--bad);background:var(--bad-wash)}.alert.bad .ic{color:var(--bad)}
+.alert.warn{border-color:var(--warn);background:var(--warn-wash)}.alert.warn .ic{color:var(--warn-ink)}
+.alert.good{border-color:var(--good);background:var(--good-wash)}.alert.good .ic{color:var(--good)}
+.alert.info{border-color:var(--accent);background:var(--accent-wash)}.alert.info .ic{color:var(--accent-ink)}
+.readouts td.hi{color:var(--bad);font-weight:700}.readouts td.lo{color:var(--accent-ink);font-weight:700}.readouts td.ok{color:var(--good);font-weight:600}
+.bins{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))}.binhead span{min-width:0;overflow-wrap:break-word}
+.practice-banner{background:var(--gold-wash);border-left:4px solid var(--gold);border-radius:4px;padding:8px 12px;margin:0 0 12px;font-size:14.5px;color:var(--ink)}
+.practice-tag{display:inline-block;background:var(--gold-wash);border:1.5px solid var(--gold);color:var(--ink);border-radius:6px;padding:4px 8px;font-size:13px;font-weight:600;line-height:1.3}
+.lab-sel{display:block;font-weight:600;font-size:14.5px;margin:12px 0 4px}
+#calcType{width:100%;padding:7px 8px;font-size:15px}
+.probcard{margin:12px 0 8px;padding:12px 14px;border:1px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);background:var(--panel-2);font-size:15.5px;line-height:1.5}
+.probcard .pt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:4px}
+.probcard .rd{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+.ansrow{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ans-l{font-weight:600;font-size:14.5px}
+.ansbox{display:flex;align-items:center;gap:8px}
+.ansbox input{font:600 18px var(--mono);width:150px;padding:7px 9px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);color:var(--ink)}
+.ansbox input:focus{outline:3px solid var(--accent);outline-offset:1px}
+.unit{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--ink-soft)}
+.streak{margin-top:10px}
+.seg2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg4b{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.seg2 .tbtn,.seg4b .tbtn{font-size:13.5px;line-height:1.25;padding:8px 6px}
+.marfields{display:grid;grid-template-columns:1fr;gap:6px}
+.mf{display:grid;grid-template-columns:118px 1fr;gap:10px;align-items:baseline;text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:8px 10px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.mf:hover{border-color:var(--accent)}
+.mf .k{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+.mf.right{border-color:var(--good);background:var(--good-wash)}
+.mf.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.mf.hinted{box-shadow:0 0 0 3px var(--gold)}
+.antis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.antis .tbtn{text-align:left;font-size:14px;line-height:1.25;padding:8px 9px}
+.antis .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.antis .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.antis .tbtn.hinted{box-shadow:0 0 0 3px var(--gold)}
+@media (max-width:420px){.mf{grid-template-columns:1fr;gap:2px}.antis{grid-template-columns:1fr}}
+.case.wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+@media (max-width:900px){.case.wide{grid-template-columns:1fr}}
+.ansbox input[type=text]{font:600 18px var(--mono);width:170px;padding:7px 9px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);color:var(--ink)}
+.instbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.instbtns .tbtn{font-size:14px;text-align:left;line-height:1.25;padding:8px 9px}
+.instbtns .tbtn:last-child{grid-column:1 / -1}
+.scard svg{width:76px;height:76px;display:block;margin:0 auto 4px}
+.scard.pic{text-align:center;padding:6px 8px;font-weight:600}
+.scard.placed svg{width:46px;height:46px;display:inline-block;vertical-align:middle;margin:0 6px 0 0}
+.qblock .q{font-weight:600;margin:6px 0 8px}
+.mathbtn{margin-top:6px}
+.note-sci{font-size:13px;color:var(--ink-soft);margin:4px 0 0}
+#tgRead td{white-space:normal;text-align:right}
+</style>
+<script src="chem-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">General Chemistry &middot; Module 1 &middot; Measurement, units and dimensional analysis</div>
+    <h1>Measurement Lab</h1>
+    <p class="sub">Read real-looking instruments to the right digit, aim for accuracy and precision, solve random conversion problems with animated worked solutions, sort matter from particle pictures, and try chemistry from the clinic. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-bench" data-tab="bench" id="tabbtn-bench" type="button">Part 1 &middot; Measurement Bench</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-trainer" data-tab="trainer" id="tabbtn-trainer" type="button" tabindex="-1">Part 2 &middot; Problem Trainer</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-sort" data-tab="sort" id="tabbtn-sort" type="button" tabindex="-1">Part 3 &middot; Sort It Out</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-life" data-tab="life" id="tabbtn-life" type="button" tabindex="-1">Part 4 &middot; Chemistry in Real Life</button>
+  </div>
+
+  <section id="tab-bench" role="tabpanel" aria-labelledby="tabbtn-bench">
+    <h2 class="gk-sr">Part 1: Measurement Bench</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvBench" role="img" aria-label="Measurement bench."></canvas></div>
+        <div class="stagebar"><span class="caption" id="benchCap"></span></div>
+        <p class="sim-note">Instruments, samples and particles are drawn to teach reading skills; particles are not to scale.</p>
+      </div>
+      <aside class="card side" aria-label="Bench controls">
+        <h3 id="inst-h">Instrument</h3>
+        <div class="instbtns" id="benchInst" role="group" aria-labelledby="inst-h"></div>
+        <div id="benchReadUI">
+          <p class="goal"><b class="h">Your job</b><span id="benchInstr"></span></p>
+          <div class="ctl" id="eyeCtl"><label for="eyeH">Eye height <output id="eyeHO" for="eyeH"></output></label><input type="range" id="eyeH" min="-2" max="2" step="1" value="0"></div>
+          <div class="ctl" id="bathCtl"><label for="bathT">Hot plate or ice: bath target <output id="bathTO" for="bathT"></output></label><input type="range" id="bathT" min="0" max="95" step="1" value="37"></div>
+          <div class="ansrow">
+            <label for="benchAns" class="ans-l">Your reading</label>
+            <div class="ansbox"><input type="text" id="benchAns" inputmode="decimal" autocomplete="off"><span id="benchUnit" class="unit"></span></div>
+          </div>
+          <div class="bar">
+            <button class="btn" id="benchCheck" type="button">Check</button>
+            <button class="tbtn" id="benchHint" type="button">Hint</button>
+            <button class="tbtn" id="benchNew" type="button">New sample</button>
+          </div>
+          <div class="msg" id="benchMsg" role="status"></div>
+          <div class="hintbox" id="benchHintBox" role="status" hidden></div>
+          <div class="meter streak"><span>Readings right <b id="benchCount">0</b></span><span>Streak <b id="benchStreak">0</b></span></div>
+        </div>
+        <div id="benchTgUI" hidden>
+          <p class="goal"><b class="h">Your job</b>A balance measures a 10.00 g standard mass five times. Each reading is one dart. Set the errors, then take readings to make each pattern.</p>
+          <div class="ctl"><label for="tgBias">Systematic error (balance not zeroed) <output id="tgBiasO" for="tgBias"></output></label><input type="range" id="tgBias" min="0" max="0.3" step="0.01" value="0.2"></div>
+          <div class="ctl"><label for="tgScat">Random error (scatter) <output id="tgScatO" for="tgScat"></output></label><input type="range" id="tgScat" min="0.005" max="0.15" step="0.005" value="0.01"></div>
+          <div class="bar"><button class="btn" id="tgFire" type="button">Take 5 readings</button></div>
+          <table class="readouts" id="tgRead"><caption class="gk-sr">Results of the five readings</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+          <div class="status" id="tgVerdict" role="status"></div>
+          <h3>Challenges</h3>
+          <ul class="chal" id="tgChal"></ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="tab-trainer" role="tabpanel" aria-labelledby="tabbtn-trainer" hidden>
+    <h2 class="gk-sr">Part 2: Problem Trainer</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvTrain" role="img" aria-label="Problem trainer picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="trCap"></span></div>
+        <p class="sim-note">The worked solution uses dimensional analysis: watch the units cancel, then the answer is rounded to the right number of significant figures.</p>
+      </div>
+      <aside class="card side" aria-label="Problem trainer controls">
+        <label class="lab-sel" for="trType">Problem type</label>
+        <select id="trType"></select>
+        <div class="probcard" id="trProb" aria-live="polite"></div>
+        <div class="ansrow">
+          <label for="trAns" class="ans-l">Your answer</label>
+          <div class="ansbox"><input type="text" id="trAns" inputmode="decimal" autocomplete="off"><span id="trUnit" class="unit"></span></div>
+          <p class="note-sci">For scientific notation type 3.5e-4 or 3.5 x 10^-4.</p>
+        </div>
+        <div class="bar">
+          <button class="btn" id="trCheck" type="button">Check</button>
+          <button class="tbtn" id="trHint" type="button">Hint</button>
+          <button class="tbtn" id="trSol" type="button">Show worked solution</button>
+          <button class="tbtn" id="trNew" type="button">New problem</button>
+        </div>
+        <div class="msg" id="trMsg" role="status"></div>
+        <div class="hintbox" id="trHintBox" role="status" hidden></div>
+        <div class="meter streak"><span>Streak <b id="trStreak">0</b></span><span>Best <b id="trBest">0</b></span><span>Solved <b id="trSolved">0</b></span></div>
+        <p class="small">The streak counts answers that are right, with the right significant figures, on the first check and without opening the solution.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 3: Sort It Out</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Rounds"></div>
+    <div class="card">
+      <div class="sorthead">
+        <div><div class="lvl-n" id="sN"></div><h2 class="sec" id="sTitle"></h2></div>
+        <div class="sortbar">
+          <label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label>
+          <span class="timer" id="sTimer" hidden>0:00</span>
+          <span class="stars" id="sStars" role="img" aria-label="Stars appear when the round is done"></span>
+        </div>
+      </div>
+      <p class="goal"><b class="h">Your job</b><span id="sGoal"></span></p>
+      <p class="small">Drag a card onto a box, or tap a card and then tap the box's name. Cards are buttons, so Tab and Enter work too.</p>
+      <div class="pool" id="sPool" aria-label="Cards to sort"></div>
+      <div class="bins" id="sBins"></div>
+      <div class="bar">
+        <button class="tbtn" id="sHint" type="button">Hint</button>
+        <button class="tbtn" id="sShow" type="button">Show answer</button>
+        <button class="tbtn" id="sShuffle" type="button">Start round over</button>
+        <button class="btn" id="sNext" type="button">Next round &rarr;</button>
+      </div>
+      <div class="msg" id="sMsg" role="status"></div>
+      <p class="small" id="sBest"></p>
+    </div>
+  </section>
+
+  <section id="tab-life" role="tabpanel" aria-labelledby="tabbtn-life" hidden>
+    <h2 class="gk-sr">Part 4: Chemistry in Real Life</h2>
+    <div class="casechips" id="lChips" role="group" aria-label="Choose a scenario"></div>
+    <div class="case wide">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvLife" role="img" aria-label="Scenario picture."></canvas></div>
+        <p class="sim-note">Fictional people and practice numbers to learn the math, not medical or dosing guidance.</p>
+      </div>
+      <div class="card">
+        <div class="sc-n" id="lWho"></div>
+        <h2 class="sc-title" id="lTitle"></h2>
+        <p class="story" id="lStory"></p>
+        <div id="lQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="lPrev" type="button">&larr; Previous</button>
+          <button class="btn" id="lNext" type="button">Next scenario &rarr;</button>
+        </div>
+        <p class="calm">Wrong picks are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; General Chemistry Study Tools &middot; Particle drawings are simplified and not to scale. CC BY-NC-SA 4.0<br>Learn the ideas first in the <a href="Measurement-Walkthrough.html">Measurement Walkthrough</a>. Every problem uses made-up practice numbers; health scenarios are fictional and are not medical or dosing guidance. Atoms are drawn as labelled coloured balls (hydrogen white, carbon dark grey, oxygen red, chlorine green, sodium purple).</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "act7", "gold", "gold-wash", "gold-ink", "ecf", "grid", "el-h", "el-h-edge", "el-c", "el-n", "el-o", "el-cl", "el-na", "el-s", "el-fe", "el-cu", "el-al", "el-pb", "el-au", "el-he", "el-si", "el-ca", "water", "water-edge", "glass", "glass-edge", "flame", "flame-core", "heat", "cold", "oil", "honey", "soap", "alcohol", "syrup", "wood", "wood-edge", "ice", "rust", "iron", "cork", "sand", "granite", "blood", "plasma", "urine", "urine-dark", "skin", "skin-edge", "certain", "est", "zero", "metal", "metal-dark", "pan", "paper", "scr", "scr-ink"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase().replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= chemistry drawing kit (shared by both pages) ================= */
+function lumOf(c){const A=hx(c).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*A[0]+.7152*A[1]+.0722*A[2]}
+function inkOn(c){return lumOf(c)>.3?"#10161A":"#fff"}
+const SUPD={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻","+":"⁺"};
+function sup(n){return String(n).split("").map(c=>SUPD[c]||c).join("")}
+function tri(u){u=((u%2)+2)%2;return u<1?u:2-u}
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+function fillPoly(pts,f,s,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();fillStroke(f,s,lw)}
+function crossMark(x,y,s,col,lw){line(x-s,y-s,x+s,y+s,col||C.bad,lw||3);line(x-s,y+s,x+s,y-s,col||C.bad,lw||3)}
+function checkMark(x,y,s,col,lw){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,lw||3)}
+/* integrate a rate over the scene clock so speeds can change smoothly (pausable, replayable) */
+const ACC={};
+function accum(key,T,rateFn){let a=ACC[key];const st=1/60;
+  if(!a||T<a.t-1e-6||T-a.t>1.5){a={t:0,v:0};for(let t=0;t<T;t+=st)a.v+=rateFn(t)*Math.min(st,T-t);a.t=T;ACC[key]=a;return a.v}
+  const dt=T-a.t;if(dt>0){const n=Math.max(1,Math.ceil(dt*60));for(let k=0;k<n;k++)a.v+=rateFn(a.t+dt*k/n)*dt/n}a.t=T;return a.v}
+
+/* ---------- atoms, ions, molecules (CPK colours, always labelled) ---------- */
+const EL={H:"el-h",C:"el-c",N:"el-n",O:"el-o",Cl:"el-cl",Na:"el-na",S:"el-s",Fe:"el-fe",Cu:"el-cu",Al:"el-al",Pb:"el-pb",Au:"el-au",He:"el-he",Si:"el-si",Ca:"el-ca"};
+const ER={H:.62,C:.85,N:.82,O:.8,Cl:1.0,Na:1.05,S:1.0,Fe:.95,Cu:.95,Al:.98,Pb:1.08,Au:.98,He:.6,Si:1,Ca:1.05};
+function atom(x,y,r,sym,o){o=o||{};if(r<=0)return;const col=o.col||C[EL[sym]||"el-c"];
+  ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const g=ctx.createRadialGradient(x-r*.35,y-r*.4,r*.1,x,y,r);g.addColorStop(0,mix(col,"#ffffff",.55));g.addColorStop(.6,col);g.addColorStop(1,mix(col,"#000000",.22));
+  ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fillStyle=g;ctx.fill();
+  ctx.strokeStyle=sym==="H"?C["el-h-edge"]:(isDark()?"rgba(232,238,241,.55)":"rgba(16,22,26,.45)");ctx.lineWidth=Math.max(1,r*.08);ctx.stroke();
+  if(o.hl){ctx.strokeStyle=o.hl;ctx.lineWidth=2.6;ctx.beginPath();ctx.arc(x,y,r+3.5,0,TAU);ctx.stroke()}
+  if(o.label!==false&&r>=7.5){const fs=Math.max(9.5,Math.min(17,r*(sym.length>1?.82:1.02)));ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col);ctx.fillText(sym,x,y+.5)}
+  ctx.restore()}
+function ion(x,y,r,sym,ch,o){o=o||{};atom(x,y,r,sym,o);if(!ch)return;ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  const bx=x+r*.72,by=y-r*.72,br=Math.max(6.5,r*.42);const pos=ch.indexOf("+")>=0;circ(bx,by,br,pos?C.heat:C.cold,C.panel,1.4);
+  ctx.font=`700 ${Math.max(9,br*1.25)}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle="#fff";ctx.fillText(ch.replace("-","−"),bx,by+.5);ctx.restore()}
+/* molecule templates: [symbol, dx, dy] in bond units, drawn in this order */
+const MOL={
+  H2O:[["O",0,0],["H",-.6,.45],["H",.6,.45]],
+  H2:[["H",-.31,0],["H",.31,0]],
+  O2:[["O",-.42,0],["O",.42,0]],
+  N2:[["N",-.43,0],["N",.43,0]],
+  Cl2:[["Cl",-.53,0],["Cl",.53,0]],
+  CO2:[["O",-.87,0],["O",.87,0],["C",0,0]],
+  CH4:[["C",0,0],["H",-.55,-.55],["H",.55,-.55],["H",-.55,.55],["H",.55,.55]],
+  NH3:[["N",0,0],["H",-.66,.38],["H",.66,.38],["H",0,-.76]],
+  HCl:[["Cl",.25,0],["H",-.61,0]],
+  C2H5OH:[["C",-.45,0],["C",.45,0],["O",1.25,-.35],["H",1.85,.05],["H",-1.0,-.5],["H",-1.05,.45],["H",-.5,.75],["H",.4,-.75],["H",.55,.75]],
+  He:[["He",0,0]]};
+const MOLF={H2O:"H₂O",H2:"H₂",O2:"O₂",N2:"N₂",Cl2:"Cl₂",CO2:"CO₂",CH4:"CH₄",NH3:"NH₃",HCl:"HCl",C2H5OH:"C₂H₅OH",He:"He"};
+function mol(name,x,y,s,rot,o){o=o||{};const T_=MOL[name];if(!T_)return;const c=Math.cos(rot||0),sn=Math.sin(rot||0);
+  ctx.save();ctx.globalAlpha*=o.a==null?1:clamp(o.a,0,1);
+  if(o.hl){ctx.beginPath();ctx.arc(x,y,s*1.35,0,TAU);ctx.strokeStyle=o.hl;ctx.lineWidth=2.6;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([])}
+  T_.forEach(a=>{const ax=x+(a[1]*c-a[2]*sn)*s,ay=y+(a[1]*sn+a[2]*c)*s;atom(ax,ay,ER[a[0]]*s*.62,a[0],{label:o.label,col:o.cols&&o.cols[a[0]]})});
+  ctx.restore()}
+/* deterministic thermal motion helpers. box={x,y,w,h} */
+function gasPos(i,phase,box,r){const a=rnd(i*3.7+.3)*TAU;const sp=.6+rnd(i*5.1+.9)*.8;const w=box.w-2*r,h=box.h-2*r;
+  return [box.x+r+tri((rnd(i*1.3)*2)+Math.cos(a)*sp*phase/w)*w,box.y+r+tri((rnd(i*2.9+.5)*2)+Math.sin(a)*sp*phase/h)*h,a]}
+function liqPos(i,phase,box,r){const w=box.w-2*r,h=box.h-2*r;const u=rnd(i*1.7)+.18*Math.sin(phase*.013+i)+.06*Math.sin(phase*.031+i*2.1),v=rnd(i*2.3+.4)+.18*Math.cos(phase*.011+i*1.3)+.06*Math.sin(phase*.027+i);
+  return [box.x+r+tri(u*2)*w,box.y+r+tri(v*2)*h]}
+
+/* ---------- glassware ---------- */
+function beaker(x,y,w,h,level,liq,o){o=o||{};const lip=6;const top=y,bot=y+h;
+  ctx.save();rr(x,top,w,h,7);ctx.clip();ctx.fillStyle=hexA(C.glass,.55);ctx.fillRect(x,top,w,h);
+  const ly=bot-(h-8)*clamp(level,0,1);if(level>0){ctx.fillStyle=liq||hexA(C.water,.95);ctx.fillRect(x,ly,w,bot-ly);
+    ctx.beginPath();ctx.moveTo(x,ly-3);ctx.quadraticCurveTo(x+w/2,ly+4,x+w,ly-3);ctx.lineTo(x+w,ly+2);ctx.lineTo(x,ly+2);ctx.closePath();ctx.fillStyle=liq||hexA(C.water,.95);ctx.fill();
+    line(x+2,ly-2,x+w-2,ly-2,hexA(C["water-edge"],.6),1.2)}
+  if(o.inner)o.inner({x,y:ly,w,h:bot-ly});
+  ctx.restore();
+  ctx.beginPath();ctx.moveTo(x-lip,top);ctx.lineTo(x,top+4);ctx.lineTo(x,bot-7);ctx.quadraticCurveTo(x,bot,x+7,bot);ctx.lineTo(x+w-7,bot);ctx.quadraticCurveTo(x+w,bot,x+w,bot-7);ctx.lineTo(x+w,top+4);ctx.lineTo(x+w+lip,top);
+  ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2.2;ctx.stroke();
+  line(x+7,top+12,x+7,bot-14,hexA("#ffffff",isDark()?.15:.7),3);
+  if(o.ticks){for(let k=1;k<=o.ticks;k++){const yy=bot-(h-8)*k/(o.ticks+1);line(x+w-14,yy,x+w-3,yy,hexA(C["glass-edge"],.9),1.2)}}
+  return {ly,top,bot}}
+function flask(x,y,w,h,level,liq,o){o=o||{};const nw=w*.28,nh=h*.32;const cx=x+w/2;
+  const path=()=>{ctx.beginPath();ctx.moveTo(cx-nw/2,y);ctx.lineTo(cx-nw/2,y+nh);ctx.lineTo(x+6,y+h-10);ctx.quadraticCurveTo(x,y+h,x+12,y+h);ctx.lineTo(x+w-12,y+h);ctx.quadraticCurveTo(x+w,y+h,x+w-6,y+h-10);ctx.lineTo(cx+nw/2,y+nh);ctx.lineTo(cx+nw/2,y)};
+  ctx.save();path();ctx.closePath();ctx.clip();ctx.fillStyle=hexA(C.glass,.55);ctx.fillRect(x,y,w,h);
+  const ly=y+h-(h-nh)*clamp(level,0,1);if(level>0){ctx.fillStyle=liq||hexA(C.water,.95);ctx.fillRect(x,ly,w,y+h-ly)}
+  if(o.inner)o.inner({x,y,w,h,ly});ctx.restore();
+  path();ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2.2;ctx.stroke();
+  return {ly}}
+/* graduated cylinder: returns Y(v) */
+function cylinder(x,y,w,h,cap,vol,o){o=o||{};const top=y+10,bot=y+h-14;const Y=v=>bot-(bot-top-6)*v/cap;
+  rr(x-14,y+h-14,w+28,14,4);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.6);
+  ctx.save();rr(x,y,w,h-14,5);ctx.clip();ctx.fillStyle=hexA(C.glass,.5);ctx.fillRect(x,y,w,h);
+  if(vol>0){const ly=Y(vol);ctx.fillStyle=o.liq||hexA(C.water,.95);ctx.fillRect(x,ly,w,bot-ly+20);
+    ctx.beginPath();ctx.moveTo(x,ly-6);ctx.quadraticCurveTo(x+w/2,ly+6,x+w,ly-6);ctx.lineTo(x+w,ly+1);ctx.lineTo(x,ly+1);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(x,ly-6);ctx.quadraticCurveTo(x+w/2,ly+6,x+w,ly-6);ctx.strokeStyle=C["water-edge"];ctx.lineWidth=1.6;ctx.stroke()}
+  if(o.inner)o.inner(Y);
+  ctx.restore();
+  rr(x,y,w,h-14,5);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+  const maj=o.major||cap/10,mn=o.minor||maj/5;if(!o.noTicks){for(let v=mn;v<=cap+1e-9;v+=mn){const isM=Math.abs(v/maj-Math.round(v/maj))<1e-6;const yy=Y(v);line(x,yy,x+(isM?w*.45:w*.22),yy,C.ink,isM?1.4:.9);
+      if(isM&&o.labels!==false)txt(x+w*.5,yy,String(Math.round(v*1000)/1000),{size:11,mono:true,weight:600})}}
+  line(x+5,y+8,x+5,y+h-22,hexA("#ffffff",isDark()?.12:.6),2.5);
+  return Y}
+/* zoom lens: draws a magnified circle; src=[x,y,r] marks where it looks */
+function lens(cx,cy,r,src,fn,o){o=o||{};
+  if(src){const dx=cx-src[0],dy=cy-src[1];const d=Math.hypot(dx,dy);if(d>r+src[2]){const a=Math.atan2(dy,dx);const b=Math.asin(clamp((r-src[2])/d,-1,1));
+      [1,-1].forEach(sg=>{const t=a+sg*(Math.PI/2+b);line(src[0]+Math.cos(t)*src[2],src[1]+Math.sin(t)*src[2],cx+Math.cos(t)*r,cy+Math.sin(t)*r,hexA(C["ink-soft"],.55),1.2,[4,3])})}
+    circ(src[0],src[1],src[2],null,C["ink-soft"],1.6)}
+  ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.fillStyle=o.bg||C.panel;ctx.fill();ctx.clip();fn(cx,cy,r);ctx.restore();
+  circ(cx,cy,r,null,o.ring||C["ink-soft"],2.4);
+  if(o.title)label(cx,cy-r-2,o.title,{size:11.5,weight:700,mono:true,color:C["ink-soft"],border:o.ring||C.rule})}
+function thermometer(x,y,h,frac,o){o=o||{};const bw=12,br=13;const top=y,bot=y+h;const col=o.col||C.heat;
+  rr(x-bw/2,top,bw,h,bw/2);fillStroke(hexA(C.glass,.95),C["glass-edge"],1.6);circ(x,bot+br-4,br,hexA(C.glass,.95),C["glass-edge"],1.6);
+  const fy=bot-(h-10)*clamp(frac,0,1);rr(x-3,fy,6,bot-fy+4,3);ctx.fillStyle=col;ctx.fill();circ(x,bot+br-4,br-4,col);
+  return {Y:f=>bot-(h-10)*f,fy}}
+function balance(x,y,w,read,o){o=o||{};const h=o.h||70;
+  rr(x,y+18,w,h-18,8);fillStroke(o.body||C.metal,C["metal-dark"],1.6);
+  rr(x+w*.12,y,w*.76,10,3);fillStroke(C.pan,C["metal-dark"],1.4);rr(x+w*.45,y+9,w*.1,10,2);fillStroke(C["metal-dark"],null);
+  rr(x+w*.18,y+30,w*.64,26,4);ctx.fillStyle=C.scr;ctx.fill();
+  txt(x+w*.79,y+43.5,read,{size:o.fs||15,mono:true,weight:700,align:"right",color:C["scr-ink"]});
+  if(o.lab)txt(x+w/2,y+h+12,o.lab,{size:11.5,weight:600,align:"center",color:C["ink-soft"]});
+  return {panY:y,panX:x+w/2}}
+function ruler(x,y,len,ppc,o){o=o||{};const h=o.h||34;rr(x,y,len,h,3);fillStroke(o.fill||mix(C.gold,C.panel,.65),C["ink-soft"],1.2);
+  const n=Math.floor(len/ppc);for(let c=0;c<=n;c++){const X=x+6+c*ppc;if(X>x+len-2)break;line(X,y,X,y+h*.5,C.ink,1.3);if(o.labels!==false)txt(X,y+h*.72,String(c),{size:11,mono:true,align:"center",weight:600});
+    if(!o.cmOnly&&c<n)for(let m=1;m<10;m++){const XX=X+m*ppc/10;if(XX>x+len-2)break;line(XX,y,XX,y+(m===5?h*.36:h*.24),C.ink,.8)}}
+  return X0=>x+6}
+function flame(x,y,s,T,a){withA(a==null?1:a,()=>{const f=1+.08*Math.sin(T*17)+.05*Math.sin(T*29);
+  ctx.beginPath();ctx.moveTo(x-s*.5,y);ctx.quadraticCurveTo(x-s*.6,y-s*1.1*f,x,y-s*2*f);ctx.quadraticCurveTo(x+s*.6,y-s*1.1*f,x+s*.5,y);ctx.closePath();ctx.fillStyle=hexA(C.flame,.9);ctx.fill();
+  ctx.beginPath();ctx.moveTo(x-s*.25,y);ctx.quadraticCurveTo(x-s*.3,y-s*.6*f,x,y-s*1.05*f);ctx.quadraticCurveTo(x+s*.3,y-s*.6*f,x+s*.25,y);ctx.closePath();ctx.fillStyle=hexA(C["flame-core"],.9);ctx.fill()})}
+function burner(x,y,s){rr(x-s*.22,y,s*.44,s*1.1,3);fillStroke(C["metal-dark"],null);rr(x-s*.6,y+s*1.1,s*1.2,s*.25,4);fillStroke(C["metal-dark"],null)}
+function eyeIcon(x,y,s,o){o=o||{};ctx.beginPath();ctx.moveTo(x-s,y);ctx.quadraticCurveTo(x,y-s*.75,x+s,y);ctx.quadraticCurveTo(x,y+s*.75,x-s,y);ctx.closePath();fillStroke(C.panel,C.ink,1.6);circ(x+(o.look||0)*s*.25,y,s*.32,C.ink)}
+function burst(x,y,r,p,col){ctx.save();ctx.globalAlpha*=clamp(1-p,0,1);for(let k=0;k<10;k++){const a=k/10*TAU+.3;line(x+Math.cos(a)*r*p*.5,y+Math.sin(a)*r*p*.5,x+Math.cos(a)*r*(.3+p),y+Math.sin(a)*r*(.3+p),col||C.flame,2.2)}ctx.restore()}
+function wavy(x1,y1,x2,y2,col,amp,ph){const L=Math.hypot(x2-x1,y2-y1),a=Math.atan2(y2-y1,x2-x1);ctx.save();ctx.translate(x1,y1);ctx.rotate(a);ctx.beginPath();for(let i=0;i<=L;i+=2){const yy=Math.sin(i/6+(ph||0))*(amp||4);i?ctx.lineTo(i,yy):ctx.moveTo(i,yy)}ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();ctx.restore();arrowHead(x2,y2,a,col,8)}
+function arrowHead(x,y,ang,col,s){s=s||8;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-s*Math.cos(ang-.45),y-s*Math.sin(ang-.45));ctx.lineTo(x-s*Math.cos(ang+.45),y-s*Math.sin(ang+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+/* isometric box with optional grid */
+function isoBox(x,y,a,b,c,col,o){o=o||{};const kx=.866,ky=.5;// a along +x(right-down), b along -x(left-down), c up
+  const P_=(u,v,w)=>[x+(u-v)*kx,y+(u+v)*ky-w];
+  const top=[P_(0,0,c),P_(a,0,c),P_(a,b,c),P_(0,b,c)],right=[P_(a,0,0),P_(a,b,0),P_(a,b,c),P_(a,0,c)],left=[P_(0,b,0),P_(a,b,0),P_(a,b,c),P_(0,b,c)];
+  fillPoly(left,mix(col,"#000",.18),hexA(C.ink,.45),1.2);fillPoly(right,mix(col,"#000",.06),hexA(C.ink,.45),1.2);fillPoly(top,mix(col,"#fff",.25),hexA(C.ink,.45),1.2);
+  if(o.grid){const n=o.grid;ctx.strokeStyle=hexA(C.ink,.22);ctx.lineWidth=.8;ctx.beginPath();
+    for(let i=1;i<n;i++){let p=P_(a*i/n,0,c),q=P_(a*i/n,b,c);ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);p=P_(0,b*i/n,c);q=P_(a,b*i/n,c);ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);
+      p=P_(a,b*i/n,0);q=P_(a,b*i/n,c);ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);p=P_(a,0,c*i/n);q=P_(a,b,c*i/n);ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);
+      p=P_(a*i/n,b,0);q=P_(a*i/n,b,c);ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);p=P_(0,b,c*i/n);q=P_(a,b,c*i/n);ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1])}ctx.stroke()}
+  return P_}
+function targetRings(x,y,r){[1,.75,.5,.25].forEach((f,i)=>circ(x,y,r*f,i%2?C.panel:mix(C.accent,C.panel,.82),C["ink-soft"],1.2));circ(x,y,3,C.ink)}
+function dart(x,y,col){circ(x,y,5.5,col||C.accent,C.panel,1.6);line(x-3,y-3,x+3,y+3,C.panel,1.4);line(x-3,y+3,x+3,y-3,C.panel,1.4)}
+/* number with coloured digits. cats per character: c=certain/sig, e=estimated, z=placeholder zero, p=punct. returns char centres */
+function digitRow(x,y,str,cats,o){o=o||{};const fs=o.size||30;ctx.font=`700 ${fs}px ${MONO}`;const w=ctx.measureText(str).width;let X=o.align==="left"?x:x-w/2;const pos=[];
+  ctx.textAlign="left";ctx.textBaseline="middle";
+  for(let i=0;i<str.length;i++){const ch=str[i];const cw=ctx.measureText(ch).width;const k=cats?cats[i]:"c";const col=k==="e"?C.est:k==="z"?C.zero:k==="n"?C.ink:k==="p"?C["ink-soft"]:k==="c"?C.certain:C.ink;
+    if(o.box&&(k==="c"||k==="e"||k==="z")&&o.box[i]!=null){const a=o.box[i];if(a>0){ctx.save();ctx.globalAlpha*=a;rr(X-1,y-fs*.62,cw+2,fs*1.24,4);ctx.fillStyle=hexA(col,.16);ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.6;ctx.stroke();ctx.restore()}}
+    ctx.fillStyle=col;ctx.font=`700 ${fs}px ${MONO}`;ctx.fillText(ch,X,y+1);
+    if(k==="z"&&o.slash!==false){line(X+cw*.2,y+fs*.42,X+cw*.8,y+fs*.42,C.zero,1.4)}
+    if(k==="e"){line(X,y+fs*.5,X+cw,y+fs*.5,C.est,2)}
+    pos.push([X+cw/2,cw]);X+=cw}
+  return pos}
+/* fraction chain with units that cancel (struck through) as p goes 0 -> 1.
+   items: {n:[str,[units]], d:[str,[units]]|null, pow:k}; res: {raw, ans, u}  */
+function chainLayout(items,o){o=o||{};const fs=o.size||16;ctx.font=`600 ${fs}px ${MONO}`;const gap=o.gap||26;const L=[];let X=0;
+  items.forEach((it,i)=>{const nt=it.n[0]+" "+it.n[1].join(" "),dt=it.d?it.d[0]+" "+it.d[1].join(" "):"";let w=Math.max(ctx.measureText(nt).width,ctx.measureText(dt).width)+10;const pw=it.pow?ctx.measureText("()").width+ctx.measureText(sup(it.pow)).width+6:0;
+    L.push({x:X,w,pw});X+=w+pw+(i<items.length-1?gap:0)});return {L,W:X,fs,gap}}
+function chainDraw(x,y,items,res,p,o){o=o||{};const lay=chainLayout(items,o);const fs=lay.fs;const n=items.length;const pos={};const rowH=o.rowH||72;
+  const br=o.breakAfter;let ox=x,oy=y;const place=[];
+  items.forEach((it,i)=>{let X=lay.L[i].x;if(br!=null&&i>br){X=X-lay.L[br+1].x+(o.indent||20);}place.push([x+X,br!=null&&i>br?y+rowH:y])});
+  const ap=i=>clamp((p-(.38*i/n))/(.38/n),0,1);
+  // cancellation pairs
+  const nu=[],de=[];items.forEach((it,i)=>{it.n[1].forEach((u,k)=>nu.push({i,k,u:u+(it.pow?sup(it.pow):""),used:false}));if(it.d)it.d[1].forEach((u,k)=>de.push({i,k,u:u+(it.pow?sup(it.pow):""),used:false}))});
+  const pairs=[];de.forEach(d=>{const m=nu.find(q=>!q.used&&q.u===d.u);if(m){m.used=true;d.used=true;pairs.push([m,d])}});
+  items.forEach((it,i)=>{const a=ap(i);if(a<=0)return;const [X,Y]=place[i];const w=lay.L[i].w;const pw=lay.L[i].pw;ctx.save();ctx.globalAlpha*=a;ctx.translate(0,(1-a)*10);
+    const ix=X+(pw?ctx.measureText("(").width+2:0);
+    const part=(val,units,yy,isN)=>{ctx.font=`600 ${fs}px ${MONO}`;const full=val+" "+units.join(" ");let px=ix+w/2-ctx.measureText(full).width/2;ctx.textAlign="left";ctx.textBaseline="middle";
+      ctx.fillStyle=C.ink;ctx.fillText(val+" ",px,yy);px+=ctx.measureText(val+" ").width;
+      units.forEach((u,k)=>{const uw=ctx.measureText(u).width;pos[(isN?"n":"d")+i+"_"+k]=[px,yy,uw];ctx.fillStyle=o.ucol||C.accent;ctx.fillText(u,px,yy);px+=uw+ctx.measureText(" ").width})};
+    if(it.d){part(it.n[0],it.n[1],Y-15,true);line(ix,Y,ix+w,Y,C.ink,1.6);part(it.d[0],it.d[1],Y+16,false)}else part(it.n[0],it.n[1],Y,true);
+    if(pw){ctx.font=`400 ${fs*2.1}px ${MONO}`;ctx.fillStyle=C["ink-soft"];ctx.textAlign="left";ctx.fillText("(",X-2,Y+2);ctx.fillText(")",ix+w-2,Y+2);txt(ix+w+ctx.measureText(")").width-4,Y-22,sup(it.pow),{size:fs+2,weight:700,mono:true,color:C.ink})}
+    if(i<n-1&&!(br!=null&&i===br))txt(X+w+pw+lay.gap/2,Y,"×",{size:fs+2,weight:700,align:"center",color:C["ink-soft"]});
+    if(br!=null&&i===br+1)txt(X-lay.gap/2+4,Y,"×",{size:fs+2,weight:700,align:"center",color:C["ink-soft"]});
+    ctx.restore()});
+  const sp=clamp((p-.4)/.28,0,1);const segp=pairs.length?1/pairs.length:1;
+  pairs.forEach((pr,j)=>{const f=clamp((sp-j*segp)/segp,0,1);if(f<=0)return;pr.forEach((q,qi)=>{const key=(qi===0?"n":"d")+q.i+"_"+q.k;const ps=pos[key];if(!ps)return;line(ps[0]-2,ps[1]+7,ps[0]-2+(ps[2]+4)*f,ps[1]-7,C.bad,2.6)})});
+  // result
+  const last=place[n-1];let RX=last[0]+lay.L[n-1].w+lay.L[n-1].pw+16;const RY=last[1];
+  if(res){const rp=clamp((p-.7)/.12,0,1),fp=clamp((p-.84)/.12,0,1);
+    if(rp>0)withA(rp,()=>{txt(RX,RY,"=",{size:fs+3,weight:700,color:C["ink-soft"]});ctx.font=`600 ${fs}px ${MONO}`;const t=res.raw+" "+res.u;txt(RX+20,RY-(fp>0?14:0),t,{size:fs-1,mono:true,weight:600,color:C["ink-soft"]});if(fp<=0)txt(RX+20,RY+16,"calculator",{size:11,mono:true,color:C["ink-soft"]})});
+    if(fp>0)withA(fp,()=>{const t=res.ans+" "+res.u;ctx.font=`700 ${fs+2}px ${MONO}`;const w=ctx.measureText(t).width;const bx=RX+16,by=RY+14;rr(bx,by-2,w+14,28,6);ctx.fillStyle=C["good-wash"];ctx.fill();ctx.strokeStyle=C.good;ctx.lineWidth=1.8;ctx.stroke();txt(bx+7,by+12,t,{size:fs+2,weight:700,mono:true});
+      if(res.note)txt(bx+w+24,by+12,res.note,{size:12,weight:600,color:C.good})})}
+  return {pairs,RX,RY,place}}
+function chainWidth(items,o){return chainLayout(items,o).W}
+function mistakeBox(x,y,w,t,a,o){o=o||{};if(a<=0)return;withA(a,()=>{ctx.font=`500 12.5px ${FONT}`;const words=t.split(" ");let ln="",n=1;words.forEach(wd=>{const s=ln?ln+" "+wd:wd;if(ctx.measureText(s).width>w-20&&ln){n++;ln=wd}else ln=s});
+  const h=26+n*16;rr(x,y,w,h,6);ctx.fillStyle=C["bad-wash"];ctx.fill();ctx.strokeStyle=C.bad;ctx.lineWidth=1.6;ctx.stroke();
+  txt(x+10,y+13,o.title||"COMMON MISTAKE",{size:11.5,mono:true,weight:700,color:C.bad});wrapText(t,x+10,y+31,w-20,16,{size:12.5,weight:500})})}
+function okBox(x,y,w,t,a,o){o=o||{};if(a<=0)return;withA(a,()=>{ctx.font=`500 12.5px ${FONT}`;const words=t.split(" ");let ln="",n=1;words.forEach(wd=>{const s=ln?ln+" "+wd:wd;if(ctx.measureText(s).width>w-20&&ln){n++;ln=wd}else ln=s});
+  const h=26+n*16;rr(x,y,w,h,6);ctx.fillStyle=C["accent-wash"];ctx.fill();ctx.strokeStyle=C.accent;ctx.lineWidth=1.6;ctx.stroke();
+  txt(x+10,y+13,o.title||"NOW YOU TRY",{size:11.5,mono:true,weight:700,color:C["accent-ink"]});wrapText(t,x+10,y+31,w-20,16,{size:12.5,weight:500})})}
+/* a simple person */
+function person(x,y,s,col,a){withA(a==null?1:a,()=>{circ(x,y-s*1.55,s*.42,C.skin,C["skin-edge"],1.3);rr(x-s*.55,y-s*1.1,s*1.1,s*1.25,s*.35);fillStroke(col||C.act1,hexA(C.ink,.35),1.2);
+  rr(x-s*.48,y+.1*s,s*.4,s*1.0,s*.15);fillStroke(C["ink-soft"],null);rr(x+s*.08,y+.1*s,s*.4,s*1.0,s*.15);fillStroke(C["ink-soft"],null)})}
+
+/* draw "a × 10ⁿ unit" with a real raised exponent. str uses unicode superscripts after "10" */
+const SUPR2={"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁻":"−","⁺":"+"};
+function sciTxt(x,y,str,o){o=o||{};const fs=o.size||16;const m=String(str).match(/^(.*?10)([⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+)(.*)$/);const pre=o.prefix||"";
+  if(!m){txt(x,y,pre+str,{size:fs,weight:o.weight||700,mono:true,align:o.align||"left",color:o.color});return}
+  const a=pre+m[1],e=m[2].split("").map(c=>SUPR2[c]).join(""),b=m[3];ctx.font=`${o.weight||700} ${fs}px ${MONO}`;const wa=ctx.measureText(a).width;ctx.font=`${o.weight||700} ${fs*.62}px ${MONO}`;const we=ctx.measureText(e).width;ctx.font=`${o.weight||700} ${fs}px ${MONO}`;const wb=ctx.measureText(b).width;
+  const W_=wa+we+wb+2;let X=o.align==="center"?x-W_/2:o.align==="right"?x-W_:x;
+  txt(X,y,a,{size:fs,weight:o.weight||700,mono:true,color:o.color});txt(X+wa+1,y-fs*.38,e,{size:fs*.62,weight:o.weight||700,mono:true,color:o.color});txt(X+wa+we+2,y,b,{size:fs,weight:o.weight||700,mono:true,color:o.color});return W_}
+function hexPath(x,y,r,rot){ctx.beginPath();for(let k=0;k<=6;k++){const a=k/6*TAU+(rot||0);const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+
+/* ================= significant-figure engine ================= */
+const SUPR={"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁻":"-","⁺":"+"};
+function sfInfo(str){let s=String(str).trim().replace(/[−–]/g,"-").replace(/^[-+]/,"");const m=s.match(/^(\d*\.?\d*)(?:e([-+]?\d+))?$/i);if(!m||!/\d/.test(m[1]))return null;
+  const mant=m[1],e=m[2]?+m[2]:0;const dot=mant.indexOf(".");const ip=dot>=0?mant.slice(0,dot):mant,fp=dot>=0?mant.slice(dot+1):"";
+  const all=(ip+fp).replace(/^0+/,"");let min,max,lsd;
+  if(dot>=0){min=max=Math.max(1,all.length);lsd=-fp.length+e}
+  else{const t=all.replace(/0+$/,"");min=Math.max(1,t.length);max=Math.max(1,all.length);lsd=(all.length?all.length-t.length:0)+e}
+  return {min,max,lsd,exact:min===max}}
+function normAns(input){let s=String(input==null?"":input).trim();if(!s)return null;
+  s=s.replace(/[−–]/g,"-").replace(/\s+/g,"");
+  s=s.replace(/10([⁻⁺]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g,(a,b)=>"10^"+b.split("").map(c=>SUPR[c]).join(""));
+  s=s.replace(/(\d),(\d{3})(?!\d)/g,"$1$2").replace(/(\d),(\d{3})(?!\d)/g,"$1$2").replace(/,/g,".");
+  s=s.replace(/(?:[x×X*·]|\*\*)10(?:\^|\*\*)?\(?([-+]?\d+)\)?/,"e$1");
+  const m=s.match(/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?/i);if(!m)return null;return m[0]}
+function parseAns(input){const s=normAns(input);if(s==null)return null;const v=Number(s);if(!isFinite(v))return null;const info=sfInfo(s);if(!info)return null;return {v,str:s,info}}
+function roundSF(x,n){if(x===0||!isFinite(x))return x;const sg=Math.sign(x),a=Math.abs(x);const e=Math.floor(Math.log10(a)+1e-12);const p=e-n+1;
+  return Number((sg*(p>=0?Math.round(a/Math.pow(10,p)*(1+1e-12))*Math.pow(10,p):Math.round(a*Math.pow(10,-p)*(1+1e-12))/Math.pow(10,-p))).toPrecision(15))}
+function roundPlace(x,p){const sg=Math.sign(x),a=Math.abs(x);return Number((sg*(p>=0?Math.round(a/Math.pow(10,p)*(1+1e-12))*Math.pow(10,p):Math.round(a*Math.pow(10,-p)*(1+1e-12))/Math.pow(10,-p))).toPrecision(15))}
+function expOf(x){return x===0?0:Math.floor(Math.log10(Math.abs(x))+1e-12)}
+/* format with exactly n significant figures. o.sci: force (true) or forbid (false) scientific notation; o.e: use plain e-notation */
+function fmtSF(x,n,o){o=o||{};if(x===0)return n>1?"0."+"0".repeat(n-1):"0";const r=roundSF(x,n);const e=expOf(r);const neg=r<0?"-":"";const a=Math.abs(r);
+  const sciS=()=>{let c=(a/Math.pow(10,e)).toFixed(Math.max(0,n-1));return neg+c+(o.e?"e"+e:" × 10"+sup(e))};
+  if(o.sci===true)return sciS();
+  if(o.sci!==false&&(e>=6||e<=-4))return sciS();
+  const dec=Math.max(0,n-1-e);let s=a.toFixed(dec);
+  if(dec===0){const digits=s.replace(/^0+/,"");const stripped=digits.replace(/0+$/,"");if(stripped.length!==n){if(digits.length===n)s=s+".";else if(o.sci!==false)return sciS()}}
+  return neg+s}
+/* format rounded to a decimal place p (10^p) */
+function fmtPlace(x,p){const r=roundPlace(x,p);if(p<0)return r.toFixed(-p);const s=String(Math.round(r));return s}
+function sfOfPlace(x,p){const r=roundPlace(x,p);if(r===0)return 1;return Math.max(1,expOf(r)-p+1)}
+/* classify each character of a numeral (no exponent part) for colour coding */
+function sfCats(str){const s=String(str);const ex=s.search(/\s*×|e/);const mant=ex>=0?s.slice(0,ex):s;const rest=ex>=0?s.slice(ex):"";
+  const hasDot=mant.indexOf(".")>=0;const cats=[];let seen=false;const lastNZ=(()=>{for(let i=mant.length-1;i>=0;i--)if(/[1-9]/.test(mant[i]))return i;return -1})();
+  for(let i=0;i<mant.length;i++){const ch=mant[i];if(ch==="."||ch==="-"){cats.push("p");continue}
+    if(ch!=="0"){seen=true;cats.push("c");continue}
+    if(!seen){cats.push("z");continue}
+    if(i<lastNZ){cats.push("c");continue}
+    cats.push(hasDot?"c":"z")}
+  for(let i=0;i<rest.length;i++)cats.push("p");return cats}
+/* check a typed answer. n = required sig figs (null: plain tolerance in o.tol) */
+function judgeNum(input,exact,n,o){o=o||{};const P=parseAns(input);if(!P)return {k:"nan"};
+  if(n==null){return Math.abs(P.v-exact)<=(o.tol||1e-9)?{k:"ok",P}:{k:"no",P}}
+  const R=roundSF(exact,n);const ulp=Math.pow(10,expOf(R)-n+1);const sfOK=P.info.min<=n&&n<=P.info.max;
+  if(Math.abs(P.v-R)<=ulp*1.001+1e-12){if(sfOK)return {k:Math.abs(P.v-R)<ulp*1e-3?"ok":"okr",P,R};return {k:"sf",P,R}}
+  for(const s of [P.info.min,P.info.max]){const Rs=roundSF(exact,s);const u=Math.pow(10,expOf(Rs)-s+1);if(Math.abs(P.v-Rs)<=u*1.001+1e-12)return {k:"sf",P,R}}
+  if(Math.abs(P.v-exact)<=Math.abs(exact)*.025)return {k:"close",P,R};
+  return {k:"no",P,R}}
+function sfWord(n){return n+" significant figure"+(n===1?"":"s")}
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("chem-meas-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("chem-meas-lab-"+k,v)}catch(e){}}};
+function fmtMin(m){if(!isFinite(m))return "never";if(m<1/60)return "< 1 s";if(m<1)return Math.round(m*60)+" s";if(m<120)return (m<10?m.toFixed(1):Math.round(m))+" min";return (m/60).toFixed(1)+" h"}
+function segBtns(el,items,cur,onPick){el.innerHTML="";items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=it[1];b.setAttribute("aria-pressed",String(it[0]===cur()));b.onclick=()=>{onPick(it[0]);el.querySelectorAll("button").forEach((x,i)=>x.setAttribute("aria-pressed",String(items[i][0]===cur())))};el.appendChild(b)})}
+function chalUI(el,list,done){el.innerHTML=list.map((c,i)=>`<li class="${done.has(i)?"done":""}"><span class="ck" aria-hidden="true">${done.has(i)?"✓":i+1}</span><span>${c}${done.has(i)?'<span class="gk-sr"> (done)</span>':""}</span></li>`).join("")}
+function laneXY(i,j,sp,R,T,m){// lattice point (i,j) -> liquid lane position (rows slide past each other)
+  const v=(rnd(j*3.3+1.1)-.5)*30;const w=2*R+sp;let x=i*sp+(j&1?sp/2:0)+v*T*m;x=((x+R+sp/2)%w+w)%w-R-sp/2;const q=i*31+j*7;
+  return [x+Math.sin(T*1.7+q)*sp*.2*m,j*sp*.86+Math.cos(T*1.3+q)*sp*.16*m]}
+function waterField(cx,cy,R,mode,T,o){o=o||{};const s=o.s||20;
+  if(mode==="solid"||mode==="liquid"&&!o.random){const sp=o.sp||(mode==="solid"?48:48);const n=Math.ceil(R/sp)+2;const m=mode==="solid"?0:1;
+    for(let j=-n;j<=n;j++)for(let i=-n;i<=n;i++){const q=i*31+j*7;let [x,y]=laneXY(i,j,sp,R,T,m);x+=cx;y+=cy;if(Math.hypot(x-cx,y-cy)>R+s*.8)continue;
+      const amp=o.amp==null?2.2:o.amp;const rot=m?rnd(q*.37+5)*TAU+T*(rnd(q)-.5)*1.5:Math.sin(T*7+q)*.12;
+      mol("H2O",x+Math.sin(T*9+q)*amp*(1-m),y+Math.cos(T*11+q*1.3)*amp*(1-m),s,rot,{hl:o.hl&&o.hl(i,j)?C.gold:null})}return}
+  const N=o.n||(mode==="gas"?6:16);const side=mode==="gas"?R*1.4:R*2;const box={x:cx-side/2,y:cy-side/2,w:side,h:side};
+  for(let i=0;i<N;i++){const ph=mode==="gas"?T*(o.v||150):T*(o.v||40);const p=mode==="gas"?gasPos(i,ph,box,s):liqPos(i,ph,box,s*.6);
+    mol("H2O",p[0],p[1],s,rnd(i*9.1)*TAU+(mode==="gas"?T*2.2:Math.sin(T*.9+i)*1.2),{hl:o.hl&&o.hl(i)?C.gold:null})}}
+
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+/* a random measured value with exactly n sig figs between lo and hi, written without ambiguity */
+function gv(n,lo,hi,o){o=o||{};for(let k=0;k<200;k++){const v=lo+Math.random()*(hi-lo);const s=fmtSF(v,n,{sci:false});if(/\.$/.test(s)&&!o.allowDot)continue;if(/×/.test(s))continue;const inf=sfInfo(s);if(!inf||inf.min!==inf.max)continue;if(Number(s)<lo||Number(s)>hi)continue;return s}return fmtSF(lo,n,{sci:false})}
+function rawStr(x){if(x===0)return "0";const a=Math.abs(x);if(a>=1e6||a<1e-3){const e=expOf(x);return (x/Math.pow(10,e)).toPrecision(6).replace(/0+$/,"").replace(/\.$/,"")+" × 10"+sup(e)}return String(Number(x.toPrecision(7)))}
+function sfN(s){return sfInfo(s).min}
+function calcBox(x,y,w,h,disp,o){o=o||{};rr(x,y,w,h,10);fillStroke(C["metal-dark"],null);rr(x+10,y+10,w-20,40,5);ctx.fillStyle=C.scr;ctx.fill();
+  if(disp)txt(x+w-18,y+31,disp,{size:22,weight:700,mono:true,align:"right",color:C["scr-ink"]});
+  for(let r=0;r<4;r++)for(let c=0;c<4;c++){rr(x+12+c*(w-24)/4,y+60+r*((h-70)/4),(w-24)/4-6,(h-70)/4-6,4);fillStroke(C.metal,null)}}
+function lump(x,y,s,col){ctx.beginPath();const n=9;for(let k=0;k<=n;k++){const a=k/n*TAU;const r=s*(.8+.25*rnd(k*3.7));const X=x+Math.cos(a)*r,Y=y+Math.sin(a)*r*.8;k?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath();fillStroke(col||C["el-al"],C["metal-dark"],1.5)}
+function scaleIcon(x,y,w,read){rr(x,y,w,26,5);fillStroke(C.metal,C["metal-dark"],1.4);rr(x+w*.18,y+4,w*.64,18,3);ctx.fillStyle=C.scr;ctx.fill();txt(x+w*.5,y+13,read,{size:12.5,weight:700,mono:true,align:"center",color:C["scr-ink"]})}
+function oralSyringe(x,y,len,cap,vol){const bw=len*.75,bh=26;rr(x,y-bh/2,bw,bh,4);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.6);const f=clamp(vol/cap,0,1);if(f>0){ctx.fillStyle=hexA(C.act6,.75);ctx.fillRect(x+6,y-bh/2+3,(bw-8)*f,bh-6)}
+  for(let k=0;k<=cap;k++){const X=x+6+(bw-8)*k/cap;line(X,y-bh/2,X,y-bh/2+(k%5===0?9:5),C.ink,1);if(k%5===0)txt(X,y+bh/2+9,String(k),{size:11,mono:true,align:"center"})}
+  rr(x-10,y-5,12,10,2);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.2);const px=x+6+(bw-8)*f;line(px,y,x+bw+len*.2,y,C["ink-soft"],4);rr(x+bw+len*.2,y-12,6,24,2);fillStroke(C["ink-soft"],null)}
+
+/* ================= PART 1: measurement bench ================= */
+const INST=[["cyl","Graduated cylinder"],["bal","Balance"],["rul","Ruler"],["thm","Thermometer"],["tgt","Accuracy and precision target game"]];
+const BSAMP=[{name:"copper shot",f:"Cu",el:"Cu"},{name:"table salt",f:"NaCl",el:"NaCl"},{name:"aluminum foil ball",f:"Al",el:"Al"},{name:"sulfur powder",f:"S₈",el:"S"},{name:"iron filings",f:"Fe",el:"Fe"}];
+const ROBJ=[["pencil","gold"],["test tube","glass"],["crayon","act2"],["bolt","iron"]];
+const BS={tOff:.4,inst:"cyl",s:null,count:0,streak:0,first:true,solved:false,hint:0,eye:0,bathTarget:37,bathT:37,tPhase:0,t0:0,lastNow:0,
+  tg:{bias:.2,scat:.01,shots:[],fireT:-99,done:new Set()}};
+function benchNew(){const k=BS.inst;BS.solved=false;BS.first=true;BS.hint=0;BS.t0=performance.now();let s={};
+  if(k==="cyl"){const cap=pick([100,100,10]);const minor=cap===100?1:.1;let V;do{V=Math.round(cap*(.22+Math.random()*.62)/minor*100)/100*minor;V=Number(V.toFixed(cap===100?2:3))}while(Math.abs(((V/minor)%1)-.5)<.04&&false);
+    s={cap,minor,V,dec:cap===100?1:2,tol:minor*.3,unit:"mL",read:V.toFixed(cap===100?1:2)}}
+  if(k==="bal"){const res=pick([.01,.01,.001]);const dec=res===.01?2:3;const m=Number((2+Math.random()*58).toFixed(dec));s={res,dec,m,tol:res*.5,unit:"g",read:m.toFixed(dec),samp:pick(BSAMP)}}
+  if(k==="rul"){const mm=Math.random()<.7;const L=Number((2.4+Math.random()*6.8).toFixed(2));s={mm,L,dec:mm?2:1,tol:mm?.031:.16,unit:"cm",read:L.toFixed(mm?2:1),obj:pick(ROBJ)}}
+  if(k==="thm"){const base=rint(8,88);BS.tOff=Number((.05+Math.random()*.9).toFixed(2));BS.bathTarget=base+BS.tOff;BS.bathT=BS.bathTarget;$("#bathT").value=base;s={dec:1,tol:.3,unit:"°C"}}
+  BS.s=s;$("#benchAns").value="";$("#benchMsg").className="msg";$("#benchHintBox").hidden=true;benchUI();a11yKey=""}
+function benchTruth(){const s=BS.s;return BS.inst==="cyl"?s.V:BS.inst==="bal"?s.m:BS.inst==="rul"?s.L:BS.bathT}
+function benchUI(){const k=BS.inst;$("#benchReadUI").hidden=k==="tgt";$("#benchTgUI").hidden=k!=="tgt";$("#eyeCtl").hidden=k!=="cyl";$("#bathCtl").hidden=k!=="thm";
+  $("#benchInst").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.k===k)));
+  const s=BS.s||{};$("#benchUnit").textContent=s.unit||"";
+  const I={cyl:`Read the volume at the bottom of the meniscus. This cylinder is marked every ${s.minor===1?"1 mL":"0.1 mL"}, so record to the ${s.dec===1?"tenths":"hundredths"} place: all certain digits plus one estimate.`,
+    bal:`Record the mass of the ${s.samp?s.samp.name:"sample"} from the digital display. Wait for it to settle, then record every digit shown.`,
+    rul:`Measure the ${s.obj?s.obj[0]:"object"} from the 0 mark. This ruler is marked ${s.mm?"every millimeter (0.1 cm), so record to 0.01 cm":"only every centimeter, so record to 0.1 cm"}.`,
+    thm:"Read the thermometer to the tenth of a degree (marks every 1 °C). Change the bath with the slider and read again once it is steady."}[k]||"";
+  $("#benchInstr").textContent=I;$("#eyeHO").textContent=["well below","below","level","above","well above"][BS.eye+2];$("#bathTO").textContent="about "+Math.floor(BS.bathTarget)+" °C";
+  $("#benchCap").textContent={cyl:"Graduated cylinder with a zoomed view of the meniscus and a particle view of the water.",bal:"Digital balance with a particle view of the sample.",rul:"Ruler with a zoomed view of the object's end.",thm:"Thermometer in a water bath; particles speed up as the bath warms.",tgt:"Five readings of a 10.00 g mass shown as darts and as a dot plot."}[k];
+  $("#benchCount").textContent=BS.count;$("#benchStreak").textContent=BS.streak;tgUI()}
+function benchMsg(c,t){const m=$("#benchMsg");m.className="msg show "+c;m.textContent=t}
+function fmtCtoK(r){const inf=sfInfo(r);return fmtPlace(Number(r)+273.15,Math.max(inf.lsd,-2))}
+function fmtCtoF(r){const inf=sfInfo(r);const n=inf.min;const pr=roundSF(Number(r)*1.8,n);const pl=expOf(pr)-n+1;return fmtPlace(pr+32,pl)}
+function benchCheck(){const s=BS.s;const P=parseAns($("#benchAns").value);if(!P){benchMsg("info","Type your reading in the box first.");return}
+  if(BS.inst==="bal"&&performance.now()-BS.t0<1600){benchMsg("info","The display is still settling. Wait until the last digit stops changing.");return}
+  if(BS.inst==="thm"&&Math.abs(BS.bathT-BS.bathTarget)>.06){benchMsg("info","The thermometer is still rising or falling. Wait until it is steady, then read it.");return}
+  const truth=benchTruth();const dec=(P.str.replace(/^[-+]/,"").split(/e/i)[0].split(".")[1]||"").length;const close=Math.abs(P.v-truth)<=s.tol+1e-9;
+  if(close&&dec===s.dec){if(!BS.solved){BS.count++;if(BS.first)BS.streak++;}BS.solved=true;
+    let t;if(BS.inst==="bal")t=`✓ ${P.str} g. On a digital balance every digit shown is recorded; the last one (${P.str.slice(-1)}) is the uncertain digit.`;
+    else{const cert=P.str.slice(0,-1),est=P.str.slice(-1);t=`✓ ${P.str} ${s.unit}. ${cert} is certain from the marks and the ${est} is your estimate. Any reading within ±${(s.tol).toFixed(s.dec===1?1:2)} ${s.unit} of the true value is reasonable.`}
+    if(BS.inst==="thm")t+=` In other units: ${fmtCtoK(P.str)} K and ${fmtCtoF(P.str)} °F.`;
+    if(BS.inst==="cyl"&&BS.eye!==0)t+=" Your eye was not level, though: in a real lab, parallax would have shifted your reading.";
+    benchMsg("good",t)}
+  else{BS.first=false;BS.streak=0;let t="Not quite. ";
+    if(close&&dec<s.dec)t+=`Your digits are right so far, but you stopped at the certain digits. Estimate one more digit between the marks (record to ${s.dec===1?"0.1":"0.01"}).`;
+    else if(close&&dec>s.dec)t+=`That claims more digits than this scale supports. With these marks, record only one estimated digit (to ${s.dec===1?"0.1":"0.01"}).`;
+    else if(BS.inst==="bal")t+="Copy the display exactly, every digit, once it stops changing.";
+    else t+=`Look again in the zoom view. The value is between ${benchBetween()}.`;
+    benchMsg("warn",t)}
+  benchUI();a11yKey=""}
+function benchBetween(){const s=BS.s;const tr=benchTruth();if(BS.inst==="cyl"){const lo=Math.floor(tr/s.minor+1e-9)*s.minor;return fmtNum2(lo,s.dec-1)+" and "+fmtNum2(lo+s.minor,s.dec-1)+" mL"}
+  if(BS.inst==="rul"){const step=s.mm?.1:1;const lo=Math.floor(tr/step+1e-9)*step;return fmtNum2(lo,s.dec-1)+" and "+fmtNum2(lo+step,s.dec-1)+" cm"}
+  if(BS.inst==="thm"){const lo=Math.floor(tr);return lo+" and "+(lo+1)+" °C"}return ""}
+function fmtNum2(v,d){return Number(v).toFixed(Math.max(0,d))}
+function benchHint(){const s=BS.s;BS.hint=Math.min(3,BS.hint+1);const H={cyl:["Find the bottom of the curved surface (the meniscus) in the zoom view.",`The bottom is between ${benchBetween()}. Those digits are certain.`,"Now estimate how far between the two marks it sits, in tenths of a space, and add that one digit."],
+  bal:["Wait for the display to stop flickering.","Type every digit on the display, including any zeros at the end.","Do not round. The balance already shows exactly one uncertain digit."],
+  rul:["Look where the object's end falls in the zoom view.",`It ends between ${benchBetween()}.`,"Estimate how far between those two marks, in tenths of a space, and add that one digit."],
+  thm:["Wait until the steady label appears.",`The top of the liquid is between ${benchBetween()}.`,"Estimate tenths of a degree between those two marks."]}[BS.inst]||[];
+  const b=$("#benchHintBox");b.hidden=false;b.innerHTML=H.slice(0,BS.hint).map((h,i)=>`<div><b>Hint ${i+1}:</b> ${h}</div>`).join("")}
+/* target game */
+const TGCH=["Accurate and precise","Precise but not accurate","Accurate but not precise","Neither accurate nor precise"];
+function gaussR(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(TAU*v)}
+function tgFire(){const g=BS.tg;g.shots=[];let sum=0;const vals=[];for(let i=0;i<5;i++){const v=10+g.bias+g.scat*gaussR();vals.push(Math.round(v*100)/100)}
+  vals.forEach(v=>{const a=Math.random()*TAU,r=Math.abs(gaussR())*g.scat;g.shots.push({v,x:(v-10)*560*.70710678+Math.cos(a)*r*300,y:-(v-10)*560*.70710678+Math.sin(a)*r*300})});
+  g.fireT=performance.now();const st=tgStats();g.last=st;const k=(st.acc?0:1)+(st.pre?0:2);g.done.add([0,1,2,3][st.acc&&st.pre?0:!st.acc&&st.pre?1:st.acc&&!st.pre?2:3]);tgUI();a11yKey=""}
+function tgStats(){const v=BS.tg.shots.map(s=>s.v);if(!v.length)return null;const m=v.reduce((a,b)=>a+b,0)/v.length;const sd=Math.sqrt(v.reduce((a,b)=>a+(b-m)*(b-m),0)/(v.length-1));
+  return {m,sd,err:Math.abs(m-10)/10*100,range:Math.max(...v)-Math.min(...v),acc:Math.abs(m-10)<=.05,pre:sd<=.03,vals:v}}
+function tgUI(){const g=BS.tg;$("#tgBiasO").textContent="+"+g.bias.toFixed(2)+" g";$("#tgScatO").textContent="±"+g.scat.toFixed(3)+" g";const st=tgStats();
+  $("#tgRead tbody").innerHTML=st?[["Readings (g)",st.vals.map(v=>v.toFixed(2)).join(", ")],["Average",st.m.toFixed(3)+" g"],["Percent error",st.err.toFixed(1)+"%"],["Standard deviation",st.sd.toFixed(3)+" g"]].map(r=>`<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join(""):`<tr><th scope="row">Readings</th><td>none yet</td></tr>`;
+  const v=$("#tgVerdict");if(st){v.className="status "+(st.acc&&st.pre?"good":"warn");v.textContent=`${st.acc?"Accurate":"Not accurate"} (average within 0.05 g of 10.00 g? ${st.acc?"yes":"no"}) and ${st.pre?"precise":"not precise"} (spread, SD 0.03 g or less? ${st.pre?"yes":"no"}).`}else{v.className="status";v.textContent="Take readings to see the verdict."}
+  chalUI($("#tgChal"),TGCH,g.done)}
+/* drawing */
+function benchObj(kind,x0,x1,y,col){const h=22;if(kind==="pencil"){rr(x0,y-h/2,x1-x0-26,h,3);fillStroke(C.gold,hexA(C.ink,.45),1.2);rr(x0,y-h/2,14,h,2);fillStroke(C.blood,null);ctx.beginPath();ctx.moveTo(x1-26,y-h/2);ctx.lineTo(x1,y);ctx.lineTo(x1-26,y+h/2);ctx.closePath();fillStroke(C.cork,hexA(C.ink,.45),1.2);ctx.beginPath();ctx.moveTo(x1-8,y-3.4);ctx.lineTo(x1,y);ctx.lineTo(x1-8,y+3.4);ctx.closePath();fillStroke(C.ink,null)}
+  else if(kind==="test tube"){ctx.beginPath();ctx.moveTo(x0,y-h/2);ctx.lineTo(x1-h/2,y-h/2);ctx.arc(x1-h/2,y,h/2,-Math.PI/2,Math.PI/2);ctx.lineTo(x0,y+h/2);ctx.closePath();fillStroke(hexA(C.glass,.9),C["glass-edge"],1.6);rr(x0-4,y-h/2-3,8,h+6,2);fillStroke(C["glass-edge"],null)}
+  else if(kind==="crayon"){rr(x0,y-h/2,x1-x0-20,h,4);fillStroke(C.act2,hexA(C.ink,.45),1.2);rr(x0+20,y-h/2,x1-x0-60,h,2);fillStroke(C.paper,null);ctx.beginPath();ctx.moveTo(x1-20,y-h/2+2);ctx.lineTo(x1,y);ctx.lineTo(x1-20,y+h/2-2);ctx.closePath();fillStroke(C.act2,hexA(C.ink,.45),1.2)}
+  else{rr(x0,y-h/2-4,26,h+8,3);fillStroke(C.iron,C["metal-dark"],1.4);rr(x0+26,y-h/2+3,x1-x0-26,h-6,2);fillStroke(C.metal,C["metal-dark"],1.2);for(let X=x0+32;X<x1-4;X+=7)line(X,y-h/2+3,X+3,y+h/2-3,C["metal-dark"],1)}}
+function sampleLattice(el,X,Y,R,T){if(el==="NaCl"){for(let j=-5;j<=5;j++)for(let k=-5;k<=5;k++){const x=X+k*30,y=Y+j*30;if(Math.hypot(x-X,y-Y)>R+14)continue;const na=(j+k)&1;ion(x+Math.sin(T*8+j+k)*1.2,y,na?11:14,na?"Na":"Cl",na?"+":"-")}return}
+  if(el==="S"){for(let j=-1;j<=1;j++)for(let k=-1;k<=1;k++){const cx=X+k*86+(j&1?43:0),cy=Y+j*76;for(let a=0;a<8;a++){const an=a/8*TAU+T*.3*(j-k);atom(cx+Math.cos(an)*24,cy+Math.sin(an)*16*(a%2?1.1:.9),9,"S")}}return}
+  const r=el==="Cu"?13:el==="Al"?13.5:12.5;const sp=r*1.9;for(let j=-7;j<=7;j++)for(let k=-7;k<=7;k++){const x=X+k*sp+(j&1?sp/2:0),y=Y+j*sp*.866;if(Math.hypot(x-X,y-Y)>R+r)continue;atom(x+Math.sin(T*9+j*3+k)*1.2,y+Math.cos(T*8+k*2+j),r,el)}}
+function drawBench(now){use(S1);const T=now/1000;const dt=Math.min(.05,Math.max(0,(now-(BS.lastNow||now))/1000));BS.lastNow=now;const k=BS.inst,s=BS.s;
+  if(k==="cyl"){const Y=cylinder(70,24,70,452,s.cap,s.V,{major:s.cap===100?10:1,minor:s.minor,liq:hexA(C.water,.95)});const yV=Y(s.V);
+    lens(430,262,186,[105,yV,14],(X,Yc,R)=>{const kp=46/s.minor;const vy=v=>Yc-(v-s.V)*kp;ctx.fillStyle=hexA(C.glass,.6);ctx.fillRect(X-R,Yc-R,2*R,2*R);
+      ctx.beginPath();ctx.moveTo(X-R,vy(s.V)-34);ctx.quadraticCurveTo(X,vy(s.V)+34,X+R,vy(s.V)-34);ctx.lineTo(X+R,Yc+R);ctx.lineTo(X-R,Yc+R);ctx.closePath();ctx.fillStyle=hexA(C.water,.95);ctx.fill();
+      ctx.beginPath();ctx.moveTo(X-R,vy(s.V)-34);ctx.quadraticCurveTo(X,vy(s.V)+34,X+R,vy(s.V)-34);ctx.strokeStyle=C["water-edge"];ctx.lineWidth=2.5;ctx.stroke();
+      const v0=Math.floor(s.V/s.minor)-5;for(let i=v0;i<=v0+11;i++){const v=i*s.minor;const yy=vy(v);const maj=Math.abs(i%5)===0;line(X-R,yy,X-R+(maj?110:80),yy,C.ink,maj?2.6:1.8);txt(X-R+(maj?118:88),yy,v.toFixed(s.minor===1?0:1),{size:14,mono:true,weight:700})}
+      if(BS.eye){const ap=s.V+BS.eye*.45*s.minor;line(X-R,vy(ap),X+R,vy(ap),C.bad,2,[6,4]);label(X+60,vy(ap)-16,"line of sight",{size:11.5,weight:700,border:C.bad,color:C.bad})}},{title:"ZOOM: "+(s.cap===100?"marks every 1 mL":"marks every 0.1 mL")});
+    const ey=yV-BS.eye*26;eyeIcon(196,ey,14,{look:-1});line(182,ey,105,yV,BS.eye?C.bad:C.good,1.6,[5,4]);
+    if(BS.eye)label(250,ey-24,BS.eye>0?"eye above: reads too high":"eye below: reads too low",{size:12,weight:700,border:C.bad,color:C.bad,align:"left"});else label(222,ey-24,"eye level",{size:12,weight:700,border:C.good,color:C.good,align:"left"});
+    lens(712,96,78,null,(X,Yc,R)=>{ctx.fillStyle=hexA(C.water,.55);ctx.fillRect(X-R,Yc-R,2*R,2*R);waterField(X,Yc,R,"liquid",T,{s:17,sp:40})},{title:"PARTICLES: H₂O(l)"});
+    panelBox(640,300,150,180);txt(652,322,"SYMBOLS",{size:11.5,weight:700,mono:true,color:C["ink-soft"]});txt(652,350,s.cap+" mL cylinder",{size:12.5,weight:600});txt(652,374,"marks: "+(s.minor===1?"1 mL":"0.1 mL"),{size:12.5,weight:600});txt(652,398,"read to: "+(s.dec===1?"0.1 mL":"0.01 mL"),{size:12.5,weight:600});
+    txt(652,440,"V = "+(BS.solved?s.read:"?")+" mL",{size:16,weight:700,mono:true,color:BS.solved?C.good:C.ink})}
+  if(k==="bal"){const set=now-BS.t0<1600;const disp=set?(s.m+(Math.floor(T*12)%5-2)*s.res).toFixed(s.dec):s.read;
+    balance(50,300,360,disp+" g",{h:120,fs:30});ctx.beginPath();ctx.moveTo(150,300);ctx.lineTo(310,300);ctx.lineTo(290,282);ctx.lineTo(170,282);ctx.closePath();fillStroke(C.paper,C.rule,1.4);
+    const col=C[s.samp.el==="NaCl"?"panel":EL[s.samp.el]];for(let i=0;i<34;i++){const a=rnd(i*3.3)*Math.PI,r=rnd(i*1.7)*52;circ(230+Math.cos(a)*r,280-Math.sin(a)*r*.38-2,s.samp.el==="NaCl"?4:3.4,s.samp.el==="NaCl"?"#F4F6F8":col,hexA(C.ink,.4),.8)}
+    txt(230,456,set?"settling…":"stable",{size:13,weight:700,align:"center",color:set?C.warn:C.good});
+    lens(610,182,150,[230,270,14],(X,Y,R)=>{ctx.fillStyle=C.panel;ctx.fillRect(X-R,Y-R,2*R,2*R);sampleLattice(s.samp.el,X,Y,R,T)},{title:"PARTICLES: "+s.samp.name});
+    panelBox(470,360,318,120);txt(484,382,"SYMBOLS",{size:11.5,weight:700,mono:true,color:C["ink-soft"]});txt(484,412,s.samp.f,{size:22,weight:700});txt(484,446,"m = "+(BS.solved?s.read:"?")+" g",{size:17,weight:700,mono:true,color:BS.solved?C.good:C.ink});
+    txt(640,412,"balance reads to",{size:12,color:C["ink-soft"]});txt(640,432,s.res+" g",{size:13,weight:700,mono:true})}
+  if(k==="rul"){const ppc=70,x0=46;ruler(40,170,724,ppc,{h:44,cmOnly:!s.mm});const x1=x0+s.L*ppc;benchObj(s.obj[0],x0,x1,146,null);
+    const Z=s.mm?5:2.4;lens(400,360,128,[x1,170,16],(X,Y,R)=>{const k_=ppc*Z;ctx.fillStyle=mix(C.gold,C.panel,.65);ctx.fillRect(X-R,Y-6,2*R,R+6);
+      const st=s.mm?.1:1;const c0=Math.floor((s.L-R/k_)/st)-1;for(let i=c0;i<=c0+Math.ceil(2*R/k_/st)+2;i++){const v=i*st;const xx=X+(v-s.L)*k_;const isCm=Math.abs(v-Math.round(v))<1e-6;line(xx,Y-6,xx,Y+(isCm?44:s.mm&&i%5===0?32:22),C.ink,isCm?2.6:1.6);if(isCm||s.mm)txt(xx,Y+58,s.mm?v.toFixed(1):String(Math.round(v)),{size:13,mono:true,weight:700,align:"center"})}
+      ctx.save();ctx.translate(X-s.L*k_,0);ctx.scale(1,1);ctx.restore();
+      ctx.save();ctx.beginPath();ctx.rect(X-R,Y-R,R,R-10);ctx.clip();rr(X-2*R,Y-48,2*R,34,4);fillStroke(s.obj[0]==="pencil"?C.cork:s.obj[0]==="test tube"?hexA(C.glass,.9):s.obj[0]==="crayon"?C.act2:C.metal,hexA(C.ink,.5),1.6);ctx.restore();
+      line(X,Y-56,X,Y+40,C.est,2,[4,3])},{title:"ZOOM ×"+Z});
+    txt(60,60,"Ruler marked "+(s.mm?"every millimeter (0.1 cm)":"only every centimeter"),{size:14,weight:700});txt(60,84,"The object starts exactly at 0.",{size:12.5,color:C["ink-soft"],weight:600});
+    panelBox(600,300,190,180);txt(612,322,"SYMBOLS",{size:11.5,weight:700,mono:true,color:C["ink-soft"]});txt(612,352,"read to: "+(s.mm?"0.01 cm":"0.1 cm"),{size:13,weight:600});txt(612,380,"one estimated digit",{size:12.5,color:C["ink-soft"]});txt(612,440,"L = "+(BS.solved?s.read:"?")+" cm",{size:17,weight:700,mono:true,color:BS.solved?C.good:C.ink})}
+  if(k==="thm"){BS.bathT+=(BS.bathTarget-BS.bathT)*(1-Math.exp(-dt/1.6));if(Math.abs(BS.bathT-BS.bathTarget)<.004)BS.bathT=BS.bathTarget;const tk=BS.bathT+273.15;BS.tPhase+=dt*Math.sqrt(tk/310);
+    const heating=BS.bathTarget>BS.bathT+.05,cooling=BS.bathTarget<BS.bathT-.05;hotPlateL(40,446,280,heating,T);beaker(60,240,240,200,.72);
+    if(cooling)for(let i=0;i<4;i++)isoBox(100+i*44,300+Math.sin(T*2+i)*3,16,16,15,C.ice,{});
+    const lo=-10,hi=110;const th=thermometer(250,30,380,(BS.bathT-lo)/(hi-lo),{});const Yt=v=>30+380-(380-10)*(v-lo)/(hi-lo);
+    for(let v=lo;v<=hi;v+=1){const yy=Yt(v);line(256,yy,v%10===0?272:v%5===0?267:263,yy,C.ink,v%10===0?1.5:.8);if(v%10===0)txt(276,yy,String(v),{size:11.5,mono:true,weight:700})}
+    const yT=Yt(BS.bathT);lens(520,190,150,[250,yT,12],(X,Y,R)=>{const kp=44;const vy=v=>Y-(v-BS.bathT)*kp;ctx.fillStyle=C.panel;ctx.fillRect(X-R,Y-R,2*R,2*R);
+      rr(X-18,Y-R-10,36,2*R+20,14);fillStroke(hexA(C.glass,.95),C["glass-edge"],2);ctx.fillStyle=C.heat;ctx.fillRect(X-8,vy(BS.bathT),16,Y+R+20-vy(BS.bathT));
+      const v0=Math.floor(BS.bathT)-4;for(let v=v0;v<=v0+9;v++){const yy=vy(v);line(X+18,yy,X+(v%5===0?70:52),yy,C.ink,2);txt(X+(v%5===0?78:60),yy,String(v),{size:14,mono:true,weight:700})}},{title:"ZOOM: marks every 1 °C"});
+    const steady=Math.abs(BS.bathT-BS.bathTarget)<=.06;label(520,368,steady?"steady: read now":heating?"warming…":"cooling…",{size:13,weight:700,border:steady?C.good:C.warn,color:steady?C.good:C["warn-ink"]});
+    lens(712,404,72,[180,380,12],(X,Y,R)=>{ctx.fillStyle=hexA(C.water,.55);ctx.fillRect(X-R,Y-R,2*R,2*R);waterField(X,Y,R,"liquid",BS.tPhase,{s:16,sp:38})},{title:"FASTER WHEN HOTTER"});
+    txt(640,40,"T = "+(BS.solved?$("#benchAns").value.trim():"?")+" °C",{size:16,weight:700,mono:true,color:BS.solved?C.good:C.ink})}
+  if(k==="tgt"){const g=BS.tg;targetRings(210,250,190);pulseRing(210,250,40,C.accent,P(T,2));
+    const nshow=Math.min(5,Math.floor((now-g.fireT)/350)+1);if(g.shots.length){for(let i=0;i<nshow;i++){const q=g.shots[i];dart(210+clamp(q.x,-200,200),250+clamp(q.y,-200,200),C.accent)}}else txt(210,470,"Press Take 5 readings",{size:13,weight:700,align:"center",color:C["ink-soft"]});
+    panelBox(430,20,360,460);title(444,42,"Readings of a 10.00 g mass");const ax=460,aw=300,ay=300;const X=v=>ax+(v-9.7)/(10.75-9.7)*aw;
+    line(ax,ay,ax+aw,ay,C["ink-soft"],1.6);[9.8,10,10.2,10.4,10.6].forEach(t=>{line(X(t),ay,X(t),ay+6,C["ink-soft"],1.2);txt(X(t),ay+20,t.toFixed(1),{size:11.5,mono:true,align:"center",color:C["ink-soft"]})});
+    line(X(10),90,X(10),ay,C.good,2,[5,4]);txt(X(10)+4,82,"true value 10.00 g",{size:12,weight:700,color:C.good});
+    const st=tgStats();if(st){for(let i=0;i<nshow;i++)circ(X(st.vals[i]),ay-14-i*18,6,C.accent,C.panel,1.4);if(nshow>=5){ctx.beginPath();ctx.moveTo(X(st.m),ay+2);ctx.lineTo(X(st.m)-7,ay+14);ctx.lineTo(X(st.m)+7,ay+14);ctx.closePath();ctx.fillStyle=C.act4;ctx.fill();
+      txt(444,360,"average "+st.m.toFixed(3)+" g ("+st.err.toFixed(1)+"% error)",{size:13,weight:700,mono:true});txt(444,384,"standard deviation "+st.sd.toFixed(3)+" g",{size:13,weight:700,mono:true});
+      label(540,424,st.acc?"accurate ✓":"accurate ✗",{size:13,weight:700,border:st.acc?C.good:C.bad,color:st.acc?C.good:C.bad});label(680,424,st.pre?"precise ✓":"precise ✗",{size:13,weight:700,border:st.pre?C.good:C.bad,color:st.pre?C.good:C.bad})}}
+    txt(444,464,"bias "+g.bias.toFixed(2)+" g · scatter ±"+g.scat.toFixed(3)+" g",{size:12,mono:true,color:C["ink-soft"]})}}
+function hotPlateL(x,y,w,on,T){rr(x,y,w,18,4);fillStroke(C["metal-dark"],null);rr(x+8,y-6,w-16,7,2);fillStroke(on?mix(C.heat,C["metal-dark"],.35+.15*Math.sin(T*4)):C.metal,null);circ(x+w-18,y+9,4,on?C.heat:C.metal)}
+function benchA11y(){const k=BS.inst,s=BS.s;
+  if(k==="tgt"){const st=tgStats();return [`Target game: ${st?"average "+st.m.toFixed(2)+" g, "+(st.acc?"accurate":"not accurate")+", "+(st.pre?"precise":"not precise"):"no readings yet"}.`,`On the left, a target with orange darts, one per balance reading. On the right, a dot plot of the five readings with a dashed green line at the true value, 10.00 g, and a triangle at the average. Systematic error is set to ${BS.tg.bias.toFixed(2)} g and random scatter to ${BS.tg.scat.toFixed(3)} g.${st?" Readings: "+st.vals.map(v=>v.toFixed(2)).join(", ")+" g; "+(st.acc?"accurate":"not accurate")+" and "+(st.pre?"precise":"not precise")+".":""}`]}
+  if(k==="cyl")return [`Graduated cylinder, ${s.cap} mL, marks every ${s.minor} mL. Reading ${BS.solved?s.read+" mL, correct":"not yet entered"}.`,`On the left, a tall graduated cylinder holds blue water. An eye beside it is ${["well below","below","level with","above","well above"][BS.eye+2]} the water surface, with a dashed line of sight. A large zoom circle shows the scale marks with numbers and the curved meniscus; its bottom sits between ${benchBetween()}${s.cap===100?", about "+(Math.round((s.V%1)*10))+" tenths of the way up":""}. A small circle shows water molecules sliding past each other.`];
+  if(k==="bal")return [`Digital balance with ${s.samp.name}. ${BS.solved?"Reading "+s.read+" g, correct.":""}`,`A digital balance holds a pile of ${s.samp.name} on weighing paper. Its display ${performance.now()-BS.t0<1600?"is still flickering in the last digit":"reads "+s.read+" g"}. A zoom circle shows the particles: ${s.samp.el==="NaCl"?"alternating purple sodium ions and green chloride ions in a grid":s.samp.el==="S"?"rings of eight yellow sulfur atoms":"identical "+s.samp.el+" atoms packed in rows"}. A symbol card shows the formula ${s.samp.f}.`];
+  if(k==="rul")return [`Ruler marked ${s.mm?"in millimeters":"in centimeters only"} measuring a ${s.obj[0]}. ${BS.solved?"Reading "+s.read+" cm, correct.":""}`,`A ${s.obj[0]} lies along a ruler starting at the 0 mark. A zoom circle over its end shows the end falling between the ${benchBetween()} marks, with a dashed orange line at the end.`];
+  return [`Thermometer in a water bath, target ${BS.bathTarget} °C, ${Math.abs(BS.bathT-BS.bathTarget)<=.06?"steady":"changing"}.`,`A beaker of water sits on a hot plate with a tall thermometer marked every degree, labelled every 10 °C. A zoom circle shows the red liquid column between ${benchBetween()}. A small circle shows water molecules moving ${BS.bathT>60?"fast":BS.bathT>25?"at a medium speed":"slowly"}.`]}
+
+/* ================= PART 2: problem trainer ================= */
+const TTYPES=[["mix","All types, mixed"],["prefix","Metric prefix conversions"],["sq","Squared and cubed units"],["dens","Density"],["temp","Temperature conversions"],["multi","Multi-step real problems"],["sfcount","Count the sig figs"],["sfcalc","Calculate with sig figs"]];
+const p10=e=>"10"+sup(e);
+const DMATS=[["aluminum","2.70",1],["iron","7.87",1],["copper","8.96",1],["lead","11.3",1],["gold","19.3",1],["ethanol","0.789",0],["glycerol","1.26",0],["blood","1.06",0],["mercury","13.6",0],["seawater","1.03",0]];
+function chainRes(ans,ansStr,u,n){return {raw:rawStr(ans),ans:ansStr,u,note:n?sfWord(n):""}}
+const GENS={
+ prefix(){const B=pick([["g","mass"],["m","length"],["L","volume"],["s","time"]]);const base=B[0];
+  const PF=[["k",3],["",0],["m",-3],["µ",-6]].concat(base==="m"?[["c",-2],["n",-9]]:base!=="L"?[["n",-9]]:[]);
+  let a,b;do{a=pick(PF);b=pick(PF)}while(a===b);const n=pick([2,3,3,4]);const vs=gv(n,1.05,980);const v=Number(vs);const ans=v*Math.pow(10,a[1]-b[1]);const u0=a[0]+base,u1=b[0]+base;
+  const items=[{n:[vs,[u0]]}];if(a[1]!==0)items.push({n:[p10(a[1]),[base]],d:["1",[u0]]});if(b[1]!==0)items.push({n:["1",[u1]],d:[p10(b[1]),[base]]});
+  const ansStr=fmtSF(ans,n);const slips=[[v*Math.pow(10,b[1]-a[1]),"The decimal moved the wrong way. Ask: is the new unit bigger or smaller? A smaller unit needs a bigger number."]];if(a[1]!==0&&b[1]!==0)slips.push([v*Math.pow(10,a[1]),`That stops at the base unit (${base}). Keep going to ${u1}.`]);
+  return {title:"Metric prefixes",html:`Convert <b>${vs} ${u0}</b> to <b>${u1}</b>.`,round:"Keep the same number of significant figures as the given value.",ans,n,ansStr,unit:u1,
+   hints:[`Plan: ${u0} → ${a[1]?base+" → ":""}${u1}. Going through the base unit (${base}) keeps it simple.`,`${a[1]?"1 "+u0+" = "+p10(a[1])+" "+base+". ":""}${b[1]?"1 "+u1+" = "+p10(b[1])+" "+base+".":""}`,`Set up: ${vs} ${u0}${a[1]?" × "+p10(a[1])+" "+base+"/1 "+u0:""}${b[1]?" × 1 "+u1+"/"+p10(b[1])+" "+base:""} = ?`],
+   slips,sol:{kind:"chain",items,res:chainRes(ans,ansStr,u1,n)},sfNote:`Prefix factors are exact, so the answer keeps the ${sfWord(n)} of ${vs}.`,vis:{k:"ladder",a:a[1],b:b[1],u0,u1,base,vs}}},
+ sq(){const CASES=[["m²","cm²",["100","cm","1","m",2],1e4],["cm²","m²",["1","m","100","cm",2],1e-4],["m³","cm³",["100","cm","1","m",3],1e6],["cm³","m³",["1","m","100","cm",3],1e-6],["cm³","mm³",["10","mm","1","cm",3],1e3],["mm³","cm³",["1","cm","10","mm",3],1e-3],["in²","cm²",["2.54","cm","1","in",2],6.4516],["m³","L",null,1e3],["L","cm³",null,1e3],["km²","m²",["1000","m","1","km",2],1e6]];
+  const c=pick(CASES);const n=pick([2,3]);const vs=gv(n,1.1,900);const v=Number(vs);const ans=v*c[3];const ansStr=fmtSF(ans,n);
+  const items=[{n:[vs,[c[0]]]}];if(c[2])items.push({n:[c[2][0],[c[2][1]]],d:[c[2][2],[c[2][3]]],pow:c[2][4]});else items.push(c[0]==="m³"?{n:["1000",["L"]],d:["1",["m³"]]}:{n:["1000",["cm³"]],d:["1",["L"]]});
+  const pw=c[2]?c[2][4]:1;const lin=Math.pow(c[3],1/pw);
+  const slips=[[v/c[3],"The conversion went the wrong way. Check which unit is bigger."]];if(pw>1)slips.push([v*lin,`You used the length factor once. For ${pw===2?"squared":"cubed"} units, raise the whole factor to the power ${pw}.`],[v/lin,`Use the factor raised to the power ${pw}, in the right direction.`]);
+  return {title:"Squared and cubed units",html:`Convert <b>${vs} ${c[0]}</b> to <b>${c[1]}</b>.`,round:"Keep the same number of significant figures as the given value (the factors are exact).",ans,n,ansStr,unit:c[1],
+   hints:[c[2]?`Start from the length relationship: ${c[2][2]} ${c[2][3]} = ${c[2][0]} ${c[2][1]}.`:(c[0]==="m³"?"1 m³ = 1000 L.":"1 L = 1000 mL = 1000 cm³."),c[2]?`The unit is ${pw===2?"squared":"cubed"}, so raise the factor to the power ${pw}: (${c[2][0]} ${c[2][1]} / ${c[2][2]} ${c[2][3]})${sup(pw)}.`:"Put the unit you are cancelling on the bottom of the factor.",`So 1 ${c[0]} = ${fmtSF(c[3],5)} ${c[1]}.`],
+   slips,sol:{kind:"chain",items,res:chainRes(ans,ansStr,c[1],n)},sfNote:`The factor is exact, so the answer keeps ${sfWord(n)}.`,vis:{k:"cube",pw,u0:c[0],u1:c[1],c}}},
+ dens(){const mode=pick(["d","disp","m","V"]);let M=pick(DMATS);if(mode==="disp")while(!M[2])M=pick(DMATS);const ds=M[1],d=Number(ds),vu=M[2]?"cm³":"mL";
+  if(mode==="d"){const Vs=gv(pick([2,3]),2.2,60);const V=Number(Vs);const ms=fmtSF(d*V*(1+(Math.random()-.5)*.004),pick([3,4]),{sci:false});const m=Number(ms);const n=Math.min(sfN(ms),sfN(Vs));const ans=m/V;const ansStr=fmtSF(ans,n);
+    return {title:"Density: find d",html:`A sample of ${M[0]} has a mass of <b>${ms} g</b> and a volume of <b>${Vs} ${vu}</b>. What is its density?`,round:"Use the multiplication and division rule for significant figures.",ans,n,ansStr,unit:"g/"+vu,
+     hints:["Density = mass ÷ volume.",`Put mass on top: ${ms} g ÷ ${Vs} ${vu}.`,`${ms} has ${sfN(ms)} sig figs and ${Vs} has ${sfN(Vs)}, so keep ${n}.`],slips:[[m*V,"Density is mass divided by volume, not multiplied."],[V/m,"That is volume ÷ mass, upside down. Mass goes on top."]],
+     sol:{kind:"chain",items:[{n:[ms,["g"]],d:[Vs,[vu]]}],res:chainRes(ans,ansStr,"g/"+vu,n)},sfNote:`${ms} (${sfN(ms)}) ÷ ${Vs} (${sfN(Vs)}): keep ${n}. The table value for ${M[0]} is ${ds} g/${vu}.`,vis:{k:"dens",mode,M,ms,Vs,vu}}}
+  if(mode==="disp"){const Vi=(rint(100,400)/10);const dV=rint(15,110)/10;const ms=(d*dV*(1+(Math.random()-.5)*.03)).toFixed(2);const Vis=Vi.toFixed(1),Vfs=(Vi+dV).toFixed(1),dVs=dV.toFixed(1);const m=Number(ms);const nV=sfN(dVs);const n=Math.min(sfN(ms),nV);const ans=m/dV;const ansStr=fmtSF(ans,n);
+    return {title:"Density by water displacement",html:`A piece of metal has a mass of <b>${ms} g</b>. Dropped into a graduated cylinder, it raises the water from <b>${Vis} mL</b> to <b>${Vfs} mL</b>. What is its density?`,round:"Subtraction keeps the tenths place; then use the fewest sig figs.",ans,n,ansStr,unit:"g/mL",
+     hints:["The sample's volume is the rise in the water level: final − initial.",`ΔV = ${Vfs} − ${Vis} = ${dVs} mL, which has ${sfWord(nV)}.`,`d = ${ms} g ÷ ${dVs} mL; keep ${n} sig figs.`],slips:[[m/(Vi+dV),"You divided by the final water level. Use the change in volume."],[m/Vi,"You divided by the starting water level. Use the change in volume."],[m*dV,"Divide mass by volume, do not multiply."]],
+     sol:{kind:"chain",pre:`ΔV = ${Vfs} mL − ${Vis} mL = ${dVs} mL (${sfWord(nV)})`,items:[{n:[ms,["g"]],d:[dVs,["mL"]]}],res:chainRes(ans,ansStr,"g/mL",n)},sfNote:`Subtracting kept the tenths place, so ΔV has ${sfWord(nV)}; the answer gets ${n}. Close to ${M[0]} (${ds} g/cm³).`,vis:{k:"dens",mode,M,ms,Vs:dVs,Vis,Vfs,vu:"mL"}}}
+  if(mode==="m"){const Vs=gv(pick([2,3,4]),1.5,250);const V=Number(Vs);const n=Math.min(sfN(Vs),sfN(ds));const ans=d*V;const ansStr=fmtSF(ans,n);
+    return {title:"Density: find mass",html:`The density of ${M[0]} is <b>${ds} g/${vu}</b>. What is the mass of <b>${Vs} ${vu}</b>?`,round:"Use the multiplication rule for significant figures.",ans,n,ansStr,unit:"g",
+     hints:["Use density as a conversion factor: g per "+vu+".",`Multiply the volume by ${ds} g / 1 ${vu} so that ${vu} cancels.`,`${Vs} × ${ds} = ?, kept to ${n} sig figs.`],slips:[[V/d,"Dividing leaves "+vu+"²/g. Multiply volume by density so the volume units cancel."],[d/V,"Set it up as volume × density."]],
+     sol:{kind:"chain",items:[{n:[Vs,[vu]]},{n:[ds,["g"]],d:["1",[vu]]}],res:chainRes(ans,ansStr,"g",n)},sfNote:`${Vs} (${sfN(Vs)}) × ${ds} (${sfN(ds)}): keep ${n}.`,vis:{k:"dens",mode,M,Vs,vu}}}
+  const ms=gv(pick([2,3,4]),2,400);const m=Number(ms);const n=Math.min(sfN(ms),sfN(ds));const ans=m/d;const ansStr=fmtSF(ans,n);
+  return {title:"Density: find volume",html:`The density of ${M[0]} is <b>${ds} g/${vu}</b>. What volume does <b>${ms} g</b> occupy?`,round:"Use the division rule for significant figures.",ans,n,ansStr,unit:vu,
+   hints:["Flip the density so grams are on the bottom: 1 "+vu+" / "+ds+" g.",`${ms} g × 1 ${vu} / ${ds} g.`,`Keep ${n} sig figs.`],slips:[[m*d,"Multiplying gives g²/"+vu+". Use 1 "+vu+" / "+ds+" g so grams cancel."],[d/m,"Upside down. Grams go on the bottom of the factor."]],
+   sol:{kind:"chain",items:[{n:[ms,["g"]]},{n:["1",[vu]],d:[ds,["g"]]}],res:chainRes(ans,ansStr,vu,n)},sfNote:`${ms} (${sfN(ms)}) ÷ ${ds} (${sfN(ds)}): keep ${n}.`,vis:{k:"dens",mode,M,ms,vu}}},
+ temp(){const mode=pick(["FC","CF","CK","KC","FK"]);
+  if(mode==="FC"||mode==="FK"){let F;do{F=rint(-200,2200)/10}while(Math.abs(F-32)<3);const Fs=F.toFixed(1);const diff=F-32,diffS=fmtPlace(diff,-1),nd=sfOfPlace(diff,-1);const Cx=diff*5/9;const Cs=fmtSF(Cx,nd,{sci:false});
+    if(mode==="FC")return {title:"Temperature: °F to °C",html:`Convert <b>${Fs} °F</b> to °C.`,round:"32 and 5/9 are exact; the measurement sets the precision.",ans:Cx,n:nd,ansStr:Cs,unit:"°C",
+     hints:["°C = (°F − 32) × 5/9. Subtract first!",`${Fs} − 32 = ${diffS}, known to the tenths place (${sfWord(nd)}).`,`${diffS} × 5/9 = ?, kept to ${nd} sig figs.`],slips:[[F*5/9-32,"You multiplied before subtracting 32. Subtract 32 first."],[diff*9/5,"Going to °C, multiply by 5/9, not 9/5."],[diff,"Do not forget to multiply by 5/9."]],
+     sol:{kind:"steps",lines:[["°C = (°F − 32) × 5/9","subtract first"],[`(${Fs} − 32) = ${diffS}`,"tenths place"],[`${diffS} × 5/9 = ${Cs} °C`,sfWord(nd)]]},sfNote:`The subtraction keeps the tenths place, so ${diffS} has ${sfWord(nd)}; multiplying by the exact 5/9 keeps ${nd}.`,vis:{k:"temp",F,C:Cx}};
+    const Cr=roundSF(Cx,nd),pc=expOf(Cr)-nd+1;const K=Cx+273.15,pl=Math.max(pc,-2);const Ks=fmtPlace(K,pl),n=sfOfPlace(K,pl);
+    return {title:"Temperature: °F to K",html:`Convert <b>${Fs} °F</b> to kelvins.`,round:"Go through °C. 32, 5/9 and 273.15 are exact.",ans:K,n,ansStr:Ks,unit:"K",
+     hints:["Two steps: °F → °C, then °C → K.",`°C = (${Fs} − 32) × 5/9 = ${Cs} °C.`,`K = ${Cs} + 273.15, rounded to the ${pl===-1?"tenths":pl===0?"ones":"hundredths"} place.`],slips:[[F+273.15,"You added 273.15 to the °F value. Convert to °C first."],[(F*5/9-32)+273.15,"Subtract 32 before multiplying by 5/9."],[Cx,"That is the °C value. Add 273.15 for kelvins."]],
+     sol:{kind:"steps",lines:[[`(${Fs} − 32) × 5/9 = ${Cs} °C`,sfWord(nd)],["K = °C + 273.15","exact"],[`${Cs} + 273.15 = ${rawStr(Cr+273.15)} → ${Ks} K`,"decimal places"]]},sfNote:`Adding keeps the decimal place of ${Cs}, giving ${Ks} K.`,vis:{k:"temp",F,C:Cx,K}}}
+  if(mode==="CF"){let C;do{C=rint(-400,1500)/10}while(Math.abs(C)<1);const Cs=C.toFixed(1);const n0=sfN(Cs);const pr=roundSF(C*1.8,n0);const pl=expOf(pr)-n0+1;const F=C*1.8+32;const Fs=fmtPlace(F,pl),n=sfOfPlace(F,pl);
+    return {title:"Temperature: °C to °F",html:`Convert <b>${Cs} °C</b> to °F.`,round:"1.8 and 32 are exact; the measurement sets the precision.",ans:F,n,ansStr:Fs,unit:"°F",
+     hints:["°F = 1.8 × °C + 32. Multiply first, then add.",`1.8 × ${Cs} = ${fmtSF(pr,n0)} (${sfWord(n0)}).`,`${fmtSF(pr,n0)} + 32 = ?, kept to the same decimal place.`],slips:[[(C+32)*1.8,"Multiply first, then add 32."],[C*1.8,"Do not forget to add 32."],[C*5/9+32,"Going to °F, multiply by 1.8 (9/5), not 5/9."]],
+     sol:{kind:"steps",lines:[["°F = 1.8 × °C + 32","multiply first"],[`1.8 × ${Cs} = ${fmtSF(pr,n0)}`,sfWord(n0)],[`${fmtSF(pr,n0)} + 32 = ${Fs} °F`,"decimal places"]]},sfNote:`Multiplying keeps ${sfWord(n0)}; adding the exact 32 keeps that decimal place.`,vis:{k:"temp",C,F}}}
+  if(mode==="CK"){let C;do{C=rint(-1500,3000)/10}while(Math.abs(C)<1);const Cs=C.toFixed(1);const K=C+273.15;const Ks=fmtPlace(K,-1),n=sfOfPlace(K,-1);
+    return {title:"Temperature: °C to K",html:`Convert <b>${Cs} °C</b> to kelvins.`,round:"273.15 is exact; keep the tenths place of the measurement.",ans:K,n,ansStr:Ks,unit:"K",
+     hints:["K = °C + 273.15.",`${Cs} + 273.15 = ${rawStr(K)}.`,"Round to the tenths place, the decimal place of the measurement."],slips:[[C-273.15,"Add 273.15 to go from °C to K."],[C*1.8+32,"That is °F. Kelvins use K = °C + 273.15."]],
+     sol:{kind:"steps",lines:[["K = °C + 273.15","exact"],[`${Cs} + 273.15 = ${rawStr(K)}`,"calculator"],[`→ ${Ks} K`,"tenths place"]]},sfNote:"Addition: keep the fewest decimal places (the tenths place of "+Cs+").",vis:{k:"temp",C,K}}}
+  let K;do{K=rint(2000,4500)/10}while(Math.abs(K-273.15)<1);const Ks=K.toFixed(1);const C=K-273.15;const Cs=fmtPlace(C,-1),n=sfOfPlace(C,-1);
+  return {title:"Temperature: K to °C",html:`Convert <b>${Ks} K</b> to °C.`,round:"273.15 is exact; keep the tenths place of the measurement.",ans:C,n,ansStr:Cs,unit:"°C",
+   hints:["°C = K − 273.15.",`${Ks} − 273.15 = ${rawStr(C)}.`,"Round to the tenths place."],slips:[[K+273.15,"Subtract 273.15 to go from K to °C."]],
+   sol:{kind:"steps",lines:[["°C = K − 273.15","exact"],[`${Ks} − 273.15 = ${rawStr(C)}`,"calculator"],[`→ ${Cs} °C`,"tenths place"]]},sfNote:"Subtraction: keep the tenths place of "+Ks+".",vis:{k:"temp",C,K}}},
+ multi(){const mode=pick(["speed","kmh","dose","mass"]);
+  if(mode==="speed"){const vs=gv(pick([2,3]),21,85);const v=Number(vs);const n=sfN(vs);const ans=v*1.609*1000/3600;const ansStr=fmtSF(ans,n);
+    return {title:"Multi-step: speed",html:`A car travels at <b>${vs} mi/h</b>. What is that in m/s? Use 1 mi = 1.609 km.`,round:"1.609 has 4 sig figs; 1000 m/km and 60 s/min are exact.",ans,n,ansStr,unit:"m/s",
+     hints:["Plan two paths: mi → km → m on top, and h → min → s on the bottom.","Factors: 1.609 km/1 mi, 1000 m/1 km, 1 h/60 min, 1 min/60 s.",`${vs} × 1.609 × 1000 ÷ 60 ÷ 60 = ?`],slips:[[v*1.609*1000/60,"You divided by 60 only once. Hours → minutes → seconds needs two factors of 60."],[v*1.609*1000*3600,"The time factors are upside down: hours must end up cancelled."],[v/1.609*1000/3600,"The mile factor is upside down: put mi on the bottom."]],
+     sol:{kind:"chain",items:[{n:[vs,["mi"]],d:["1",["h"]]},{n:["1.609",["km"]],d:["1",["mi"]]},{n:["1000",["m"]],d:["1",["km"]]},{n:["1",["h"]],d:["60",["min"]]},{n:["1",["min"]],d:["60",["s"]]}],res:chainRes(ans,ansStr,"m/s",n)},sfNote:`${vs} has ${sfWord(n)}; the factors do not limit it.`,vis:{k:"speed",vs,u:"mi/h"}}}
+  if(mode==="kmh"){const vs=gv(pick([2,3]),5.5,120);const v=Number(vs);const n=sfN(vs);const ans=v*1000/3600;const ansStr=fmtSF(ans,n);
+    return {title:"Multi-step: speed",html:`A cyclist rides at <b>${vs} km/h</b>. What is that in m/s?`,round:"1000 m/km and 60 s/min are exact.",ans,n,ansStr,unit:"m/s",
+     hints:["km → m on top; h → min → s on the bottom.","Factors: 1000 m/1 km, 1 h/60 min, 1 min/60 s.",`${vs} × 1000 ÷ 3600 = ?`],slips:[[v*3.6,"Multiply by 1000 and divide by 3600 (that is ÷ 3.6), not × 3.6."],[v*1000/60,"Divide by 60 twice: hours → minutes → seconds."]],
+     sol:{kind:"chain",items:[{n:[vs,["km"]],d:["1",["h"]]},{n:["1000",["m"]],d:["1",["km"]]},{n:["1",["h"]],d:["60",["min"]]},{n:["1",["min"]],d:["60",["s"]]}],res:chainRes(ans,ansStr,"m/s",n)},sfNote:`Exact factors; ${vs} sets ${sfWord(n)}.`,vis:{k:"speed",vs,u:"km/h"}}}
+  if(mode==="dose"){for(let t=0;t<80;t++){const lb=gv(3,20,90);const dose=pick(["5.0","10.","12.5","15","20."]);const cc=pick([["100.","5.00"],["160.","5.00"],["250.","5.00"],["40.0","1.00"]]);const L=Number(lb),D=Number(dose),cm=Number(cc[0]),cv=Number(cc[1]);
+    const ans=L/2.205*D*cv/cm;if(ans>25||ans<1)continue;const n=Math.min(sfN(lb),sfN(dose),3);const ansStr=fmtSF(ans,n);
+    return {title:"Multi-step: weight-based dose (practice)",html:`<i>Practice numbers only.</i> A child weighs <b>${lb} lb</b>. The order is <b>${dose} mg/kg</b>. The liquid contains <b>${cc[0]} mg per ${cc[1]} mL</b>. What volume is given? Use 1 kg = 2.205 lb.`,round:"Keep the fewest sig figs of the measured values.",ans,n,ansStr,unit:"mL",
+     hints:["Plan: lb → kg → mg → mL.",`${lb} lb × 1 kg/2.205 lb = ${rawStr(L/2.205)} kg; × ${dose} mg/kg = ${rawStr(L/2.205*D)} mg.`,`× ${cc[1]} mL / ${cc[0]} mg = ? (keep ${n} sig figs)`],slips:[[L*D*cv/cm,"You skipped the pound-to-kilogram step. That overdose is why units matter."],[L*2.205*D*cv/cm,"The lb → kg factor is upside down: divide by 2.205."],[L/2.205*D/cm,`You forgot the ${cc[1]} mL in the concentration.`]],
+     sol:{kind:"chain",items:[{n:[lb,["lb"]]},{n:["1",["kg"]],d:["2.205",["lb"]]},{n:[dose,["mg"]],d:["1",["kg"]]},{n:[cc[1],["mL"]],d:[cc[0],["mg"]]}],res:chainRes(ans,ansStr,"mL",n)},sfNote:`${dose} mg/kg has ${sfWord(sfN(dose))}, so the answer gets ${n}.`,vis:{k:"dose",lb,dose,cc}}}}
+  const Q=pick([["ethanol","0.789"],["glycerol","1.26"],["seawater","1.03"],["olive oil","0.92"]]);const Vs=gv(pick([2,3]),.6,19);const V=Number(Vs);const n=Math.min(sfN(Vs),sfN(Q[1]));const ans=V*Number(Q[1]);const ansStr=fmtSF(ans,n);
+  return {title:"Multi-step: mass from volume",html:`What is the mass, in kilograms, of <b>${Vs} L</b> of ${Q[0]} (density <b>${Q[1]} g/mL</b>)?`,round:"1000 mL/L and 1000 g/kg are exact.",ans,n,ansStr,unit:"kg",
+   hints:["Plan: L → mL → g → kg.","Factors: 1000 mL/1 L, "+Q[1]+" g/1 mL, 1 kg/1000 g.",`${Vs} × 1000 × ${Q[1]} ÷ 1000 = ?`],slips:[[ans*1000,"That is in grams. Convert g → kg (÷ 1000)."],[ans/1000,"You divided by 1000 twice; L → mL multiplies by 1000."],[V/Number(Q[1]),"Multiply volume by density, do not divide."]],
+   sol:{kind:"chain",items:[{n:[Vs,["L"]]},{n:["1000",["mL"]],d:["1",["L"]]},{n:[Q[1],["g"]],d:["1",["mL"]]},{n:["1",["kg"]],d:["1000",["g"]]}],res:chainRes(ans,ansStr,"kg",n)},sfNote:`${Vs} (${sfN(Vs)}) and ${Q[1]} (${sfN(Q[1])}): keep ${n}.`,vis:{k:"mass",Vs,Q}}},
+ sfcount(){const T_=pick(["lead","captive","trail","nodec","dot","sci"]);let s;const nz=()=>String(rint(1,9));const dg=()=>String(rint(0,9));
+  if(T_==="lead")s="0."+"0".repeat(rint(0,3))+nz()+(Math.random()<.5?"0"+nz():dg()+nz())+(Math.random()<.4?"0":"");
+  else if(T_==="captive")s=pick([nz()+"0"+nz(),nz()+"00"+nz(),nz()+"0."+"0"+nz(),nz()+"."+"0"+"0"+nz(),nz()+nz()+"0"+nz()]);
+  else if(T_==="trail")s=pick([nz()+"."+nz()+"0",nz()+"."+nz()+"00",nz()+nz()+".0","0.0"+nz()+"0",nz()+"."+"000"]);
+  else if(T_==="nodec")s=pick([nz()+"00",nz()+nz()+"00",nz()+"0"+nz()+"0",nz()+"000"]);
+  else if(T_==="dot")s=pick([nz()+"00.",nz()+nz()+"0.",nz()+"0"+"0"+"0."]);
+  else{const e=pick([3,4,5,6,-2,-3,-4,-5]);s=nz()+"."+pick([nz()+"0",nz()+nz(),"0"+nz()+"0","00",nz()+nz()+"0"])+" × 10"+sup(e)}
+  const inf=sfInfo(normAns(s));const ans=inf.min;const cats=sfCats(s);const amb=!inf.exact;
+  return {title:"Count the significant figures",html:`How many significant figures are in <b class="mono">${s}</b>?`,round:amb?"There is no decimal point, so treat trailing zeros as not significant.":"Count every significant digit.",ans,n:null,ansStr:String(ans),unit:"sig figs",
+   hints:["Leading zeros never count. Nonzero digits always count.","Zeros between nonzero digits count. Trailing zeros count only if there is a decimal point.",`In scientific notation, count only the digits in the coefficient.`],slips:[[s.replace(/[^0-9]/g,"").length,"You counted every digit. Leading zeros (and trailing zeros without a decimal point) are placeholders."]],
+   sol:{kind:"steps",lines:sfLines(s,cats,ans)},sfNote:"",vis:{k:"sfcount",s,cats}}},
+ sfcalc(){const mode=pick(["mul","div","add","sub","mix"]);
+  if(mode==="mul"){const a=gv(pick([2,3,4]),1.5,30),b=gv(pick([2,3,4]),1.5,30);const n=Math.min(sfN(a),sfN(b));const ans=Number(a)*Number(b);const ansStr=fmtSF(ans,n);
+    return {title:"Sig figs: multiplying",html:`A rectangle measures <b>${a} cm</b> by <b>${b} cm</b>. What is its area?`,round:"Multiplication: keep the fewest sig figs.",ans,n,ansStr,unit:"cm²",hints:["Area = length × width; cm × cm = cm².",`${a} has ${sfN(a)} sig figs and ${b} has ${sfN(b)}.`,`Round the product to ${n}.`],slips:[[ans,"That is the calculator's full answer. Round to the fewest sig figs."]],
+     sol:{kind:"chain",items:[{n:[a,["cm"]]},{n:[b,["cm"]]}],res:chainRes(ans,ansStr,"cm²",n)},sfNote:`${sfN(a)} and ${sfN(b)} sig figs → ${n}.`,vis:{k:"calc",raw:ans,ansStr}}}
+  if(mode==="div"){const d=gv(pick([3,4]),20,480),t=gv(pick([2,3]),.6,9.5);const n=Math.min(sfN(d),sfN(t));const ans=Number(d)/Number(t);const ansStr=fmtSF(ans,n);
+    return {title:"Sig figs: dividing",html:`A train travels <b>${d} km</b> in <b>${t} h</b>. What is its average speed?`,round:"Division: keep the fewest sig figs.",ans,n,ansStr,unit:"km/h",hints:["Speed = distance ÷ time.",`${d} has ${sfN(d)} sig figs and ${t} has ${sfN(t)}.`,`Round to ${n}.`],slips:[[ans,"That is the calculator's full answer. Round to the fewest sig figs."],[Number(d)*Number(t),"Speed is distance divided by time."]],
+     sol:{kind:"chain",items:[{n:[d,["km"]],d:[t,["h"]]}],res:chainRes(ans,ansStr,"km/h",n)},sfNote:`${sfN(d)} and ${sfN(t)} sig figs → ${n}.`,vis:{k:"calc",raw:ans,ansStr}}}
+  if(mode==="add"||mode==="sub"){const dps=[rint(0,3),rint(0,3),rint(0,3)];while(dps[0]===dps[1]&&dps[1]===dps[2])dps[rint(0,2)]=rint(0,3);
+    const vals=dps.map(d=>(1+Math.random()*(mode==="sub"?40:60)).toFixed(d));if(mode==="sub"){vals[0]=(Number(vals[1])+5+Math.random()*60).toFixed(dps[0]);vals.length=2;dps.length=2}
+    const sum=mode==="sub"?Number(vals[0])-Number(vals[1]):vals.reduce((a,b)=>a+Number(b),0);const pl=-Math.min(...dps);const ansStr=fmtPlace(sum,pl);const n=sfOfPlace(sum,pl);
+    const expr=vals.join(mode==="sub"?" − ":" + ");
+    return {title:mode==="sub"?"Sig figs: subtracting":"Sig figs: adding",html:`Calculate with the correct significant figures: <b>${expr}</b> (all in g).`,round:"Addition and subtraction: keep the fewest decimal places.",ans:sum,n,ansStr,unit:"g",hints:["Line up the decimal points.",`The least precise value stops at the ${pl===0?"ones":pl===-1?"tenths":pl===-2?"hundredths":"thousandths"} place.`,`Round ${rawStr(sum)} to that place.`],slips:[[sum,"That keeps every calculator digit. Round to the fewest decimal places."],[roundSF(sum,Math.min(...vals.map(sfN))),"For + and −, count decimal places, not sig figs."]],
+     sol:{kind:"steps",lines:[[expr+" = "+rawStr(sum),"calculator"],["least precise: "+vals[dps.indexOf(Math.min(...dps))],(pl===0?"ones":pl===-1?"tenths":pl===-2?"hundredths":"thousandths")+" place"],["→ "+ansStr+" g",sfWord(n)]]},sfNote:"Decimal places, not sig figs, decide + and −.",vis:{k:"calc",raw:sum,ansStr}}}
+  const a=(10+Math.random()*30).toFixed(1),b=(1+Math.random()*9).toFixed(2),c=gv(pick([2,3]),1.1,9.8);const s1=Number(a)+Number(b);const sS=fmtPlace(s1,-1),nS=sfOfPlace(s1,-1);const n=Math.min(nS,sfN(c));const ans=s1*Number(c);const ansStr=fmtSF(ans,n);
+  return {title:"Sig figs: two rules in one",html:`Calculate with the correct significant figures: <b>(${a} + ${b}) × ${c}</b>.`,round:"Apply the addition rule to the brackets, then the multiplication rule.",ans,n,ansStr,unit:"",hints:["Do the bracket first, but note its precision instead of rounding hard.",`${a} + ${b} = ${rawStr(s1)}, known to the tenths place: ${sfWord(nS)}.`,`Then × ${c} (${sfWord(sfN(c))}): keep ${n}.`],slips:[[ans,"That is the calculator's full answer. Round at the end."]],
+   sol:{kind:"steps",lines:[[`${a} + ${b} = ${rawStr(s1)} → ${sS}`,`tenths: ${sfWord(nS)}`],[`${rawStr(s1)} × ${c} = ${rawStr(ans)}`,"keep digits, round once"],[`→ ${ansStr}`,sfWord(n)]]},sfNote:`Bracket: ${sfWord(nS)}; × ${c}: ${sfWord(sfN(c))}; answer ${n}.`,vis:{k:"calc",raw:ans,ansStr}}}};
+function sfLines(s,cats,ans){const mant=s.split(" ")[0];const L=[];const z=[],sig=[];for(let i=0;i<mant.length;i++){if(cats[i]==="p")continue;if(cats[i]==="z")z.push(mant[i]);else sig.push(mant[i])}
+  L.push([`digits that count: ${sig.join(" ")}`,`${sig.length}`]);if(z.length)L.push([`placeholder zeros: ${z.length}`,"not counted"]);if(/×/.test(s))L.push(["the power of ten never counts","exponent"]);L.push([`answer: ${ans}`,sfWord(ans)]);return L}
+const TR={type:"mix",p:null,hint:0,first:true,sol:false,solT:0,solved:false,streak:0,best:0,count:0};
+function trNew(){const keys=Object.keys(GENS);const k=TR.type==="mix"?pick(keys):TR.type;TR.p=GENS[k]();TR.p.kind=k;TR.hint=0;TR.first=true;TR.sol=false;TR.solved=false;
+  const p=TR.p;$("#trProb").innerHTML=`<span class="pt">${p.title} · practice problem</span>${p.html}<span class="rd">${p.round}</span>`;$("#trUnit").textContent=p.unit;$("#trAns").value="";
+  $("#trMsg").className="msg";$("#trHintBox").hidden=true;$("#trCap").textContent="The picture updates with your answer; the worked solution appears after a correct answer or when you ask for it.";a11yKey=""}
+function trMsg(c,t){const m=$("#trMsg");m.className="msg show "+c;m.textContent=t}
+function trCheck(){const p=TR.p;const raw=$("#trAns").value;let r;
+  if(p.n==null){const P=parseAns(raw);r=!P?{k:"nan"}:Math.abs(P.v-p.ans)<1e-9?{k:"ok",P}:{k:"no",P}}else r=judgeNum(raw,p.ans,p.n);
+  if(r.k==="nan"){trMsg("info","Type a number in the answer box first.");return}
+  const unitT=p.unit?" "+p.unit:"";
+  if(r.k==="ok"||r.k==="okr"){if(!TR.solved){TR.count++;if(TR.first&&!TR.sol){TR.streak++;if(TR.streak>TR.best){TR.best=TR.streak;store.set("tr-best",TR.best)}}}TR.solved=true;
+    trMsg("good",`✓ Correct: ${p.ansStr}${unitT}.${r.k==="okr"?" (The exact answer rounds to "+p.ansStr+"; yours differs only from rounding in the middle steps. Keep extra digits until the end.)":""} ${p.sfNote}`);trShowSol(false)}
+  else if(r.k==="sf"){if(!TR.solved)TR.count++;TR.solved=true;TR.first=false;
+    trMsg("warn",`Your value is right, but the significant figures are off: you gave ${r.P.info.min===r.P.info.max?r.P.info.min:r.P.info.min+" to "+r.P.info.max}, and the answer needs ${p.n}. Write it as ${p.ansStr}${unitT}. ${p.sfNote} (Counted as solved; the streak needs sig figs too.)`);trShowSol(false)}
+  else{TR.first=false;TR.streak=0;let m="Not quite. ";const sl=p.slips.find(s=>isFinite(s[0])&&Math.abs(r.P.v-s[0])<=Math.max(Math.abs(s[0])*.012,1e-12));
+    if(sl)m+=sl[1];else if(r.k==="close")m+="Close, but not within rounding. Check each factor and keep extra digits until the end.";else m+="Check the setup. "+p.hints[0];trMsg("warn",m)}
+  trMeter();a11yKey=""}
+function trShowSol(byBtn){if(byBtn&&!TR.solved){TR.streak=0;TR.first=false}TR.sol=true;TR.solT=performance.now();trMeter();a11yKey=""}
+function trMeter(){$("#trStreak").textContent=TR.streak;$("#trBest").textContent=TR.best;$("#trSolved").textContent=TR.count}
+/* drawing */
+function trVal(){const P=parseAns($("#trAns").value);return P?P.v:null}
+function drawTrainer(now){use(S2);const p=TR.p,v=p.vis,T=now/1000;const typed=trVal();
+  panelBox(10,10,780,252);title(24,30,p.title);
+  if(v.k==="ladder"){const L=LADDER2.filter(r=>r[2]>=-9&&!(r[1]==="c"&&v.base!=="m"));const xs=i=>60+i*(680/(L.length-1));
+    L.forEach((r,i)=>{const on=r[2]===v.a||r[2]===v.b;rr(xs(i)-34,80,68,46,8);fillStroke(on?C["accent-wash"]:C.panel,on?C.accent:C.rule,on?2.4:1.2);txt(xs(i),96,(r[1]||"")+v.base,{size:15,weight:700,mono:true,align:"center",color:on?C["accent-ink"]:C.ink});sciTxt(xs(i),116,p10(r[2]),{size:12,align:"center",color:C["ink-soft"]})});
+    const ia=L.findIndex(r=>r[2]===v.a),ib=L.findIndex(r=>r[2]===v.b);const f=smooth(P(T,3));const x=lerp(xs(ia),xs(ib),f);ctx.beginPath();ctx.moveTo(xs(ia),136);ctx.quadraticCurveTo((xs(ia)+xs(ib))/2,180,xs(ib),136);ctx.strokeStyle=C.accent;ctx.lineWidth=2.4;ctx.stroke();circ(x,136+44*4*f*(1-f)*.9,7,C.accent);
+    txt(400,206,`${v.vs} ${v.u0} → ? ${v.u1}`,{size:18,weight:700,mono:true,align:"center"});txt(400,236,`${Math.abs(v.a-v.b)} powers of ten; ${v.a>v.b?"smaller unit, bigger number":"bigger unit, smaller number"}`,{size:13,weight:600,align:"center",color:C["ink-soft"]})}
+  if(v.k==="cube"){const P_=isoBox(200,170,90,90,v.pw===3?90:6,mix(C.water,C.panel,.3),{grid:10});txt(200,236,v.pw===3?"each edge converts, so the factor is cubed":"each side converts, so the factor is squared",{size:12.5,weight:600,align:"center",color:C["ink-soft"]});
+    if(v.c[2]){label(380,100,`${v.c[2][2]} ${v.c[2][3]} = ${v.c[2][0]} ${v.c[2][1]} along each edge`,{size:13,weight:700,border:C.accent,align:"left"});label(380,145,`factor: (${v.c[2][0]} ${v.c[2][1]} / ${v.c[2][2]} ${v.c[2][3]})${sup(v.pw)}`,{size:13,weight:700,mono:true,border:C.rule,align:"left"})}else label(380,120,v.u0==="m³"?"1 m³ = 1000 L":"1 L = 1000 cm³",{size:13,weight:700,border:C.accent,align:"left"});
+    txt(380,195,"Your answer: "+(typed==null?"?":String(typed))+" "+v.u1,{size:14,weight:700,mono:true})}
+  if(v.k==="dens"){const Y=cylinder(60,46,52,200,50,v.mode==="disp"?(TR.solved?Number(v.Vfs):Number(v.Vis)):30,{major:10,minor:2});if(v.mode==="disp")label(150,Y(Number(v.Vis)),v.Vis+" → "+v.Vfs+" mL",{size:12,weight:700,mono:true,border:C.accent,align:"left"});
+    balance(330,150,170,(v.ms||"?")+" g",{h:70});lump(415,138,v.M[2]?16:0,C[v.M[0]==="aluminum"?"el-al":v.M[0]==="iron"?"iron":v.M[0]==="copper"?"el-cu":v.M[0]==="lead"?"el-pb":v.M[0]==="gold"?"el-au":"el-al"]);
+    lens(650,130,96,null,(X,Yc,R)=>{const el={aluminum:"Al",iron:"Fe",copper:"Cu",lead:"Pb",gold:"Au",mercury:"Pb"}[v.M[0]];if(el){for(let j=-4;j<=4;j++)for(let k=-4;k<=4;k++){const ax=X+k*25+(j&1?12.5:0),ay=Yc+j*21.6;if(Math.hypot(ax-X,ay-Yc)>R+12)continue;atom(ax+Math.sin(T*9+j+k),ay,12,el==="Pb"&&v.M[0]==="mercury"?"Pb":el,{col:v.M[0]==="mercury"?C.metal:undefined})}}else{ctx.fillStyle=hexA(C.water,.4);ctx.fillRect(X-R,Yc-R,2*R,2*R);if(v.M[0]==="ethanol")for(let i=0;i<6;i++){const q=liqPos(i,T*25,{x:X-R*.8,y:Yc-R*.8,w:R*1.6,h:R*1.6},20);mol("C2H5OH",q[0],q[1],15,rnd(i)*TAU+Math.sin(T+i)*.3)}else waterField(X,Yc,R,"liquid",T,{s:17,sp:40})}},{title:v.M[0].toUpperCase()});
+    txt(400,240,"d = m / V   ·   table value for "+v.M[0]+": "+v.M[1]+" g/"+v.vu,{size:13,weight:600,align:"center",color:C["ink-soft"]})}
+  if(v.k==="temp"){const cols=[["°F",v.F],["°C",v.C],["K",v.K]];const all=[v.C!=null?v.C:null].filter(x=>x!=null);const cC=v.C!=null?v.C:(v.K!=null?v.K-273.15:(v.F-32)*5/9);
+    const lo=Math.floor((cC-25)/10)*10,hi=lo+60;cols.forEach((c,i)=>{const x=150+i*250;const conv=i===0?cC*1.8+32:i===1?cC:cC+273.15;const lo_=i===0?lo*1.8+32:i===1?lo:lo+273.15,hi_=i===0?hi*1.8+32:i===1?hi:hi+273.15;
+      const shown=(i===0&&p.html.indexOf("°F</b>")>=0)||(i===1&&/<b>[-0-9.]+ °C<\/b>/.test(p.html))||(i===2&&/<b>[-0-9.]+ K<\/b>/.test(p.html))||TR.solved;
+      thermometer(x,50,148,shown?(conv-lo_)/(hi_-lo_):0);txt(x,48,c[0],{size:16,weight:700,mono:true,align:"center"});for(let k=0;k<=6;k++){const yy=50+148-(138)*k/6;line(x+8,yy,x+14,yy,C["ink-soft"],1.2);txt(x+18,yy,String(Math.round((lo_+(hi_-lo_)*k/6)*10)/10),{size:11,mono:true,color:C["ink-soft"]})}
+      txt(x,246,shown?(Math.round(conv*10)/10)+" "+c[0]:"?",{size:13,weight:700,mono:true,align:"center"})});
+    txt(400,30,"",{})}
+  if(v.k==="speed"){ctx.fillStyle=mix(C["ink-soft"],C.panel,.6);ctx.fillRect(12,150,776,24);for(let k=0;k<12;k++){const X=((k*80-T*140)%960+960)%960-80;rr(X,160,40,4,2);fillStroke(C.panel,null)}
+    rr(240,118,90,30,8);fillStroke(C.act2,hexA(C.ink,.4),1.2);rr(256,104,54,18,6);fillStroke(mix(C.act2,C.panel,.4),null);circ(258,150,9,C.ink);circ(312,150,9,C.ink);
+    circ(560,100,40,C.panel,C.ink,2);const a=Math.PI*.8+P(T*.2,1)*.05+Math.PI*.9;line(560,100,560+Math.cos(a)*30,100+Math.sin(a)*30,C.heat,2.6);txt(560,160,v.vs+" "+v.u,{size:15,weight:700,mono:true,align:"center"});
+    txt(400,222,"Your answer: "+(typed==null?"?":String(typed))+" m/s",{size:14,weight:700,mono:true,align:"center"})}
+  if(v.k==="dose"){person(90,170,26,C.act4);scaleIcon(40,204,100,v.lb+" lb");rr(220,70,150,80,8);fillStroke(C.paper,C.rule,1.4);txt(295,94,"ORDER",{size:11.5,weight:700,mono:true,align:"center",color:C["ink-soft"]});txt(295,122,v.dose+" mg/kg",{size:17,weight:700,mono:true,align:"center"});
+    rr(400,70,96,110,10);fillStroke(hexA(C.act6,.35),C["ink-soft"],1.4);rr(394,100,108,46,4);fillStroke(C.paper,C.rule,1.2);txt(448,114,v.cc[0]+" mg",{size:12,weight:700,mono:true,align:"center"});txt(448,132,"per "+v.cc[1]+" mL",{size:11.5,weight:700,mono:true,align:"center"});
+    oralSyringe(540,130,200,25,typed==null?0:Math.min(typed,25.5));txt(640,174,typed==null?"syringe fills to your answer":(typed>25?"more than 25 mL: recheck":String(typed)+" mL"),{size:12.5,weight:700,align:"center",color:typed>25?C.bad:C.ink});label(400,232,"PRACTICE NUMBERS · NOT DOSING GUIDANCE",{size:11.5,weight:700,mono:true,border:C.gold})}
+  if(v.k==="mass"){ctx.save();rr(120,70,90,150,12);fillStroke(hexA(C.water,.8),C["glass-edge"],1.6);ctx.restore();rr(145,50,40,22,4);fillStroke(C["metal-dark"],null);txt(165,150,v.Vs+" L",{size:14,weight:700,mono:true,align:"center"});txt(165,236,v.Q[0],{size:12.5,weight:600,align:"center"});
+    arrow(240,150,320,150,C.accent,2.2);balance(360,130,200,(typed==null?"?":String(typed))+" kg",{h:80});txt(460,236,"d = "+v.Q[1]+" g/mL",{size:13,weight:700,mono:true,align:"center"})}
+  if(v.k==="sfcount"){const cats=TR.solved||TR.sol?v.cats:v.cats.map(c=>c==="p"?"p":"n");digitRow(400,130,v.s,cats,{size:48,box:TR.solved||TR.sol?Object.fromEntries(v.cats.map((c,i)=>[i,1])):{}});
+    txt(400,214,TR.solved||TR.sol?"green: significant · grey slashed: placeholder":"Which digits carry meaning?",{size:13,weight:600,align:"center",color:C["ink-soft"]})}
+  if(v.k==="calc"){calcBox(80,40,170,200,rawStr(v.raw),{});txt(300,110,"calculator: "+rawStr(v.raw),{size:15,weight:700,mono:true});txt(300,150,"report: "+(TR.solved||TR.sol?v.ansStr:"?"),{size:17,weight:700,mono:true,color:TR.solved||TR.sol?C.good:C.ink});txt(300,190,"The calculator does not know about sig figs. You do.",{size:13,weight:600,color:C["ink-soft"]})}
+  // worked solution
+  panelBox(10,270,780,190);title(24,290,"Worked solution");
+  if(TR.sol){const pr=clamp((now-TR.solT)/3600,0,1);const so=p.sol;
+    if(so.kind==="chain"){let y=355;if(so.pre){withA(clamp(pr*5,0,1),()=>txt(30,316,so.pre,{size:14,weight:700,mono:true}));y=372}
+      const pp=so.pre?clamp((pr-.15)/.85,0,1):pr;const w=chainWidth(so.items,{size:15,gap:20})+200;
+      if(w<760)chainDraw(30,y,so.items,so.res,pp,{size:15,gap:20});else chainDraw(30,so.pre?348:322,so.items,so.res,pp,{size:14,gap:18,breakAfter:Math.floor(so.items.length/2)-1,rowH:66,indent:30})}
+    else so.lines.forEach((l,i)=>{const a=clamp((pr-i*.22)/.2,0,1);if(a<=0)return;withA(a,()=>{const y=322+i*36;txt(30,y,l[0],{size:16,weight:700,mono:true,color:i===so.lines.length-1?C.good:C.ink});label(770,y,l[1],{size:11.5,weight:700,border:C.accent,align:"right"})})});
+    if(pr>.9&&p.sfNote)withA((pr-.9)*10,()=>wrapText(p.sfNote,30,438,740,16,{size:12.5,weight:600,color:C["ink-soft"]}))}
+  else wrapText("The worked solution appears here after a correct answer, or when you press Show worked solution. Units on the top and bottom cancel (struck through in red), then the answer is rounded to the right significant figures.",30,320,740,18,{size:13,color:C["ink-soft"]})}
+const LADDER2=[["giga","G",9],["mega","M",6],["kilo","k",3],["base","",0],["centi","c",-2],["milli","m",-3],["micro","µ",-6],["nano","n",-9]];
+function trA11y(){const p=TR.p;const t=trVal();const lab=`Practice problem: ${p.title}. Your answer ${t==null?"not entered":t+" "+p.unit}.${TR.solved?" Solved.":""}`;
+  const vis={ladder:"a row of metric prefix boxes with the starting and ending prefixes highlighted and an orange dot hopping between them",cube:"a 3D grid block showing that every edge converts, so the factor is raised to a power",dens:"a graduated cylinder, a balance with the sample and a zoom circle of its particles",temp:"three thermometers for °F, °C and K, filled for the given value and, once solved, for the answer",speed:"a car on a road and a speedometer",dose:"a child on a scale, the order card, a medicine bottle label and an oral syringe that fills to your answer",mass:"a bottle of liquid and a balance showing your answer",sfcount:"the number in large digits, colour coded once solved: green significant digits and grey slashed placeholder zeros",calc:"a calculator showing the full unrounded result"}[p.vis.k];
+  const sol=TR.sol?(p.sol.kind==="chain"?" The bottom band shows the worked solution as a chain of fractions; matching units are struck through in red one pair at a time, the calculator result appears, then the rounded answer "+p.ansStr+" "+p.unit+" in a green box.":" The bottom band shows the worked solution line by line, ending with "+p.ansStr+" "+p.unit+"."):" The worked solution is hidden until you answer correctly or ask for it.";
+  return [lab,`The top shows ${vis}.`+sol]}
+
+/* ================= PART 3: sort it out ================= */
+const SVGT={H:"#10161A",He:"#10161A",S:"#10161A",Au:"#10161A",Al:"#10161A",Si:"#10161A"};
+const SVGC={H:"el-h",He:"el-he",O:"el-o",N:"el-n",C:"el-c",Cl:"el-cl",Na:"el-na",S:"el-s",Fe:"el-fe",Cu:"el-cu",Al:"el-al",Au:"el-au",Si:"el-si"};
+function sa(x,y,r,sym,lab){return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="var(--${SVGC[sym]})" stroke="${sym==="H"?"var(--el-h-edge)":"rgba(16,22,26,.45)"}" stroke-width="1"/>`+(lab!==false&&r>=6?`<text x="${x.toFixed(1)}" y="${(y+r*.38).toFixed(1)}" font-size="${(r*1.05).toFixed(1)}" font-family="IBM Plex Sans,sans-serif" font-weight="700" text-anchor="middle" fill="${SVGT[sym]||"#fff"}">${sym}</text>`:"")}
+function sMol(name,x,y,s,rot){const M=MOL[name];const c=Math.cos(rot||0),sn=Math.sin(rot||0);return M.map(a=>sa(x+(a[1]*c-a[2]*sn)*s,y+(a[1]*sn+a[2]*c)*s,Math.round(ER[a[0]]*s*.62*10)/10,a[0],ER[a[0]]*s*.62>=6)).join("")}
+function partSVG(k){const box=(inner,bgc)=>`<svg viewBox="0 0 80 80" aria-hidden="true" focusable="false"><rect x="1" y="1" width="78" height="78" rx="6" fill="${bgc||"var(--panel)"}" stroke="var(--rule)"/>${inner}</svg>`;let s="";const R=(i,a)=>rnd(i*3.1+a);
+  if(k==="el_he"){for(let i=0;i<7;i++)s+=sa(12+R(i,1)*56,12+R(i,2)*56,7,"He");}
+  if(k==="el_o2"){[[20,18,.3],[56,22,1.4],[30,46,2.2],[62,56,.8],[18,66,1.9]].forEach(q=>s+=sMol("O2",q[0],q[1],13,q[2]))}
+  if(k==="el_cu"){for(let j=0;j<5;j++)for(let i=0;i<5;i++)s+=sa(12+i*14+(j%2?7:0),12+j*14,7,"Cu")}
+  if(k==="cp_h2o"){[[22,20,.4],[56,18,2.6],[38,44,1.2],[18,64,3.7],[60,62,5.0]].forEach(q=>s+=sMol("H2O",q[0],q[1],14,q[2]))}
+  if(k==="cp_co2"){[[24,18,.3],[58,32,1.2],[26,50,2.4],[56,66,.1]].forEach(q=>s+=sMol("CO2",q[0],q[1],12,q[2]))}
+  if(k==="cp_nacl"){for(let j=0;j<4;j++)for(let i=0;i<4;i++)s+=sa(16+i*16,16+j*16,(i+j)%2?6.5:7.5,(i+j)%2?"Na":"Cl")}
+  if(k==="ho_air"){[["N2",18,18,.4],["O2",56,20,1.6],["N2",36,42,2.5],["N2",62,58,.9],["O2",18,64,2.0],["N2",44,70,.2]].forEach(q=>s+=sMol(q[0],q[1],q[2],12,q[3]))}
+  if(k==="ho_salt"){[[16,14,.3],[50,14,2],[66,40,1],[30,36,4],[14,58,2.4],[48,58,5],[66,72,1],[30,72,3]].forEach(q=>s+=sMol("H2O",q[0],q[1],9,q[2]));s+=sa(40,24,6.5,"Na")+sa(58,58,7,"Cl")+sa(20,46,6.5,"Na")+sa(46,42,7,"Cl")}
+  if(k==="ho_mix"){[[14,14],[40,24],[66,14],[24,44],[58,46],[14,70],[44,66],[68,70]].forEach((q,i)=>s+=i%2?sMol("N2",q[0],q[1],12,i):sa(q[0],q[1],6.5,"He"))}
+  if(k==="he_layers"){s+=`<rect x="2" y="2" width="76" height="34" fill="var(--oil)" opacity=".45"/><line x1="2" y1="38" x2="78" y2="38" stroke="var(--ink)" stroke-dasharray="3 2"/>`;for(let i=0;i<4;i++){s+=sa(12+i*18,14,5.5,"C",false)+sa(18+i*18,24,5.5,"C",false)}[[16,52,.3],[44,52,2],[66,58,1],[28,70,4],[58,72,2.5]].forEach(q=>s+=sMol("H2O",q[0],q[1],11,q[2]))}
+  if(k==="he_fes"){for(let j=0;j<3;j++)for(let i=0;i<3;i++)s+=sa(12+i*12+(j%2?6:0),14+j*11,6,"Fe");[[56,16],[66,40],[50,44],[20,62],[44,66],[66,68],[30,48]].forEach(q=>s+=sa(q[0],q[1],6.5,"S"))}
+  if(k==="he_sand"){s+=`<path d="M2 50 Q30 30 78 44 L78 78 L2 78 Z" fill="var(--sand)" opacity=".55"/>`;for(let i=0;i<5;i++)s+=sa(10+i*16,64,6,i%2?"O":"Si")+sa(18+i*16,74,5,i%2?"Si":"O",false);[[16,18,.3],[44,14,2],[66,26,1],[30,34,4]].forEach(q=>s+=sMol("H2O",q[0],q[1],11,q[2]))}
+  if(k==="st_solid"){for(let j=0;j<4;j++)for(let i=0;i<4;i++)s+=sMol("H2O",14+i*17+(j%2?5:0),14+j*17,10,0)}
+  if(k==="st_liquid"){[[14,20,1],[30,16,3],[48,22,0],[64,18,2],[20,38,5],[38,40,2],[58,40,4],[14,58,0],[32,62,1],[50,60,3],[66,64,5]].forEach(q=>s+=sMol("H2O",q[0],q[1],10,q[2]))}
+  if(k==="st_gas"){[[16,18,.4],[62,26,2],[34,56,1.2],[66,68,4]].forEach(q=>s+=sMol("H2O",q[0],q[1],10,q[2]))}
+  return box(s)}
+const PALT={el_he:"identical single He atoms, spread out",el_o2:"identical pairs of red O atoms bonded together",el_cu:"identical Cu atoms packed in rows",cp_h2o:"identical molecules, each one red O bonded to two white H",cp_co2:"identical molecules, each one grey C bonded to two red O",cp_nacl:"alternating purple Na and green Cl particles in a regular grid",ho_air:"N₂ pairs and O₂ pairs evenly mixed, no clumps",ho_salt:"water molecules with Na and Cl particles spread evenly among them",ho_mix:"single He atoms and N₂ pairs evenly mixed",he_layers:"a layer of grey C chains on top, water molecules below, with a boundary line",he_fes:"a clump of Fe atoms on one side and loose S atoms elsewhere",he_sand:"a tan region of Si and O atoms at the bottom, water molecules above",st_solid:"water molecules in neat rows, close together",st_liquid:"water molecules close together but jumbled",st_gas:"a few water molecules far apart"};
+const SROUNDS=[
+{name:"Classify from particles",goal:"Look at each particle picture. Is it an element, a compound, a homogeneous mixture or a heterogeneous mixture?",
+ bins:[["el","Element"],["cp","Compound"],["ho","Homogeneous mixture"],["he","Heterogeneous mixture"]],
+ cards:[["Sample A","el","One kind of atom: helium gas, He.","el_he"],["Sample B","el","One kind of atom, in pairs: oxygen gas, O₂.","el_o2"],["Sample C","el","One kind of atom: copper metal, Cu.","el_cu"],["Sample D","cp","Two elements bonded 2 : 1: water, H₂O.","cp_h2o"],["Sample E","cp","Two elements bonded 1 : 2: carbon dioxide, CO₂.","cp_co2"],["Sample F","cp","Na and Cl in a fixed 1 : 1 ratio: sodium chloride, NaCl.","cp_nacl"],
+  ["Sample G","ho","Two kinds of molecules, evenly spread: air.","ho_air"],["Sample H","ho","Ions spread evenly in water: salt water.","ho_salt"],["Sample I","ho","Two gases evenly mixed.","ho_mix"],["Sample J","he","Two separate layers: oil on water.","he_layers"],["Sample K","he","Clumps you could pick apart: iron filings and sulfur.","he_fes"],["Sample L","he","A solid grain sitting in water: sand and water.","he_sand"]]},
+{name:"States of matter",goal:"Sort each picture and description by state: solid, liquid or gas.",
+ bins:[["s","Solid"],["l","Liquid"],["g","Gas"]],
+ cards:[["Picture 1","s","Neat rows, only vibrating: a solid.","st_solid"],["Picture 2","l","Close but jumbled and sliding: a liquid.","st_liquid"],["Picture 3","g","Far apart and moving freely: a gas.","st_gas"],["Fixed shape and fixed volume","s","Solids keep their own shape."],["Particles vibrate in place","s","Solid particles are locked in position."],["Takes the container's shape, keeps its volume","l","Liquids flow but barely compress."],["Particles slide past each other","l","That is liquid motion."],["Fills any container completely","g","Gas particles spread out to fill the space."],["Easily squeezed into a smaller volume","g","Gas particles have lots of space between them."],["A copper coin","s","Metal at room temperature: solid."],["Olive oil","l","Liquid at room temperature."],["Helium in a balloon","g","Gas."]]},
+{name:"Physical or chemical change?",goal:"Does each change make a new substance (chemical) or only change form or state (physical)?",
+ bins:[["p","Physical change"],["c","Chemical change"]],
+ cards:[["Ice melting","p","Still H₂O, just a different state."],["Water boiling","p","Liquid H₂O becomes gaseous H₂O."],["Sugar dissolving in tea","p","Sugar molecules spread out but stay sugar."],["Cutting paper","p","Smaller pieces, same substance."],["Crushing a soda can","p","New shape, same aluminum."],["Dew forming on grass","p","Water vapor condensing."],["Dry ice turning to gas","p","Solid CO₂ becomes gaseous CO₂ (sublimation)."],["Wood burning","c","New substances: CO₂, H₂O, ash; heat and light."],["Iron rusting","c","Iron and oxygen form iron oxide."],["Baking a cake","c","Heat makes new substances; you cannot un-bake it."],["Milk souring","c","Bacteria change lactose into lactic acid."],["An antacid tablet fizzing in water","c","A reaction makes CO₂ gas."],["Silver tarnishing","c","Silver reacts to form a dark silver sulfide."],["Food being digested","c","Enzymes break bonds to make new molecules."]]},
+{name:"Physical or chemical property?",goal:"Can you observe each property without changing the substance (physical), or only by watching it react (chemical)?",
+ bins:[["p","Physical property"],["c","Chemical property"]],
+ cards:[["Density","p","Measured with mass and volume; nothing changes."],["Melting point","p","Melting does not change the substance."],["Colour","p","Seen without changing it."],["Boiling point","p","A change of state only."],["Hardness","p","Scratching tests it without a reaction."],["Conducts electricity","p","Copper stays copper while conducting."],["Dissolves in water","p","Usually treated as physical: the substance is unchanged."],["Flammability","c","You only see it by burning, which makes new substances."],["Reacts with acid","c","Seen only through a reaction."],["Tarnishes in air","c","A reaction with air forms a new compound."],["Decomposes when heated","c","Breaks into new substances."],["Rusts when wet","c","Iron reacts with oxygen and water."]]},
+{name:"Count the sig figs",goal:"How many significant figures does each value have? Exact numbers go in their own box.",
+ bins:[["1","1 sig fig"],["2","2 sig figs"],["3","3 sig figs"],["4","4 sig figs"],["x","Exact (unlimited)"]],
+ cards:[["300","1","No decimal point: the trailing zeros are placeholders."],["7 g","1","One nonzero digit."],["0.0045","2","Leading zeros never count: 4 and 5."],["0.010","2","1 and the trailing 0 after the decimal."],["1.0 × 10⁻³","2","Count the coefficient: 1.0."],["4.50","3","The trailing zero after the decimal counts."],["300.","3","The decimal point makes both zeros count."],["105","3","The captive zero counts."],["50.0","3","5, 0, 0 with a decimal point."],["1002","4","Both captive zeros count."],["25.00 mL","4","Trailing zeros after the decimal count."],["6.022 × 10²³","4","Four digits in the coefficient."],["8.000","4","Three trailing zeros after the decimal."],["12 eggs","x","Counted: exact."],["1 km = 1000 m","x","A defined relationship: exact."],["the 2 in 2πr","x","A pure number in a formula: exact."]]}];
+function binSVG(k){const s=b=>`<svg viewBox="0 0 56 46" aria-hidden="true" focusable="false">${b}</svg>`;
+  switch(k){
+    case "el":return s(sa(16,23,9,"He")+sa(38,23,9,"He"));
+    case "cp":return s(sMol("H2O",28,20,20,0));
+    case "ho":return s([[10,12],[30,10],[46,16],[18,30],[38,32],[8,40],[48,38]].map((q,i)=>sa(q[0],q[1],5,i%2?"O":"N",false)).join(""));
+    case "he":return s([[10,12],[18,18],[12,24],[20,10]].map(q=>sa(q[0],q[1],5,"Fe",false)).join("")+[[40,30],[46,38],[36,40],[48,28]].map(q=>sa(q[0],q[1],5,"S",false)).join(""));
+    case "s":return s(`<rect x="12" y="10" width="30" height="28" rx="3" fill="var(--ice)" stroke="var(--glass-edge)"/>`);
+    case "l":return s(`<path d="M10 8 v28 q0 6 6 6 h24 q6 0 6 -6 v-28" fill="none" stroke="var(--glass-edge)" stroke-width="2"/><rect x="12" y="20" width="32" height="20" fill="var(--water)"/>`);
+    case "g":return s(`<path d="M14 38 q-8 -10 2 -16 q0 -12 14 -10 q12 -4 14 8 q8 6 0 18z" fill="var(--panel-2)" stroke="var(--ink-soft)"/>`);
+    case "p":return s(`<rect x="6" y="14" width="16" height="16" rx="2" fill="var(--ice)" stroke="var(--glass-edge)"/><path d="M26 22 h8" stroke="var(--ink)" stroke-width="2"/><path d="M32 18 l4 4 l-4 4" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M40 30 q6 -10 12 0 z" fill="var(--water)" stroke="var(--water-edge)"/>`);
+    case "c":return s(`<path d="M28 6 q12 14 6 26 q-6 10 -12 0 q-6 -12 6 -26z" fill="var(--flame)"/><path d="M28 20 q5 6 2 12 q-3 4 -5 0 q-2 -6 3 -12z" fill="var(--flame-core)"/>`);
+    case "x":return s(`<text x="28" y="31" font-size="22" font-family="IBM Plex Mono,monospace" font-weight="700" text-anchor="middle" fill="var(--ink)">∞</text>`);
+    default:return s(`<text x="28" y="32" font-size="24" font-family="IBM Plex Mono,monospace" font-weight="700" text-anchor="middle" fill="var(--accent-ink)">${k}</text>`)}}
+const SG={r:0,placed:{},mist:0,sel:null,t0:0,timer:null,hint:null,doneRounds:{}};
+function cardBins(c){return Array.isArray(c[1])?c[1]:[c[1]]}
+function sRoundsUI(){$("#sRounds").innerHTML=SROUNDS.map((r,i)=>`<button type="button" class="round" aria-pressed="${i===SG.r}" data-i="${i}">Round ${i+1}: ${r.name}${SG.doneRounds[i]?`<span class="ok" aria-label="${SG.doneRounds[i]} stars">${"★".repeat(SG.doneRounds[i])}</span>`:""}</button>`).join("");
+  $("#sRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>sLoad(+b.dataset.i))}
+function sLoad(i){SG.r=i;SG.placed={};SG.mist=0;SG.sel=null;SG.hint=null;SG.t0=Date.now();const R=SROUNDS[i];SG.order=shuffle(R.cards.map((c,k)=>k));
+  $("#sN").textContent=`Round ${i+1} of ${SROUNDS.length}`;$("#sTitle").textContent=R.name;$("#sGoal").textContent=R.goal;
+  const bins=$("#sBins");bins.innerHTML="";R.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.k=b[0];
+    d.innerHTML=`<button type="button" class="binhead" data-k="${b[0]}">${binSVG(b[0])}<span>${b[1]}</span></button><div class="binitems"></div>`;
+    d.querySelector(".binhead").onclick=()=>{if(SG.sel!=null)sDrop(SG.sel,b[0]);else sMsg("info","Pick a card first, then tap a box.")};bins.appendChild(d)});
+  const best=store.get("best-"+i);$("#sBest").textContent=best?`Best for this round: ${"★".repeat(+best)}`:"";
+  $("#sMsg").className="msg";sRoundsUI();sRender();sTimerUI();a11yKey=""}
+function sRender(){const R=SROUNDS[SG.r];const pool=$("#sPool");pool.innerHTML="";
+  SG.order.forEach(k=>{if(SG.placed[k])return;const c=R.cards[k];const b=document.createElement("button");b.type="button";b.className="scard"+(c[3]?" pic":"")+(SG.hint===k?" hinted":"");
+    if(c[3]){b.innerHTML=partSVG(c[3])+`<span>${c[0]}</span><span class="gk-sr">: ${PALT[c[3]]}</span>`}else b.textContent=c[0];b.dataset.k=k;
+    b.setAttribute("aria-pressed",SG.sel===k);b.onclick=e=>{if(b.dataset.dragged){delete b.dataset.dragged;return}SG.sel=SG.sel===k?null:k;sRender();const nb=pool.querySelector(`[data-k="${k}"]`);if(nb)nb.focus()};
+    b.addEventListener("pointerdown",e=>sDragStart(e,b,k));pool.appendChild(b)});
+  if(!pool.children.length)pool.innerHTML='<span class="small">All cards sorted.</span>';
+  document.querySelectorAll("#sBins .bin").forEach(d=>{const items=d.querySelector(".binitems");items.innerHTML="";d.classList.toggle("hintbin",SG.hint!=null&&cardBins(R.cards[SG.hint]).indexOf(d.dataset.k)>=0);
+    R.cards.forEach((c,k)=>{if(SG.placed[k]===d.dataset.k){const s=document.createElement("div");s.className="scard placed";s.innerHTML=(c[3]?partSVG(c[3]):"")+"✓ "+c[0]+(c[3]?": "+c[2].split(":").pop().trim():"");items.appendChild(s)}})});
+  const n=Object.keys(SG.placed).length,tot=R.cards.length;$("#sStars").textContent=n===tot?"★".repeat(sStars())+"☆".repeat(3-sStars()):"";$("#sStars").setAttribute("aria-label",n===tot?sStars()+" of 3 stars":"Stars appear when the round is done")}
+function sStars(){return SG.mist===0?3:SG.mist<=2?2:1}
+function sMsg(cls,t){const m=$("#sMsg");m.className="msg show "+cls;m.textContent=t}
+function sDrop(k,bin){const R=SROUNDS[SG.r];const c=R.cards[k];SG.sel=null;SG.hint=null;
+  if(cardBins(c).indexOf(bin)>=0){SG.placed[k]=bin;sMsg("good","✓ "+c[0]+": "+c[2])}else{SG.mist++;const nm=R.bins.find(b=>b[0]===bin)[1];sMsg("warn",`Not quite. "${c[0]}" does not go in ${nm}. Look again: ${sWhyHint(c,SG.r)}`)}
+  sRender();a11yKey="";if(Object.keys(SG.placed).length===R.cards.length)sFinish();else{const f=$("#sPool .scard");if(f&&document.activeElement===document.body)f.focus()}}
+function sWhyHint(c,r){return r===0?"how many kinds of atoms, are they bonded together, and are they evenly spread?":r===1?"how close are the particles and how freely do they move?":r===2?"does a new substance form?":r===3?"can you observe it without making a new substance?":"leading zeros never count; trailing zeros count only with a decimal point."}
+function sFinish(){const st=sStars();SG.doneRounds[SG.r]=Math.max(SG.doneRounds[SG.r]||0,st);const best=+(store.get("best-"+SG.r)||0);if(st>best)store.set("best-"+SG.r,st);
+  const tm=!$("#sRelaxed").checked?` Time: ${fmt((Date.now()-SG.t0)/1000)}.`:"";sMsg("good",`Round complete with ${SG.mist} ${SG.mist===1?"mistake":"mistakes"}: ${st} of 3 stars.${tm} `+(SG.r<SROUNDS.length-1?"Press Next round when you are ready.":"That was the last round. Well done."));sRoundsUI();sRender()}
+let drag=null;
+function sDragStart(e,b,k){if(e.button>0)return;const r=b.getBoundingClientRect();drag={k,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};
+  window.addEventListener("pointermove",sDragMove);window.addEventListener("pointerup",sDragEnd);window.addEventListener("pointercancel",sDragEnd)}
+function sDragMove(e){if(!drag||e.pointerId!==drag.id)return;if(!drag.g){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;const g=drag.b.cloneNode(true);g.classList.add("ghost");g.removeAttribute("id");g.setAttribute("aria-hidden","true");g.tabIndex=-1;g.style.width=drag.b.offsetWidth+"px";document.body.appendChild(g);drag.g=g;drag.b.style.opacity=".35"}
+  e.preventDefault();drag.g.style.left=(e.clientX-drag.dx)+"px";drag.g.style.top=(e.clientY-drag.dy)+"px";
+  const el=document.elementFromPoint(e.clientX,e.clientY);const bin=el&&el.closest?el.closest(".bin"):null;document.querySelectorAll(".bin.over").forEach(x=>x!==bin&&x.classList.remove("over"));if(bin)bin.classList.add("over");drag.over=bin}
+function sDragEnd(e){if(!drag)return;window.removeEventListener("pointermove",sDragMove);window.removeEventListener("pointerup",sDragEnd);window.removeEventListener("pointercancel",sDragEnd);
+  const d=drag;drag=null;document.querySelectorAll(".bin.over").forEach(x=>x.classList.remove("over"));if(!d.g)return;d.g.remove();d.b.style.opacity="";d.b.dataset.dragged="1";
+  if(d.over)sDrop(d.k,d.over.dataset.k);else sRender()}
+$("#sHint").onclick=()=>{const R=SROUNDS[SG.r];const k=SG.sel!=null?SG.sel:SG.order.find(k=>!SG.placed[k]);if(k==null){sMsg("info","Everything is sorted.");return}SG.hint=k;
+  const bn=cardBins(R.cards[k]).map(b=>R.bins.find(x=>x[0]===b)[1]).join(" or ");sMsg("info",`Hint: "${R.cards[k][0]}" goes in the glowing box (${bn}).`);sRender()};
+$("#sShow").onclick=()=>{const R=SROUNDS[SG.r];R.cards.forEach((c,k)=>{if(!SG.placed[k])SG.placed[k]=cardBins(c)[0]});SG.mist=Math.max(SG.mist,3);sMsg("info","All cards placed. Read each box to see why they belong there.");sRender();sFinish()};
+$("#sShuffle").onclick=()=>sLoad(SG.r);$("#sNext").onclick=()=>sLoad((SG.r+1)%SROUNDS.length);
+function sTimerUI(){const relaxed=$("#sRelaxed").checked;$("#sTimer").hidden=relaxed;clearInterval(SG.timer);if(!relaxed){SG.timer=setInterval(()=>{if(Object.keys(SG.placed).length<SROUNDS[SG.r].cards.length)$("#sTimer").textContent=fmt((Date.now()-SG.t0)/1000)},500)}}
+$("#sRelaxed").onchange=()=>{SG.t0=Date.now();sTimerUI()};
+function sortA11y(){const R=SROUNDS[SG.r];const n=Object.keys(SG.placed).length;
+  return [null,`Round ${SG.r+1}, ${R.name}. ${n} of ${R.cards.length} cards sorted. Boxes: `+R.bins.map(b=>b[1]).join(", ")+`. Cards still to sort: `+(SG.order.filter(k=>!SG.placed[k]).map(k=>R.cards[k][0]+(R.cards[k][3]?" ("+PALT[R.cards[k][3]]+")":"")).join("; ")||"none")+"."]}
+
+/* ================= PART 4: chemistry in real life ================= */
+const LIFE=[
+{id:"fever",who:"Clinic · temperature",title:"Is it a fever?",story:"Leo, 19, feels hot and achy. The clinic thermometer reads 102.2 °F. The clinic chart uses °C, and a fever is usually defined as 38.0 °C (100.4 °F) or higher.",
+ qs:[{q:"What is 102.2 °F in °C?",opts:[["39.0 °C",1,"Yes. (102.2 − 32) = 70.2, and 70.2 × 5/9 = 39.0 °C (3 sig figs). That is above 38.0 °C, so it is a fever."],["24.8 °C",0,"That multiplied by 5/9 before subtracting 32. Subtract 32 first."],["70.2 °C",0,"You subtracted 32 but did not multiply by 5/9."],["126.4 °C",0,"That multiplied by 9/5. Going to °C, multiply by 5/9."]],
+   math:{kind:"steps",lines:[["(102.2 − 32) = 70.2","tenths place"],["70.2 × 5/9 = 39.0 °C","3 sig figs"]]}},
+  {q:"After a cool cloth and fluids, his temperature drops by 1.5 °C. How big a drop is that in °F?",opts:[["2.7 °F",1,"Yes. A Celsius degree is 1.8 Fahrenheit degrees, so a change of 1.5 °C is 1.5 × 1.8 = 2.7 °F. For a change, do not add 32."],["34.7 °F",0,"Adding 32 is for converting a temperature reading, not a change in temperature."],["0.83 °F",0,"That multiplied by 5/9. Fahrenheit degrees are smaller, so the number of them is bigger."],["1.5 °F",0,"The degrees are different sizes: 1 °C = 1.8 °F."]],math:{kind:"chain",items:[{n:["1.5",["°C"]]},{n:["1.8",["°F"]],d:["1",["°C"]]}],res:{raw:"2.7",ans:"2.7",u:"°F",note:"change only, no 32"}}},
+  {q:"Write 39.0 °C in kelvins.",opts:[["312.2 K",1,"Yes. 39.0 + 273.15 = 312.15, rounded to the tenths place of 39.0: 312.2 K."],["234.2 K",0,"That subtracted 273.15. Add it to go from °C to K."],["375.4 K",0,"That added 273.15 to the °F reading. Use the °C value."],["39.0 K",0,"Kelvins and degrees Celsius have the same step size but different zero points: add 273.15."]],math:{kind:"steps",lines:[["K = °C + 273.15","exact"],["39.0 + 273.15 = 312.15 → 312.2 K","tenths place"]]}}]},
+{id:"dose",who:"Pediatrics · practice numbers only",title:"A liquid dose by weight",story:"Practice problem with made-up numbers, not dosing guidance. Maya weighs 33.0 lb. A practice order calls for 10.0 mg per kg. The liquid contains 100. mg per 5.00 mL. Use 1 kg = 2.205 lb.",
+ qs:[{q:"What is Maya's mass in kilograms?",opts:[["15.0 kg",1,"Yes. 33.0 lb × 1 kg / 2.205 lb = 14.97 kg, which is 15.0 kg to 3 sig figs."],["72.8 kg",0,"That multiplied by 2.205. Pounds cancel only when lb is on the bottom of the factor."],["33.0 kg",0,"Pounds and kilograms are different units: a kilogram is about 2.2 lb."],["16.5 kg",0,"That divided by 2. Use the conversion factor 2.205."]],math:{kind:"chain",items:[{n:["33.0",["lb"]]},{n:["1",["kg"]],d:["2.205",["lb"]]}],res:{raw:"14.966",ans:"15.0",u:"kg",note:"3 sig figs"}}},
+  {q:"What dose, in mg, does the order give?",opts:[["150. mg (1.50 × 10² mg)",1,"Yes. 14.97 kg × 10.0 mg/kg = 149.7 mg, which is 150. mg to 3 sig figs (written with a decimal point so the zero counts)."],["330 mg",0,"That used the weight in pounds. The order is per kilogram."],["15.0 mg",0,"Multiply the mass by 10.0 mg for each kilogram."],["1.50 mg",0,"Multiply, do not divide: 10.0 mg for each of the 14.97 kg."]],math:{kind:"chain",items:[{n:["14.97",["kg"]]},{n:["10.0",["mg"]],d:["1",["kg"]]}],res:{raw:"149.7",ans:"150.",u:"mg",note:"3 sig figs"}}},
+  {q:"What volume of the liquid is that?",opts:[["7.48 mL",1,"Yes. 149.7 mg × 5.00 mL / 100. mg = 7.48 mL (3 sig figs). The oral syringe fills to just under 7.5 mL."],["1.50 mL",0,"That treated the liquid as 100. mg per 1 mL. It is 100. mg per 5.00 mL."],["3.34 mL",0,"The concentration factor is upside down. Put mg on the bottom so it cancels."],["16.5 mL",0,"That skipped the pound-to-kilogram step: more than twice the intended dose."]],math:{kind:"chain",items:[{n:["33.0",["lb"]]},{n:["1",["kg"]],d:["2.205",["lb"]]},{n:["10.0",["mg"]],d:["1",["kg"]]},{n:["5.00",["mL"]],d:["100.",["mg"]]}],res:{raw:"7.483",ans:"7.48",u:"mL",note:"3 sig figs"}}}]},
+{id:"urine",who:"Lab · urinalysis",title:"Urine specific gravity",story:"Specific gravity (SG) compares a liquid's density with water's: SG = density of sample ÷ density of water. Normal urine is about 1.005 to 1.030. Concentrated urine (often from dehydration) has more dissolved particles, so it is denser. A floating hydrometer (urinometer) reads SG from how high it floats.",
+ qs:[{q:"A 250. mL urine sample has SG 1.025 (density 1.025 g/mL). What is its mass?",opts:[["256 g",1,"Yes. 250. mL × 1.025 g/mL = 256.25 g, which is 256 g to 3 sig figs (250. has 3)."],["244 g",0,"That divided by the density. Mass = volume × density."],["250. g",0,"That treats the urine like pure water. Its density is a little higher than 1.000 g/mL."],["256 kg",0,"Right digits, wrong unit: mL × g/mL gives grams."]],math:{kind:"chain",items:[{n:["250.",["mL"]]},{n:["1.025",["g"]],d:["1",["mL"]]}],res:{raw:"256.25",ans:"256",u:"g",note:"3 sig figs"}}},
+  {q:"Two hydrometers float in two samples: SG 1.005 and SG 1.030. In which sample does the hydrometer float higher?",opts:[["SG 1.030, the denser sample",1,"Yes. A denser liquid pushes up harder, so less of the hydrometer needs to sink to balance its weight. It floats higher."],["SG 1.005, the less dense sample",0,"Floating objects sit lower in less dense liquids, just as ice sinks further in ethanol than in water."],["Both the same height",0,"Floating height depends on the liquid's density, so different SGs give different heights."],["It sinks in both",0,"Hydrometers are weighted to float in this range of densities."]]},
+  {q:"Why does specific gravity have no units?",opts:[["It is a ratio of two densities, so g/mL cancels",1,"Yes. (g/mL) ÷ (g/mL): the units cancel, leaving a pure number."],["Because urine has no mass",0,"Urine has mass; SG is a ratio, which is why the units cancel."],["Because the units are too small to write",0,"The units are not small; they cancel in the ratio."],["Because it is measured in kelvins",0,"SG is not a temperature. It is a density ratio."]]}]},
+{id:"blood",who:"Hematology · centrifuge",title:"Spinning blood",story:"Whole blood has a density of about 1.06 g/mL. In a centrifuge, its parts separate by density: red blood cells (about 1.10 g/mL) pack at the bottom, a thin white layer of white blood cells and platelets sits above them, and yellow plasma (about 1.025 g/mL) is on top. The hematocrit is the percent of the column that is red cells.",
+ qs:[{q:"An adult has about 5.0 L of blood. With a density of 1.06 g/mL, what is its mass in kilograms?",opts:[["5.3 kg",1,"Yes. 5.0 L × 1000 mL/L × 1.06 g/mL × 1 kg/1000 g = 5.3 kg (2 sig figs, from 5.0 L)."],["5300 kg",0,"That stopped at grams but labelled them kg. 5300 g = 5.3 kg."],["4.7 kg",0,"That divided by the density. Mass = volume × density."],["0.0053 kg",0,"A conversion went the wrong way: L → mL multiplies by 1000."]],math:{kind:"chain",items:[{n:["5.0",["L"]]},{n:["1000",["mL"]],d:["1",["L"]]},{n:["1.06",["g"]],d:["1",["mL"]]},{n:["1",["kg"]],d:["1000",["g"]]}],res:{raw:"5.3",ans:"5.3",u:"kg",note:"2 sig figs"}}},
+  {q:"Why do the red blood cells end up at the bottom of the tube?",opts:[["They are the densest part of blood",1,"Yes. Just like the density column, the densest component sinks lowest when spinning speeds up settling."],["They are the lightest part",0,"The lightest (least dense) part, plasma, ends up on top."],["They are attracted to the glass",0,"Separation in a centrifuge is by density, not attraction to the tube."],["They react with plasma",0,"No reaction happens; this is a physical separation of a heterogeneous mixture."]]},
+  {q:"After spinning, the red cell layer is 21 mm and the whole column is 50. mm. What is the hematocrit?",opts:[["42%",1,"Yes. 21 ÷ 50. × 100% = 42% (2 sig figs, from 21 mm)."],["58%",0,"That is the part that is not red cells (plasma plus the thin white layer)."],["238%",0,"That is 50. ÷ 21. Put the red cell height on top."],["0.42%",0,"0.42 is the fraction. Multiply by 100% to get a percent."]],math:{kind:"chain",items:[{n:["21",["mm"]],d:["50.",["mm"]]},{n:["100",["%"]]}],res:{raw:"42",ans:"42",u:"%",note:"2 sig figs"}}}]},
+{id:"mcg",who:"Pharmacy · units",title:"mg or mcg?",story:"Practice problem, not dosing guidance. A practice order reads Drug T 125 mcg. The pharmacy stocks tablets labelled in milligrams. In health care, mcg means micrograms (µg): 1 mg = 1000 mcg.",
+ qs:[{q:"What is 125 mcg in mg?",opts:[["0.125 mg",1,"Yes. 125 mcg × 1 mg / 1000 mcg = 0.125 mg (3 sig figs)."],["125 000 mg",0,"The decimal moved the wrong way. A milligram is bigger, so the number gets smaller."],["1.25 mg",0,"That divided by 100. Micro to milli is a factor of 1000."],["0.0125 mg",0,"That divided by 10 000. Micro to milli is a factor of 1000."]],math:{kind:"chain",items:[{n:["125",["mcg"]]},{n:["1",["mg"]],d:["1000",["mcg"]]}],res:{raw:"0.125",ans:"0.125",u:"mg",note:"3 sig figs"}}},
+  {q:"If someone mixed up mcg and mg and gave 125 mg instead of 125 mcg, how big would the error be?",opts:[["1000 times too much",1,"Yes. 1 mg = 1000 mcg, so 125 mg is 1000 times 125 mcg. This is why unit labels are checked so carefully."],["10 times too much",0,"Milli and micro are three powers of ten apart: 1000."],["100 times too much",0,"Milli is 10⁻³ and micro is 10⁻⁶: a factor of 1000."],["No difference",0,"The prefixes mean very different amounts."]]},
+  {q:"A different practice order is 0.050 mg, and the tablets are 25 mcg each. How many tablets?",opts:[["2 tablets",1,"Yes. 0.050 mg = 50. mcg, and 50. ÷ 25 = 2 tablets."],["0.002 tablets",0,"Convert mg to mcg first (× 1000), then divide by 25 mcg per tablet."],["20 tablets",0,"0.050 mg is 50 mcg, not 500 mcg."],["2000 tablets",0,"That skipped dividing by the 25 mcg per tablet, or moved the decimal the wrong way."]],math:{kind:"chain",items:[{n:["0.050",["mg"]]},{n:["1000",["mcg"]],d:["1",["mg"]]},{n:["1",["tab"]],d:["25",["mcg"]]}],res:{raw:"2",ans:"2",u:"tablets",note:"count"}}}]},
+{id:"saline",who:"Hospital · IV fluids",title:"A bag of normal saline",story:"Normal saline is 0.90% sodium chloride (w/v): 0.90 g of NaCl in every 100 mL of solution. The salt dissolves completely into Na⁺ and Cl⁻ ions spread evenly among the water molecules.",
+ qs:[{q:"How many grams of NaCl are in a 1.00 L bag?",opts:[["9.0 g",1,"Yes. 1.00 L × 1000 mL/L × 0.90 g / 100 mL = 9.0 g (2 sig figs, from 0.90)."],["0.90 g",0,"0.90 g is in only 100 mL. A liter is 1000 mL."],["90. g",0,"That treated 0.90 g as being in 10 mL. It is per 100 mL."],["900 g",0,"Check the factor: 0.90 g per 100 mL, not per 1 mL."]],math:{kind:"chain",items:[{n:["1.00",["L"]]},{n:["1000",["mL"]],d:["1",["L"]]},{n:["0.90",["g"]],d:["100",["mL"]]}],res:{raw:"9",ans:"9.0",u:"g",note:"2 sig figs"}}},
+  {q:"How should saline be classified?",opts:[["A homogeneous mixture (a solution)",1,"Yes. The ions are evenly spread among the water molecules, and the amount of salt could vary."],["A compound",0,"NaCl and water are not bonded into one substance; their ratio can change."],["An element",0,"It contains Na, Cl, H and O."],["A heterogeneous mixture",0,"It looks the same throughout, even at the particle level."]]},
+  {q:"250. mL of saline runs in over 2.00 h. What is the rate in mL/min?",opts:[["2.08 mL/min",1,"Yes. 250. mL ÷ 2.00 h × 1 h/60 min = 2.08 mL/min (3 sig figs)."],["125 mL/min",0,"125 is the rate in mL per hour. Convert hours to minutes."],["0.48 mL/min",0,"Upside down: put the volume on top."],["30 000 mL/min",0,"The time factor is upside down; hours must cancel."]],math:{kind:"chain",items:[{n:["250.",["mL"]],d:["2.00",["h"]]},{n:["1",["h"]],d:["60",["min"]]}],res:{raw:"2.0833",ans:"2.08",u:"mL/min",note:"3 sig figs"}}}]}];
+const LS={i:0,ans:{},math:null,mathT:0,done:{}};
+function lChips(){$("#lChips").innerHTML=LIFE.map((c,i)=>`<button type="button" class="casechip" aria-pressed="${i===LS.i}" data-i="${i}">${c.title}${LS.done[i]?'<span class="ok" aria-hidden="true">✓</span><span class="gk-sr"> (done)</span>':""}</button>`).join("");$("#lChips").querySelectorAll("button").forEach(b=>b.onclick=()=>lGo(+b.dataset.i))}
+function lGo(i){LS.i=i;LS.math=null;lUI();a11yKey=""}
+function lUI(){const c=LIFE[LS.i];$("#lWho").textContent=c.who;$("#lTitle").textContent=c.title;$("#lStory").textContent=c.story;lChips();
+  const box=$("#lQs");box.innerHTML="";c.qs.forEach((q,qi)=>{const d=document.createElement("div");d.className="qblock";const key=LS.i+"_"+qi;
+    d.innerHTML=`<p class="q" id="lq${qi}">${qi+1}. ${q.q}</p><div class="opts" role="group" aria-labelledby="lq${qi}"></div><div class="fb" role="status"></div>`+(q.math?`<button class="tbtn mathbtn" type="button">Show the math</button>`:"");
+    const ob=d.querySelector(".opts"),fb=d.querySelector(".fb");q.opts.forEach((o,oi)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];
+      const st=LS.ans[key];if(st&&st.right&&o[1])b.classList.add("right");if(st&&st.wrong&&st.wrong.indexOf(oi)>=0)b.classList.add("wrong");
+      b.onclick=()=>{const s=LS.ans[key]=LS.ans[key]||{wrong:[]};if(o[1]){s.right=true;fb.className="fb show ok";fb.textContent="✓ "+o[2];if(q.math){LS.math=q.math;LS.mathT=performance.now()}if(c.qs.every((qq,j)=>(LS.ans[LS.i+"_"+j]||{}).right)){LS.done[LS.i]=1;lChips()}}
+        else{if(s.wrong.indexOf(oi)<0)s.wrong.push(oi);fb.className="fb show no";fb.textContent="Not quite. "+o[2]}
+        ob.querySelectorAll(".opt").forEach((x,xi)=>{x.classList.toggle("right",!!s.right&&!!q.opts[xi][1]);x.classList.toggle("wrong",s.wrong.indexOf(xi)>=0&&!q.opts[xi][1])});a11yKey=""};ob.appendChild(b)});
+    if(LS.ans[key]&&LS.ans[key].right){fb.className="fb show ok";fb.textContent="✓ "+q.opts.find(o=>o[1])[2]}
+    if(q.math)d.querySelector(".mathbtn").onclick=()=>{LS.math=q.math;LS.mathT=performance.now();a11yKey=""};box.appendChild(d)})}
+$("#lPrev").onclick=()=>lGo((LS.i+LIFE.length-1)%LIFE.length);$("#lNext").onclick=()=>lGo((LS.i+1)%LIFE.length);
+function drawLife(now){use(S4);const c=LIFE[LS.i],T=now/1000;panelBox(8,8,584,296);title(22,28,c.title);
+  if(c.id==="fever"){rr(30,200,250,40,8);fillStroke(C.paper,C.rule,1.4);rr(30,180,70,26,10);fillStroke(C.panel,C.rule,1.2);circ(70,170,24,C.skin,C["skin-edge"],1.4);rr(80,190,190,24,8);fillStroke(mix(C.act1,C.panel,.4),null);
+    const fl=.5+.5*Math.sin(T*3);glow(70,166,40,C.heat,.15+.1*fl);line(92,176,130,160,C["glass-edge"],3);circ(130,160,4,C.heat);
+    const th=thermometer(380,50,220,(102.2-90)/(110-90));for(let f=90;f<=110;f+=2){const y=50+220-(210)*(f-90)/20;line(366,y,372,y,C.ink,1.2);if(f%4===2)txt(362,y,String(f),{size:11,mono:true,align:"right"})}
+    for(let cc=32;cc<=43;cc++){const f=cc*1.8+32;if(f<90||f>110)continue;const y=50+220-210*(f-90)/20;line(388,y,394,y,C.ink,1.2);txt(398,y,String(cc),{size:11,mono:true})}
+    txt(350,40,"°F",{size:13,weight:700,mono:true,align:"right"});txt(400,40,"°C",{size:13,weight:700,mono:true});const yf=50+220-210*(100.4-90)/20;line(330,yf,440,yf,C.bad,2,[5,3]);txt(448,yf,"fever line 38.0 °C",{size:11.5,weight:700,color:C.bad});
+    label(500,120,"102.2 °F",{size:15,weight:700,mono:true,border:C.heat});lens(520,244,50,null,(X,Y,R)=>{ctx.fillStyle=hexA(C.water,.5);ctx.fillRect(X-R,Y-R,2*R,2*R);waterField(X,Y,R,"liquid",T*1.4,{s:15,sp:36})},{title:"WARMER = FASTER"})}
+  if(c.id==="dose"){person(70,180,30,C.act4);scaleIcon(20,218,100,"33.0 lb");rr(160,70,150,90,8);fillStroke(C.paper,C.rule,1.4);txt(235,94,"PRACTICE ORDER",{size:11.5,weight:700,mono:true,align:"center",color:C["ink-soft"]});txt(235,126,"10.0 mg/kg",{size:17,weight:700,mono:true,align:"center"});
+    rr(340,70,96,110,10);fillStroke(hexA(C.act6,.35),C["ink-soft"],1.4);rr(334,100,108,46,4);fillStroke(C.paper,C.rule,1.2);txt(388,114,"100. mg",{size:12,weight:700,mono:true,align:"center"});txt(388,132,"per 5.00 mL",{size:11.5,weight:700,mono:true,align:"center"});
+    const done=(LS.ans[LS.i+"_2"]||{}).right;const v=done?7.48*smooth(clamp((now-LS.mathT)/1500,0,1)):0;oralSyringe(330,240,220,10,v);txt(420,282,done?"7.48 mL":"fills when you solve question 3",{size:12.5,weight:700,align:"center"});label(160,200,"PRACTICE NUMBERS ONLY",{size:11.5,weight:700,mono:true,border:C.gold})}
+  if(c.id==="urine"){[[110,"SG 1.005",1.005,"urine"],[300,"SG 1.030",1.030,"urine-dark"]].forEach((u,i)=>{rr(u[0]-40,60,80,220,6);ctx.save();rr(u[0]-40,60,80,220,6);ctx.clip();ctx.fillStyle=hexA(C[u[3]],i?.85:.4);ctx.fillRect(u[0]-40,90,80,200);ctx.restore();rr(u[0]-40,60,80,220,6);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+      const sink=i?.0:22;const y=150+sink+Math.sin(T*2+i)*2;rr(u[0]-6,y-60,12,90,5);fillStroke(hexA(C.glass,.95),C["glass-edge"],1.4);circ(u[0],y+40,16,hexA(C.glass,.95),C["glass-edge"],1.4);circ(u[0],y+46,8,C["metal-dark"]);
+      for(let k=0;k<5;k++)line(u[0]-6,y-50+k*10,u[0],y-50+k*10,C.ink,1);txt(u[0],292,u[1],{size:13,weight:700,mono:true,align:"center"});line(u[0]-40,90,u[0]+40,90,C["ink-soft"],1.2)});
+    txt(205,40,"hydrometer floats higher in the denser sample",{size:12,weight:700,align:"center"});
+    lens(490,160,90,[300,200,10],(X,Y,R)=>{ctx.fillStyle=hexA(C["urine-dark"],.25);ctx.fillRect(X-R,Y-R,2*R,2*R);waterField(X,Y,R,"liquid",T,{s:14,sp:34});for(let k=0;k<7;k++){const q=liqPos(k+50,T*20,{x:X-R*.8,y:Y-R*.8,w:R*1.6,h:R*1.6},10);if(k%3===2)mol("NH3",q[0],q[1],12,T+k);else ion(q[0],q[1],k%2?10:9,k%2?"Cl":"Na",k%2?"-":"+")}},{title:"MORE DISSOLVED PARTICLES"})}
+  if(c.id==="blood"){const p=P(T,12);const sep=smooth(seg(p,.55,.75));
+    if(p>.3&&p<.6){const a=T*14;circ(170,160,90,C.panel,C["ink-soft"],2);for(let k=0;k<4;k++){const an=a+k*Math.PI/2;ctx.save();ctx.translate(170+Math.cos(an)*55,160+Math.sin(an)*55);ctx.rotate(an+Math.PI/2);rr(-8,-26,16,52,6);fillStroke(C.blood,hexA(C.ink,.4),1);ctx.restore()}circ(170,160,10,C["metal-dark"]);txt(170,276,"spinning",{size:12.5,weight:700,align:"center"})}
+    else{const x=150,y0=60,h=200;rr(x,y0,40,h,10);ctx.save();rr(x,y0,40,h,10);ctx.clip();const top=y0+h*(1-.9);
+      if(sep<=0||p<=.3){ctx.fillStyle=C.blood;ctx.fillRect(x,top,40,y0+h-top)}else{const rbc=.42*(y0+h-top);ctx.fillStyle=C.blood;ctx.fillRect(x,y0+h-rbc,40,rbc);ctx.fillStyle="#F2F0EA";ctx.fillRect(x,y0+h-rbc-4,40,4);ctx.fillStyle=C.plasma;ctx.fillRect(x,top,40,y0+h-rbc-4-top)}
+      ctx.restore();rr(x,y0,40,h,10);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();
+      if(sep>0&&p>.6){const top2=y0+h*.1,rb=.42*(y0+h-top2);label(250,top2+30,"plasma ≈ 1.025 g/mL",{size:12,weight:700,align:"left",border:C.plasma});label(250,y0+h-rb-6,"white cells, platelets",{size:12,weight:700,align:"left",border:C.rule});label(250,y0+h-rb/2,"red cells ≈ 1.10 g/mL",{size:12,weight:700,align:"left",border:C.blood});
+        line(110,y0+h,110,top2,C.ink,1.4);line(104,y0+h,116,y0+h,C.ink,1.4);line(104,top2,116,top2,C.ink,1.4);txt(100,(y0+h+top2)/2,"50. mm",{size:11.5,mono:true,align:"right",weight:700});txt(100,y0+h-rb/2+30,"21 mm",{size:11.5,mono:true,align:"right",weight:700,color:C.blood})}
+      else txt(170,282,"whole blood ≈ 1.06 g/mL",{size:12.5,weight:700,align:"center"})}
+    lens(500,140,76,null,(X,Y,R)=>{ctx.fillStyle=mix(C.plasma,C.panel,.4);ctx.fillRect(X-R,Y-R,2*R,2*R);for(let k=0;k<6;k++){const q=liqPos(k,T*16,{x:X-R*.8,y:Y-R*.8,w:R*1.6,h:R*1.6},16);ell(q[0],q[1],16,14,k,C.blood,mix(C.blood,"#000",.3),1.4);ell(q[0],q[1],7,6,0,mix(C.blood,"#fff",.25))}},{title:"RED BLOOD CELLS"})}
+  if(c.id==="mcg"){const L=[["g",0],["mg",-3],["mcg (µg)",-6]];L.forEach((r,i)=>{const y=70+i*70;rr(40,y,170,50,8);fillStroke(i?C["accent-wash"]:C.panel,i?C.accent:C.rule,1.6);txt(125,y+18,r[0],{size:16,weight:700,mono:true,align:"center"});sciTxt(125,y+38,p10(r[1])+" g",{size:12,align:"center",color:C["ink-soft"]})});
+    const f=smooth(P(T,4));const y=lerp(165,235,f);arrow(230,165,230,y,C.accent,2.4);txt(244,200,"× 1000",{size:13,weight:700,mono:true,color:C["accent-ink"]});
+    for(let k=0;k<2;k++){circ(380+k*70,120,24,C.paper,C["ink-soft"],1.6);line(362+k*70,120,398+k*70,120,hexA(C.ink,.3),1.4);txt(380+k*70,150,"25 mcg",{size:11.5,mono:true,align:"center"})}
+    label(415,210,"0.050 mg = 50. mcg = 2 tablets",{size:13,weight:700,mono:true,border:C.good});label(415,260,"mg ↔ mcg mix-up = 1000× error",{size:13,weight:700,border:C.bad,color:C.bad})}
+  if(c.id==="saline"){rr(70,50,120,160,16);fillStroke(hexA(C.water,.75),C["glass-edge"],1.8);txt(130,110,"0.9%",{size:16,weight:700,align:"center"});txt(130,132,"NaCl",{size:14,weight:700,align:"center"});txt(130,154,"1000 mL",{size:12,mono:true,align:"center"});
+    line(130,210,130,232,C["glass-edge"],3);rr(118,232,24,40,6);fillStroke(hexA(C.glass,.9),C["glass-edge"],1.4);const ph=P(T,1.2);circ(130,240+ph*26,3.5,C["water-edge"]);line(130,272,130,296,C["glass-edge"],3);
+    lens(410,160,120,[130,140,12],(X,Y,R)=>{ctx.fillStyle=hexA(C.water,.5);ctx.fillRect(X-R,Y-R,2*R,2*R);waterField(X,Y,R,"liquid",T,{s:16,sp:38});for(let k=0;k<6;k++){const q=liqPos(k+90,T*22,{x:X-R*.75,y:Y-R*.75,w:R*1.5,h:R*1.5},12);ion(q[0],q[1],k%2?12:10.5,k%2?"Cl":"Na",k%2?"-":"+")}},{title:"Na⁺ AND Cl⁻ AMONG WATER"})}
+  panelBox(8,312,584,130);title(22,332,"The math");
+  if(LS.math){const pr=clamp((now-LS.mathT)/3000,0,1);const m=LS.math;if(m.kind==="steps")m.lines.forEach((l,i)=>{const a=clamp((pr-i*.3)/.25,0,1);if(a>0)withA(a,()=>{txt(26,364+i*34,l[0],{size:15,weight:700,mono:true});label(578,364+i*34,l[1],{size:11.5,weight:700,border:C.accent,align:"right"})})});
+    else{const w=chainWidth(m.items,{size:13,gap:16})+170;if(w<560)chainDraw(24,384,m.items,m.res,pr,{size:13,gap:16});else chainDraw(24,364,m.items,m.res,pr,{size:12.5,gap:14,breakAfter:1,rowH:56,indent:20})}}
+  else wrapText("Answer a calculation question (or press Show the math) to see the units cancel here.",26,372,540,18,{size:13,color:C["ink-soft"]})}
+function lifeA11y(){const c=LIFE[LS.i];const D={fever:"A patient lies in bed with a thermometer. A large thermometer with °F marks on the left and °C marks on the right shows 102.2 °F, above a red dashed fever line at 38.0 °C. A small circle shows molecules moving faster when warmer.",
+  dose:"A child stands on a scale reading 33.0 lb, next to a practice order card for 10.0 mg/kg and a bottle labelled 100. mg per 5.00 mL. An oral syringe fills once question 3 is solved.",
+  urine:"Two cylinders of urine, pale (SG 1.005) and dark (SG 1.030), each with a floating hydrometer; the hydrometer floats higher in the darker, denser sample. A zoom circle shows water molecules with many dissolved ions and urea-like molecules.",
+  blood:"A tube of blood is spun in a centrifuge, then separates into yellow plasma on top, a thin white layer, and dark red cells at the bottom; a ruler marks 21 mm of red cells in a 50. mm column. A zoom circle shows red, dimpled blood cells.",
+  mcg:"Three boxes for gram, milligram and microgram stack downward with an arrow labelled times 1000 from mg to mcg. Two tablets labelled 25 mcg sit beside the note 0.050 mg = 50. mcg = 2 tablets.",
+  saline:"An IV bag labelled 0.9% NaCl drips through a drip chamber. A zoom circle shows purple sodium ions and green chloride ions spread evenly among water molecules."}[c.id];
+  return [`Scenario: ${c.title}.`,D+(LS.math?" The bottom band shows the worked math with units cancelling.":"")]}
+/* ---------------- stages ---------------- */
+const S1=makeStage("cvBench",800,500),S2=makeStage("cvTrain",800,470),S4=makeStage("cvLife",600,450);
+const A11Y={bench:{cv:"#cvBench",f:benchA11y},trainer:{cv:"#cvTrain",f:trA11y},sort:{cv:null,f:sortA11y},life:{cv:"#cvLife",f:lifeA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){if((++a11yT)%20)return;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#sPool");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="bench";
+const TABS=["bench","trainer","sort","life"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey="";a11yT=19}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S4].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+/* bench wiring */
+(function(){const el=$("#benchInst");INST.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.dataset.k=it[0];b.textContent=it[1];b.onclick=()=>{BS.inst=it[0];if(it[0]!=="tgt")benchNew();else{benchUI();a11yKey=""}};el.appendChild(b)})})();
+$("#benchCheck").onclick=benchCheck;$("#benchAns").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();benchCheck()}});$("#benchHint").onclick=benchHint;$("#benchNew").onclick=()=>{benchNew();$("#benchAns").focus()};
+$("#eyeH").oninput=e=>{BS.eye=+e.target.value;benchUI();a11yKey=""};$("#bathT").oninput=e=>{BS.bathTarget=+e.target.value+BS.tOff;benchUI();a11yKey=""};
+$("#tgBias").oninput=e=>{BS.tg.bias=+e.target.value;tgUI()};$("#tgScat").oninput=e=>{BS.tg.scat=+e.target.value;tgUI()};$("#tgFire").onclick=tgFire;
+/* trainer wiring */
+$("#trCheck").onclick=trCheck;$("#trAns").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();trCheck()}});
+$("#trHint").onclick=()=>{const p=TR.p;const b=$("#trHintBox");if(TR.hint<p.hints.length)TR.hint++;b.hidden=false;b.innerHTML=p.hints.slice(0,TR.hint).map((h,i)=>`<div><b>Hint ${i+1}:</b> ${h}</div>`).join("")+(TR.hint>=p.hints.length?`<div class="small">That is the whole ladder. Try it, or press Show worked solution.</div>`:"")};
+$("#trSol").onclick=()=>{trShowSol(true);trMsg("info",`Worked solution: ${TR.p.ansStr}${TR.p.unit?" "+TR.p.unit:""}. Watch the units cancel and the rounding. Then try a new problem.`)};
+$("#trNew").onclick=()=>{trNew();$("#trAns").focus()};
+(function(){const sel=$("#trType");sel.innerHTML=TTYPES.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join("");sel.onchange=()=>{TR.type=sel.value;trNew()}})();
+TR.best=+(store.get("tr-best")||0);
+function frame(now){try{if(curTab==="bench")drawBench(now);else if(curTab==="trainer")drawTrainer(now);else if(curTab==="life")drawLife(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}requestAnimationFrame(frame)}
+/* test hooks */
+window.__ms={tab:k=>showTab(k),inst:k=>{BS.inst=k;if(k!=="tgt")benchNew();else benchUI()},bench:()=>({inst:BS.inst,s:BS.s,truth:benchTruth(),count:BS.count}),benchAnswer:v=>{$("#benchAns").value=v;benchCheck();return $("#benchMsg").textContent},
+  settle:()=>{BS.t0=-1e9;BS.bathT=BS.bathTarget},eye:v=>{BS.eye=v;$("#eyeH").value=v;benchUI()},fire:(b,s)=>{BS.tg.bias=b;BS.tg.scat=s;$("#tgBias").value=b;$("#tgScat").value=s;tgFire();return tgStats()},
+  types:()=>Object.keys(GENS),gen:k=>GENS[k](),trSet:k=>{TR.type=k;$("#trType").value=k;trNew()},trProb:()=>TR.p,trAnswer:v=>{$("#trAns").value=v;trCheck();return $("#trMsg").textContent},trSol:()=>$("#trSol").click(),
+  judge:(i,e,n)=>judgeNum(i,e,n),sortGo:i=>sLoad(i),sortN:()=>SROUNDS.length,sortShow:()=>$("#sShow").click(),lifeGo:i=>lGo(i),lifeN:()=>LIFE.length,lifeAnswerAll:()=>{document.querySelectorAll("#lQs .qblock").forEach(q=>{const o=q.querySelectorAll(".opt");o[1].click();o[0].click()})}};
+readColors();benchNew();trNew();trMeter();sLoad(0);lGo(0);fitAll();showTab("bench");requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

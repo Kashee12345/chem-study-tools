@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Molecular Shapes Lab</title>
+<meta name="description" content="Molecular shapes lab: a 3D VSEPR shape builder, a polarity electric-field bench, a predict-the-shape trainer with worked reasoning, a shape and polarity matching game, and real-life scenarios about water, drugs, carbon dioxide, soap and microwaves.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E3E7EA;--panel:#F7F9FA;--panel-2:#EDF1F3;--sunk:#D5DBDF;
+  --ink:#10161A;--ink-soft:#57666F;--ink-faint:#566570;--rule:#C4CDD3;--rule-soft:#D9E0E4;
+  --accent:#9A4410;--accent-ink:#7A340A;--accent-wash:#F7E6D9;
+  --warn:#B4632A;--warn-wash:#F6E7D8;--bad:#A9372F;--bad-wash:#F7DFDC;--good:#2F6F4F;--good-wash:#DEEDE4;--on-accent:#fff;--warn-ink:#8A4A1C;
+  --act1:#7B5CC9;--act2:#2F7FC1;--act3:#C4644F;--act4:#2E8A7A;--act5:#A04E8C;--act6:#5E7F1A;--act7:#C27A12;
+  --gold:#C9A227;--gold-wash:#F6EFD3;--gold-ink:#7E6410;
+  --ecf:#F1F0EC;--grid:#D8DAD6;
+  --elH:#FFFFFF;--elH-edge:#5A6670;--elC:#3D4248;--elN:#2F5BC8;--elO:#D0342C;--elF:#6FAE2F;--elCl:#2E9E4A;--elBr:#8E2A1C;--elI:#6B2C8F;
+  --elNa:#8A4FD0;--elK:#6A35A8;--elLi:#B26AD6;--elMg:#3E8E3E;--elCa:#57816A;--elAl:#98A2AC;--elS:#D8B416;--elP:#E07B1A;--elB:#E59A8E;--elFe:#B85A1E;--elXe:#3FA0B8;--elSi:#C8A878;
+  --elec:#0F6E86;--rich:#C8402F;--poor:#2F6FC1;--heat:#D9822B;--absorb:#2F7FC1;--sea:#7FC4DA;
+  --water:#D6E9F4;--glass:#DCE8EE;--glass-edge:#7F99A6;--liq:#CFE3EF;--paper:#FFFDF7;--scr:#10161A;--metal:#B9C2CA;--metal-edge:#6E7A84;--flame:#E8A13A;--blood:#B5303A;
+  --bond:#7C848C;--bond-hi:#C9CFD4;--lp:#7046B0;--lp-fill:#B89BE0;--dpos:#2F6FC1;--dneg:#C8372D;--dip:#0F7A72;--net:#B0186E;
+  --ax:#B08A12;--eq:#1F72B0;--sigma:#2F6FC1;--pi:#B0408E;--ph1:#3A78C9;--ph2:#D06A2A;--hyb:#2E8A5A;--orbs:#3A78C9;
+  --plate-p:#C8372D;--plate-n:#2F6FC1;--o2liq:#8FC0EA;--magnet:#9AA4AC;--n-pole:#C8372D;--s-pole:#2F6FC1;--ice:#D9EEF8;--grease:#D9A520;--soap-head:#C8372D;--soap-tail:#5E6B74;
+  --face:#E59A4E;--balloon:#D9534F;
+  --shadow:0 1px 2px rgba(16,22,26,.08),0 6px 18px -8px rgba(16,22,26,.18);
+  --r:6px;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;--serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2416;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#5AA9E6;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#A3C95A;--act7:#F2A93B;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#26303A;
+  --elH:#E8EEF1;--elH-edge:#A3B2BA;--elC:#8E989F;--elN:#7A9CF0;--elO:#F0766C;--elF:#A6D86A;--elCl:#62CC7E;--elBr:#D0705C;--elI:#B07AD6;
+  --elNa:#B48AF0;--elK:#A07EE6;--elLi:#CFA2EC;--elMg:#7CC77C;--elCa:#8FC2A5;--elAl:#C2CAD2;--elS:#F2D44E;--elP:#F29A4A;--elB:#F0B5AA;--elFe:#E08A4A;--elXe:#6FC6DA;--elSi:#D8C094;
+  --elec:#7FD3EA;--rich:#F07A6A;--poor:#78AEEE;--heat:#F2A950;--absorb:#6FB1EC;--sea:#2F6E84;
+  --water:#1F3A4A;--glass:#1E2C34;--glass-edge:#7F99A6;--liq:#1D3442;--paper:#1E262B;--scr:#0A0F12;--metal:#5A6670;--metal-edge:#A3B2BA;--flame:#F2B04B;--blood:#E0707A;
+  --bond:#9AA3AA;--bond-hi:#E0E6EA;--lp:#C6A2F2;--lp-fill:#7E5CB8;--dpos:#78AEEE;--dneg:#F07A6A;--dip:#4FD0C0;--net:#F07ABF;
+  --ax:#E0BE48;--eq:#6FB1EC;--sigma:#78AEEE;--pi:#E08AC8;--ph1:#6FA8F0;--ph2:#F2A060;--hyb:#6BC293;--orbs:#6FA8F0;
+  --plate-p:#F07A6A;--plate-n:#78AEEE;--o2liq:#6FA8E0;--magnet:#6E7A84;--n-pole:#F07A6A;--s-pole:#78AEEE;--ice:#2A4656;--grease:#E0B848;--soap-head:#F07A6A;--soap-tail:#A3B2BA;
+  --face:#F2A950;--balloon:#F07A6A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1519;--panel:#172026;--panel-2:#1D282F;--sunk:#0A1014;
+  --ink:#E8EEF1;--ink-soft:#A3B2BA;--ink-faint:#8D9EA7;--rule:#2C3A42;--rule-soft:#24313A;
+  --accent:#F4A86A;--accent-ink:#F8C49A;--accent-wash:#3A2416;
+  --warn:#E39A5B;--warn-wash:#3A2717;--bad:#E07067;--bad-wash:#3B1E1B;--good:#6BC293;--good-wash:#17301F;--on-accent:#0B1A20;--warn-ink:#E39A5B;
+  --act1:#A98BEF;--act2:#5AA9E6;--act3:#E08A74;--act4:#5CC4B0;--act5:#D186C0;--act6:#A3C95A;--act7:#F2A93B;
+  --gold:#E0BE48;--gold-wash:#352E14;--gold-ink:#E0BE48;
+  --ecf:#131A20;--grid:#26303A;
+  --elH:#E8EEF1;--elH-edge:#A3B2BA;--elC:#8E989F;--elN:#7A9CF0;--elO:#F0766C;--elF:#A6D86A;--elCl:#62CC7E;--elBr:#D0705C;--elI:#B07AD6;
+  --elNa:#B48AF0;--elK:#A07EE6;--elLi:#CFA2EC;--elMg:#7CC77C;--elCa:#8FC2A5;--elAl:#C2CAD2;--elS:#F2D44E;--elP:#F29A4A;--elB:#F0B5AA;--elFe:#E08A4A;--elXe:#6FC6DA;--elSi:#D8C094;
+  --elec:#7FD3EA;--rich:#F07A6A;--poor:#78AEEE;--heat:#F2A950;--absorb:#6FB1EC;--sea:#2F6E84;
+  --water:#1F3A4A;--glass:#1E2C34;--glass-edge:#7F99A6;--liq:#1D3442;--paper:#1E262B;--scr:#0A0F12;--metal:#5A6670;--metal-edge:#A3B2BA;--flame:#F2B04B;--blood:#E0707A;
+  --bond:#9AA3AA;--bond-hi:#E0E6EA;--lp:#C6A2F2;--lp-fill:#7E5CB8;--dpos:#78AEEE;--dneg:#F07A6A;--dip:#4FD0C0;--net:#F07ABF;
+  --ax:#E0BE48;--eq:#6FB1EC;--sigma:#78AEEE;--pi:#E08AC8;--ph1:#6FA8F0;--ph2:#F2A060;--hyb:#6BC293;--orbs:#6FA8F0;
+  --plate-p:#F07A6A;--plate-n:#78AEEE;--o2liq:#6FA8E0;--magnet:#6E7A84;--n-pole:#F07A6A;--s-pole:#78AEEE;--ice:#2A4656;--grease:#E0B848;--soap-head:#F07A6A;--soap-tail:#A3B2BA;
+  --face:#F2A950;--balloon:#F07A6A;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-family:var(--serif);font-weight:600;font-size:26px;margin:2px 0 0;line-height:1.2}
+.sub{margin:2px 0 0;color:var(--ink-soft);font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:9px 14px;cursor:pointer;font-weight:500;font-size:15px}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tbtn{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:8px 13px;cursor:pointer;font-size:14.5px}
+.tbtn:hover{border-color:var(--accent)}
+.tbtn:disabled{opacity:.45;cursor:default}
+.tbtn[aria-pressed="true"]{background:var(--accent-wash);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r);padding:10px 18px;font-weight:600;cursor:pointer;font-size:15px}
+.btn:disabled{opacity:.45;cursor:default}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid,.grid2{grid-template-columns:1fr}}
+.stage{padding:10px}
+.canvas-holder{width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--rule-soft);background:var(--ecf)}
+canvas{display:block;width:100%;touch-action:manipulation}
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 4px 2px;font-size:14px;color:var(--ink-soft)}
+.caption{flex:1 1 220px;font-size:14px;color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 4px 2px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.legend i.s{border-radius:2px}
+.legend i.ln{width:20px;height:0;border-radius:0;border:0;border-top:3px solid}
+.legend i.t{width:0;height:0;border-radius:0;border:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid;background:none!important}
+.rounds{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.round{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:14px}
+.round[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.round .ok{color:var(--gold-ink);margin-left:4px}
+.mode{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-soft)}
+.mode input{accent-color:var(--accent);width:18px;height:18px}
+.lvl-n{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.lvl-t{font-family:var(--serif);font-size:22px;font-weight:600;margin:4px 0 8px;line-height:1.25}
+.goal{background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;padding:10px 12px;margin:0 0 10px;font-size:15px}
+.goal b.h{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);margin-bottom:2px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.msg{margin:10px 0 0;padding:10px 12px;border-radius:var(--r);font-size:15px;display:none}
+.msg.show{display:block}
+.msg.good{background:var(--good-wash);color:var(--ink);border:1px solid var(--good)}
+.msg.warn{background:var(--warn-wash);color:var(--ink);border:1px solid var(--warn)}
+.msg.info{background:var(--panel-2);color:var(--ink);border:1px solid var(--rule)}
+.stars{font-size:22px;letter-spacing:2px;color:var(--gold-ink)}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.side p,.side li{font-size:14.5px}
+.side ul{padding-left:18px;margin:6px 0}
+.small{font-size:13px;color:var(--ink-soft)}
+.typebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.typebtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 0;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:15px}
+.typebtn:hover{border-color:var(--accent)}
+.typebtn.right{border-color:var(--good);background:var(--good-wash)}
+.typebtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.typebtn:disabled{cursor:default}
+.prog{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:6px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.timer{font-family:var(--mono);font-size:18px;font-weight:600}
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 4px}
+.bag{position:relative;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:6px 4px 4px;cursor:grab;touch-action:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--mono);font-weight:700;font-size:14px}
+.bag svg{width:34px;height:44px;display:block}
+.bag.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.bag.ok{border-color:var(--good);background:var(--good-wash)}
+.bag.no{border-color:var(--warn);background:var(--warn-wash)}
+.bag .mk{position:absolute;top:3px;right:5px;font-size:13px}
+.bag.ghost{position:fixed;z-index:50;pointer-events:none;opacity:.9;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.droptarget{outline:3px dashed var(--accent);outline-offset:-3px}
+.abbox{background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:10px 12px;font-size:14.5px;margin-top:10px}
+/* sim */
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+.readouts{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.readouts th{text-align:left;font-weight:500;color:var(--ink-soft);padding:5px 6px 5px 0;border-top:1px solid var(--rule-soft)}
+.srhead th,.srhead td,.readouts caption.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;border:0}
+.readouts td{padding:5px 0;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:13.5px;text-align:right;white-space:nowrap}
+.chal{list-style:none;padding:0;margin:6px 0}
+.chal li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--rule-soft);font-size:14px}
+.chal .ck{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-size:13px;font-family:var(--mono)}
+.chal li.done .ck{background:var(--good);border-color:var(--good);color:var(--on-accent)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.bad{background:var(--bad-wash);border-color:var(--bad)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+/* sequencer */
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.item{display:flex;align-items:center;gap:10px;background:var(--panel);border:1.5px solid var(--rule);border-left:6px solid var(--act4);border-radius:var(--r);padding:7px 8px 7px 10px;touch-action:none;user-select:none;cursor:grab;transition:background .15s,border-color .15s}
+.item.drag{box-shadow:0 10px 24px -8px rgba(0,0,0,.4);cursor:grabbing;border-color:var(--accent);z-index:2;position:relative}
+.item .pos{font-family:var(--mono);font-size:13px;color:var(--ink-faint);width:20px;text-align:right;flex:0 0 auto}
+.item .grip{color:var(--ink-faint);font-size:18px;line-height:1;flex:0 0 auto}
+.item .txt{flex:1;font-size:15px;line-height:1.35}
+.item .mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:30px;height:24px;border:1px solid var(--rule);background:var(--panel-2);border-radius:4px;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.mv button:hover{border-color:var(--accent)}
+.item.right{background:var(--good-wash);border-color:var(--good)}
+.item.off{background:var(--warn-wash);border-color:var(--warn)}
+.item.hinted{box-shadow:0 0 0 3px var(--gold)}
+.sc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sc-n{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em}
+.sc-title{font-family:var(--serif);font-size:22px;font-weight:600;margin:2px 0 6px}
+.qlab{font-weight:600;margin:12px 0 8px}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opt{text-align:left;background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:9px 12px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-wash)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.fb{margin:8px 0 0;font-size:14.5px;padding:8px 10px;border-radius:4px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-wash);border-left:4px solid var(--good)}
+.fb.no{background:var(--warn-wash);border-left:4px solid var(--warn)}
+.explain{margin-top:14px;padding:12px 14px;background:var(--accent-wash);border-left:4px solid var(--accent);border-radius:4px;display:none}
+.explain.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;font-family:var(--mono);font-size:12.5px;background:var(--panel-2);cursor:pointer;padding:0}
+.chip.cur{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.chip.done{border-color:var(--good);background:var(--good-wash);color:var(--good)}
+.chip.done.cur{background:var(--accent);color:var(--on-accent)}
+.calm{font-size:13px;color:var(--ink-faint);margin:8px 0 0}
+.subtabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 28px;font-size:13px;color:var(--ink-faint)}
+footer a{color:var(--ink-soft)}
+kbd{font-family:var(--mono);font-size:12.5px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel-2)}
+sub,sup{line-height:0}
+[hidden]{display:none!important}
+/* heart lab */
+.sbank{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sbtn{background:var(--panel);border:1.5px solid var(--rule);border-radius:var(--r);padding:7px 9px;cursor:pointer;font-size:14px;text-align:left;line-height:1.25}
+.sbtn:hover{border-color:var(--accent)}
+.sbtn.done{border-color:var(--good);background:var(--good-wash)}
+.sbtn.no{border-color:var(--warn);background:var(--warn-wash)}
+.sbtn.hint{box-shadow:0 0 0 3px var(--gold)}
+.paint{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.paint button{display:inline-flex;align-items:center;gap:8px}
+.paint i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.rhythms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.rhythms .tbtn{text-align:left;font-size:14px;line-height:1.25}
+.mopts{display:grid;grid-template-columns:1fr;gap:6px;margin:8px 0}
+.slwrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 0}
+.slwrap input[type=range]{flex:1 1 260px;accent-color:var(--accent)}
+.slwrap output{font-family:var(--mono);font-weight:600;min-width:72px}
+.qcard{margin-top:12px;border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;background:var(--panel-2)}
+.qcard h3{margin-top:0}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.big{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1}
+select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r);padding:4px 6px}
+/* genetics case lab */
+.gtgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gtgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gbtn{font-family:var(--mono);font-weight:600;font-size:15px;padding:8px 4px;text-align:center}
+.gbtn sup{font-size:10.5px;line-height:0}
+.modes{display:grid;grid-template-columns:1fr;gap:6px}
+.modes .tbtn{text-align:left;line-height:1.3}
+.modes .tbtn small{display:block;font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.modes .tbtn[aria-pressed="true"] small{color:var(--accent-ink)}
+.kidbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.kidbtns .btn{padding:10px 6px;font-size:14.5px}
+.readouts td.l{font-family:var(--sans);text-align:left;white-space:normal}
+.readouts thead th{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+.casechips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.casechip{border:1.5px solid var(--rule);background:var(--panel-2);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.casechip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);color:var(--accent-ink);font-weight:600}
+.casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin-bottom:6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+/* sort game */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:10px;border:1.5px dashed var(--rule);border-radius:var(--r);background:var(--panel-2);margin:8px 0 12px}
+.scard{background:var(--panel);border:1.5px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);padding:8px 10px;cursor:grab;font-size:14.5px;line-height:1.3;text-align:left;touch-action:none;user-select:none;max-width:100%}
+.scard:hover{border-color:var(--accent)}
+.scard[aria-pressed="true"]{box-shadow:0 0 0 3px var(--accent);border-color:var(--accent)}
+.scard.ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.scard.placed{cursor:default;border-left-color:var(--good);background:var(--good-wash);font-size:13.5px;padding:6px 8px}
+.scard.hinted{box-shadow:0 0 0 3px var(--gold)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.bin{border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);padding:8px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.bin.over{outline:3px dashed var(--accent);outline-offset:-3px}
+.bin.hintbin{box-shadow:0 0 0 3px var(--gold)}
+.binhead{display:flex;align-items:center;gap:8px;width:100%;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r);padding:6px;cursor:pointer;font-weight:600;font-size:14.5px;text-align:left;line-height:1.25}
+.binhead:hover{border-color:var(--accent)}
+.binhead svg{width:56px;height:46px;flex:0 0 auto}
+.binitems{display:flex;flex-direction:column;gap:5px}
+.sortbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 8px}
+.sorthead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec{font-family:var(--serif);font-size:21px;margin:2px 0 6px;font-weight:600}
+.sim-note{font-size:13.5px;color:var(--ink-soft);margin:6px 0 0}
+.readouts td{padding-left:10px}
+.diskgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.diskgrid .tbtn{text-align:left;font-size:13.5px;line-height:1.25;padding:7px 8px}
+.diskgrid .tbtn b{font-family:var(--mono);display:inline-block;min-width:34px}
+.readouts.chart td{text-align:center;padding-left:4px}
+.readouts.chart th,.readouts.chart td{font-size:13px}
+.readouts thead th{color:var(--ink-soft)}
+.scen .tbtn{font-family:var(--mono);font-size:13.5px}
+.seg3 .tbtn.right,.scen .tbtn.right{border-color:var(--good);background:var(--good-wash)}
+.seg3 .tbtn.wrong,.scen .tbtn.wrong{border-color:var(--warn);background:var(--warn-wash)}
+.ok-ic{color:var(--good);font-weight:700}
+.no-ic{color:var(--warn-ink);font-weight:700}
+/* PK lab extras */
+.side{padding:14px 16px}
+.seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.seg.s4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.seg.s3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.seg .tbtn{font-size:13.5px;line-height:1.2;padding:8px 4px;text-align:center}
+.ctl .hint{font-size:12.5px;color:var(--ink-soft);font-weight:400}
+.toggle{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;margin:10px 0 4px}
+.toggle input{accent-color:var(--accent);width:18px;height:18px}
+.evbtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.evbtns .tbtn{font-size:13.5px;line-height:1.25;padding:8px 6px}
+.zone{font-weight:700}
+.zone.low{color:var(--warn-ink)}.zone.ok{color:var(--good)}.zone.hi{color:var(--bad)}
+.tl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.tl-row label{font-weight:600;font-size:14.5px}
+.tl-row input[type=range]{flex:1 1 240px;accent-color:var(--accent)}
+.tl-row output{font-family:var(--mono);font-weight:600;color:var(--accent-ink);min-width:150px}
+.nudge{display:flex;gap:6px;flex-wrap:wrap}
+.scchips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.scchips .casechip .ok{color:var(--good);margin-left:4px;font-weight:700}
+h3.ql{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+@media (min-width:901px){#tab-sim .grid>.stage,#tab-draw .grid>.stage{position:sticky;top:8px}}
+#tab-cases .case{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+@media (max-width:900px){#tab-cases .case{grid-template-columns:1fr}}
+.binhead span{overflow-wrap:break-word;min-width:0}
+.bins{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.side{padding:14px 16px}
+.seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.seg.s3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.seg.s4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.seg.s5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.seg.s6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.seg .tbtn{font-size:13.5px;line-height:1.2;padding:8px 2px;text-align:center}
+.seg .tbtn.el{font-family:var(--mono);font-weight:600}
+.stepper{display:flex;align-items:center;gap:8px;margin:6px 0}
+.stepper .lab{flex:1;font-weight:600;font-size:14.5px}
+.stepper .tbtn{width:40px;height:36px;padding:0;font:700 18px var(--mono)}
+.stepper output{font:700 20px var(--mono);min-width:26px;text-align:center}
+.toggles{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin:8px 0}
+.toggle{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.toggle input{accent-color:var(--accent);width:18px;height:18px}
+.rotbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.rotbar .tbtn{font-size:13.5px;padding:7px 10px}
+.readouts td.l{font-family:var(--sans);text-align:right;white-space:normal}
+.readouts td.big{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--accent-ink)}
+.status{font-size:14.5px;padding:8px 10px;border-radius:var(--r);margin-top:8px;border:1px solid var(--rule);background:var(--panel-2)}
+.status.warn{background:var(--warn-wash);border-color:var(--warn)}
+.status.good{background:var(--good-wash);border-color:var(--good)}
+.preset{width:100%;padding:7px 8px;font-size:15px}
+.molbtns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.molbtns .tbtn{font-family:var(--mono);font-weight:600;font-size:14px;padding:8px 2px}
+.ctl{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.ctl label{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.ctl output{font-family:var(--mono);font-weight:600;color:var(--accent-ink)}
+.ctl input[type=range]{accent-color:var(--accent);width:100%}
+.probcard{margin:10px 0 8px;padding:12px 14px;border:1px solid var(--rule);border-left:5px solid var(--accent);border-radius:var(--r);background:var(--panel-2);font-size:15.5px;line-height:1.5}
+.probcard .pt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:4px}
+.probcard .f{font:700 26px var(--mono);display:block;margin:2px 0}
+.qgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.qrow{display:grid;grid-template-columns:150px minmax(0,1fr) 22px;gap:8px;align-items:center}
+.qrow label{font-weight:600;font-size:14px}
+.qrow select,.qrow input{font:inherit;font-size:14.5px;width:100%;padding:6px 6px;border:1.5px solid var(--rule);border-radius:var(--r);background:var(--panel);color:var(--ink)}
+.qrow input{font-family:var(--mono);font-weight:600}
+.qrow select:focus,.qrow input:focus{outline:3px solid var(--accent);outline-offset:1px}
+.qrow .mk{font-weight:700;font-size:15px;text-align:center}
+.qrow.right select,.qrow.right input{border-color:var(--good);background:var(--good-wash)}
+.qrow.wrong select,.qrow.wrong input{border-color:var(--warn);background:var(--warn-wash)}
+.qrow .mk.ok{color:var(--good)}.qrow .mk.no{color:var(--warn-ink)}
+@media (max-width:480px){.qrow{grid-template-columns:1fr 22px}.qrow label{grid-column:1/-1}}
+.hintbox{margin:8px 0 0;padding:8px 10px;border-radius:4px;background:var(--gold-wash);border-left:4px solid var(--gold);font-size:14.5px}
+.hintbox div{margin:2px 0}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft);margin:10px 0 6px}
+.meter b{color:var(--ink);font-family:var(--mono)}
+.scard.pic{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;border-left-width:1.5px;font-family:var(--mono);font-size:13px;font-weight:600}
+.scard.pic svg{width:104px;height:90px;display:block}
+.scard.pic.placed{flex-direction:row;font-size:12.5px}
+.scard.pic.placed svg{width:50px;height:44px}
+.scard .sub{font-family:var(--sans);font-weight:500;font-size:12px;color:var(--ink-soft)}
+.bins{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.binhead span{min-width:0;overflow-wrap:break-word}
+.scen{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.story{font-size:15.5px;margin:0 0 8px}
+.qblock{border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:10px}
+.qblock .qlab{font-weight:600;margin:4px 0 8px}
+.case{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.case{grid-template-columns:1fr}}
+@media (min-width:901px){#tab-build .grid>.stage,#tab-field .grid>.stage,#tab-pred .grid>.stage{position:sticky;top:8px}}
+.bigname{font-family:var(--serif);font-size:20px;font-weight:600;margin:4px 0 0}
+.lab-sel{display:block;font-weight:600;font-size:14.5px;margin:12px 0 4px}
+.side h3{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+</style>
+<script src="chem-kit.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <div>
+    <div class="kicker">General Chemistry &middot; Module 6 &middot; Molecular shape and polarity</div>
+    <h1>Molecular Shapes Lab</h1>
+    <p class="sub">Build any VSEPR shape in 3D, drop molecules between charged plates, practise predicting shapes with worked reasoning, match shapes and polarity, and see molecular shape at work in real life. Nothing here is graded.</p>
+  </div>
+  <button class="tbtn" id="themeBtn" type="button">Light / dark</button>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Lab parts">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="tab-build" data-tab="build" id="tabbtn-build" type="button">Part 1 &middot; Shape Builder</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-field" data-tab="field" id="tabbtn-field" type="button" tabindex="-1">Part 2 &middot; Polarity Field Bench</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-pred" data-tab="pred" id="tabbtn-pred" type="button" tabindex="-1">Part 3 &middot; Predict the Shape</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-sort" data-tab="sort" id="tabbtn-sort" type="button" tabindex="-1">Part 4 &middot; Match It</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="tab-life" data-tab="life" id="tabbtn-life" type="button" tabindex="-1">Part 5 &middot; Shape in Real Life</button>
+  </div>
+
+  <!-- PART 1: builder -->
+  <section id="tab-build" role="tabpanel" aria-labelledby="tabbtn-build">
+    <h2 class="gk-sr">Part 1: Shape Builder</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvBuild" role="img" aria-label="VSEPR shape builder."></canvas></div>
+        <div class="stagebar"><span class="caption" id="buildCap">Drag the model to turn it, or use the turn buttons.</span></div>
+        <div class="rotbar" role="group" aria-label="Turn the model">
+          <button class="tbtn" type="button" id="rotL">&#8634; Turn left</button>
+          <button class="tbtn" type="button" id="rotR">Turn right &#8635;</button>
+          <button class="tbtn" type="button" id="rotU">Tilt up</button>
+          <button class="tbtn" type="button" id="rotD">Tilt down</button>
+          <button class="tbtn" type="button" id="rotReset">Reset view</button>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--lp-fill)"></i>Lone pair (purple balloon)</span>
+          <span><i class="ln" style="border-top-color:var(--accent)"></i>Bond angle arc</span>
+          <span><i class="ln" style="border-top-color:var(--dip)"></i>Bond dipole</span>
+          <span><i class="ln" style="border-top-color:var(--net)"></i>Net dipole</span>
+        </div>
+        <p class="sim-note">Atoms are labelled with their symbols. Angles with lone pairs are typical measured values. The right side shows the Lewis structure and what a thin stream of the liquid would do near a charged rod.</p>
+      </div>
+      <aside class="card side" aria-label="Builder controls">
+        <label class="lab-sel" for="bPreset">Start from a real molecule</label>
+        <select id="bPreset" class="preset"></select>
+        <h3 id="bCenLab">Central atom</h3>
+        <div class="seg s6" id="bCen" role="group" aria-labelledby="bCenLab"></div>
+        <h3 id="bOutLab">Outer atoms</h3>
+        <div class="seg s6" id="bOut" role="group" aria-labelledby="bOutLab"></div>
+        <div class="stepper"><span class="lab" id="bBLab">Bonding groups</span><button class="tbtn" type="button" id="bBm" aria-label="Remove a bonding group">&minus;</button><output id="bBn" aria-labelledby="bBLab">4</output><button class="tbtn" type="button" id="bBp" aria-label="Add a bonding group">+</button></div>
+        <div class="stepper"><span class="lab" id="bELab">Lone pairs on the central atom</span><button class="tbtn" type="button" id="bEm" aria-label="Remove a lone pair">&minus;</button><output id="bEn" aria-labelledby="bELab">0</output><button class="tbtn" type="button" id="bEp" aria-label="Add a lone pair">+</button></div>
+        <h3 id="bOddLab">Swap one outer atom for</h3>
+        <div class="seg s4" id="bOdd" role="group" aria-labelledby="bOddLab"></div>
+        <div class="toggles">
+          <label class="toggle"><input type="checkbox" id="bShowLP" checked> Lone pairs</label>
+          <label class="toggle"><input type="checkbox" id="bShowAng" checked> Bond angles</label>
+          <label class="toggle"><input type="checkbox" id="bShowDip"> Dipole arrows</label>
+          <label class="toggle"><input type="checkbox" id="bSpin" checked> Auto-spin</label>
+        </div>
+        <div class="status" id="bStatus" role="status"></div>
+        <table class="readouts" id="bRead"><caption class="sr">Shape readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 2: field bench -->
+  <section id="tab-field" role="tabpanel" aria-labelledby="tabbtn-field" hidden>
+    <h2 class="gk-sr">Part 2: Polarity Field Bench</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvField" role="img" aria-label="Molecules between charged plates."></canvas></div>
+        <div class="stagebar"><span class="caption" id="fieldCap"></span></div>
+        <div class="legend">
+          <span><i class="s" style="background:var(--plate-p)"></i>Positive plate</span>
+          <span><i class="s" style="background:var(--plate-n)"></i>Negative plate</span>
+          <span><i class="ln" style="border-top-color:var(--net)"></i>Net dipole / polar line on the graph</span>
+          <span><i class="ln" style="border-top-color:var(--ink-soft)"></i>Nonpolar line on the graph</span>
+        </div>
+        <p class="sim-note">Teaching model. Molecules turn in the plane of the screen only, and the field is made far stronger than a real lab field so the lining-up is easy to see. Higher temperature means harder random knocks, so fewer molecules stay lined up.</p>
+      </div>
+      <aside class="card side" aria-label="Field bench controls">
+        <h3 id="fMolLab">Drop molecules between the plates</h3>
+        <div class="molbtns" id="fMols" role="group" aria-labelledby="fMolLab"></div>
+        <div class="bar"><button class="tbtn" type="button" id="fClear">Empty the bench</button><button class="tbtn" type="button" id="fMix">Drop a mixed set</button></div>
+        <div class="bar"><button class="btn" type="button" id="fSwitch" aria-pressed="false">Turn the field on</button><button class="tbtn" type="button" id="fRev">Swap the plates</button></div>
+        <div class="ctl"><label for="fStr">Field strength <output id="fStrOut" for="fStr"></output></label><input type="range" id="fStr" min="0" max="100" step="5" value="70"></div>
+        <div class="ctl"><label for="fTemp">Temperature <output id="fTempOut" for="fTemp"></output></label><input type="range" id="fTemp" min="100" max="500" step="10" value="300"></div>
+        <label class="toggle"><input type="checkbox" id="fArrows" checked> Show net dipole arrows</label>
+        <table class="readouts" id="fRead"><caption class="sr">Field bench readouts</caption><thead class="srhead"><tr><th scope="col">Measure</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+        <div class="status" id="fStatus" role="status"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 3: predict the shape -->
+  <section id="tab-pred" role="tabpanel" aria-labelledby="tabbtn-pred" hidden>
+    <h2 class="gk-sr">Part 3: Predict the Shape</h2>
+    <div class="grid">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvPred" role="img" aria-label="Worked reasoning."></canvas></div>
+        <div class="stagebar"><span class="caption" id="predCap"></span><button class="tbtn" type="button" id="pReplay">Replay the reasoning</button></div>
+        <p class="sim-note">Predict first, then check. The worked reasoning plays step by step: count valence electrons, build the Lewis structure, count groups, place them in 3D, hide the lone pairs, add the dipoles, and name the hybrids.</p>
+      </div>
+      <aside class="card side" aria-label="Prediction controls">
+        <label class="lab-sel" for="pLevel">Which molecules?</label>
+        <select id="pLevel" class="preset">
+          <option value="all">Everything (mixed)</option>
+          <option value="24">Two to four groups</option>
+          <option value="56">Five and six groups</option>
+          <option value="ion">Ions only</option>
+        </select>
+        <div class="probcard" id="pProb" aria-live="polite"></div>
+        <div class="qgrid" id="pQs"></div>
+        <div class="bar">
+          <button class="btn" type="button" id="pCheck">Check</button>
+          <button class="tbtn" type="button" id="pHint">Hint</button>
+          <button class="tbtn" type="button" id="pSol">Show worked reasoning</button>
+          <button class="tbtn" type="button" id="pNew">New molecule</button>
+        </div>
+        <div class="msg" id="pMsg" role="status"></div>
+        <div class="hintbox" id="pHintBox" role="status" hidden></div>
+        <div class="meter"><span>Streak <b id="pStreak">0</b></span><span>Best <b id="pBest">0</b></span><span>Solved <b id="pSolved">0</b></span></div>
+        <p class="small">The streak counts molecules where every part was right on the first check, without opening the reasoning.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PART 4: matching game -->
+  <section id="tab-sort" role="tabpanel" aria-labelledby="tabbtn-sort" hidden>
+    <h2 class="gk-sr">Part 4: Match It</h2>
+    <div class="rounds" id="sRounds" role="group" aria-label="Rounds"></div>
+    <div class="card">
+      <div class="sorthead">
+        <div><div class="lvl-n" id="sN"></div><h2 class="sec" id="sTitle"></h2></div>
+        <div class="sortbar">
+          <label class="mode"><input type="checkbox" id="sRelaxed" checked> Relaxed mode (no timer)</label>
+          <span class="timer" id="sTimer" hidden>0:00</span>
+          <span class="stars" id="sStars" role="img" aria-label="Stars appear when the round is done"></span>
+        </div>
+      </div>
+      <p class="goal"><b class="h">Your job</b><span id="sGoal"></span></p>
+      <p class="small">Drag a card onto a box, or tap a card and then tap the box's name. Cards are buttons, so Tab and Enter work too.</p>
+      <div class="pool" id="sPool" aria-label="Cards to sort"></div>
+      <div class="bins" id="sBins"></div>
+      <div class="bar">
+        <button class="tbtn" id="sHint" type="button">Hint</button>
+        <button class="tbtn" id="sShow" type="button">Show answer</button>
+        <button class="tbtn" id="sShuffle" type="button">Start round over</button>
+        <button class="btn" id="sNext" type="button">Next round &rarr;</button>
+      </div>
+      <div class="msg" id="sMsg" role="status"></div>
+      <p class="small" id="sBest"></p>
+    </div>
+  </section>
+
+  <!-- PART 5: real life -->
+  <section id="tab-life" role="tabpanel" aria-labelledby="tabbtn-life" hidden>
+    <h2 class="gk-sr">Part 5: Shape in Real Life</h2>
+    <div class="scen" id="lChips" role="group" aria-label="Choose a scenario"></div>
+    <div class="case">
+      <div class="card stage">
+        <div class="canvas-holder"><canvas id="cvLife" role="img" aria-label="Real-life scenario picture."></canvas></div>
+        <div class="stagebar"><span class="caption" id="lifeCap"></span></div>
+      </div>
+      <div class="card">
+        <div class="sc-n" id="lN"></div>
+        <h2 class="sc-title" id="lTitle"></h2>
+        <p class="story" id="lStory"></p>
+        <div id="lQs"></div>
+        <div class="bar" style="margin-top:12px">
+          <button class="tbtn" id="lPrev" type="button">&larr; Previous</button>
+          <button class="btn" id="lNext" type="button">Next scenario &rarr;</button>
+        </div>
+        <p class="calm">Wrong answers are fine here. Each one tells you why.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<footer>Dr. Akash Garg &middot; General Chemistry Study Tools &middot; Particle drawings are simplified and not to scale. CC BY-NC-SA 4.0<br>Pair with the <a href="Shapes-Walkthrough.html">Molecular Shapes Walkthrough</a>. Electronegativity values are on the Pauling scale. Bond angles with lone pairs are typical measured values; the field bench is a teaching model with an exaggerated field.</footer>
+<script>
+(function(){
+"use strict";
+const KEYS=["ground", "panel", "panel-2", "sunk", "ink", "ink-soft", "ink-faint", "rule", "rule-soft", "accent", "accent-ink", "accent-wash", "warn", "warn-wash", "bad", "bad-wash", "good", "good-wash", "on-accent", "warn-ink", "act1", "act2", "act3", "act4", "act5", "act6", "act7", "gold", "gold-wash", "gold-ink", "ecf", "grid", "elH", "elH-edge", "elC", "elN", "elO", "elF", "elCl", "elBr", "elI", "elNa", "elK", "elLi", "elMg", "elCa", "elAl", "elS", "elP", "elB", "elFe", "elXe", "elSi", "elec", "rich", "poor", "heat", "absorb", "sea", "water", "glass", "glass-edge", "liq", "paper", "scr", "metal", "metal-edge", "flame", "blood", "bond", "bond-hi", "lp", "lp-fill", "dpos", "dneg", "dip", "net", "ax", "eq", "sigma", "pi", "ph1", "ph2", "hyb", "orbs", "plate-p", "plate-n", "o2liq", "magnet", "n-pole", "s-pole", "ice", "grease", "soap-head", "soap-tail", "face", "balloon"];
+/* ================= drawing kit (shared by both pages) ================= */
+let ctx=null;
+const C={};
+function readColors(){const s=getComputedStyle(document.documentElement);KEYS.forEach(k=>C[k]=s.getPropertyValue("--"+k).trim())}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const TAU=Math.PI*2;
+const gauss=(t,m,s)=>Math.exp(-((t-m)*(t-m))/(2*s*s));
+const FONT='"IBM Plex Sans",system-ui,sans-serif',MONO='"IBM Plex Mono",ui-monospace,monospace';
+function hx(c){let h=(c||"#888").trim();if(h[0]!=="#"){const m=h.match(/\d+/g);return m&&m.length>=3?[+m[0],+m[1],+m[2]]:[136,136,136]}h=h.slice(1);if(h.length===3)h=h.split("").map(x=>x+x).join("");const n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]}
+function isDark(){return hx(C.ground)[0]<60}
+function onFill(){return isDark()?"#0E1519":"#fff"}
+function P(T,L){return ((T%L)+L)%L/L}
+function mix(a,b,t){const A=hx(a),B=hx(b);t=clamp(t,0,1);return "rgb("+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(",")+")"}
+function hexA(c,a){const A=hx(c);return `rgba(${A[0]},${A[1]},${A[2]},${clamp(a,0,1)})`}
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function circ(x,y,r,fill,stroke,lw){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function ell(x,y,rx,ry,rot,fill,stroke,lw){ctx.beginPath();ctx.ellipse(x,y,Math.max(0,rx),Math.max(0,ry),rot||0,0,TAU);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1.5;ctx.stroke()}}
+function glow(x,y,r,col,a){if(r<=0)return;const A=hx(col);const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${A},${clamp(a==null?1:a,0,1)})`);g.addColorStop(1,`rgba(${A},0)`);ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill()}
+function label(x,y,t,o){o=o||{};if(o.a!=null){if(o.a<=0)return 0;ctx.save();ctx.globalAlpha*=clamp(o.a,0,1);const w=label(x,y,t,Object.assign({},o,{a:null}));ctx.restore();return w}const size=o.size||13;ctx.font=`${o.weight||500} ${size}px ${o.mono?MONO:FONT}`;
+  ctx.textAlign=o.align||"center";ctx.textBaseline="middle";
+  const w=ctx.measureText(t).width;let x0=x;if(ctx.textAlign==="center")x0=x-w/2;if(ctx.textAlign==="right")x0=x-w;
+  const a0=ctx.globalAlpha;
+  if(o.pill!==false){ctx.globalAlpha=a0*(o.bga==null?.9:o.bga);ctx.fillStyle=o.bg||C.panel;rr(x0-5,y-size*.75,w+10,size*1.5,4);ctx.fill();ctx.globalAlpha=a0;
+    if(o.border){ctx.strokeStyle=o.border;ctx.lineWidth=1.5;ctx.stroke()}}
+  ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y+.5);return w}
+function txt(x,y,t,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;ctx.fillText(t,x,y)}
+function line(x1,y1,x2,y2,col,lw,dash){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=col;ctx.lineWidth=lw||1.2;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([])}
+function arrow(x1,y1,x2,y2,col,lw,dash){line(x1,y1,x2,y2,col,lw||2,dash);const a=Math.atan2(y2-y1,x2-x1),h=7+(lw||2);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-h*Math.cos(a-.45),y2-h*Math.sin(a-.45));ctx.lineTo(x2-h*Math.cos(a+.45),y2-h*Math.sin(a+.45));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+function chipText(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";const w=ctx.measureText(t).width;
+  ctx.fillStyle=col;rr(x-w/2-6,y-9.5,w+12,19,9.5);ctx.fill();ctx.fillStyle=fg||onFill();ctx.fillText(t,x,y+.5);return w+12}
+function chipL(x,y,t,col,fg){ctx.font=`600 11.5px ${MONO}`;const w=ctx.measureText(t).width;return chipText(x+w/2+6,y,t,col,fg)}
+function badge(x,y,n,col,r){r=r||10;circ(x,y,r,col||C.ink,C.panel,1.5);ctx.font=`700 ${r>10?13:11.5}px ${MONO}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=onFill();ctx.fillText(String(n),x,y+.5)}
+function rnd(i){const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+function along(P_,p){let L=0;const ls=[];for(let i=0;i<P_.length-1;i++){const l=Math.hypot(P_[i+1][0]-P_[i][0],P_[i+1][1]-P_[i][1]);ls.push(l);L+=l}
+  let d=clamp(p,0,1)*L;for(let i=0;i<ls.length;i++){if(d<=ls[i]||i===ls.length-1){const f=ls[i]?Math.min(1,d/ls[i]):0;return [lerp(P_[i][0],P_[i+1][0],f),lerp(P_[i][1],P_[i+1][1],f)]}d-=ls[i]}return P_[P_.length-1]}
+function poly(pts,col,lw,dash){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.lineCap="round";ctx.stroke();ctx.setLineDash([]);ctx.lineCap="butt"}
+function panelBox(x,y,w,h,o){o=o||{};rr(x,y,w,h,o.r||8);ctx.fillStyle=o.fill||hexA(C.panel,.85);ctx.fill();ctx.strokeStyle=o.stroke||C.rule;ctx.lineWidth=o.lw||1.2;ctx.stroke()}
+function wrapText(t,x,y,w,lh,o){o=o||{};ctx.font=`${o.weight||500} ${o.size||12}px ${o.mono?MONO:FONT}`;ctx.textAlign=o.align||"left";ctx.textBaseline="middle";ctx.fillStyle=o.color||C.ink;
+  const words=t.split(" ");let ln="";let yy=y;words.forEach(wd=>{const test=ln?ln+" "+wd:wd;if(ctx.measureText(test).width>w&&ln){ctx.fillText(ln,x,yy);ln=wd;yy+=lh}else ln=test});if(ln)ctx.fillText(ln,x,yy);return yy}
+function blobPath(x,y,r,seed,t,amp){amp=amp==null?.06:amp;ctx.beginPath();const N=44;for(let i=0;i<=N;i++){const a=i/N*TAU;const rad=r*(1+amp*Math.sin(a*3+seed+(t||0)*1.7)+amp*.7*Math.sin(a*5+seed*2.3-(t||0)*1.1));const X=x+Math.cos(a)*rad,Y=y+Math.sin(a)*rad;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.closePath()}
+function withA(a,fn){ctx.save();ctx.globalAlpha*=clamp(a==null?1:a,0,1);fn();ctx.restore()}
+function title(x,y,t,col,align){txt(x,y,t.toUpperCase().replace(/Μ/g,"µ").replace(/µM/g,"µm"),{size:12,mono:true,weight:700,color:col||C["ink-soft"],align:align||"left"})}
+function lead(px,py,lx,ly,t,o){o=o||{};const a=o.a==null?1:o.a;if(a<=0)return;ctx.save();ctx.globalAlpha*=a;line(px,py,lx,ly,o.lc||C["ink-soft"],1.2);circ(px,py,2.6,o.lc||C["ink-soft"]);
+  label(lx,ly,t,{size:o.size||12.5,weight:o.weight||600,align:o.align||(lx<px?"right":"left"),border:o.border,color:o.color});ctx.restore()}
+function pulseRing(x,y,r,col,p){ctx.save();ctx.globalAlpha*=(1-p);ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r*(.4+p),0,TAU);ctx.stroke();ctx.restore()}
+function plotFn(fn,t0,t1,x,y,w,h,v0,v1,col,lw,dash,upto){ctx.beginPath();const N=Math.max(40,Math.round(w));let started=false;for(let i=0;i<=N;i++){const t=lerp(t0,t1,i/N);if(upto!=null&&t>upto)break;const v=fn(t);const X=x+w*i/N,Y=y+h-(clamp(v,v0,v1)-v0)/(v1-v0)*h;started?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),started=true)}
+  ctx.strokeStyle=col;ctx.lineWidth=lw||2;ctx.setLineDash(dash||[]);ctx.lineJoin="round";ctx.stroke();ctx.setLineDash([])}
+function bg(col){ctx.fillStyle=col||C.ecf;ctx.fillRect(0,0,4000,4000)}
+
+/* ================= chemistry drawing helpers ================= */
+function fillStroke(f,s,lw){if(f){ctx.fillStyle=f;ctx.fill()}if(s){ctx.strokeStyle=s;ctx.lineWidth=lw||1.4;ctx.stroke()}}
+function fillPoly(pts,f,s,lw){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();fillStroke(f,s,lw)}
+function crossMark(x,y,s,col,lw){line(x-s,y-s,x+s,y+s,col||C.bad,lw||3);line(x-s,y+s,x+s,y-s,col||C.bad,lw||3)}
+function checkMark(x,y,s,col,lw){poly([[x-s,y],[x-s*.3,y+s*.7],[x+s,y-s*.7]],col||C.good,lw||3)}
+function lum3(c){const A=hx(c).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*A[0]+.7152*A[1]+.0722*A[2]}
+function inkOn(c){return lum3(c)>.3?"#10161A":"#FFFFFF"}
+function lighten(c,t){return mix(c,"#FFFFFF",t)}
+function darken(c,t){return mix(c,"#000000",t)}
+/* subscript digits for canvas text */
+const SUBD="₀₁₂₃₄₅₆₇₈₉";
+function subs(s){return String(s).replace(/(\D)(\d+)/g,(m,a,d)=>a+d.split("").map(x=>SUBD[+x]).join(""))}
+/* formula with charge, e.g. f("NH4","+") */
+function chemTxt(s){return subs(s).replace(/\^\+/g,"⁺").replace(/\^-/g,"⁻").replace(/\^2-/g,"²⁻")}
+
+/* ================= element data (Pauling electronegativity, valence electrons) ================= */
+const EL={
+  H:{en:2.20,v:1,r:.30,name:"hydrogen"},Be:{en:1.57,v:2,r:.46,name:"beryllium"},B:{en:2.04,v:3,r:.44,name:"boron"},
+  C:{en:2.55,v:4,r:.42,name:"carbon"},N:{en:3.04,v:5,r:.41,name:"nitrogen"},O:{en:3.44,v:6,r:.40,name:"oxygen"},
+  F:{en:3.98,v:7,r:.38,name:"fluorine"},Si:{en:1.90,v:4,r:.50,name:"silicon"},P:{en:2.19,v:5,r:.50,name:"phosphorus"},
+  S:{en:2.58,v:6,r:.50,name:"sulfur"},Cl:{en:3.16,v:7,r:.48,name:"chlorine"},Br:{en:2.96,v:7,r:.52,name:"bromine"},
+  I:{en:2.66,v:7,r:.56,name:"iodine"},Xe:{en:2.60,v:8,r:.56,name:"xenon"},Se:{en:2.55,v:6,r:.52,name:"selenium"}
+};
+function elCol(e){return C["el"+e]||C.elC}
+
+/* ================= 3D vector maths ================= */
+const v3={
+  add:(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],sub:(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],sc:(a,s)=>[a[0]*s,a[1]*s,a[2]*s],
+  dot:(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
+  len:a=>Math.hypot(a[0],a[1],a[2]),nrm:a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/l,a[1]/l,a[2]/l]},
+  lerp:(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t],
+  ang:(a,b)=>Math.acos(clamp(v3.dot(v3.nrm(a),v3.nrm(b)),-1,1))*180/Math.PI
+};
+/* spherical helper: polar angle th from +y (degrees), azimuth ph in the x-z plane (degrees, 0 = +x, 90 = +z toward viewer) */
+function sph(th,ph){const t=th*Math.PI/180,p=ph*Math.PI/180;return [Math.sin(t)*Math.cos(p),Math.cos(t),Math.sin(t)*Math.sin(p)]}
+/* slerp between unit vectors */
+function slerp(a,b,t){const d=clamp(v3.dot(a,b),-1,1);const om=Math.acos(d);if(om<1e-4)return v3.nrm(v3.lerp(a,b,t));
+  if(Math.PI-om<1e-3){const ax=Math.abs(a[0])<.9?[1,0,0]:[0,1,0];const p=v3.nrm(v3.cross(a,ax));const q=v3.cross(p,a);const ang=t*Math.PI;return v3.add(v3.sc(a,Math.cos(ang)),v3.sc(q,Math.sin(ang)))}
+  const s=Math.sin(om);return v3.add(v3.sc(a,Math.sin((1-t)*om)/s),v3.sc(b,Math.sin(t*om)/s))}
+/* rotate about the y axis (yaw) then the x axis (pitch) */
+function rot3(p,yaw,pitch){const cy=Math.cos(yaw),sy=Math.sin(yaw);const x=p[0]*cy+p[2]*sy,z=-p[0]*sy+p[2]*cy,y=p[1];
+  const cp=Math.cos(pitch),sp=Math.sin(pitch);return [x,y*cp-z*sp,y*sp+z*cp]}
+function view(cx,cy,s,yaw,pitch){return {cx,cy,s,yaw,pitch:pitch==null?-.32:pitch,d:7}}
+function pj(V,p){const q=rot3(p,V.yaw,V.pitch);const f=V.d/(V.d-q[2]);return {x:V.cx+q[0]*V.s*f,y:V.cy-q[1]*V.s*f,z:q[2],f}}
+
+/* ================= VSEPR classes ================= */
+/* each class: b bonding groups, e lone pairs; B and E are direction lists (unit vectors, y = up, z = toward viewer).
+   Angles with lone pairs are squeezed to the textbook example values (NH3 107, H2O 104.5, SO2 119, SF4, ClF3, BrF5). */
+const D2R=Math.PI/180;
+const VS={};
+function addClass(key,o){VS[key]=Object.assign({key},o)}
+const TH=Math.acos(-1/3)*180/Math.PI; /* 109.47 */
+addClass("AX2",{b:2,e:0,eg:"linear",mg:"linear",ang:"180°",angKey:"180",hyb:"sp",sym:true,B:[[1,0,0],[-1,0,0]],E:[],arcs:[[0,1,"180°"]]});
+addClass("AX3",{b:3,e:0,eg:"trigonal planar",mg:"trigonal planar",ang:"120°",angKey:"120",hyb:"sp²",sym:true,B:[[0,1,0],[Math.sin(120*D2R),Math.cos(120*D2R),0],[-Math.sin(120*D2R),Math.cos(120*D2R),0]],E:[],arcs:[[1,2,"120°"]]});
+addClass("AX2E",{b:2,e:1,eg:"trigonal planar",mg:"bent",ang:"less than 120° (about 119° in SO₂)",angKey:"lt120",hyb:"sp²",sym:false,B:[[Math.sin(120.5*D2R),Math.cos(120.5*D2R),0],[-Math.sin(120.5*D2R),Math.cos(120.5*D2R),0]],E:[[0,1,0]],arcs:[[0,1,"<120°"]]});
+addClass("AX4",{b:4,e:0,eg:"tetrahedral",mg:"tetrahedral",ang:"109.5°",angKey:"109",hyb:"sp³",sym:true,B:[[0,1,0],sph(TH,90),sph(TH,210),sph(TH,330)],E:[],arcs:[[0,2,"109.5°"]]});
+(function(){/* NH3: three bonds at polar angle th so that bond-bond angle is 107 degrees */
+  const c=(Math.cos(107*D2R)+.5)/1.5;const th=Math.acos(-Math.sqrt(c))*180/Math.PI;
+  addClass("AX3E",{b:3,e:1,eg:"tetrahedral",mg:"trigonal pyramidal",ang:"less than 109.5° (about 107° in NH₃)",angKey:"lt109",hyb:"sp³",sym:false,B:[sph(th,90),sph(th,210),sph(th,330)],E:[[0,1,0]],arcs:[[1,2,"≈107°"]]});
+})();
+addClass("AX2E2",{b:2,e:2,eg:"tetrahedral",mg:"bent",ang:"less than 109.5° (about 104.5° in H₂O)",angKey:"lt109",hyb:"sp³",sym:false,
+  B:[[Math.sin(52.25*D2R),-Math.cos(52.25*D2R),0],[-Math.sin(52.25*D2R),-Math.cos(52.25*D2R),0]],E:[[0,Math.cos(58*D2R),Math.sin(58*D2R)],[0,Math.cos(58*D2R),-Math.sin(58*D2R)]],arcs:[[0,1,"≈104.5°"]]});
+addClass("AX5",{b:5,e:0,eg:"trigonal bipyramidal",mg:"trigonal bipyramidal",ang:"90°, 120° and 180°",angKey:"90-120-180",hyb:"sp³d",sym:true,
+  B:[[0,1,0],[0,-1,0],sph(90,0),sph(90,120),sph(90,240)],E:[],arcs:[[0,2,"90°"],[2,3,"120°"]],ax:[0,1]});
+addClass("AX4E",{b:4,e:1,eg:"trigonal bipyramidal",mg:"seesaw",ang:"less than 90° and less than 120°",angKey:"seesaw",hyb:"sp³d",sym:false,
+  B:[[Math.sin(3.5*D2R),Math.cos(3.5*D2R),0],[Math.sin(3.5*D2R),-Math.cos(3.5*D2R),0],sph(90,51),sph(90,-51)],E:[[-1,0,0]],arcs:[[0,2,"<90°"],[2,3,"<120°"]],ax:[0,1]});
+addClass("AX3E2",{b:3,e:2,eg:"trigonal bipyramidal",mg:"T-shaped",ang:"less than 90° (about 87.5° in ClF₃)",angKey:"lt90",hyb:"sp³d",sym:false,
+  B:[[Math.sin(2.5*D2R),Math.cos(2.5*D2R),0],[Math.sin(2.5*D2R),-Math.cos(2.5*D2R),0],[1,0,0]],E:[sph(90,120),sph(90,240)],arcs:[[0,2,"≈87.5°"]],ax:[0,1]});
+addClass("AX2E3",{b:2,e:3,eg:"trigonal bipyramidal",mg:"linear",ang:"180°",angKey:"180",hyb:"sp³d",sym:true,B:[[0,1,0],[0,-1,0]],E:[sph(90,0),sph(90,120),sph(90,240)],arcs:[[0,1,"180°"]],ax:[0,1]});
+addClass("AX6",{b:6,e:0,eg:"octahedral",mg:"octahedral",ang:"90° and 180°",angKey:"90-180",hyb:"sp³d²",sym:true,B:[[0,1,0],[0,-1,0],[1,0,0],[-1,0,0],[0,0,1],[0,0,-1]],E:[],arcs:[[0,2,"90°"]]});
+addClass("AX5E",{b:5,e:1,eg:"octahedral",mg:"square pyramidal",ang:"less than 90° (about 85° in BrF₅)",angKey:"lt90",hyb:"sp³d²",sym:false,
+  B:[[0,1,0],sph(85,0),sph(85,90),sph(85,180),sph(85,270)],E:[[0,-1,0]],arcs:[[0,1,"<90°"]]});
+addClass("AX4E2",{b:4,e:2,eg:"octahedral",mg:"square planar",ang:"90° and 180°",angKey:"90-180",hyb:"sp³d²",sym:true,B:[[1,0,0],[0,0,1],[-1,0,0],[0,0,-1]],E:[[0,1,0],[0,-1,0]],arcs:[[0,1,"90°"]]});
+/* only two atoms (one bond) */
+addClass("AXE0",{b:1,e:0,eg:"none (only two atoms)",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"none",sym:false,B:[[0,-1,0]],E:[],arcs:[]});
+addClass("AXE",{b:1,e:1,eg:"linear",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"sp",sym:false,B:[[0,-1,0]],E:[[0,1,0]],arcs:[]});
+addClass("AXE2",{b:1,e:2,eg:"trigonal planar",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"sp²",sym:false,B:[[0,-1,0]],E:[sph(60,0),sph(60,180)],arcs:[]});
+addClass("AXE3",{b:1,e:3,eg:"tetrahedral",mg:"linear (two atoms)",ang:"no bond angle (only one bond)",angKey:"none",hyb:"sp³",sym:false,B:[[0,-1,0]],E:[sph(180-TH,90),sph(180-TH,210),sph(180-TH,330)],arcs:[]});
+function vsKey(b,e){if(b===1)return e===0?"AXE0":e===1?"AXE":e===2?"AXE2":e===3?"AXE3":null;const k="AX"+b+(e?("E"+(e>1?e:"")):"");return VS[k]?k:null}
+function axeLabel(k){const c=VS[k];if(!c)return "";if(c.b===1)return "AXE"+(c.e>1?c.e:c.e?"":"").replace(/^AXE$/,"AXE")+"";return "AX"+c.b+(c.e?"E"+(c.e>1?c.e:""):"")}
+function axeTxt(b,e){return "AX"+(b>1?b:"")+(e?"E"+(e>1?e:""):"")}
+const EG_NAMES=["linear","trigonal planar","tetrahedral","trigonal bipyramidal","octahedral"];
+function egFromN(n){return EG_NAMES[n-2]}
+function hybFromN(n){return ["sp","sp²","sp³","sp³d","sp³d²"][n-2]}
+
+/* ================= build a molecule model from a class ================= */
+/* outer: array of element symbols for the bonding positions; ord: bond orders */
+function molFromClass(key,center,outer,o){o=o||{};const c=VS[key];const atoms=[{el:center,p:[0,0,0]}];const bonds=[],lps=[];
+  c.B.forEach((d,i)=>{const el=outer[i%outer.length];const L=(el==="H"?.95:1.18)*(o.L||1);atoms.push({el,p:v3.sc(d,L)});bonds.push([0,i+1,(o.ord&&o.ord[i])||1])});
+  c.E.forEach(d=>lps.push({a:0,dir:d}));
+  return {atoms,bonds,lps,arcs:(o.arcs===false?[]:c.arcs.map(a=>[0,a[0]+1,a[1]+1,a[2]])),cls:key}}
+
+/* ================= renderer ================= */
+/* teardrop / balloon lobe from screen point c toward screen point t */
+function lobePath(cx,cy,tx,ty,w){const dx=tx-cx,dy=ty-cy;const l=Math.hypot(dx,dy);
+  if(l<w*1.05){const k=l/(w*1.05);const ex=cx+dx*.55,ey=cy+dy*.55;ctx.beginPath();ctx.ellipse(ex,ey,Math.max(2,w*(.7+.25*k)),Math.max(2,w*.72),Math.atan2(dy,dx),0,TAU);return}
+  const ux=dx/l,uy=dy/l,nx=-uy,ny=ux;ctx.beginPath();ctx.moveTo(cx,cy);
+  ctx.bezierCurveTo(cx+dx*.12+nx*w*.95,cy+dy*.12+ny*w*.95,tx+ux*w*.55+nx*w*.95,ty+uy*w*.55+ny*w*.95,tx+ux*w*.55,ty+uy*w*.55);
+  ctx.bezierCurveTo(tx+ux*w*.55-nx*w*.95,ty+uy*w*.55-ny*w*.95,cx+dx*.12-nx*w*.95,cy+dy*.12-ny*w*.95,cx,cy);ctx.closePath()}
+function lobe3(V,o3,dir,len,w,col,a,o){o=o||{};const P0=pj(V,o3),P1=pj(V,v3.add(o3,v3.sc(dir,len)));const ww=w*V.s*P1.f;
+  ctx.save();ctx.globalAlpha*=a==null?1:a;lobePath(P0.x,P0.y,P1.x,P1.y,ww);
+  const g=ctx.createRadialGradient(P1.x-ww*.3,P1.y-ww*.35,ww*.1,P1.x,P1.y,ww*1.6);g.addColorStop(0,hexA(lighten(col,.55),o.fa==null?.75:o.fa));g.addColorStop(1,hexA(col,o.fb==null?.45:o.fb));
+  ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=hexA(o.edge||col,.95);ctx.lineWidth=o.lw||1.4;ctx.stroke();ctx.restore();return [P0,P1,ww]}
+/* ball: shaded sphere with element symbol */
+function ball(x,y,r,col,sym,o){o=o||{};const g=ctx.createRadialGradient(x-r*.38,y-r*.42,r*.08,x,y,r);g.addColorStop(0,lighten(col,.6));g.addColorStop(.55,col);g.addColorStop(1,darken(col,.32));
+  ctx.beginPath();ctx.arc(x,y,Math.max(1,r),0,TAU);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=o.edge||hexA(darken(col,.5),.85);ctx.lineWidth=o.lw||1.2;ctx.stroke();
+  if(o.hl){ctx.strokeStyle=o.hl;ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,r+4,0,TAU);ctx.stroke()}
+  if(sym&&o.label!==false){const fs=clamp(r*.95,11,17);ctx.font=`700 ${fs}px ${FONT}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=inkOn(col);ctx.fillText(sym,x,y+.5)}}
+/* stick between two screen points (with bond order) */
+function stick(a,b,w,ord,col,o){o=o||{};const dx=b.x-a.x,dy=b.y-a.y;const l=Math.hypot(dx,dy)||1;const nx=-dy/l,ny=dx/l;const offs=ord===2?[-.75,.75]:ord===3?[-1.25,0,1.25]:[0];
+  const ww=ord>1?w*.62:w;offs.forEach((k,i)=>{const ox=nx*k*w,oy=ny*k*w;const c2=(o.cols&&o.cols[i])||col;
+    ctx.lineCap="butt";line(a.x+ox,a.y+oy,b.x+ox,b.y+oy,darken(c2,.25),ww+1.6);line(a.x+ox,a.y+oy,b.x+ox,b.y+oy,c2,ww);line(a.x+ox-nx*ww*.2,a.y+oy-ny*ww*.2,b.x+ox-nx*ww*.2,b.y+oy-ny*ww*.2,hexA(C["bond-hi"],.55),Math.max(1,ww*.3));ctx.lineCap="butt"})}
+/* draw a molecule. M: {atoms:[{el,p,hl,lab,a}], bonds:[[i,j,ord,{col}]], lps:[{a,dir,hl,scale,alpha}], arcs:[[c,i,j,text]]} */
+function drawMol(V,M,o){o=o||{};const items=[];const S=o.atomScale||1;
+  const P=M.atoms.map(at=>pj(V,at.p));
+  M.bonds.forEach(b=>{const A=P[b[0]],B=P[b[1]];const Mid={x:(A.x+B.x)/2,y:(A.y+B.y)/2,f:(A.f+B.f)/2};const w=(o.bondW||.11)*V.s*(A.f+B.f)/2;
+    const al=((b[3]&&b[3].a!=null)?b[3].a:1)*Math.min(M.atoms[b[0]].a==null?1:M.atoms[b[0]].a,M.atoms[b[1]].a==null?1:M.atoms[b[1]].a);
+    const dx=B.x-A.x,dy=B.y-A.y;const ext=(Math.hypot(dx,dy)||1);const Mx={x:Mid.x+dx/ext*.4,y:Mid.y+dy/ext*.4},My={x:Mid.x-dx/ext*.1,y:Mid.y-dy/ext*.1};
+    items.push({z:A.z-.015,f:()=>withA(al,()=>stick(A,Mx,w,b[2],(b[3]&&b[3].col)||C.bond,b[3]))});
+    items.push({z:B.z-.015,f:()=>withA(al,()=>stick(My,B,w,b[2],(b[3]&&b[3].col)||C.bond,b[3]))})});
+  if(o.lp!==false)(M.lps||[]).forEach(L=>{const base=v3.add(M.atoms[L.a].p,v3.sc(L.dir,.16));const tip=v3.add(base,v3.sc(L.dir,.85*(L.scale||1)));const Pt=pj(V,tip);
+    items.push({z:(P[L.a].z+Pt.z)/2,f:()=>{const al=(L.alpha==null?1:L.alpha)*(o.lpA==null?1:o.lpA);if(al<=0)return;
+      const r=lobe3(V,base,L.dir,.85*(L.scale||1),.3*(L.w||1),L.col||C["lp-fill"],al*.9,{edge:L.col||C.lp,fa:.7,fb:.35});
+      const P0=r[0],P1=r[1];const dx=P1.x-P0.x,dy=P1.y-P0.y;const l=Math.hypot(dx,dy)||1;const nx=-dy/l*5*P1.f,ny=dx/l*5*P1.f;const mx=P0.x+dx*.68,my=P0.y+dy*.68;
+      withA(al,()=>{circ(mx+nx,my+ny,3*P1.f,C.lp);circ(mx-nx,my-ny,3*P1.f,C.lp);if(L.hl){ctx.save();ctx.globalAlpha*=.8;lobePath(P0.x,P0.y,P1.x,P1.y,r[2]+4);ctx.strokeStyle=L.hl;ctx.lineWidth=3;ctx.stroke();ctx.restore()}})}})});
+  M.atoms.forEach((at,i)=>{const p=P[i];items.push({z:p.z,f:()=>{const al=at.a==null?1:at.a;if(al<=0)return;withA(al,()=>{
+    if(at.cloud)glow(p.x,p.y,EL[at.el].r*V.s*p.f*S*1.5,at.cloud,.55);
+    ball(p.x,p.y,EL[at.el].r*V.s*p.f*S*.55*(at.big||1),elCol(at.el),at.lab===undefined?at.el:at.lab,{hl:at.hl,label:o.labels});
+    if(at.tag)label(p.x+(at.tagDx||0),p.y-EL[at.el].r*V.s*p.f*S*.55-14,at.tag,{size:12,weight:700,color:at.tagCol||C.ink,border:at.tagCol});})}})});
+  (o.extra||[]).forEach(e=>items.push(e));
+  items.sort((a,b)=>a.z-b.z).forEach(it=>it.f());
+  if(o.arcs!==false)(M.arcs||[]).forEach(A=>angleArc(V,M.atoms[A[0]].p,M.atoms[A[1]].p,M.atoms[A[2]].p,A[3],o.arcCol||C.accent,o.arcR||.5,o.arcA));
+  return P}
+/* angle arc between bonds c->i and c->j, drawn in 3D */
+function angleArc(V,c,pi,pjv,text,col,r,a){if(a!=null&&a<=0)return;const u=v3.nrm(v3.sub(pi,c)),w=v3.nrm(v3.sub(pjv,c));const pts=[];for(let k=0;k<=28;k++){const d=slerp(u,w,k/28);const q=pj(V,v3.add(c,v3.sc(d,r)));pts.push([q.x,q.y])}
+  ctx.save();ctx.globalAlpha*=a==null?1:a;poly(pts,col,2.4);const mid=slerp(u,w,.5);const q=pj(V,v3.add(c,v3.sc(mid,r+.42)));if(text)label(q.x,q.y,text,{size:13,weight:700,color:C.ink,border:col,mono:true});ctx.restore()}
+/* dipole arrow in screen space with a crossed tail (+ end) */
+function dipArrow(x1,y1,x2,y2,col,lw){lw=lw||3;arrow(x1,y1,x2,y2,col,lw);const a=Math.atan2(y2-y1,x2-x1);const tx=x1+Math.cos(a)*8,ty=y1+Math.sin(a)*8;const nx=-Math.sin(a)*7,ny=Math.cos(a)*7;line(tx-nx,ty-ny,tx+nx,ty+ny,col,lw)}
+function dip3(V,from,to,col,lw,off){const A=pj(V,from),B=pj(V,to);let ox=0,oy=0;if(off){const dx=B.x-A.x,dy=B.y-A.y,l=Math.hypot(dx,dy)||1;ox=-dy/l*off;oy=dx/l*off}dipArrow(A.x+ox,A.y+oy,B.x+ox,B.y+oy,col,lw)}
+/* shaded face polygon in 3D (for showing the molecular shape outline) */
+function face3(V,pts,col,a){const P=pts.map(p=>pj(V,p));ctx.save();ctx.globalAlpha*=a==null?.18:a;fillPoly(P.map(p=>[p.x,p.y]),col,null);ctx.globalAlpha=Math.min(1,(a==null?.18:a)*3);ctx.setLineDash([4,4]);fillPoly(P.map(p=>[p.x,p.y]),null,col,1.4);ctx.setLineDash([]);ctx.restore()}
+/* net dipole vector of a molecule: sum of (EN outer - EN centre) along bonds, plus lone-pair pull */
+function netDipole(M){let s=[0,0,0];M.bonds.forEach(b=>{const A=M.atoms[b[0]],B=M.atoms[b[1]];const d=EL[B.el].en-EL[A.el].en;s=v3.add(s,v3.sc(v3.nrm(v3.sub(B.p,A.p)),d))});
+  (M.lps||[]).forEach(L=>{s=v3.add(s,v3.sc(L.dir,.5))});return s}
+
+/* ================= Lewis structure (2D, symbolic level) ================= */
+/* L={c:"N",clp:[deg...],out:[[el,deg,ord,nLP]],charge:"+"|"-",s} angles: 0 = right, 90 = up */
+function lewis(x,y,L,o){o=o||{};const s=o.s||1;const R=46*s;const hl=o.hl||{};
+  const fs=Math.round(20*s);
+  function dots(px,py,ang,col,glowIt,sym){const a=ang*D2R;const r=15*s*((sym||"").length>1?1+.45*Math.abs(Math.cos(a)):1);const cx=px+Math.cos(a)*r,cy=py-Math.sin(a)*r;const nx=-Math.sin(a)*4*s,ny=-Math.cos(a)*4*s;
+    if(glowIt)glow(cx,cy,14*s,C.lp,.55);circ(cx+nx,cy+ny,2.6*s,col||C.lp);circ(cx-nx,cy-ny,2.6*s,col||C.lp)}
+  L.out.forEach((ot,i)=>{const a=ot[1]*D2R;const ox=x+Math.cos(a)*R,oy=y-Math.sin(a)*R;const ord=ot[2]||1;
+    const x1=x+Math.cos(a)*12*s,y1=y-Math.sin(a)*12*s,x2=ox-Math.cos(a)*12*s,y2=oy+Math.sin(a)*12*s;const nx=-Math.sin(a),ny=-Math.cos(a);
+    const offs=ord===2?[-3,3]:ord===3?[-5,0,5]:[0];const bc=hl.bond===i||hl.bonds?C.accent:C.ink;offs.forEach(k=>line(x1+nx*k*s,y1+ny*k*s,x2+nx*k*s,y2+ny*k*s,bc,hl.bond===i||hl.bonds?3:2));
+    const n=ot[3]||0;const base=ot[1];const angs=n===3?[base,base+90,base-90]:n===2?(ord===2?[base+60,base-60]:[base+90,base-90]):n===1?[base]:[];
+    angs.forEach(g=>dots(ox,oy,g,C["ink-soft"],false,ot[0]));
+    txt(ox,oy,ot[0],{size:fs,weight:700,align:"center",color:hl.atom===i+1?C.accent:C.ink})});
+  (L.clp||[]).forEach((g,i)=>dots(x,y,g,C.lp,hl.lp===i||hl.lps,L.c));
+  txt(x,y,L.c,{size:fs,weight:700,align:"center",color:hl.atom===0?C.accent:C.ink});
+  if(L.charge){const w=R+30*s;line(x-w,y-w*.8,x-w,y+w*.8,C.ink,1.6);line(x-w,y-w*.8,x-w+6,y-w*.8,C.ink,1.6);line(x-w,y+w*.8,x-w+6,y+w*.8,C.ink,1.6);
+    line(x+w,y-w*.8,x+w,y+w*.8,C.ink,1.6);line(x+w,y-w*.8,x+w-6,y-w*.8,C.ink,1.6);line(x+w,y+w*.8,x+w-6,y+w*.8,C.ink,1.6);txt(x+w+4,y-w*.8,L.charge,{size:15,weight:700})}}
+
+/* ================= macroscopic vignettes ================= */
+function beaker(x,y,w,h,level,col){ctx.save();rr(x,y,w,h,8);ctx.clip();ctx.fillStyle=hexA(C.glass,.5);ctx.fillRect(x,y,w,h);const lh=h*clamp(level,0,1);ctx.fillStyle=col||C.liq;ctx.fillRect(x,y+h-lh,w,lh);ctx.restore();rr(x,y,w,h,8);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke()}
+function glassCup(x,y,w,h,level,col){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w*.1,y+h);ctx.lineTo(x+w*.9,y+h);ctx.lineTo(x+w,y);ctx.closePath();ctx.save();ctx.clip();ctx.fillStyle=hexA(C.glass,.5);ctx.fillRect(x,y,w,h);ctx.fillStyle=col||C.liq;ctx.fillRect(x,y+h*(1-level),w,h*level);ctx.restore();
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w*.1,y+h);ctx.lineTo(x+w*.9,y+h);ctx.lineTo(x+w,y);ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke()}
+function vigSoda(x,y,T){glassCup(x-40,y-70,80,100,.8,hexA(C.liq,.9));for(let i=0;i<14;i++){const p=P(T*.5+rnd(i),1);const bx=x-26+rnd(i+7)*52+Math.sin(T*3+i)*2,by=y+26-p*80;circ(bx,by,1.8+rnd(i+3)*2.2,null,C["glass-edge"],1.2)}
+  label(x,y+48,"bubbles of CO₂ gas",{size:12,weight:600})}
+function vigFlame(x,y,T){rr(x-50,y+14,100,14,4);fillStroke(C.metal,C["metal-edge"],1.4);for(let i=0;i<5;i++){const fx=x-34+i*17;const h=26+6*Math.sin(T*9+i*1.7);ctx.beginPath();ctx.moveTo(fx-6,y+14);ctx.quadraticCurveTo(fx-7,y+14-h*.6,fx,y+14-h);ctx.quadraticCurveTo(fx+7,y+14-h*.6,fx+6,y+14);ctx.closePath();
+    const g=ctx.createLinearGradient(0,y+14,0,y+14-h);g.addColorStop(0,"#2F6FC1");g.addColorStop(1,hexA("#7FB3F0",.4));ctx.fillStyle=g;ctx.fill()}
+  label(x,y+48,"methane burning on a gas stove",{size:12,weight:600})}
+function vigBottle(x,y,T,lab,col,o){o=o||{};ctx.beginPath();ctx.moveTo(x-12,y-62);ctx.lineTo(x-12,y-48);ctx.quadraticCurveTo(x-34,y-40,x-34,y-20);ctx.lineTo(x-34,y+30);ctx.quadraticCurveTo(x-34,y+36,x-28,y+36);ctx.lineTo(x+28,y+36);ctx.quadraticCurveTo(x+34,y+36,x+34,y+30);ctx.lineTo(x+34,y-20);ctx.quadraticCurveTo(x+34,y-40,x+12,y-48);ctx.lineTo(x+12,y-62);ctx.closePath();
+  ctx.save();ctx.clip();ctx.fillStyle=hexA(C.glass,.6);ctx.fillRect(x-40,y-70,80,110);if(!o.solid){ctx.fillStyle=col||C.liq;ctx.fillRect(x-40,y-8+2*Math.sin(T*2),80,50)}else{for(let i=0;i<26;i++){const cx=x-28+rnd(i)*56,cy=y+30-rnd(i+40)*24;ctx.save();ctx.translate(cx,cy);ctx.rotate(rnd(i+9)*3);ctx.fillStyle=col;ctx.fillRect(-4,-3,8,6);ctx.strokeStyle=hexA(C.ink,.3);ctx.lineWidth=.8;ctx.strokeRect(-4,-3,8,6);ctx.restore()}
+    const sp=Math.floor(T*3)%26;glow(x-28+rnd(sp)*56,y+30-rnd(sp+40)*24,8,"#FFFFFF",.9)}ctx.restore();
+  ctx.strokeStyle=C["glass-edge"];ctx.lineWidth=2;ctx.stroke();rr(x-14,y-72,28,12,3);fillStroke(o.cap||C["ink-soft"],null);
+  rr(x-26,y-30,52,20,3);fillStroke(C.paper,hexA(C.ink,.4),1);txt(x,y-20,lab,{size:11.5,weight:700,align:"center",mono:true});
+  if(o.fumes){for(let i=0;i<4;i++){const p=P(T*.4+i/4,1);ctx.save();ctx.globalAlpha*=.5*(1-p);ctx.strokeStyle=o.fumes;ctx.lineWidth=2.4;ctx.beginPath();for(let k=0;k<=10;k++){const yy=y-74-k*4-p*30,xx=x+Math.sin(k*.7+T*2+i)*6+(i-1.5)*6;k?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)}ctx.stroke();ctx.restore()}}}
+function vigCylinder(x,y,T,lab,col){rr(x-22,y-58,44,96,18);const g=ctx.createLinearGradient(x-22,0,x+22,0);g.addColorStop(0,darken(col,.2));g.addColorStop(.4,lighten(col,.3));g.addColorStop(1,darken(col,.3));ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=hexA(C.ink,.5);ctx.lineWidth=1.4;ctx.stroke();
+  rr(x-6,y-72,12,16,2);fillStroke(C.metal,C["metal-edge"],1.2);circ(x+18,y-66,9,C.paper,C["metal-edge"],1.4);const a=-2.2+.25*Math.sin(T);line(x+18,y-66,x+18+Math.cos(a)*7,y-66+Math.sin(a)*7,C.bad,1.6);
+  rr(x-18,y-14,36,18,3);fillStroke(C.paper,hexA(C.ink,.4),1);txt(x,y-5,lab,{size:11.5,weight:700,align:"center",mono:true})}
+function vigVolcano(x,y,T){fillPoly([[x-70,y+34],[x-16,y-26],[x+16,y-26],[x+70,y+34]],mix(C["ink-soft"],C.ecf,.3),hexA(C.ink,.4),1.2);
+  for(let i=0;i<9;i++){const p=P(T*.25+i/9,1);const r=8+p*22;ctx.save();ctx.globalAlpha*=.55*(1-p);circ(x+Math.sin(i*2.3+T*.5)*10+p*30,y-30-p*70,r,mix(C["ink-soft"],C.elS,.35));ctx.restore()}
+  label(x,y+48,"volcanoes and burning sulfur release SO₂",{size:12,weight:600})}
+function vigDrop(x,y,T){beaker(x-44,y-20,88,54,.6,hexA(C.water,.95));const p=P(T,1.6);const dy=y-80+p*80;if(p<.85){ctx.beginPath();ctx.moveTo(x,dy-12);ctx.quadraticCurveTo(x+8,dy,x,dy+6);ctx.quadraticCurveTo(x-8,dy,x,dy-12);fillStroke(C.water,C.elN,1.2)}
+  else{const q=(p-.85)/.15;ell(x,y+2,10+q*30,3+q*4,0,null,hexA(C.elN,1-q),1.4)}label(x,y+48,"liquid water",{size:12,weight:600})}
+function vigTank(x,y,T){rr(x-70,y-40,140,74,4);fillStroke(hexA(C.glass,.35),C["glass-edge"],2);ctx.save();rr(x-70,y-40,140,74,4);ctx.clip();ctx.fillStyle=hexA(C.elXe,.13);ctx.fillRect(x-70,y-2,140,40);ctx.restore();
+  line(x-70,y-2,x+70,y-2,hexA(C.elXe,.5),1,[4,4]);const bx=x+Math.sin(T*.6)*24;fillPoly([[bx-22,y-12],[bx+22,y-12],[bx+16,y-2],[bx-16,y-2]],C.metal,C["metal-edge"],1.4);
+  label(x,y+48,"a foil boat floats on invisible SF₆ gas",{size:12,weight:600})}
+function vigPanel(x,y,w,h,T,kind,o){panelBox(x,y,w,h,{fill:hexA(C.panel,.95)});title(x+12,y+18,"What you see");const cx=x+w/2,cy=y+h/2+12;o=o||{};
+  if(kind==="soda")vigSoda(cx,cy,T);else if(kind==="flame")vigFlame(cx,cy,T);else if(kind==="volcano")vigVolcano(cx,cy+4,T);else if(kind==="drop")vigDrop(cx,cy,T);else if(kind==="tank")vigTank(cx,cy,T);
+  else if(kind==="bottle"){vigBottle(cx,cy+4,T,o.lab,o.col,o);if(o.note)label(cx,y+h-14,o.note,{size:12,weight:600})}
+  else if(kind==="cyl"){vigCylinder(cx,cy+6,T,o.lab,o.col||C.metal);if(o.note)label(cx,y+h-14,o.note,{size:12,weight:600})}}
+
+/* ---------------- lab helpers ---------------- */
+const $=s=>document.querySelector(s);
+function makeStage(id,W,H){const cv=document.getElementById(id);const st={cv,ctx:cv.getContext("2d"),W,H,K:1};
+  st.fit=()=>{const w=cv.parentElement.clientWidth;if(!w)return;const dpr=window.devicePixelRatio||1;cv.style.height=(w*H/W)+"px";cv.width=Math.round(w*dpr);cv.height=Math.round(w*H/W*dpr);st.K=cv.width/W};return st}
+function use(st){ctx=st.ctx;ctx.setTransform(st.K,0,0,st.K,0,0);ctx.clearRect(0,0,st.W,st.H);ctx.globalAlpha=1;bg(C.ecf)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function fmt(s){s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+const store={get:k=>{try{return localStorage.getItem("shapes-lab-"+k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("shapes-lab-"+k,v)}catch(e){}}};
+function segBtns(el,items,cur,onPick,cls){el.innerHTML="";items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="tbtn"+(cls?" "+cls:"");b.innerHTML=it[1];b.setAttribute("aria-pressed",String(it[0]===cur()));
+  b.onclick=()=>{onPick(it[0]);el.querySelectorAll("button").forEach((x,i)=>x.setAttribute("aria-pressed",String(items[i][0]===cur())))};el.appendChild(b)})}
+function segSync(el,items,cur){el.querySelectorAll("button").forEach((x,i)=>x.setAttribute("aria-pressed",String(items[i][0]===cur())))}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+/* 2D Lewis layouts per VSEPR class (angles in degrees, 0 = right, 90 = up) */
+const LEW2D={AX2:{B:[180,0],E:[]},AX3:{B:[90,210,330],E:[]},AX2E:{B:[210,330],E:[90]},AX4:{B:[90,180,270,0],E:[]},AX3E:{B:[180,0,270],E:[90]},AX2E2:{B:[210,330],E:[45,135]},
+  AX5:{B:[90,270,0,150,210],E:[]},AX4E:{B:[90,270,30,330],E:[180]},AX3E2:{B:[90,270,0],E:[150,210]},AX2E3:{B:[90,270],E:[0,145,215]},
+  AX6:{B:[90,270,0,180,45,225],E:[]},AX5E:{B:[90,18,162,215,325],E:[270]},AX4E2:{B:[90,0,180,270],E:[45,225]},
+  AXE0:{B:[0],E:[]},AXE:{B:[0],E:[180]},AXE2:{B:[0],E:[135,225]},AXE3:{B:[0],E:[90,180,270]}};
+function outerLP(el,ord){return el==="H"?0:(ord===2?2:ord===3?1:3)}
+function lewisFor(key,cen,outs,ords,charge){const L=LEW2D[key];return {c:cen,clp:L.E.slice(),out:outs.map((o,i)=>[o,L.B[i],ords[i]||1,outerLP(o,ords[i]||1)]),charge:charge>0?(charge>1?charge+"+":"+"):charge<0?(charge<-1?(-charge)+"−":"−"):null}}
+function chargeTxt(q){return q===0?"":q===1?"⁺":q===-1?"⁻":q===2?"²⁺":q===-2?"²⁻":q===3?"³⁺":"³⁻"}
+/* names of known species for the builder */
+const KNOWN={"CO2":"carbon dioxide","BeCl2":"beryllium chloride","BF3":"boron trifluoride","BCl3":"boron trichloride","SO2":"sulfur dioxide","SO3":"sulfur trioxide","CH4":"methane","CCl4":"carbon tetrachloride","CHCl3":"chloroform",
+  "NH3":"ammonia","PCl3":"phosphorus trichloride","NF3":"nitrogen trifluoride","H2O":"water","OF2":"oxygen difluoride","SiH4":"silane","PCl5":"phosphorus pentachloride","PF5":"phosphorus pentafluoride","SF4":"sulfur tetrafluoride",
+  "ClF3":"chlorine trifluoride","BrF3":"bromine trifluoride","XeF2":"xenon difluoride","SF6":"sulfur hexafluoride","BrF5":"bromine pentafluoride","IF5":"iodine pentafluoride","XeF4":"xenon tetrafluoride","H2S":"hydrogen sulfide",
+  "NH4+":"ammonium ion","H3O+":"hydronium ion","I3-":"triiodide ion","ClO3-":"chlorate ion","CO32-":"carbonate ion","NO3-":"nitrate ion","HCl":"hydrogen chloride","HF":"hydrogen fluoride","SCl2":"sulfur dichloride","CF4":"carbon tetrafluoride","CH2Cl2":"dichloromethane","ICl4-":"tetrachloroiodate ion","XeF4 ":"","SiCl4":"silicon tetrachloride","CS2":"carbon disulfide","H2Se":"hydrogen selenide"};
+
+/* ================= PART 1: shape builder ================= */
+const S1=makeStage("cvBuild",800,520);
+const CENTRES=["Be","B","C","N","O","Si","P","S","Cl","Br","I","Xe"];
+const OUTERS=["H","F","Cl","Br","I","O"];
+const PERIOD2=["Be","B","C","N","O"];
+const PRESETS=[["CO2","C","O",2,0,"none"],["BeCl2","Be","Cl",2,0,"none"],["BF3","B","F",3,0,"none"],["SO2","S","O",2,1,"none"],["CH4","C","H",4,0,"none"],["NH3","N","H",3,1,"none"],["H2O","O","H",2,2,"none"],
+  ["PCl5","P","Cl",5,0,"none"],["SF4","S","F",4,1,"none"],["ClF3","Cl","F",3,2,"none"],["XeF2","Xe","F",2,3,"none"],["SF6","S","F",6,0,"none"],["BrF5","Br","F",5,1,"none"],["XeF4","Xe","F",4,2,"none"],
+  ["CCl4","C","Cl",4,0,"none"],["CHCl3","C","Cl",4,0,"H"],["HCl","Cl","H",1,3,"none"],["NH4+","N","H",4,0,"none"],["H3O+","O","H",3,1,"none"],["I3-","I","I",2,3,"none"]];
+const BLD={cen:"C",out:"H",b:4,e:0,odd:"none",yaw:.6,pitch:-.32,groups:[],drag:null,msg:"",key:"AX4"};
+function bOuterList(){const n=BLD.b;const a=Array(n).fill(BLD.out);if(BLD.odd!=="none"&&n>=2)a[0]=BLD.odd;return a}
+function bOrd(el){return el==="O"?2:1}
+function bRetarget(){const key=vsKey(BLD.b,BLD.e);BLD.key=key;const cls=VS[key];const outs=bOuterList();
+  const assign=(kind,slots)=>{const cur=BLD.groups.filter(g=>g.kind===kind);const used=new Set();const keep=[];
+    cur.forEach(g=>{let best=-1,bd=-9;slots.forEach((t,j)=>{if(used.has(j))return;const d=v3.dot(g.dir,t);if(d>bd){bd=d;best=j}});if(best>=0){used.add(best);g.tgt=slots[best];g.slot=best;keep.push(g)}});
+    slots.forEach((t,j)=>{if(!used.has(j))keep.push({kind,dir:t.slice(),tgt:t,slot:j,g:0})});return keep};
+  const bonds=assign("b",cls.B),lps=assign("e",cls.E);bonds.forEach(g=>{g.el=outs[g.slot]});BLD.groups=[...bonds,...lps]}
+function bBookkeeping(){const outs=bOuterList();const V=EL[BLD.cen].v;const used=outs.reduce((s,o)=>s+bOrd(o),0)+2*BLD.e;const q=V-used;return {V,used,q}}
+function bFormula(){const outs=bOuterList();const cnt={};outs.forEach(o=>cnt[o]=(cnt[o]||0)+1);let s;
+  if(BLD.cen==="Cl"&&outs.length===1&&outs[0]==="H")s="HCl";else if(BLD.cen==="F"&&outs[0]==="H")s="HF";
+  else if(BLD.cen==="O"&&BLD.out==="H"&&BLD.odd==="none")s="H"+(outs.length>1?outs.length:"")+"O";else if(BLD.cen==="S"&&BLD.out==="H"&&BLD.odd==="none")s="H"+(outs.length>1?outs.length:"")+"S";
+  else if(BLD.odd==="none"&&BLD.out===BLD.cen)s=BLD.cen+(outs.length+1);
+  else{s=BLD.cen;const order=[...new Set(outs)].sort((a,b)=>(a==="H"?-1:0)-(b==="H"?-1:0));order.forEach(o=>{s+=o+(cnt[o]>1?cnt[o]:"")})}
+  const q=bBookkeeping().q;return {plain:s+(q===0?"":q===1?"+":q===-1?"-":q>0?q+"+":(-q)+"-"),pretty:subs(s)+chargeTxt(q)}}
+function bModel(){const atoms=[{el:BLD.cen,p:[0,0,0]}],bonds=[],lps=[],slotAtom={};
+  BLD.groups.forEach(g=>{if(g.kind==="b"){const L=(g.el==="H"?.95:1.18)*(.35+.65*g.g);atoms.push({el:g.el,p:v3.sc(g.dir,L),a:clamp(g.g*1.6,0,1)});bonds.push([0,atoms.length-1,bOrd(g.el)]);slotAtom[g.slot]=atoms.length-1}
+    else lps.push({a:0,dir:g.dir,scale:.4+.6*g.g,alpha:g.g})});
+  const arcs=(VS[BLD.key].arcs||[]).filter(a=>slotAtom[a[0]]!=null&&slotAtom[a[1]]!=null).map(a=>[0,slotAtom[a[0]],slotAtom[a[1]],a[2]]);
+  return {atoms,bonds,lps,arcs}}
+function bPolarity(){const q=bBookkeeping().q;if(q!==0)return {kind:"ion",txt:"Ion (overall charge "+(q>0?"+":"−")+Math.abs(q)+"): polarity is not usually asked for ions"};
+  const M={atoms:[{el:BLD.cen,p:[0,0,0]}],bonds:[],lps:[]};const outs=bOuterList();VS[BLD.key].B.forEach((d,i)=>{M.atoms.push({el:outs[i],p:d});M.bonds.push([0,i+1,1])});VS[BLD.key].E.forEach(d=>M.lps.push({a:0,dir:d}));
+  const cls=VS[BLD.key];const n=cls.b===1?v3.sc(VS[BLD.key].B[0],EL[outs[0]].en-EL[BLD.cen].en):netDipole(M);const l=v3.len(n);
+  if(l<.08){return {kind:"non",vec:n,txt:cls.b===1?"Nonpolar: both atoms are the same element":"Nonpolar: the shape is symmetric and the outer atoms match, so the bond dipoles cancel"}}
+  let why=cls.b===1?"Polar: the two atoms have different electronegativity":(!cls.sym?"Polar: the lone pairs make the shape lopsided, so the dipoles do not cancel":"Polar: the outer atoms are not all the same, so the dipoles do not cancel");
+  if(cls.sym&&BLD.odd==="none"&&cls.b>1)why="Polar";return {kind:"pol",vec:n,txt:why}}
+function bValidate(b,e,cen){if(b<1||b>6||e<0||e>3)return "That is outside this builder's range (1 to 6 bonds, 0 to 3 lone pairs).";if(b+e>6)return "Six electron groups is the most VSEPR handles here (an octahedron).";
+  if(!vsKey(b,e))return "That combination is not one of the standard VSEPR shapes. Try removing a lone pair.";if(PERIOD2.includes(cen)&&b+e>4)return cen+" is in period 2, so it can hold at most 4 electron groups (no expanded octet).";return null}
+function bSet(o){const nb=o.b==null?BLD.b:o.b,ne=o.e==null?BLD.e:o.e,nc=o.cen||BLD.cen;const err=bValidate(nb,ne,nc);if(err){BLD.msg=err;bUI();return false}
+  Object.assign(BLD,o);if(BLD.b<2)BLD.odd="none";BLD.msg="";bRetarget();bUI();a11yKey="";return true}
+function bUI(){$("#bBn").textContent=BLD.b;$("#bEn").textContent=BLD.e;segSync($("#bCen"),CENTRES.map(c=>[c]),()=>BLD.cen);segSync($("#bOut"),OUTERS.map(c=>[c]),()=>BLD.out);segSync($("#bOdd"),ODDS,()=>BLD.odd);
+  const key=BLD.key,cls=VS[key];const bk=bBookkeeping();const F=bFormula();const pol=bPolarity();const n=BLD.b+BLD.e;
+  const name=KNOWN[F.plain]?" ("+KNOWN[F.plain]+")":"";
+  let echeck;if(bk.q===0)echeck=`Neutral: ${BLD.cen} brings ${bk.V} valence electrons and this build uses ${bk.used}.`;else if(Math.abs(bk.q)===1)echeck=`Ion: ${BLD.cen} brings ${bk.V} valence electrons but this build uses ${bk.used}, so the species has a ${bk.q>0?"+1":"−1"} charge.`;
+  else echeck=`Not a real species: ${BLD.cen} brings ${bk.V} valence electrons but this build uses ${bk.used}. The shape still follows VSEPR.`;
+  const rows=[["Formula",F.pretty+name],["AXE code",axeTxt(BLD.b,BLD.e).replace(/(\d)/g,d=>SUBD[+d])],["Electron groups",n+" ("+BLD.b+" bonding + "+BLD.e+" lone)"],["Electron geometry",cls.eg],["Molecular geometry",cls.mg],["Bond angle",cls.ang],["Hybridization",cls.hyb==="none"?"not needed (one bond)":cls.hyb],["Polarity",pol.txt],["Electron check",echeck]];
+  $("#bRead tbody").innerHTML=rows.map((r,i)=>`<tr><th scope="row">${r[0]}</th><td class="l${i===4?" big":""}">${esc(r[1])}</td></tr>`).join("");
+  const st=$("#bStatus");if(BLD.msg){st.className="status warn";st.textContent=BLD.msg}else{st.className="status"+(bk.q===0?" good":"");st.textContent=bk.q===0?"This is a real neutral molecule shape: "+F.pretty+name+".":Math.abs(bk.q)===1?"With this central atom, this build would be the ion "+F.pretty+name+".":"Shape practice only: no stable neutral molecule matches this exactly."}
+  $("#bPreset").value=PRESETS.find(p=>p[1]===BLD.cen&&p[2]===BLD.out&&p[3]===BLD.b&&p[4]===BLD.e&&p[5]===BLD.odd)?.[0]||""}
+const ODDS=[["none","None"],["H","H"],["F","F"],["Cl","Cl"]];
+(function(){const sel=$("#bPreset");sel.innerHTML='<option value="">Choose a preset...</option>'+PRESETS.map(p=>`<option value="${p[0]}">${subs(p[0].replace(/[+-]$/,""))+(p[0].endsWith("+")?"⁺":p[0].endsWith("-")?"⁻":"")} · ${KNOWN[p[0]]||""}</option>`).join("");
+  sel.onchange=()=>{const p=PRESETS.find(x=>x[0]===sel.value);if(!p)return;BLD.groups=[];bSet({cen:p[1],out:p[2],b:p[3],e:p[4],odd:p[5]})};
+  segBtns($("#bCen"),CENTRES.map(c=>[c,c]),()=>BLD.cen,c=>bSet({cen:c}),"el");segBtns($("#bOut"),OUTERS.map(c=>[c,c]),()=>BLD.out,c=>bSet({out:c}),"el");segBtns($("#bOdd"),ODDS,()=>BLD.odd,c=>{if(BLD.b<2&&c!=="none"){BLD.msg="Add a second bonding group first.";bUI();return}bSet({odd:c})},"el");
+  $("#bBp").onclick=()=>bSet({b:BLD.b+1});$("#bBm").onclick=()=>bSet({b:BLD.b-1});$("#bEp").onclick=()=>bSet({e:BLD.e+1});$("#bEm").onclick=()=>bSet({e:BLD.e-1});
+  const rot=(dy,dp)=>{BLD.yaw+=dy;BLD.pitch=clamp(BLD.pitch+dp,-1.4,1.4);a11yKey=""};$("#rotL").onclick=()=>rot(-.35,0);$("#rotR").onclick=()=>rot(.35,0);$("#rotU").onclick=()=>rot(0,-.25);$("#rotD").onclick=()=>rot(0,.25);$("#rotReset").onclick=()=>{BLD.yaw=.6;BLD.pitch=-.32};
+  const cv=S1.cv;cv.addEventListener("pointerdown",e=>{BLD.drag={x:e.clientX,y:e.clientY,id:e.pointerId};try{cv.setPointerCapture(e.pointerId)}catch(_){}});
+  cv.addEventListener("pointermove",e=>{const d=BLD.drag;if(!d||d.id!==e.pointerId)return;const k=6/cv.clientWidth;BLD.yaw+=(e.clientX-d.x)*k;BLD.pitch=clamp(BLD.pitch+(e.clientY-d.y)*k,-1.4,1.4);d.x=e.clientX;d.y=e.clientY;e.preventDefault()});
+  const end=e=>{BLD.drag=null};cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);cv.style.touchAction="none";cv.style.cursor="grab";
+  ["bShowLP","bShowAng","bShowDip","bSpin"].forEach(id=>$("#"+id).onchange=()=>{a11yKey=""});
+})();
+function bStep(dt){if($("#bSpin").checked&&!BLD.drag)BLD.yaw+=dt*.45;const k=1-Math.exp(-dt*7);BLD.groups.forEach(g=>{g.dir=v3.nrm(slerp(g.dir,g.tgt,k));if(v3.dot(g.dir,g.tgt)>.99999)g.dir=g.tgt.slice();g.g=Math.min(1,g.g+dt*2.4)})}
+function streamInset(x,y,w,h,T,kind){panelBox(x,y,w,h,{fill:hexA(C.panel,.96)});title(x+12,y+18,"What you see");const bx=x+56,by=y+34;
+  rr(bx-11,by,22,46,3);fillStroke(hexA(C.glass,.7),C["glass-edge"],1.5);rr(bx-3,by+46,6,10,1);fillStroke(C["glass-edge"],null);
+  if(kind==="ion"){wrapText("Ions are not neutral molecules. In a lab you meet them dissolved in water or packed in solid salts.",x+14,y+h-62,w-28,16,{size:12.5});return}
+  const bend=kind==="pol"?30:0;ctx.beginPath();for(let k=0;k<=18;k++){const yy=by+56+k*5;const xx=bx+bend*Math.pow(k/18,2)+Math.sin(T*20+k)*.4;k?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)}ctx.strokeStyle=kind==="pol"?C.elN:C.grease;ctx.lineWidth=3;ctx.stroke();
+  rr(bx+60,by+56,14,70,7);fillStroke(hexA(C["plate-n"],.85),C["plate-n"],1.2);txt(bx+67,by+91,"−",{size:14,weight:700,align:"center",color:"#FFFFFF"});txt(bx+67,by+140,"charged rod",{size:11.5,align:"center",color:C["ink-soft"]});
+  wrapText(kind==="pol"?"A thin stream of this liquid would bend toward a charged rod: the molecules are polar.":"A thin stream of this liquid would fall almost straight: the molecules are nonpolar.",x+14,y+h-44,w-28,16,{size:12.5})}
+function drawBuild(now){use(S1);const T=now/1000;const M=bModel();const showLP=$("#bShowLP").checked,showAng=$("#bShowAng").checked,showDip=$("#bShowDip").checked;
+  panelBox(12,12,548,496);const V=view(286,250,116,BLD.yaw,BLD.pitch);
+  drawMol(V,M,{lp:showLP,arcs:showAng&&BLD.groups.every(g=>g.g>.95),arcR:.55});
+  const pol=bPolarity();
+  if(showDip&&pol.kind!=="ion"){M.bonds.forEach(b=>{const q=M.atoms[b[1]];const d=EL[q.el].en-EL[BLD.cen].en;if(Math.abs(d)<.05)return;const u=v3.nrm(q.p);const L=v3.len(q.p);if(d>0)dip3(V,v3.sc(u,.28),v3.sc(u,L*.92),C.dip,2.6,16);else dip3(V,v3.sc(u,L*.92),v3.sc(u,.3),C.dip,2.6,16)});
+    if(pol.kind==="pol"){const u=v3.nrm(pol.vec);const A=pj(V,v3.sc(u,-.6)),B=pj(V,v3.sc(u,1.5));arrow(A.x,A.y,B.x,B.y,C.net,6);label(B.x,B.y-16,"net dipole",{size:12,weight:700,color:C.net,border:C.net})}}
+  const F=bFormula();txt(30,44,F.pretty,{size:24,weight:700,mono:true});chipL(30,74,axeTxt(BLD.b,BLD.e).replace(/(\d)/g,d=>SUBD[+d]),C.accent,onFill());
+  txt(540,36,"drag to turn",{size:11.5,mono:true,align:"right",color:C["ink-soft"]});
+  const cls=VS[BLD.key];panelBox(24,440,524,58,{fill:hexA(C.panel,.95)});txt(36,458,"Electron geometry: "+cls.eg,{size:13.5,weight:600});txt(36,480,"Molecular geometry: "+cls.mg,{size:14.5,weight:700,color:C.accent});
+  if(pol.kind!=="ion")label(536,469,pol.kind==="pol"?"POLAR":"NONPOLAR",{size:13,weight:700,align:"right",color:pol.kind==="pol"?C.net:C.good,border:pol.kind==="pol"?C.net:C.good});
+  /* symbols */
+  panelBox(572,12,216,236);title(584,32,"Symbols: Lewis structure");const outs=bOuterList();const L=lewisFor(BLD.key,BLD.cen,outs,outs.map(bOrd),bBookkeeping().q);
+  lewis(680,140,L,{s:BLD.b+BLD.e>4?.98:1.12});
+  streamInset(572,260,216,248,T,pol.kind)}
+function buildA11y(){const cls=VS[BLD.key];const F=bFormula();const pol=bPolarity();
+  return [`Shape builder: ${F.pretty}, ${cls.mg}.`,`A 3D ball-and-stick model of ${F.pretty}: a ${BLD.cen} atom in the centre with ${BLD.b} bonded ${BLD.b===1?"atom":"atoms"} (${bOuterList().join(", ")})${BLD.e?" and "+BLD.e+" purple lone-pair balloon"+(BLD.e>1?"s":""):""}. Electron geometry ${cls.eg}; molecular geometry ${cls.mg}; bond angle ${cls.ang}. ${pol.txt}.${$("#bShowDip").checked&&pol.kind==="pol"?" A magenta net dipole arrow is shown.":""} On the right, the Lewis structure, and a thin stream of the liquid ${pol.kind==="pol"?"bending toward a charged rod":pol.kind==="non"?"falling straight past a charged rod":"(not shown for ions)"}.`]}
+
+/* ================= PART 2: polarity field bench ================= */
+const S2=makeStage("cvField",800,520);
+/* dipole moments in debye (standard measured values) */
+const FTYPES={H2O:{cls:"AX2E2",c:"O",out:["H"],D:1.85},NH3:{cls:"AX3E",c:"N",out:["H"],D:1.47},HCl:{cls:"AXE3",c:"Cl",out:["H"],D:1.08},CHCl3:{cls:"AX4",c:"C",out:["H","Cl","Cl","Cl"],D:1.04},
+  SO2:{cls:"AX2E",c:"S",out:["O"],D:1.63,ord:[2,2]},SF4:{cls:"AX4E",c:"S",out:["F"],D:0.63},CO2:{cls:"AX2",c:"C",out:["O"],D:0,ord:[2,2]},CH4:{cls:"AX4",c:"C",out:["H"],D:0},CCl4:{cls:"AX4",c:"C",out:["Cl"],D:0},
+  BF3:{cls:"AX3",c:"B",out:["F"],D:0},SF6:{cls:"AX6",c:"S",out:["F"],D:0},XeF4:{cls:"AX4E2",c:"Xe",out:["F"],D:0}};
+const FB={mols:[],on:false,str:70,temp:300,rev:false,hist:[],t:0,id:0};
+function fBaseModel(tp){const ft=FTYPES[tp];const M=molFromClass(ft.cls,ft.c,ft.out,{ord:ft.ord,arcs:false});
+  let n=v3.nrm(netDipole(M));if(ft.D===0||!isFinite(n[0]))n=[1,0,0];const ax=Math.abs(n[1])<.9?[0,1,0]:[0,0,1];const v=v3.nrm(v3.cross(ax,n)),w=v3.cross(n,v);
+  M.atoms.forEach(a=>{a.p=[v3.dot(a.p,n),v3.dot(a.p,v),v3.dot(a.p,w)]});M.lps.forEach(L=>{L.dir=[v3.dot(L.dir,n),v3.dot(L.dir,v),v3.dot(L.dir,w)]});return M}
+function fAdd(tp,x,y){const m={tp,M:fBaseModel(tp),mu:FTYPES[tp].D/1.85,x:x==null?110+Math.random()*350:x,y:y==null?80+Math.random()*350:y,vx:0,vy:0,th:Math.random()*TAU,om:0,psi:Math.random()*TAU,chi:Math.random()*TAU,id:FB.id++};FB.mols.push(m);if(FB.mols.length>20)FB.mols.shift();fUI()}
+function gauss2(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(TAU*v)}
+function fTarget(){return FB.rev?0:Math.PI}
+function fStep(dt){if(dt<=0)return;const kT=FB.temp/300,E=FB.on?FB.str/100*6:0,g=3;const tt=fTarget();const sub=Math.max(1,Math.ceil(dt/.01));const h=dt/sub;
+  for(let s=0;s<sub;s++)FB.mols.forEach(m=>{const tau=-m.mu*E*Math.sin(m.th-tt);m.om+=(tau-g*m.om)*h+Math.sqrt(2*g*kT*h)*gauss2();m.th+=m.om*h;
+    m.vx+=(-1.5*m.vx)*h+Math.sqrt(kT*h)*gauss2()*60;m.vy+=(-1.5*m.vy)*h+Math.sqrt(kT*h)*gauss2()*60;m.x+=m.vx*h;m.y+=m.vy*h;
+    if(m.x<104){m.x=104;m.vx=Math.abs(m.vx)}if(m.x>458){m.x=458;m.vx=-Math.abs(m.vx)}if(m.y<70){m.y=70;m.vy=Math.abs(m.vy)}if(m.y>450){m.y=450;m.vy=-Math.abs(m.vy)}
+    FB.mols.forEach(o=>{if(o===m)return;const dx=m.x-o.x,dy=m.y-o.y,d=Math.hypot(dx,dy)||1;if(d<58){const f=(58-d)*12;m.vx+=dx/d*f*h;m.vy+=dy/d*f*h}});
+    m.psi+=h*(1.2+.6*Math.sqrt(kT));if(m.mu===0)m.chi+=h*(.8+.5*Math.sqrt(kT))*((m.id%2)?1:-1)});
+  FB.t+=dt;const pol=FB.mols.filter(m=>m.mu>0),non=FB.mols.filter(m=>m.mu===0);
+  const avg=a=>a.length?a.reduce((s,m)=>s+Math.cos(m.th-tt),0)/a.length:null;
+  if(!FB.lastH||FB.t-FB.lastH>.1){FB.lastH=FB.t;FB.hist.push([FB.t,avg(pol),avg(non)]);while(FB.hist.length&&FB.hist[0][0]<FB.t-20)FB.hist.shift()}}
+function fRot(p,m){/* twirl about the dipole axis (x), tumble about y for nonpolar, then roll in the screen plane */
+  let q=[p[0],p[1]*Math.cos(m.psi)-p[2]*Math.sin(m.psi),p[1]*Math.sin(m.psi)+p[2]*Math.cos(m.psi)];
+  if(m.mu===0){const c=Math.cos(m.chi),s=Math.sin(m.chi);q=[q[0]*c+q[2]*s,q[1],-q[0]*s+q[2]*c]}
+  const c=Math.cos(m.th),s=Math.sin(m.th);return [q[0]*c-q[1]*s,q[0]*s+q[1]*c,q[2]]}
+function drawField(now){use(S2);const T=now/1000;const on=FB.on;const pl=FB.rev?C["plate-n"]:C["plate-p"],pr=FB.rev?C["plate-p"]:C["plate-n"];const sl=FB.rev?"−":"+",sr=FB.rev?"+":"−";
+  panelBox(12,12,516,496);title(26,32,"Particles: molecules between charged plates");
+  const a=on?.25+.65*FB.str/100:.25;rr(40,48,26,446,4);fillStroke(hexA(pl,a),pl,1.5);rr(474,48,26,446,4);fillStroke(hexA(pr,a),pr,1.5);
+  for(let i=0;i<9;i++){const y=70+i*50;txt(53,y,sl,{size:16,weight:700,align:"center",color:on&&FB.str>40?"#FFFFFF":pl});txt(487,y,sr,{size:16,weight:700,align:"center",color:on&&FB.str>40?"#FFFFFF":pr})}
+  if(on&&FB.str>0){ctx.save();ctx.globalAlpha*=.18+.3*FB.str/100;for(let i=0;i<6;i++){const y=74+i*80;if(FB.rev)arrow(462,y,80,y,C["ink-soft"],1.4,[6,6]);else arrow(80,y,462,y,C["ink-soft"],1.4,[6,6])}ctx.restore()}
+  FB.mols.forEach(m=>{const M={atoms:m.M.atoms.map(at=>({el:at.el,p:fRot(at.p,m)})),bonds:m.M.bonds,lps:m.M.lps.map(L=>({a:L.a,dir:fRot(L.dir,m)})),arcs:[]};
+    const V=view(m.x,m.y,25,0,0);drawMol(V,M,{lp:false,atomScale:1.2});
+    if(m.mu>0&&$("#fArrows").checked){const u=[Math.cos(m.th),Math.sin(m.th)];const L=14+16*m.mu;arrow(m.x-u[0]*L*.6,m.y+u[1]*L*.6,m.x+u[0]*L,m.y-u[1]*L,C.net,2.6)}});
+  if(!FB.mols.length)label(270,260,"Drop some molecules onto the bench with the buttons.",{size:13.5,weight:600});
+  label(270,490,on?"Field ON: polar molecules turn their δ− end toward the + plate":"Field OFF: every molecule tumbles at random",{size:12.5,weight:700,color:on?C.accent:C.ink});
+  /* graph */
+  panelBox(540,12,248,250);title(552,32,"Symbols: alignment over time");const gx=576,gy=50,gw=200,gh=170;
+  line(gx,gy,gx,gy+gh,C.ink,1.2);line(gx,gy+gh/2,gx+gw,gy+gh/2,C.rule,1,[3,3]);line(gx,gy+gh,gx+gw,gy+gh,C.rule,1);
+  txt(gx-4,gy+4,"+1",{size:11.5,mono:true,align:"right"});txt(gx-4,gy+gh/2,"0",{size:11.5,mono:true,align:"right"});txt(gx-4,gy+gh-4,"−1",{size:11.5,mono:true,align:"right"});
+  txt(gx+gw,gy+gh+16,"last 20 s →",{size:11.5,align:"right",color:C["ink-soft"]});txt(gx+4,gy+gh+16,"average cos θ",{size:11.5,mono:true,color:C["ink-soft"]});
+  [[1,C.net,3],[2,C["ink-soft"],2]].forEach(s=>{const pts=FB.hist.filter(h=>h[s[0]]!=null).map(h=>[gx+gw-(FB.t-h[0])/20*gw,gy+gh/2-h[s[0]]*gh/2]);if(pts.length>1)poly(pts,s[1],s[2])});
+  /* macroscopic meter */
+  panelBox(540,274,248,234);title(552,294,"What you see");const pol=FB.mols.filter(m=>m.mu>0);const tt=fTarget();
+  const P=pol.reduce((s,m)=>s+m.mu*Math.cos(m.th-tt),0);const extra=on?clamp(P/6,0,1):0;
+  txt(556,322,"Charge the plates can hold",{size:12.5,weight:600});rr(556,334,216,18,4);fillStroke(C["panel-2"],C.rule,1);rr(556,334,216*(on?.35:0),18,4);fillStroke(hexA(C["ink-soft"],.6),null);rr(556+216*(on?.35:0),334,216*.65*extra,18,4);fillStroke(hexA(C.net,.75),null);
+  txt(556,366,on?"grey: empty · magenta: from lined-up dipoles":"field off: no charge on the plates",{size:11.5,color:C["ink-soft"]});
+  wrapText("Real capacitors work this way: water between the plates lets them store about 80 times more charge than empty space, hexane only about 2 times.",556,394,220,16,{size:12.5})}
+function fUI(){const pol=FB.mols.filter(m=>m.mu>0),non=FB.mols.filter(m=>m.mu===0);const tt=fTarget();const avg=pol.length?pol.reduce((s,m)=>s+Math.cos(m.th-tt),0)/pol.length:null;
+  const rows=[["Field",FB.on?"on, "+FB.str+"%":"off"],["Temperature",FB.temp+" K"],["Polar molecules",pol.length+" ("+[...new Set(pol.map(m=>m.tp))].map(t=>subs(t)+" "+FTYPES[t].D.toFixed(2)+" D").join(", ")+")"],["Nonpolar molecules",non.length+" (0 D)"],["Polar alignment, avg cos θ",avg==null?"none on bench":avg.toFixed(2)]];
+  $("#fRead tbody").innerHTML=rows.map(r=>`<tr><th scope="row">${r[0]}</th><td class="l">${r[1]}</td></tr>`).join("");
+  const st=$("#fStatus");if(!FB.mols.length){st.className="status";st.textContent="The bench is empty. Drop in some molecules."}else if(!FB.on){st.className="status";st.textContent="Turn the field on and watch which molecules turn."}
+  else if(avg!=null&&avg>.5){st.className="status good";st.textContent="Polar molecules are lining up (average cos θ "+avg.toFixed(2)+"). Nonpolar ones still tumble."}else{st.className="status";st.textContent=pol.length?"Lining up... a stronger field or a lower temperature helps.":"Only nonpolar molecules here: the field has nothing to turn."}
+  $("#fStrOut").textContent=FB.str+"%";$("#fTempOut").textContent=FB.temp+" K";$("#fSwitch").textContent=FB.on?"Turn the field off":"Turn the field on";$("#fSwitch").setAttribute("aria-pressed",String(FB.on))}
+(function(){const box=$("#fMols");Object.keys(FTYPES).forEach(k=>{const b=document.createElement("button");b.type="button";b.className="tbtn";b.innerHTML=subs(k);b.onclick=()=>{fAdd(k);a11yKey=""};box.appendChild(b)});
+  $("#fClear").onclick=()=>{FB.mols=[];FB.hist=[];fUI();a11yKey=""};$("#fMix").onclick=()=>{FB.mols=[];["H2O","H2O","NH3","HCl","SO2","CHCl3","CO2","CO2","CH4","CCl4","BF3","SF6"].forEach(k=>fAdd(k));a11yKey=""};
+  $("#fSwitch").onclick=()=>{FB.on=!FB.on;fUI();a11yKey=""};$("#fRev").onclick=()=>{FB.rev=!FB.rev;fUI();a11yKey=""};
+  $("#fStr").oninput=e=>{FB.str=+e.target.value;fUI()};$("#fTemp").oninput=e=>{FB.temp=+e.target.value;fUI()};$("#fArrows").onchange=()=>{a11yKey=""}})();
+function fieldA11y(){const pol=FB.mols.filter(m=>m.mu>0).length,non=FB.mols.length-pol;const tt=fTarget();const al=pol?FB.mols.filter(m=>m.mu>0).reduce((s,m)=>s+Math.cos(m.th-tt),0)/pol:0;const band=al>.6?"mostly lined up":al>.25?"partly lined up":"pointing every which way";
+  return [`Field bench: ${pol} polar and ${non} nonpolar molecules, field ${FB.on?"on":"off"}.`,`Two plates, positive on the ${FB.rev?"right":"left"} and negative on the ${FB.rev?"left":"right"}. ${pol} polar and ${non} nonpolar ball-and-stick molecules drift between them. The field is ${FB.on?"on at "+FB.str+" percent":"off"} and the temperature is ${FB.temp} kelvin. The polar molecules are ${FB.on?band:"tumbling at random"}${pol?" (their magenta dipole arrows "+(FB.on&&al>.6?"mostly point toward the positive plate":"point in many directions")+")":""}; the nonpolar ones keep tumbling. A graph on the right tracks the average alignment over the last 20 seconds.`]}
+function fMixInit(){["H2O","H2O","NH3","HCl","CO2","CO2","CH4","CCl4"].forEach(k=>fAdd(k))}
+
+/* ================= PART 3: predict-the-shape trainer ================= */
+const S3=makeStage("cvPred",800,480);
+/* [formula, centre, outer atoms, charge, set] */
+const PBANK=[["CO2","C",["O","O"],0,"24"],["CS2","C",["S","S"],0,"24"],["HCN","C",["H","N"],0,"24"],["BeCl2","Be",["Cl","Cl"],0,"24"],["BF3","B",["F","F","F"],0,"24"],["BCl3","B",["Cl","Cl","Cl"],0,"24"],
+  ["SO3","S",["O","O","O"],0,"24"],["H2CO","C",["O","H","H"],0,"24"],["SO2","S",["O","O"],0,"24"],["O3","O",["O","O"],0,"24"],["NO2","N",["O","O"],-1,"24"],["NO3","N",["O","O","O"],-1,"24"],["CO3","C",["O","O","O"],-2,"24"],
+  ["CH4","C",["H","H","H","H"],0,"24"],["CCl4","C",["Cl","Cl","Cl","Cl"],0,"24"],["SiH4","Si",["H","H","H","H"],0,"24"],["CF4","C",["F","F","F","F"],0,"24"],["CH2Cl2","C",["H","H","Cl","Cl"],0,"24"],["CHCl3","C",["H","Cl","Cl","Cl"],0,"24"],
+  ["NH4","N",["H","H","H","H"],1,"24"],["SO4","S",["O","O","O","O"],-2,"24"],["NH3","N",["H","H","H"],0,"24"],["PCl3","P",["Cl","Cl","Cl"],0,"24"],["NF3","N",["F","F","F"],0,"24"],["H3O","O",["H","H","H"],1,"24"],
+  ["ClO3","Cl",["O","O","O"],-1,"24"],["H2O","O",["H","H"],0,"24"],["H2S","S",["H","H"],0,"24"],["OF2","O",["F","F"],0,"24"],["SCl2","S",["Cl","Cl"],0,"24"],
+  ["PCl5","P",["Cl","Cl","Cl","Cl","Cl"],0,"56"],["PF5","P",["F","F","F","F","F"],0,"56"],["SF4","S",["F","F","F","F"],0,"56"],["SeF4","Se",["F","F","F","F"],0,"56"],["ClF3","Cl",["F","F","F"],0,"56"],["BrF3","Br",["F","F","F"],0,"56"],
+  ["XeF2","Xe",["F","F"],0,"56"],["I3","I",["I","I"],-1,"56"],["ICl2","I",["Cl","Cl"],-1,"56"],["SF6","S",["F","F","F","F","F","F"],0,"56"],["PF6","P",["F","F","F","F","F","F"],-1,"56"],["BrF5","Br",["F","F","F","F","F"],0,"56"],
+  ["IF5","I",["F","F","F","F","F"],0,"56"],["XeF4","Xe",["F","F","F","F"],0,"56"],["ICl4","I",["Cl","Cl","Cl","Cl"],-1,"56"]];
+const MG_OPTS=["linear","trigonal planar","bent","tetrahedral","trigonal pyramidal","trigonal bipyramidal","seesaw","T-shaped","octahedral","square pyramidal","square planar"];
+const ANG_OPTS=[["180","180°"],["120","120°"],["lt120","less than 120°"],["109","109.5°"],["lt109","less than 109.5°"],["90-120-180","90°, 120° and 180°"],["seesaw","less than 90° and less than 120°"],["lt90","less than 90°"],["90-180","90° and 180°"]];
+const HYB_OPTS=["sp","sp²","sp³","sp³d","sp³d²"];
+function pFormula(e){return subs(e[0])+chargeTxt(e[3])}
+function pAnalyze(e){const [f,c,outs,q]=e;const tot=EL[c].v+outs.reduce((s,o)=>s+EL[o].v,0)-q;const nb=outs.length;const outLP=outs.reduce((s,o)=>s+(o==="H"?0:6),0);const rem=tot-2*nb-outLP;const lp=rem/2;
+  const key=vsKey(nb,lp);const cls=VS[key];const n=nb+lp;
+  /* bond orders: share outer lone pairs until the centre has an octet (not for Be, B) */
+  const ords=outs.map(()=>1);let ce=2*nb+2*lp;if(!["Be","B"].includes(c)){let guard=0;while(ce<8&&guard++<6){const i=outs.findIndex((o,j)=>["O","S","N"].includes(o)&&ords[j]<3&&(o!=="O"||ords[j]<2)&&(o!=="S"||ords[j]<2));if(i<0)break;ords[i]++;ce+=2}}
+  const same=outs.every(o=>o===outs[0]);const pol=q!==0?"ion":(cls.sym&&same?"nonpolar":"polar");
+  return {f,c,outs,q,tot,nb,outLP,rem,lp,key,cls,n,ords,pol,eg:egFromN(n),mg:cls.mg,ang:cls.angKey,hyb:cls.hyb}}
+const PR={i:0,a:null,hint:0,first:true,sol:false,solT:0,solved:false,streak:0,best:+(store.get("pbest")||0),count:0,level:"all",last:-1};
+function pPool(){return PBANK.map((e,i)=>i).filter(i=>PR.level==="all"||(PR.level==="ion"?PBANK[i][3]!==0:PBANK[i][4]===PR.level))}
+function pNew(idx){const pool=pPool();let i=idx;if(i==null){do{i=pick(pool)}while(pool.length>1&&i===PR.last)}PR.last=i;PR.i=i;PR.a=pAnalyze(PBANK[i]);PR.hint=0;PR.first=true;PR.sol=false;PR.solved=false;
+  const a=PR.a;$("#pProb").innerHTML=`<span class="pt">Predict the shape · molecule ${pool.indexOf(i)+1} of ${pool.length} in this set</span><span class="f">${pFormula(PBANK[i])}</span>The central atom is ${a.c}${a.q?`; this is an ion with charge ${a.q>0?"+":"−"}${Math.abs(a.q)}`:""}.`;
+  pBuildQs();$("#pMsg").className="msg";$("#pHintBox").hidden=true;$("#predCap").textContent="Make your prediction, then press Check.";a11yKey=""}
+function pBuildQs(){const a=PR.a;const sel=(id,lab,opts)=>`<div class="qrow" id="row-${id}"><label for="${id}">${lab}</label><select id="${id}"><option value="">Choose...</option>${opts.map(o=>`<option value="${esc(o[0])}">${o[1]}</option>`).join("")}</select><span class="mk" aria-hidden="true"></span></div>`;
+  let h=`<div class="qrow" id="row-pVE"><label for="pVE">Total valence electrons</label><input type="number" id="pVE" inputmode="numeric" step="1" min="0" autocomplete="off"><span class="mk" aria-hidden="true"></span></div>`;
+  h+=sel("pEG","Electron geometry",EG_NAMES.map(x=>[x,x]));h+=sel("pMG","Molecular geometry",MG_OPTS.map(x=>[x,x]));h+=sel("pANG","Bond angle",ANG_OPTS);
+  h+=a.pol==="ion"?`<div class="qrow" id="row-pPOL"><label for="pPOL">Polarity</label><select id="pPOL" disabled><option value="ion">Skip (ion)</option></select><span class="mk" aria-hidden="true"></span></div>`:sel("pPOL","Polarity",[["polar","polar"],["nonpolar","nonpolar"]]);
+  h+=sel("pHYB","Hybridization of "+a.c,HYB_OPTS.map(x=>[x,x]));$("#pQs").innerHTML=h;["pVE","pEG","pMG","pANG","pPOL","pHYB"].forEach(id=>{const el=$("#"+id);el.addEventListener("change",()=>{a11yKey=""});el.addEventListener("input",()=>{a11yKey=""})})}
+function pAnswers(){const a=PR.a;return {pVE:String(a.tot),pEG:a.eg,pMG:a.mg,pANG:a.ang,pPOL:a.pol==="ion"?"ion":a.pol,pHYB:a.hyb}}
+function pReasons(id,v){const a=PR.a;
+  if(id==="pVE"){const vv=+v;if(vv===a.tot+a.q)return "Remember the charge: add one electron for each negative charge and take one away for each positive charge.";if(vv===EL[a.c].v)return "That is only the central atom. Add the valence electrons of every atom.";return `Add every atom's valence electrons: ${a.c} ${EL[a.c].v}${a.outs.length?" + "+[...new Set(a.outs)].map(o=>{const k=a.outs.filter(x=>x===o).length;return (k>1?k+" × ":"")+o+" "+EL[o].v}).join(" + "):""}${a.q?(a.q<0?" + "+(-a.q):" − "+a.q)+" for the charge":""}.`}
+  if(id==="pEG"){if(v===egFromN(a.nb)&&a.lp>0)return "That counts only the bonds. Lone pairs on the central atom are electron groups too.";return "Electron geometry depends only on the TOTAL number of groups (bonds + lone pairs) on the central atom."}
+  if(id==="pMG"){if(v===a.eg&&a.lp>0)return "That is the electron geometry. The molecular shape describes where the atoms are, so leave the lone pairs out.";if(a.n===5&&a.lp>0)return "With five groups, lone pairs sit in the equatorial positions first. Then look at where the atoms are.";return "Start from the electron geometry, then remove the lone-pair positions and name what the atoms make."}
+  if(id==="pANG"){const ideal={2:"180",3:"120",4:"109"}[a.n];if(a.lp>0&&v===ideal)return "Lone pairs push harder than bonding pairs, so the angle is squeezed below the ideal value.";if(a.lp===0&&/^lt/.test(v))return "With no lone pairs on the central atom, nothing squeezes the angles: they keep the ideal values.";return "Use the angles of the electron geometry, then ask whether lone pairs squeeze them."}
+  if(id==="pPOL"){if(v==="nonpolar"&&a.lp>0&&!a.cls.sym)return "The lone pairs make the shape lopsided, so the bond dipoles cannot cancel.";if(v==="nonpolar")return "The outer atoms are not all the same, so the bond dipoles are unequal and do not cancel.";return "The bonds are polar, but the shape is symmetric and all the outer atoms match, so the bond dipoles cancel."}
+  if(id==="pHYB")return `Match the number of hybrid orbitals to the number of electron groups. ${a.c} has ${a.n} groups.`;return ""}
+function pCheck(){const ans=pAnswers();const ids=["pVE","pEG","pMG","pANG","pPOL","pHYB"];let allRight=true,blank=false;const bad=[];
+  ids.forEach(id=>{const el=$("#"+id);const row=$("#row-"+id);const v=el.value.trim();if(id==="pPOL"&&ans.pPOL==="ion"){row.className="qrow right";row.querySelector(".mk").textContent="";return}
+    if(v===""){blank=true;allRight=false;row.className="qrow";row.querySelector(".mk").textContent="";return}
+    const ok=id==="pVE"?Math.abs(+v-+ans.pVE)<.5:v===ans[id];row.className="qrow "+(ok?"right":"wrong");row.querySelector(".mk").textContent=ok?"✓":"✗";row.querySelector(".mk").className="mk "+(ok?"ok":"no");if(!ok){allRight=false;bad.push([id,v])}});
+  const m=$("#pMsg");
+  if(allRight){if(!PR.solved){PR.count++;if(PR.first&&!PR.sol){PR.streak++;if(PR.streak>PR.best){PR.best=PR.streak;store.set("pbest",PR.best)}}}PR.solved=true;m.className="msg show good";m.textContent=`✓ All correct for ${pFormula(PBANK[PR.i])}: ${PR.a.mg}. Watch the worked reasoning play.`;pShowSol(false)}
+  else{PR.first=false;PR.streak=0;m.className="msg show "+(blank&&!bad.length?"info":"warn");
+    m.innerHTML=bad.length?"Not quite."+bad.map(b=>`<div><b>${$("#row-"+b[0]+" label").textContent}:</b> ${esc(pReasons(b[0],b[1]))}</div>`).join(""):"Fill in every part, then press Check."}
+  pMeter();a11yKey="";return allRight}
+function pShowSol(byBtn){if(byBtn&&!PR.solved){PR.streak=0;PR.first=false}PR.sol=true;PR.solT=performance.now();$("#predCap").textContent="Worked reasoning for "+pFormula(PBANK[PR.i])+" (plays step by step).";pMeter();a11yKey=""}
+function pMeter(){$("#pStreak").textContent=PR.streak;$("#pBest").textContent=PR.best;$("#pSolved").textContent=PR.count}
+function pHints(){const a=PR.a;const vs=a.c+" "+EL[a.c].v+" + "+[...new Set(a.outs)].map(o=>{const k=a.outs.filter(x=>x===o).length;return (k>1?k+" × ":"")+o+" "+EL[o].v}).join(" + ")+(a.q?(a.q<0?" + "+(-a.q):" − "+a.q)+" (charge)":"");
+  return [`Count valence electrons: ${vs} = ${a.tot}.`,`${a.nb} single bonds use ${2*a.nb} electrons and the outer atoms' lone pairs use ${a.outLP}. ${a.tot} − ${2*a.nb} − ${a.outLP} = ${a.rem} left, so ${a.c} has ${a.lp} lone pair${a.lp===1?"":"s"}.`,
+    `${a.c} has ${a.nb} bonds + ${a.lp} lone pair${a.lp===1?"":"s"} = ${a.n} electron groups: ${a.eg} electron geometry and ${hybFromN(a.n)} hybrids. Now name the shape of the atoms${a.pol==="ion"?"":" and check whether the dipoles cancel"}.`]}
+$("#pCheck").onclick=pCheck;$("#pSol").onclick=()=>{pShowSol(true);const m=$("#pMsg");m.className="msg show info";m.textContent="Worked reasoning is playing. The answers: "+[PR.a.tot+" valence electrons",PR.a.eg,PR.a.mg,ANG_OPTS.find(o=>o[0]===PR.a.ang)[1],PR.a.pol==="ion"?null:PR.a.pol,PR.a.hyb].filter(Boolean).join(", ")+"."};
+$("#pReplay").onclick=()=>{if(PR.sol)PR.solT=performance.now();else pShowSol(true)};
+$("#pNew").onclick=()=>pNew();$("#pHint").onclick=()=>{const h=pHints();if(PR.hint<3)PR.hint++;const b=$("#pHintBox");b.hidden=false;b.innerHTML=h.slice(0,PR.hint).map((x,i)=>`<div><b>Hint ${i+1}:</b> ${esc(x)}</div>`).join("")+(PR.hint>=3?'<div class="small">That is the whole ladder. Try it, or press Show worked reasoning.</div>':"")};
+$("#pLevel").onchange=e=>{PR.level=e.target.value;pNew()};
+/* ---- canvas: prediction view and animated worked reasoning ---- */
+function pStage(now){return PR.sol?Math.floor((now-PR.solT)/1700):-1}
+function drawPred(now){use(S3);const T=now/1000;const a=PR.a;const st=pStage(now);const sf=PR.sol?((now-PR.solT)/1700)%1:0;const A=k=>st>k?1:st===k?smooth(clamp(sf*2,0,1)):0;
+  const F=pFormula(PBANK[PR.i]);
+  panelBox(12,12,380,140);title(26,32,"1 · Count valence electrons");
+  if(!PR.sol){txt(202,88,F,{size:40,weight:700,mono:true,align:"center"});txt(202,130,"predict first, then check",{size:12.5,align:"center",color:C["ink-soft"]})}
+  else{const terms=[[a.c,EL[a.c].v,1]];[...new Set(a.outs)].forEach(o=>terms.push([o,EL[o].v,a.outs.filter(x=>x===o).length]));let x=28;const y=78;
+    terms.forEach((t,i)=>{withA(clamp(sf*6-i,0,1)+(st>0?1:0),()=>{const s=(i?"+ ":"")+(t[2]>1?t[2]+"×":"")+t[0]+" "+t[1];txt(x,y,s,{size:15,mono:true,weight:600});x+=ctx.measureText(s).width+10})});
+    if(a.q)withA(A(0),()=>{txt(x,y,(a.q<0?"+ ":"− ")+Math.abs(a.q)+" (charge)",{size:15,mono:true,weight:600,color:C.accent})});
+    withA(A(0),()=>txt(28,116,"= "+a.tot+" valence electrons",{size:17,mono:true,weight:700,color:C.accent}))}
+  panelBox(12,164,380,304);title(26,184,"2 · Lewis structure and lone pairs");
+  if(PR.sol){withA(A(1),()=>{const L=lewisFor(a.key,a.c,a.outs,st>=2?a.ords:a.outs.map(()=>1),a.q);if(st<2&&A(1)<1)L.clp=[];lewis(202,292,L,{s:a.n>4?.86:1.05,hl:{lps:st===3}});
+      txt(28,412,`${a.tot} − ${2*a.nb} (bonds) − ${a.outLP} (outer lone pairs) = ${a.rem}`,{size:13,mono:true});txt(28,434,`→ ${a.lp} lone pair${a.lp===1?"":"s"} on ${a.c}`,{size:14,mono:true,weight:700,color:C.lp})});
+    if(st>=2&&a.ords.some(o=>o>1))withA(A(2),()=>label(202,212,a.c+" shares outer lone pairs: multiple bonds",{size:12,weight:600}));
+    withA(A(3),()=>label(202,452,`Groups on ${a.c}: ${a.nb} bonds + ${a.lp} lone pairs = ${a.n}`,{size:13,weight:700,color:C.accent,border:C.accent}))}
+  else{wrapText("Your prediction so far:",28,214,340,18,{size:13.5,weight:600});
+    const rows=[["valence e⁻",$("#pVE")&&$("#pVE").value],["electron geom.",$("#pEG")&&$("#pEG").value],["shape",$("#pMG")&&$("#pMG").value],["angle",$("#pANG")&&($("#pANG").selectedOptions[0]||{}).value?$("#pANG").selectedOptions[0].textContent:""],["polarity",a.pol==="ion"?"(ion)":$("#pPOL")&&$("#pPOL").value],["hybrid",$("#pHYB")&&$("#pHYB").value]];
+    rows.forEach((r,i)=>{txt(28,244+i*30,r[0],{size:12.5,mono:true,color:C["ink-soft"]});txt(150,244+i*30,r[1]||"…",{size:14,weight:700})})}
+  /* 3D */
+  panelBox(404,12,384,456);const V=view(596,226,118,.5+T*.4,-.3);
+  if(!PR.sol){title(418,32,"3 · Where do the atoms go?");/* atoms drift around the centre, arrangement unknown */
+    const items=[];a.outs.forEach((o,i)=>{const d=v3.nrm([Math.sin(T*.7+i*2.1),Math.cos(T*.5+i*1.3),Math.sin(T*.6+i*.9)]);const p=pj(V,v3.sc(d,1.2));items.push({z:p.z,f:()=>ball(p.x,p.y,EL[o].r*V.s*p.f*.55,elCol(o),o)})});
+    const c=pj(V,[0,0,0]);items.push({z:0,f:()=>ball(c.x,c.y,EL[a.c].r*V.s*c.f*.55,elCol(a.c),a.c)});zR(items);label(596,400,"?",{size:28,weight:700,pill:false,color:C["ink-soft"]});
+    wrapText("Press Check when every part is filled in. The worked reasoning then builds the real shape here.",420,436,350,16,{size:12.5,color:C["ink-soft"]});return}
+  title(418,32,st<4?"3 · Count the groups":st<5?"4 · Electron geometry":st<6?"5 · Molecular geometry":st<7?"6 · Polarity":"7 · Hybridization");
+  const M=molFromClass(a.key,a.c,a.outs,{ord:a.ords});const lpA=st<4?A(3)*.6:st===4?1:st>=5?1-.75*A(5):1;
+  withA(st>=3?Math.max(A(3),.0):0,()=>drawMol(V,M,{lpA:lpA,arcs:st>=5,arcA:A(5)}));
+  if(st>=4)withA(A(4),()=>label(596,388,"electron geometry: "+a.eg,{size:13,weight:700,color:C.lp,border:C.lp}));
+  if(st>=5)withA(A(5),()=>label(596,414,"shape: "+a.mg+" · "+a.cls.ang.replace(/ \(.*\)/,""),{size:13,weight:700,color:C.accent,border:C.accent}));
+  if(st>=6)withA(A(6),()=>{if(a.pol==="ion"){label(596,440,"ion: polarity not asked",{size:12.5,weight:700})}else{const n=netDipole(M);const l=v3.len(n);
+      M.bonds.forEach(b=>{const q=M.atoms[b[1]];const d=EL[q.el].en-EL[a.c].en;if(Math.abs(d)<.05)return;const u=v3.nrm(q.p);if(d>0)dip3(V,v3.sc(u,.3),v3.sc(u,1.05),C.dip,2.4,14);else dip3(V,v3.sc(u,1.0),v3.sc(u,.35),C.dip,2.4,14)});
+      if(a.pol==="polar"&&l>.05){const u=v3.nrm(n);const P0=pj(V,v3.sc(u,-.6)),P1=pj(V,v3.sc(u,1.45));arrow(P0.x,P0.y,P1.x,P1.y,C.net,5)}
+      label(596,440,a.pol==="polar"?"POLAR: the dipoles do not cancel":"NONPOLAR: the dipoles cancel",{size:12.5,weight:700,color:a.pol==="polar"?C.net:C.good,border:a.pol==="polar"?C.net:C.good})}});
+  if(st>=7)withA(A(7),()=>label(596,60,a.n+" groups → "+a.hyb+" hybrid orbitals",{size:13.5,weight:700,color:C.hyb,border:C.hyb}))}
+function zR(items){items.sort((p,q)=>p.z-q.z).forEach(it=>it.f())}
+function predA11y(){const a=PR.a;const F=pFormula(PBANK[PR.i]);if(!PR.sol)return [`Predict the shape of ${F}.`,`The formula ${F} is shown large, with the student's current predictions listed below it. On the right, the ${a.c} atom sits in the middle while ${a.outs.length} outer atoms drift around it, because the arrangement is not known yet.`];
+  const st=Math.min(7,pStage(performance.now()));return [`Worked reasoning for ${F}, step ${Math.max(1,st+1)} of 8.`,`The reasoning builds step by step: ${a.tot} valence electrons; the Lewis structure leaves ${a.lp} lone pair${a.lp===1?"":"s"} on ${a.c}; ${a.n} electron groups give a ${a.eg} electron geometry; with the lone pairs hidden, the atoms form a ${a.mg} shape (${a.cls.ang}); ${a.pol==="ion"?"it is an ion, so polarity is not asked":"the molecule is "+a.pol}; and ${a.c} uses ${a.hyb} hybrid orbitals.`]}
+
+/* ================= PART 4: matching game ================= */
+/* inline SVG ball-and-stick picture (theme colours through CSS variables) */
+function svgMol(key,cen,outs,ords,w,h){const M=molFromClass(key,cen,outs,{ord:ords,arcs:false});const V=view(w/2,h/2,Math.min(w,h)*.37,.55,-.35);const P=M.atoms.map(a=>pj(V,a.p));const it=[];
+  M.bonds.forEach(b=>{const A=P[b[0]],B=P[b[1]];it.push({z:(A.z+B.z)/2-.05,s:`<line x1="${A.x.toFixed(1)}" y1="${A.y.toFixed(1)}" x2="${B.x.toFixed(1)}" y2="${B.y.toFixed(1)}" style="stroke:var(--bond)" stroke-width="${(b[2]>1?.065:.05)*Math.min(w,h)}" stroke-linecap="round"/>`})});
+  M.lps.forEach(L=>{const c=pj(V,v3.sc(L.dir,.55));const t=pj(V,v3.sc(L.dir,.9));const ang=Math.atan2(t.y-c.y,t.x-c.x)*180/Math.PI;const l=Math.max(6,Math.hypot(t.x-c.x,t.y-c.y)+5);
+    it.push({z:c.z,s:`<ellipse cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" rx="${l.toFixed(1)}" ry="${(.08*Math.min(w,h)).toFixed(1)}" transform="rotate(${ang.toFixed(0)} ${c.x.toFixed(1)} ${c.y.toFixed(1)})" style="fill:var(--lp-fill);stroke:var(--lp)" fill-opacity=".6" stroke-width="1.2"/>`})});
+  M.atoms.forEach((a,i)=>{const p=P[i];const r=(i===0?.11:.085)*Math.min(w,h)*p.f;it.push({z:p.z,s:`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r.toFixed(1)}" style="fill:var(--el${a.el});stroke:var(--ink)" stroke-opacity=".45" stroke-width="1"/>`})});
+  return `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true" focusable="false">${it.sort((a,b)=>a.z-b.z).map(x=>x.s).join("")}</svg>`}
+function descClass(key){const c=VS[key];return `a central atom with ${c.b} bonded atom${c.b>1?"s":""} and ${c.e?c.e+" lone pair"+(c.e>1?"s":""):"no lone pairs"}`}
+const PICS={AX2:["C",["O"],[2,2]],AX3:["B",["F"]],AX2E:["S",["O"],[2,2]],AX4:["C",["H"]],AX3E:["N",["H"]],AX2E2:["O",["H"]],AX2E3:["Xe",["F"]],AX5:["P",["Cl"]],AX4E:["S",["F"]],AX3E2:["Cl",["F"]],AX6:["S",["F"]],AX5E:["Br",["F"]],AX4E2:["Xe",["F"]]};
+function picCard(key,lab,bin,why,o){o=o||{};const p=PICS[key];return {label:lab,bin,why,pic:[key,o.c||p[0],o.outs||p[1],o.ord||p[2]],aria:o.aria||(lab+": "+descClass(key))}}
+const SROUNDS=[
+ {name:"Shapes from 2 to 4 groups",goal:"Match each 3D model to its molecular shape name. Purple balloons are lone pairs: they count for the electron geometry but not for the shape name.",
+  bins:[["lin","linear"],["tp","trigonal planar"],["bent","bent"],["tet","tetrahedral"],["pyr","trigonal pyramidal"]],
+  cards:[picCard("AX2","Model A","lin","Two atoms on opposite sides: linear, 180°."),picCard("AX2E3","Model B","lin","Three equatorial lone pairs leave the two atoms opposite each other: still linear."),
+   picCard("AX3","Model C","tp","Three atoms in a flat triangle, no lone pairs: trigonal planar."),picCard("AX2E","Model D","bent","Three groups, one a lone pair: bent (less than 120°)."),
+   picCard("AX2E2","Model E","bent","Four groups, two lone pairs: bent (about 104.5°)."),picCard("AX4","Model F","tet","Four atoms, no lone pairs: tetrahedral."),picCard("AX3E","Model G","pyr","Three atoms and one lone pair: trigonal pyramidal.")]},
+ {name:"Shapes from 5 and 6 groups",goal:"Match each model to its shape name. Remember: with five groups, lone pairs sit in the equatorial positions.",
+  bins:[["tbp","trigonal bipyramidal"],["ss","seesaw"],["t","T-shaped"],["oct","octahedral"],["sqp","square pyramidal"],["sq","square planar"]],
+  cards:[picCard("AX5","Model A","tbp","Five atoms, no lone pairs: trigonal bipyramidal."),picCard("AX4E","Model B","ss","Four atoms and one equatorial lone pair: seesaw."),picCard("AX3E2","Model C","t","Three atoms and two equatorial lone pairs: T-shaped."),
+   picCard("AX6","Model D","oct","Six atoms, no lone pairs: octahedral."),picCard("AX5E","Model E","sqp","Five atoms and one lone pair: square pyramidal."),picCard("AX4E2","Model F","sq","Four atoms with two opposite lone pairs: square planar.")]},
+ {name:"Polar or nonpolar?",goal:"Sort each molecule. Ask: is the shape symmetric, and are all the outer atoms the same?",
+  bins:[["pol","polar (net dipole)"],["non","nonpolar (dipoles cancel)"]],
+  cards:[picCard("AX2E2","H₂O","pol","Bent: the O–H dipoles add up.",{aria:"H₂O"}),picCard("AX2","CO₂","non","Linear and symmetric: the two C=O dipoles cancel.",{aria:"CO₂"}),picCard("AX3E","NH₃","pol","Pyramidal with a lone pair: the dipoles add up.",{aria:"NH₃"}),
+   picCard("AX4","CH₄","non","Tetrahedral with four identical C–H bonds: cancels.",{aria:"CH₄"}),picCard("AX4","CCl₄","non","Tetrahedral with four identical C–Cl bonds: cancels.",{c:"C",outs:["Cl"],aria:"CCl₄"}),
+   picCard("AX4","CHCl₃","pol","One H replaces a Cl, so the dipoles no longer balance.",{c:"C",outs:["H","Cl","Cl","Cl"],aria:"CHCl₃"}),picCard("AX3","BF₃","non","Trigonal planar with three identical B–F bonds: cancels.",{aria:"BF₃"}),
+   picCard("AX2E","SO₂","pol","Bent: the S–O dipoles do not cancel.",{aria:"SO₂"}),picCard("AX4E2","XeF₄","non","Square planar: opposite bonds and opposite lone pairs cancel.",{aria:"XeF₄"}),
+   picCard("AX4E","SF₄","pol","Seesaw: the lone pair makes it lopsided.",{aria:"SF₄"}),picCard("AX5","PCl₅","non","Trigonal bipyramidal with identical atoms: cancels.",{aria:"PCl₅"}),picCard("AX6","SF₆","non","Octahedral with identical atoms: cancels.",{aria:"SF₆"})]},
+ {name:"Hybridization",goal:"What hybrid orbitals does the named atom use? Count its electron groups (bonds + lone pairs).",
+  bins:[["sp","sp (2 groups)"],["sp2","sp² (3 groups)"],["sp3","sp³ (4 groups)"],["sp3d","sp³d (5 groups)"],["sp3d2","sp³d² (6 groups)"]],
+  cards:[picCard("AX2","C in CO₂","sp","2 groups (two double bonds): sp.",{aria:"C in CO₂"}),picCard("AX2","Be in BeCl₂","sp","2 groups: sp.",{c:"Be",outs:["Cl"],ord:[1,1],aria:"Be in BeCl₂"}),
+   picCard("AX3","B in BF₃","sp2","3 groups: sp².",{aria:"B in BF₃"}),picCard("AX2E","S in SO₂","sp2","2 bonds + 1 lone pair = 3 groups: sp².",{aria:"S in SO₂"}),
+   picCard("AX3E","N in NH₃","sp3","3 bonds + 1 lone pair = 4 groups: sp³.",{aria:"N in NH₃"}),picCard("AX2E2","O in H₂O","sp3","2 bonds + 2 lone pairs = 4 groups: sp³.",{aria:"O in H₂O"}),
+   picCard("AX5","P in PCl₅","sp3d","5 groups: sp³d.",{aria:"P in PCl₅"}),picCard("AX2E3","Xe in XeF₂","sp3d","2 bonds + 3 lone pairs = 5 groups: sp³d.",{aria:"Xe in XeF₂"}),
+   picCard("AX6","S in SF₆","sp3d2","6 groups: sp³d².",{aria:"S in SF₆"}),picCard("AX4E2","Xe in XeF₄","sp3d2","4 bonds + 2 lone pairs = 6 groups: sp³d².",{aria:"Xe in XeF₄"})]}];
+const SG={r:0,placed:{},mist:0,sel:null,t0:0,timer:null,hint:null,doneRounds:{}};
+function sRoundsUI(){$("#sRounds").innerHTML=SROUNDS.map((r,i)=>`<button type="button" class="round" aria-pressed="${i===SG.r}" data-i="${i}">Round ${i+1}: ${r.name}${SG.doneRounds[i]?`<span class="ok"> ${"★".repeat(SG.doneRounds[i])}<span class="gk-sr"> (${SG.doneRounds[i]} stars)</span></span>`:""}</button>`).join("");
+  $("#sRounds").querySelectorAll("button").forEach(b=>b.onclick=()=>sLoad(+b.dataset.i))}
+function sLoad(i){SG.r=i;SG.placed={};SG.mist=0;SG.sel=null;SG.hint=null;SG.t0=Date.now();const R=SROUNDS[i];SG.order=shuffle(R.cards.map((c,k)=>k));
+  $("#sN").textContent=`Round ${i+1} of ${SROUNDS.length}`;$("#sTitle").textContent=R.name;$("#sGoal").textContent=R.goal;
+  const bins=$("#sBins");bins.innerHTML="";R.bins.forEach(b=>{const d=document.createElement("div");d.className="bin";d.dataset.k=b[0];
+    d.innerHTML=`<button type="button" class="binhead" data-k="${b[0]}"><span>${b[1]}</span></button><div class="binitems"></div>`;
+    d.querySelector(".binhead").onclick=()=>{if(SG.sel!=null)sDrop(SG.sel,b[0]);else sMsg("info","Pick a card first, then tap a box.")};bins.appendChild(d)});
+  const best=store.get("best-"+i);$("#sBest").textContent=best?`Best for this round: ${"★".repeat(+best)}`:"";
+  $("#sMsg").className="msg";sRoundsUI();sRender();sTimerUI();a11yKey=""}
+function cardInner(c,small){return svgMol(c.pic[0],c.pic[1],c.pic[2],c.pic[3],small?50:104,small?44:90)+`<span>${c.label}</span>`}
+function sRender(){const R=SROUNDS[SG.r];const pool=$("#sPool");pool.innerHTML="";
+  SG.order.forEach(k=>{if(SG.placed[k])return;const c=R.cards[k];const b=document.createElement("button");b.type="button";b.className="scard pic"+(SG.hint===k?" hinted":"");b.innerHTML=cardInner(c);b.dataset.k=k;b.setAttribute("aria-label",c.aria);
+    b.setAttribute("aria-pressed",SG.sel===k);b.onclick=e=>{if(b.dataset.dragged){delete b.dataset.dragged;return}SG.sel=SG.sel===k?null:k;sRender();const nb=pool.querySelector(`[data-k="${k}"]`);if(nb)nb.focus()};
+    b.addEventListener("pointerdown",e=>sDragStart(e,b,k));pool.appendChild(b)});
+  if(!pool.children.length)pool.innerHTML='<span class="small">All cards sorted.</span>';
+  document.querySelectorAll("#sBins .bin").forEach(d=>{const items=d.querySelector(".binitems");items.innerHTML="";d.classList.toggle("hintbin",SG.hint!=null&&R.cards[SG.hint].bin===d.dataset.k);
+    R.cards.forEach((c,k)=>{if(SG.placed[k]&&c.bin===d.dataset.k){const s=document.createElement("div");s.className="scard pic placed";s.innerHTML=cardInner(c,true).replace("<span>","<span>✓ ");s.setAttribute("role","note");s.setAttribute("aria-label","Placed: "+c.aria);items.appendChild(s)}})});
+  const n=Object.keys(SG.placed).length,tot=R.cards.length;$("#sStars").textContent=n===tot?"★".repeat(sStars())+"☆".repeat(3-sStars()):"";$("#sStars").setAttribute("aria-label",n===tot?sStars()+" of 3 stars":"Stars appear when the round is done")}
+function sStars(){return SG.mist===0?3:SG.mist<=2?2:1}
+function sMsg(cls,t){const m=$("#sMsg");m.className="msg show "+cls;m.textContent=t}
+function sDrop(k,bin){const R=SROUNDS[SG.r];const c=R.cards[k];SG.sel=null;SG.hint=null;
+  if(c.bin===bin){SG.placed[k]=1;sMsg("good","✓ "+c.label+": "+c.why)}else{SG.mist++;const nm=R.bins.find(b=>b[0]===bin)[1];sMsg("warn",`Not quite. ${c.label} does not go in "${nm}". Count its bonds and lone pairs again.`)}
+  sRender();a11yKey="";if(Object.keys(SG.placed).length===R.cards.length)sFinish();else{const f=$("#sPool .scard");if(f&&document.activeElement===document.body)f.focus()}}
+function sFinish(){const st=sStars();SG.doneRounds[SG.r]=Math.max(SG.doneRounds[SG.r]||0,st);const best=+(store.get("best-"+SG.r)||0);if(st>best)store.set("best-"+SG.r,st);
+  const tm=!$("#sRelaxed").checked?` Time: ${fmt((Date.now()-SG.t0)/1000)}.`:"";sMsg("good",`Round complete with ${SG.mist} ${SG.mist===1?"mistake":"mistakes"}: ${st} of 3 stars.${tm} `+(SG.r<SROUNDS.length-1?"Press Next round when you are ready.":"That was the last round. Well done."));sRoundsUI();sRender()}
+let drag=null;
+function sDragStart(e,b,k){if(e.button>0)return;const r=b.getBoundingClientRect();drag={k,b,sx:e.clientX,sy:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top,g:null,over:null,id:e.pointerId};
+  window.addEventListener("pointermove",sDragMove);window.addEventListener("pointerup",sDragEnd);window.addEventListener("pointercancel",sDragEnd)}
+function sDragMove(e){if(!drag||e.pointerId!==drag.id)return;if(!drag.g){if(Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<6)return;const g=drag.b.cloneNode(true);g.classList.add("ghost");g.removeAttribute("id");g.setAttribute("aria-hidden","true");g.tabIndex=-1;g.style.width=drag.b.offsetWidth+"px";document.body.appendChild(g);drag.g=g;drag.b.style.opacity=".35"}
+  e.preventDefault();drag.g.style.left=(e.clientX-drag.dx)+"px";drag.g.style.top=(e.clientY-drag.dy)+"px";
+  const el=document.elementFromPoint(e.clientX,e.clientY);const bin=el&&el.closest?el.closest(".bin"):null;document.querySelectorAll(".bin.over").forEach(x=>x!==bin&&x.classList.remove("over"));if(bin)bin.classList.add("over");drag.over=bin}
+function sDragEnd(e){if(!drag)return;window.removeEventListener("pointermove",sDragMove);window.removeEventListener("pointerup",sDragEnd);window.removeEventListener("pointercancel",sDragEnd);
+  const d=drag;drag=null;document.querySelectorAll(".bin.over").forEach(x=>x.classList.remove("over"));if(!d.g)return;d.g.remove();d.b.style.opacity="";d.b.dataset.dragged="1";
+  if(d.over)sDrop(d.k,d.over.dataset.k);else sRender()}
+$("#sHint").onclick=()=>{const R=SROUNDS[SG.r];const k=SG.sel!=null?SG.sel:SG.order.find(k=>!SG.placed[k]);if(k==null){sMsg("info","Everything is sorted.");return}SG.hint=k;
+  const bn=R.bins.find(b=>b[0]===R.cards[k].bin)[1];sMsg("info",`Hint: ${R.cards[k].label} goes in the glowing box (${bn}).`);sRender()};
+$("#sShow").onclick=()=>{const R=SROUNDS[SG.r];R.cards.forEach((c,k)=>SG.placed[k]=1);SG.mist=Math.max(SG.mist,3);sMsg("info","All cards placed. Read each box to see what belongs there.");sRender();sFinish()};
+$("#sShuffle").onclick=()=>sLoad(SG.r);$("#sNext").onclick=()=>sLoad((SG.r+1)%SROUNDS.length);
+function sTimerUI(){const relaxed=$("#sRelaxed").checked;$("#sTimer").hidden=relaxed;clearInterval(SG.timer);if(!relaxed){SG.timer=setInterval(()=>{if(Object.keys(SG.placed).length<SROUNDS[SG.r].cards.length)$("#sTimer").textContent=fmt((Date.now()-SG.t0)/1000)},500)}}
+$("#sRelaxed").onchange=()=>{SG.t0=Date.now();sTimerUI()};
+function sortA11y(){const R=SROUNDS[SG.r];const n=Object.keys(SG.placed).length;
+  return [null,`Round ${SG.r+1}, ${R.name}. ${n} of ${R.cards.length} cards sorted. Each card shows a small 3D ball-and-stick model with purple lone-pair balloons where present. Boxes: `+R.bins.map(b=>b[1]).join("; ")+`. Cards still to sort: `+(SG.order.filter(k=>!SG.placed[k]).map(k=>R.cards[k].aria).join("; ")||"none")+"."]}
+
+/* ================= PART 5: shape in real life ================= */
+const S5=makeStage("cvLife",640,440);
+function w2(x,y,a,s,o){/* small 2D water: O at centre, H atoms at 104.5 degrees; a = direction of the dipole (toward O side) */o=o||{};const h=52.25*D2R;
+  [1,-1].forEach(k=>{const b=a+Math.PI+k*h;const hx2=x+Math.cos(b)*15*s,hy2=y+Math.sin(b)*15*s;line(x,y,hx2,hy2,C.bond,3*s);ball(hx2,hy2,5.5*s,C.elH,null)});ball(x,y,8.5*s,C.elO,s>=1?"O":null)}
+function lifeWater(T){panelBox(8,8,304,250);title(20,28,"Liquid water: H-bonds break and re-form");
+  const pts=[];for(let i=0;i<14;i++){const x=40+(i%5)*58+Math.sin(T*1.3+i)*9+(Math.floor(i/5)%2)*24,y=70+Math.floor(i/5)*68+Math.cos(T*1.1+i*1.7)*9;pts.push([x,y,i*1.3+T*.9])}
+  pts.forEach((p,i)=>pts.forEach((q,j)=>{if(j<=i)return;const d=Math.hypot(p[0]-q[0],p[1]-q[1]);if(d<62&&Math.sin(T*2+i*3+j)>.2)line(p[0],p[1],q[0],q[1],C.dip,1.4,[3,3])}));
+  pts.forEach(p=>w2(p[0],p[1],p[2],1));
+  panelBox(328,8,304,250);title(340,28,"Ice: an open, hexagonal network");
+  const cx=480,cy=140;for(let r=0;r<2;r++)for(let k=0;k<6;k++){const a=k/6*TAU+Math.PI/6;const R=r?96:52;const x=cx+Math.cos(a)*R+(r?Math.cos(a+.5)*0:0),y=cy+Math.sin(a)*R*.9;
+    const nx=cx+Math.cos(a+TAU/6)*R,ny=cy+Math.sin(a+TAU/6)*R*.9;line(x,y,nx,ny,C.dip,1.4,[3,3]);if(r){line(x,y,cx+Math.cos(a)*52,cy+Math.sin(a)*52*.9,C.dip,1.4,[3,3])}w2(x+Math.sin(T*6+k)*.8,y,a+(k%2?Math.PI:0),.9)}
+  label(cx,cy,"open space",{size:12,weight:700,color:C["ink-soft"]});
+  panelBox(8,270,624,162);title(20,290,"What you see");glassCup(70,306,110,112,.72,hexA(C.water,.95));
+  rr(98,342+Math.sin(T*1.5)*2,48,30,4);fillStroke(hexA(C.ice,.95),C.elN,1.4);txt(122,358+Math.sin(T*1.5)*2,"ice",{size:12,weight:700,align:"center"});
+  wrapText("Ice floats: the bent, polar water molecules lock into an open hexagonal network that takes up more room than the liquid. Ice is about 9% less dense than liquid water.",210,320,400,18,{size:13.5})}
+/* chirality: a carbon with four different groups and its mirror image */
+const CHI=[["elH","H"],["elCl","a"],["elN","b"],["elO","c"]];
+function chiralMol(V,mirror,alpha){const D=VS.AX4.B.map(d=>mirror?[-d[0],d[1],d[2]]:d);const items=[];const c=pj(V,[0,0,0]);
+  D.forEach((d,i)=>{const p=pj(V,v3.sc(d,1.1));items.push({z:(p.z+c.z)/2-.01,f:()=>stick(c,p,6*p.f,1,C.bond)});items.push({z:p.z,f:()=>ball(p.x,p.y,(i?13:9)*p.f,C[CHI[i][0]],CHI[i][1])})});
+  items.push({z:c.z,f:()=>ball(c.x,c.y,12*c.f,C.elC,"C")});withA(alpha,()=>items.sort((a,b)=>a.z-b.z).forEach(it=>it.f()))}
+function lifeDrug(T){const per=10;const p=(T%per)/per;const which=Math.floor(T/per)%2;
+  panelBox(8,8,624,300);title(20,28,which===0?"Particles: the matching molecule fits the receptor":"Particles: its mirror image does not fit");
+  /* receptor: a pocket with three binding sites */
+  rr(180,46,280,46,10);fillStroke(hexA(C.act4,.25),C.act4,2);txt(474,69,"receptor",{size:12,weight:600,color:C["ink-soft"]});
+  const sites=[[250,94,"a",C.elCl],[320,94,"b",C.elN],[390,94,"c",C.elO]];sites.forEach(s=>{ctx.beginPath();ctx.arc(s[0],s[1],17,Math.PI,0);fillStroke(hexA(s[3],.3),s[3],2);txt(s[0],s[1]-8,s[2],{size:12,weight:700,align:"center"})});
+  const f=smooth(seg(p,.1,.6));const V=view(320,lerp(270,175,f),62,lerp(2.2,.0,f)+(which&&f>.95?Math.sin(T*4)*.15:0),lerp(.5,-1.18,f));chiralMol(V,which===1,1);
+  if(p>.62){if(which===0){label(320,280,"✓ all three groups (a, b, c) meet their sites",{size:13,weight:700,color:C.good,border:C.good})}else{label(320,280,"✗ two groups line up, the third points the wrong way",{size:13,weight:700,color:C.bad,border:C.bad})}}
+  panelBox(8,320,624,112);title(20,340,"Symbols and what you notice");
+  wrapText("A carbon with four DIFFERENT groups is chiral: it has a mirror image that cannot be stacked on it, like a left and right hand. Example: one form of carvone smells like spearmint, its mirror image smells like caraway (rye bread seeds). Receptors tell them apart by shape.",20,366,600,18,{size:13.5})}
+/* CO2 vibrations */
+function lifeCO2(T){panelBox(8,8,624,300);title(20,28,"Particles: three ways CO₂ can vibrate");const modes=[["symmetric stretch",0],["asymmetric stretch",1],["bend",2]];
+  modes.forEach((m,i)=>{const cx=110+i*210,cy=150;const s=Math.sin(T*6);let o1=[-48,0],o2=[48,0],c=[0,0];
+    if(i===0){o1=[-48-10*s,0];o2=[48+10*s,0]}else if(i===1){c=[10*s,0];o1=[-48-4*s,0];o2=[48-4*s,0]}else{c=[0,-10*s];o1=[-46,5*s];o2=[46,5*s]}
+    const PP=q=>[cx+q[0],cy+q[1]];[o1,o2].forEach(o=>{const a=PP(c),b=PP(o);line(a[0],a[1]-3,b[0],b[1]-3,C.bond,3);line(a[0],a[1]+3,b[0],b[1]+3,C.bond,3)});ball(...PP(o1),14,C.elO,"O");ball(...PP(o2),14,C.elO,"O");ball(...PP(c),13,C.elC,"C");
+    /* net dipole during the vibration */
+    const net=i===0?0:i===1?-s:s;if(Math.abs(net)>.15){const L=net*26;if(i===1)arrow(cx,cy+46,cx+L,cy+46,C.net,3);else arrow(cx,cy+40,cx,cy+40-L,C.net,3)}
+    txt(cx,cy+86,m[0],{size:13,weight:700,align:"center"});txt(cx,cy+106,i===0?"no dipole change":"dipole flickers",{size:12.5,align:"center",color:i===0?C["ink-soft"]:C.net});
+    /* infrared photon */
+    const q=P(T*.4+i*.3,1);const wx=cx-80+q*80,on=i>0;ctx.beginPath();for(let k=0;k<=30;k++){const xx=wx-60+k*2,yy=cy-58+Math.sin(k*.8-T*10)*5;k?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)}ctx.strokeStyle=hexA(C.bad,on?1-q:1);ctx.lineWidth=2;ctx.stroke();
+    txt(cx,cy-84,on?"infrared absorbed":"infrared passes by",{size:12,align:"center",weight:600,color:on?C.bad:C["ink-soft"]});if(on&&q>.7)glow(cx,cy,40,C.bad,.35*(q-.7)/.3)});
+  panelBox(8,320,624,112);title(20,340,"Why it matters");
+  wrapText("CO₂ is nonpolar overall, but its C=O bonds are polar. When it bends or stretches unevenly, a dipole flickers on and off, so it can absorb infrared (heat) radiation from Earth's surface. N₂ and O₂ have no such vibration, so they let infrared pass.",20,366,600,18,{size:13.5})}
+/* soap micelle */
+function soapMol(x,y,a,len){const ux=Math.cos(a),uy=Math.sin(a);let px=x,py=y;ctx.beginPath();ctx.moveTo(px,py);for(let k=1;k<=7;k++){const nx=x+ux*k*len/7+(-uy)*(k%2?3:-3),ny=y+uy*k*len/7+ux*(k%2?3:-3);ctx.lineTo(nx,ny)}ctx.strokeStyle=C["soap-tail"];ctx.lineWidth=2.4;ctx.stroke();circ(x,y,6.5,C["soap-head"],hexA(C.ink,.4),1);txt(x,y+.5,"−",{size:11,weight:700,align:"center",color:"#FFFFFF"})}
+function lifeSoap(T){panelBox(8,8,624,300);title(20,28,"Particles: soap surrounds a grease droplet");const per=10;const p=(T%per)/per;const g=smooth(seg(p,.05,.55));const cx=lerp(320,380,smooth(seg(p,.7,1))),cy=160;
+  for(let i=0;i<30;i++){const x=30+((i*67)%580),y=60+((i*41)%230);if(Math.hypot(x-cx,y-cy)<90)continue;w2(x+Math.sin(T+i)*4,y+Math.cos(T*1.2+i)*4,i+T*.5,.75)}
+  blobPath(cx,cy,34,1.3,T,.08);fillStroke(hexA(C.grease,.75),darken(C.grease,.2),1.5);txt(cx,cy,"grease",{size:12,weight:700,align:"center"});
+  for(let k=0;k<14;k++){const a=k/14*TAU;const far=[cx+Math.cos(a)*170+Math.sin(k*3)*30,cy+Math.sin(a)*120];const near=[cx+Math.cos(a)*76,cy+Math.sin(a)*76];
+    const x=lerp(far[0],near[0],g),y=lerp(far[1],near[1],g);const ang=lerp(k*1.7,a+Math.PI,g);soapMol(x,y,ang,40)}
+  label(cx,cy+110,g>.9?"a micelle: tails inside with the grease, charged heads outside in the water":"soap molecules drift toward the grease",{size:12.5,weight:700});
+  panelBox(8,320,624,112);title(20,340,"Symbols and what you notice");
+  soapMol(40,390,0,90);txt(30,412,"polar (ionic) head",{size:12,weight:600});txt(64,362,"long nonpolar tail",{size:12,weight:600});
+  wrapText("Like dissolves like: the nonpolar tails mix with nonpolar grease, the charged heads mix with polar water. Rinsing carries the micelles away.",230,370,390,18,{size:13.5})}
+/* microwave heating */
+function lifeMicro(T){panelBox(8,8,624,300);title(20,28,"Particles: molecules in a microwave's flipping field");const E=Math.sin(T*3.2);
+  rr(30,48,580,22,4);fillStroke(hexA(E>0?C["plate-p"]:C["plate-n"],.25+.4*Math.abs(E)),E>0?C["plate-p"]:C["plate-n"],1.2);txt(320,59,"field points "+(E>0?"left":"right")+" (it reverses billions of times a second; slowed here)",{size:12,weight:600,align:"center"});
+  const heat=clamp(P(T,12)*1.2,0,1);
+  for(let i=0;i<9;i++){const x=60+(i%3)*80,y=118+Math.floor(i/3)*62;const a=(Math.PI/2)*(1+Math.tanh(-3*E))+Math.sin(T*9+i)*.25*heat;w2(x,y,a,1)}
+  txt(150,300-8,"water (polar): flips with the field",{size:12.5,weight:700,align:"center",color:C.net});
+  for(let i=0;i<9;i++){const x=400+(i%3)*80,y=118+Math.floor(i/3)*62;const a=i*1.3+T*.5;const ux=Math.cos(a)*16,uy=Math.sin(a)*16;line(x-ux,y-uy,x+ux,y+uy,C["soap-tail"],4);ball(x-ux,y-uy,6,C.elC,null);ball(x+ux,y+uy,6,C.elC,null)}
+  txt(480,300-8,"oil (mostly nonpolar): hardly responds",{size:12.5,weight:700,align:"center",color:C["ink-soft"]});
+  panelBox(8,320,624,112);title(20,340,"What you see");glow(150,392,40,C.bad,.5*heat);rr(110,378,80,30,6);fillStroke(hexA(C.water,.9),C.elN,1.4);txt(150,393,"water: hot",{size:12,weight:700,align:"center"});
+  wrapText("Polar water molecules keep turning to follow the flipping field; the jostling turns into heat. Mostly nonpolar oils and dry dishes warm much more slowly.",230,370,390,18,{size:13.5})}
+const LIFE=[
+ {name:"Ice floats",title:"Why ice floats on water",draw:lifeWater,cap:"Liquid water jostles; ice locks into an open hexagonal network.",
+  story:"Most solids sink in their own liquid. Ice floats, which is why lakes freeze from the top down and fish survive the winter. The reason starts with water's bent shape.",
+  desc:"Top left: about fourteen small bent water molecules (red O, white H atoms) jiggle, and teal dashed hydrogen-bond lines flicker on and off between neighbours. Top right: water molecules sit at the corners of two hexagonal rings joined by dashed hydrogen bonds, with the label 'open space' in the middle. Bottom: a glass of water with an ice cube floating at the top, and text explaining the density difference.",
+  qs:[{q:"What feature of the water molecule makes this open ice network possible?",opts:[["Its bent shape and polar O–H bonds, which let each molecule hydrogen-bond to four neighbours in fixed directions",1,"Yes. The bent, polar molecule forms hydrogen bonds at set angles, which holds the molecules apart in a roomy hexagonal pattern."],["Its linear shape",0,"Water is bent (about 104.5°), not linear. A linear water molecule would be nonpolar."],["Its large size",0,"Water is a small molecule. The open spacing comes from the directions of its hydrogen bonds."],["The lone pairs leaving the molecule when it freezes",0,"Lone pairs stay on oxygen. In ice they point toward H atoms of neighbouring molecules."]]},
+   {q:"If water were linear like CO₂, what would most likely be true?",opts:[["It would be nonpolar, and its molecules would attract each other much less",1,"Yes. A linear H–O–H would have its two O–H dipoles cancel, so no net dipole and much weaker attractions between molecules."],["It would be even more polar",0,"A linear shape makes the two O–H dipoles point in opposite directions, so they cancel."],["Nothing would change",0,"Shape decides polarity. Changing bent to linear would remove water's net dipole."],["It would form a stronger ice network",0,"Without a net dipole and with no bent geometry, the open hydrogen-bonded network would not form."]]}]},
+ {name:"Drug fit and chirality",title:"Drug shape and the receptor: left and right hands",draw:lifeDrug,cap:"One mirror image fits all three binding sites; the other cannot.",
+  story:"Drugs work by fitting into receptors and enzymes, which are shaped pockets. A molecule with a tetrahedral carbon bearing four different groups comes in two mirror-image forms, and the body often treats them very differently.",
+  desc:"At the top, a teal receptor pocket has three half-circle binding sites labelled a, b and c in green, blue and red. A tetrahedral molecule with a grey central carbon and four balls (white H, green a, blue b, red c) rises and turns into the pocket. In the first half of the cycle, a, b and c each meet their matching sites and a green check label appears. In the second half, the mirror-image molecule tries and wobbles: two groups line up but the third points the wrong way, and a red X label appears. Below, text explains chirality with the carvone example.",
+  qs:[{q:"What makes a carbon atom chiral?",opts:[["It is bonded to four different groups",1,"Yes. Four different groups on a tetrahedral carbon make two non-superimposable mirror images."],["It has a double bond",0,"A double bond makes that carbon trigonal planar; chirality needs a tetrahedral carbon with four different groups."],["It has any four groups",0,"If two groups are the same (as in CH₂Cl₂), the mirror image can be turned to match. The four must all differ."],["It has a lone pair",0,"Carbon in organic molecules has no lone pairs; chirality comes from four different groups."]]},
+   {q:"Why can one mirror-image form of a drug work while the other does not?",opts:[["The receptor is itself a 3D chiral shape, so only one form lines up with all its binding sites",1,"Yes. Like a right hand in a right-handed glove, only one arrangement matches all the contact points."],["Mirror images have different formulas",0,"Mirror images have the same formula and the same bonds. Only the 3D arrangement differs."],["One form is polar and the other nonpolar",0,"Mirror images have the same polarity. The difference is how they fit a 3D pocket."],["One form has more atoms",0,"Both forms contain exactly the same atoms."]]}]},
+ {name:"CO₂ and heat",title:"CO₂: polar bonds, nonpolar molecule, and greenhouse warming",draw:lifeCO2,cap:"Bending and uneven stretching make CO₂'s dipole flicker, so it absorbs infrared.",
+  story:"CO₂ is linear and nonpolar. So how does it trap heat? The answer is in how it vibrates.",
+  desc:"Three CO2 molecules sit side by side, each made of a grey carbon between two red oxygens with double sticks. The left one stretches symmetrically (both oxygens move out and in together); no arrow appears and a red wavy infrared ray passes by, labelled 'infrared passes by'. The middle one stretches unevenly (the carbon slides side to side) and the right one bends; each shows a small magenta dipole arrow that flips back and forth, and a red wavy infrared ray fades into a glow at the molecule, labelled 'infrared absorbed'. Text below explains why.",
+  qs:[{q:"CO₂ is nonpolar. Why can it still absorb infrared radiation?",opts:[["Bending and asymmetric stretching create a dipole that changes as it vibrates",1,"Yes. Infrared is absorbed when a vibration changes the molecule's dipole. Bending and uneven stretching do; symmetric stretching does not."],["Because its C=O bonds are nonpolar",0,"The C=O bonds are polar (ΔEN 0.89). The molecule is nonpolar only because the two dipoles cancel when it is straight."],["Because it is bent at rest",0,"CO₂ is linear at rest. It only bends while vibrating."],["Because it has lone pairs on carbon",0,"Carbon in CO₂ has no lone pairs: two double bonds."]]},
+   {q:"Why do N₂ and O₂, the main gases in air, not absorb Earth's infrared this way?",opts:[["Their only vibration, a stretch of two identical atoms, never creates a dipole",1,"Yes. Stretching N≡N or O=O keeps the molecule perfectly symmetric, so its dipole stays zero."],["They are polar",0,"N₂ and O₂ are made of two identical atoms, so they are completely nonpolar."],["They do not vibrate",0,"They do vibrate, but stretching two identical atoms never changes the dipole."],["They are too heavy",0,"Mass is not the issue; the missing dipole change is."]]}]},
+ {name:"Soap",title:"Soap: one molecule, two personalities",draw:lifeSoap,cap:"Soap tails gather around grease; charged heads face the water.",
+  story:"Oil and water do not mix, because oil is nonpolar and water is polar. Soap molecules are built to bridge the two.",
+  desc:"Small water molecules fill the background. In the middle, a yellow grease blob wobbles. Fourteen soap molecules, each a red ball (charged head marked with a minus sign) on a grey zigzag tail, drift in from all sides and arrange themselves with their tails pointing into the grease and their heads facing outward into the water, forming a ball called a micelle, which then drifts to the right. A label explains the micelle. Below, one soap molecule is labelled polar (ionic) head and long nonpolar tail.",
+  qs:[{q:"In a micelle, which part of each soap molecule touches the water?",opts:[["The charged (polar) head",1,"Yes. Polar heads face the polar water, while the nonpolar tails hide inside with the grease."],["The nonpolar tail",0,"Tails avoid water. They point inward toward the grease."],["Both ends equally",0,"The two ends have opposite preferences; that is what makes the micelle form."],["Neither; the micelle is dry",0,"The micelle sits in water; its heads face outward into it."]]},
+   {q:"Why does oil not dissolve in water by itself?",opts:[["Water molecules attract each other strongly (polar), and nonpolar oil cannot match those attractions",1,"Yes. Like dissolves like: polar with polar, nonpolar with nonpolar."],["Oil molecules are polar",0,"Oils are mostly long nonpolar hydrocarbon chains."],["Water is nonpolar",0,"Water is the classic polar molecule (bent shape)."],["Oil is heavier than water",0,"Oil is actually less dense than water (it floats). Mixing depends on polarity, not weight."]]}]},
+ {name:"Microwave oven",title:"Microwave ovens heat polar molecules",draw:lifeMicro,cap:"Water molecules keep flipping to follow the field; the jostling becomes heat.",
+  story:"A microwave oven fills the food with an electric field that reverses direction billions of times a second. Molecules with a net dipole try to follow it.",
+  desc:"A coloured bar across the top shows the field, which keeps reversing between pointing left and pointing right. On the left, nine bent water molecules swing back and forth together as the field reverses, and they jiggle more as time passes. On the right, nine straight grey oil-like molecules barely respond and drift slowly. At the bottom, a small dish of water glows red as it heats up, with text explaining why polar water heats quickly.",
+  qs:[{q:"Why does a microwave heat water so well?",opts:[["Water is polar, so its molecules keep turning to follow the flipping field, and that motion becomes heat",1,"Yes. The net dipole gives the field something to grab; the constant turning and bumping heats the food."],["Microwaves break the O–H bonds",0,"Microwaves do not have enough energy to break bonds. They make polar molecules rotate."],["Water is nonpolar",0,"Water is polar. That is exactly why it responds."],["The metal walls get hot",0,"The walls stay cool; the energy goes into the polar molecules in the food."]]},
+   {q:"Which of these would warm up most slowly in a microwave?",opts:[["A dry plastic container (mostly nonpolar)",1,"Yes. With few polar molecules, there is little for the field to turn."],["A cup of water",0,"Water heats quickly: it is polar."],["A bowl of soup",0,"Soup is mostly water, so it heats well."],["A damp sponge",0,"The water in the sponge heats quickly (which is why a hot sponge can steam)."]]}]}];
+const LF={i:0,ans:{}};
+function lifeUI(){const s=LIFE[LF.i];$("#lChips").innerHTML=LIFE.map((x,i)=>`<button type="button" class="casechip" aria-pressed="${i===LF.i}" data-i="${i}">${x.name}${(LF.ans[i]||[]).filter(Boolean).length===x.qs.length?'<span class="ok"> ✓</span>':""}</button>`).join("");
+  $("#lChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{LF.i=+b.dataset.i;lifeUI()});
+  $("#lN").textContent=`Scenario ${LF.i+1} of ${LIFE.length}`;$("#lTitle").textContent=s.title;$("#lStory").textContent=s.story;$("#lifeCap").textContent=s.cap;
+  const box=$("#lQs");box.innerHTML="";s.qs.forEach((q,qi)=>{const d=document.createElement("div");d.className="qblock";d.innerHTML=`<p class="qlab">${qi+1}. ${q.q}</p><div class="opts"></div><p class="fb" role="status"></p>`;
+    const opts=d.querySelector(".opts"),fb=d.querySelector(".fb");q.opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o[0];b.onclick=()=>{opts.querySelectorAll(".opt").forEach(x=>x.classList.remove("wrong"));
+      if(o[1]){b.classList.add("right");fb.className="fb show ok";fb.textContent="✓ "+o[2];LF.ans[LF.i]=LF.ans[LF.i]||[];LF.ans[LF.i][qi]=true;lifeChips()}else{b.classList.add("wrong");fb.className="fb show no";fb.textContent="Not quite. "+o[2]}};opts.appendChild(b)});box.appendChild(d)});a11yKey=""}
+function lifeChips(){$("#lChips").querySelectorAll("button").forEach((b,i)=>{const x=LIFE[i];b.innerHTML=x.name+((LF.ans[i]||[]).filter(Boolean).length===x.qs.length?'<span class="ok"> ✓</span>':"")})}
+$("#lPrev").onclick=()=>{LF.i=(LF.i+LIFE.length-1)%LIFE.length;lifeUI()};$("#lNext").onclick=()=>{LF.i=(LF.i+1)%LIFE.length;lifeUI()};
+function drawLife(now){use(S5);try{LIFE[LF.i].draw(now/1000)}catch(e){console.error(e)}}
+function lifeA11y(){const s=LIFE[LF.i];return ["Scenario: "+s.title+". "+s.cap,s.desc]}
+/* ---------------- accessibility: live labels and picture descriptions ---------------- */
+const A11Y={build:{cv:"#cvBuild",f:buildA11y},field:{cv:"#cvField",f:fieldA11y},pred:{cv:"#cvPred",f:predA11y},sort:{cv:null,f:sortA11y},life:{cv:"#cvLife",f:lifeA11y}};
+let a11yKey="",a11yT=0;
+function a11yTick(){if((++a11yT)%20)return;const a=A11Y[curTab];const [lab,d]=a.f();const key=curTab+"|"+lab+"|"+d;if(key===a11yKey)return;a11yKey=key;
+  if(a.cv&&lab)$(a.cv).setAttribute("aria-label",lab);if(window.gkDescribe)window.gkDescribe(d);
+  const box=document.getElementById("gk-desc");if(box){const host=a.cv?$(a.cv).closest(".canvas-holder"):$("#sPool");if(host&&host.nextElementSibling!==box)host.after(box);if(a.cv)$(a.cv).setAttribute("aria-describedby","gk-desc")}}
+/* ---------------- tabs / theme / loop ---------------- */
+let curTab="build";
+const TABS=["build","field","pred","sort","life"];
+function showTab(k,focus){curTab=k;document.querySelectorAll(".tab").forEach(x=>{const on=x.dataset.tab===k;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;if(on&&focus)x.focus()});
+  TABS.forEach(t=>$("#tab-"+t).hidden=t!==k);fitAll();a11yKey="";a11yT=19}
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.tab);t.onkeydown=e=>{const i=TABS.indexOf(t.dataset.tab);
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();showTab(TABS[(i+(e.key==="ArrowRight"?1:TABS.length-1))%TABS.length],true)}
+  if(e.key==="Home"){e.preventDefault();showTab(TABS[0],true)}if(e.key==="End"){e.preventDefault();showTab(TABS[TABS.length-1],true)}}});
+function fitAll(){[S1,S2,S3,S5].forEach(s=>s.fit())}
+window.addEventListener("resize",fitAll);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--ground").trim().toLowerCase()==="#0e1519";r.setAttribute("data-theme",dark?"light":"dark");readColors()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(readColors,30));
+let last=performance.now(),rdT=0;
+function frame(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;
+  try{if(curTab==="build"){bStep(dt);drawBuild(now)}
+    else if(curTab==="field"){fStep(dt);drawField(now);rdT+=dt;if(rdT>.3){rdT=0;fUI()}}
+    else if(curTab==="pred")drawPred(now);
+    else if(curTab==="life")drawLife(now)}catch(err){console.error(err)}
+  try{a11yTick()}catch(err){console.error(err)}
+  requestAnimationFrame(frame)}
+/* test hooks */
+window.__lab={tab:k=>showTab(k),build:o=>bSet(o),buildState:()=>({key:BLD.key,cen:BLD.cen,b:BLD.b,e:BLD.e,msg:BLD.msg,formula:bFormula().plain,pol:bPolarity().kind,q:bBookkeeping().q}),preset:n=>{const s=$("#bPreset");s.value=n;s.onchange()},
+  fieldMix:()=>$("#fMix").click(),fieldOn:v=>{FB.on=v;fUI()},fieldRun:(sec,o)=>{Object.assign(FB,o||{});let t=0,acc=0,n=0;const tt=fTarget();while(t<sec){fStep(.02);t+=.02;if(t>5){const pol=FB.mols.filter(m=>m.mu>0);if(pol.length){acc+=pol.reduce((s,m)=>s+Math.cos(m.th-tt),0)/pol.length;n++}}}fUI();return n?acc/n:null},
+  predN:()=>PBANK.length,predGo:i=>pNew(i),predNew:()=>pNew(),predAns:()=>pAnswers(),predA:()=>{const a=PR.a;return {f:a.f,key:a.key,tot:a.tot,lp:a.lp,pol:a.pol,mg:a.mg,ords:a.ords}},
+  predFill:o=>{Object.keys(o).forEach(k=>{const el=$("#"+k);if(el&&!el.disabled)el.value=o[k]})},predCheck:()=>pCheck(),predSol:()=>$("#pSol").click(),predState:()=>({streak:PR.streak,count:PR.count,sol:PR.sol}),
+  sortGo:i=>sLoad(i),sortN:()=>SROUNDS.length,sortShow:()=>$("#sShow").click(),sortDrop:(k,b)=>sDrop(k,b),sortState:()=>({r:SG.r,placed:Object.keys(SG.placed).length,mist:SG.mist}),
+  lifeGo:i=>{LF.i=i;lifeUI()},lifeN:()=>LIFE.length};
+readColors();bRetarget();BLD.groups.forEach(g=>{g.g=1});bUI();fMixInit();fUI();pNew();pMeter();sLoad(0);lifeUI();fitAll();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
